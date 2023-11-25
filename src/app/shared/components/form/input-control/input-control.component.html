@@ -1,0 +1,9 @@
+<div class="row g-3 align-items-center">
+    <div class="col-md-6">
+      <label [attr.for]="idControl" class="col-form-label">{{textControl}}</label>
+    </div>
+ 
+    <div class="col-md-6">
+      <input type="text" class="form-control form-control-sm" [name]="idControl" [id]="idControl" [(ngModel)]="valor" (input)="onInputChange($event.target)">
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Codigo</th>
+                    <th>Descripcion</th>
+                    <th>Resumida</th>
+                    <th>tip</th>
+                    <th>input clasificado</th>
+                    <th>valor1</th>
+                    <th>valor2</th>
+                    <th>valor3</th>
+                    <th>alias1</th>
+                    <th>alias2</th>
+                    <th>alias3</th>
+                    <th>acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let model of getModels()">
+                    <td><button class="btn btn-info" (click)="ver(model)">Ver</button></td>
+                    <td>{{model.codigo}}</td>
+                    <td>{{model.descripcion}}</td>
+                    <td>{{model.descripcionResumida}}</td>
+                    <td>{{model.tip}}</td>
+                    <td>{{model.idInputClasificado}}</td>
+                    <td>{{model.valorParametro1}}</td>
+                    <td>{{model.valorParametro2}}</td>
+                    <td>{{model.valorParametro3}}</td>
+                    <td>{{model.alias1}}</td>
+                    <td>{{model.alias2}}</td>
+                    <td>{{model.alias3}}</td>
+                    <td>
+                        <button class="btn btn-danger" type="button" (click)="delete(model)"><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-info" type="button"><i class="bi bi-pencil"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+  

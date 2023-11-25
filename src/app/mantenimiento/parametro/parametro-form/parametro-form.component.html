@@ -1,0 +1,43 @@
+
+<h5>MANTENIMIENTO DE PARÁMETRO</h5>
+
+<form action="" (submit)="submit()">
+    <div class="row">
+        <div class="col-md-6">
+            <h6>INFORMACION DEL PARÁMETRO</h6>
+            <app-input-control idControl="codigo" textControl="Código" [(ngModel)]="modelo.codigo" name="codigo"></app-input-control>
+            
+            <app-input-control idControl="descripcion" textControl="Descripción" [(ngModel)]="modelo.descripcion" name="descripcion"></app-input-control>
+            
+            <app-input-control idControl="descripcionResumida" textControl="Descripción Resumida" [(ngModel)]="modelo.descripcionResumida"  name="descripcionResumida"></app-input-control>
+            
+            <app-input-control idControl="tip" textControl="TIP" [(ngModel)]="modelo.tip" name="tip" ></app-input-control>
+            
+            <app-input-control idControl="inputClasificado" textControl="Input clasificado de referencia" [(ngModel)]="modelo.idInputClasificado" name="idInputClasificado" ></app-input-control>
+            
+            <app-input-control idControl="valorParametro1" textControl="Valor de parámetro 1" [(ngModel)]="modelo.valorParametro1" name="valorParametro1" ></app-input-control>
+
+            <app-input-control idControl="valorParametro2" textControl="Valor de parámetro 2" [(ngModel)]="modelo.valorParametro2" name="valorParametro2" ></app-input-control>
+
+            <app-input-control idControl="valorParametro3" textControl="Valor de parámetro 3" [(ngModel)]="modelo.valorParametro3" name="valorParametro3" ></app-input-control>
+            
+         </div>
+ 
+         <div class="col-md-6">
+            <h6>VIGENCIA</h6>     
+            <app-input-control idControl="inicioVIgencia" textControl="Inicio de Vigencia" [(ngModel)]="modelo.inicioVigencia" name="inicioVigencia" ></app-input-control>
+            
+            
+            <h6>ALIAS PARA BUSQUEDA</h6>
+            <app-input-control idControl="alias1" textControl="Alias 1" [(ngModel)]="modelo.alias1" name="alias1" ></app-input-control>
+            <app-input-control idControl="alias2" textControl="Alias 2" [(ngModel)]="modelo.alias2" name="alias2" ></app-input-control>
+            <app-input-control idControl="alias3" textControl="Alias 3" [(ngModel)]="modelo.alias3" name="alias3" ></app-input-control>
+
+            <h6>INFORMACIÓN DE REGISTRO</h6>
+            <app-input-control idControl="idEstadoRegistro" textControl="Status del Registro" [(ngModel)]="modelo.idEstadoRegistro" name="idEstadoRegistro" ></app-input-control>
+            
+            <button class="btn btn-success" type="submit"><i class="bi bi-save"></i> Guardar</button>
+       
+        </div>
+    </div>
+</form>

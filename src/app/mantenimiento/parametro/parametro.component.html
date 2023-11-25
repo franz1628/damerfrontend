@@ -1,0 +1,10 @@
+{{title}}
+<hr>
+
+<app-parametro-form [modelo]="getModelEdit" (submitEmit)="add($event)"></app-parametro-form>
+
+<br>
+
+<app-parametro-list [models]="getModels" (deleteEmit)="delete($event)" (editEmit)="editModel($event)"></app-parametro-list>
+
+<app-black-loading [show]="showLoading"></app-black-loading>

@@ -1,0 +1,201 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Negocios</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Contactos</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Horarios Pactados</button>
+    </li>
+    
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#zonasCliente" type="button" role="tab" aria-controls="zonasCliente" aria-selected="false">Zonas por cliente</button>
+      </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <div class="row  mt-4">
+            <div class="col-md-6">
+                <!-- <app-input-control [idControl]="model.codigo.toString()" textControl="Código" [(ngModel)]="model.codigo" name="codigo"> </app-input-control>
+                <div class="row g-3 align-items-center"> -->
+                <div class="row">
+                    <div class="col-md-6">
+                      <label for="codigo" class="col-form-label">Codigo</label>
+                    </div>
+                 
+                    <div class="col-md-6">
+                      
+        
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-sm" name="codigo" id="codigo" [(ngModel)]="model.codigo">
+                        <button class="btn btn-outline-info" type="button" id="button-addon2">Ver</button>
+                      </div>
+                      
+                    </div>
+                </div>
+        
+                <app-input-control [idControl]="model.ruc.toString()" textControl="RUC" [(ngModel)]="model.ruc" name="ruc"></app-input-control>
+                <app-input-control [idControl]="model.nombreComercial.toString()" textControl="Nombre Comercial" [(ngModel)]="model.nombreComercial" name="nombreComercial"></app-input-control>
+        
+                <app-input-control [idControl]="model.nombreResumido.toString()" textControl="Nombre Resumido" [(ngModel)]="model.nombreResumido" name="nombreResumido"></app-input-control>
+        
+                <app-input-control [idControl]="model.nombreTip.toString()" textControl="Nombre Tip" [(ngModel)]="model.nombreTip" name="nombreTip"></app-input-control>
+        
+                <app-input-control [idControl]="model.codCanal.toString()" textControl="Canal" [(ngModel)]="model.codCanal" name="codCanal"></app-input-control>
+        
+                <app-input-control [idControl]="model.entregaFactura.toString()" textControl="Facturas x compra" [(ngModel)]="model.entregaFactura" name="entregaFactura"></app-input-control>
+        
+                <app-input-control [idControl]="model.levantarNegocio.toString()" textControl="Levantar Negocio" [(ngModel)]="model.levantarNegocio" name="levantarNegocio"></app-input-control>
+        
+                <app-input-control [idControl]="model.negocioEquivalente.toString()" textControl="Negocio Equivalente" [(ngModel)]="model.negocioEquivalente" name="negocioEquivalente"></app-input-control>
+        
+                <app-input-control [idControl]="model.telefono.toString()" textControl="Telefono" [(ngModel)]="model.telefono" name="telefono"></app-input-control>
+        
+                <app-input-control [idControl]="model.fax.toString()" textControl="Fax" [(ngModel)]="model.fax" name="fax"></app-input-control>
+        
+        
+        
+                <app-input-control [idControl]="model.codDistrito.toString()" textControl="Distrito" [(ngModel)]="model.codDistrito" name="codDistrito"></app-input-control>
+                <app-input-control [idControl]="model.codUrb.toString()" textControl="Urbanizacion" [(ngModel)]="model.codUrb" name="codUrb"></app-input-control>
+                
+            
+        
+            </div>
+            <div class="col-md-6">
+                <app-input-control [idControl]="model.codVia.toString()" textControl="Via" [(ngModel)]="model.codVia" name="codVia"></app-input-control>
+                <app-input-control [idControl]="model.numeroDomicilio.toString()" textControl="Numero domicilio" [(ngModel)]="model.numeroDomicilio" name="numeroDomicilio"></app-input-control>
+                <app-input-control [idControl]="model.interior.toString()" textControl="Interior" [(ngModel)]="model.interior" name="interior"></app-input-control>
+                <app-input-control [idControl]="model.manzana.toString()" textControl="manzana" [(ngModel)]="model.manzana" name="manzana"></app-input-control>
+                <app-input-control [idControl]="model.lote.toString()" textControl="lote" [(ngModel)]="model.lote" name="lote"></app-input-control>
+                <app-input-control [idControl]="model.referencia.toString()" textControl="referencia" [(ngModel)]="model.referencia" name="referencia"></app-input-control>
+                <app-input-control [idControl]="model.lat.toString()" textControl="Latitud" [(ngModel)]="model.lat" name="lat"></app-input-control>
+                <app-input-control [idControl]="model.lgn.toString()" textControl="Longitud" [(ngModel)]="model.lgn" name="lgn"></app-input-control>
+                <app-input-control [idControl]="model.zonaAccidentada.toString()" textControl="Zona Accidentada" [(ngModel)]="model.zonaAccidentada" name="zonaAccidentada"></app-input-control>
+                <app-input-control [idControl]="model.zonaRiesgo.toString()" textControl="Zona Riesgo" [(ngModel)]="model.zonaRiesgo" name="zonaRiesgo"></app-input-control>
+                <app-input-control [idControl]="model.codRuta.toString()" textControl="Codigo Ruta" [(ngModel)]="model.codRuta" name="codRuta"></app-input-control>
+                <app-input-control [idControl]="model.aceptaProductos.toString()" textControl="aceptaProductos" [(ngModel)]="model.aceptaProductos" name="aceptaProductos"></app-input-control>
+                <app-input-control [idControl]="model.tipoHorario.toString()" textControl="tipoHorario" [(ngModel)]="model.tipoHorario" name="tipoHorario"></app-input-control>
+            </div>
+        </div>
+        
+
+    </div>
+    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h5>NEGOCIO</h5>
+                <table class="table">
+                    <tr>
+                        <th>PAIS</th>
+                        <td>PE</td>
+                        <td>PERU</td>
+                    </tr>
+                    <tr>
+                        <th>NEGOCIO</th>
+                        <td>00972845</td>
+                        <td>Av FERROCARIL 2208 PROGRESO</td>
+                    </tr>
+                </table>
+
+                <table class="table">
+                    <tr>
+                        <th colspan="10">CONTACTOS DE NEGOCIO</th>
+                    </tr>
+                    <tr>
+                        ...
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h5>NEGOCIO</h5>
+                <table class="table">
+                    <tr>
+                        <th>PAIS</th>
+                        <td>PE</td>
+                        <td>PERU</td>
+                    </tr>
+                    <tr>
+                        <th>NEGOCIO</th>
+                        <td>00972845</td>
+                        <td>Av FERROCARIL 2208 PROGRESO</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            
+
+            <div class="col-md-12">
+                <h5>HORARIO PACTADO POR DIA DE LA SEMANA</h5>
+       
+                <table class="table table-borderd table-sm table-borderd">
+                    <tr>
+                        <th colspan="10">CONTACTOS DE NEGOCIO</th>
+                    </tr>
+                    <tr>
+                        <td>Item</td>
+                        <td>Dia de la semana</td>
+                        <td>Desde</td>
+                        <td>Hasta</td>
+                        <td>Estatus</td>
+                        <td>Fecha</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <select name="" id="">
+                                <option value="">[SELECCIONAR]</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <select name="" id="">
+                                <option value="">[SELECCIONAR]</option>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="zonasCliente" tabindex="0">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h5>NEGOCIO</h5>
+                <table class="table table-sm">
+                    <tr>
+                        <th>PAIS</th>
+                        <td>PE</td>
+                        <td>PERU</td>
+                    </tr>
+                    <tr>
+                        <th>NEGOCIO</th>
+                        <td>00972845</td>
+                        <td>Av FERROCARIL 2208 PROGRESO</td>
+                    </tr>
+                </table>
+
+                <table class="table table-sm">
+                    <tr>
+                        <th colspan="10">CONTACTOS DE NEGOCIO</th>
+                    </tr>
+                    <tr>
+                        ...
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+
+
+

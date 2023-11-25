@@ -61,7 +61,7 @@ export class PaisComponent {
 
   }
 
-  editMotel(model: Pais) {
+  editModel(model: Pais) {
     this.modelEdit = model
     this.modal = true
   }

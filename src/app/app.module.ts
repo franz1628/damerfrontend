@@ -3,19 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NegocioComponent } from './negocio/negocio.component';
 import { UbigeoModule } from './ubigeo/ubigeo.module';
 import { BlackLoadingComponent } from './shared/components/black-loading/black-loading.component';
+import { MantenimientoModule } from './mantenimiento/mantenimiento.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NegocioComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UbigeoModule
+    UbigeoModule,
+    MantenimientoModule
   ],
   providers: [],
   bootstrap: [AppComponent]
