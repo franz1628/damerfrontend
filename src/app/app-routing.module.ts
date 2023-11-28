@@ -1,42 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PaisComponent } from './ubigeo/pais/pais.component';
-import { DepartamentoComponent } from './ubigeo/departamento/departamento.component';
-import { ProvinciaComponent } from './ubigeo/provincia/provincia.component';
-import { DistritoComponent } from './ubigeo/distrito/distrito.component';
-import { ParametroComponent } from './mantenimiento/parametro/parametro.component';
-import { NegocioComponent } from './mantenimiento/negocio/negocio.component';
+import { Error404PageComponent } from './shared/pages/error404-page/error404-page.component';
 
 const routes: Routes = [
   {
-    path: 'negocio',
-    component: NegocioComponent
+    path: 'mantenimiento',
+    loadChildren: () => import('./mantenimiento/mantenimiento.module').then(m => m.MantenimientoModule)
   },
   {
-    path: 'parametro',
-    component: ParametroComponent
+    path: '404',
+    component: Error404PageComponent,
   },
   {
-    path: 'pais',
-    component: PaisComponent
+    path: '',
+    redirectTo: 'negocio',
+    pathMatch: 'full'
   },
   {
-    path: 'departamento',
-    component: DepartamentoComponent
-  },
-  {
-    path: 'provincia',
-    component: ProvinciaComponent
-  },
-  {
-    path: 'distrito',
-    component: DistritoComponent
-  },
-  {
-    path: 'negocio',
-    component : NegocioComponent
+    path: '**',
+    redirectTo: '404',
   }
- 
+
 ];
 
 @NgModule({

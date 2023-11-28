@@ -1,29 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ParametroComponent } from './parametro/parametro.component';
-import { ParametroFormComponent } from './parametro/parametro-form/parametro-form.component';
-import { ParametroListComponent } from './parametro/parametro-list/parametro-list.component';
+
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { NegocioComponent } from './negocio/negocio.component';
-import { NegocioListComponent } from './negocio/negocio-list/negocio-list.component';
-import { NegocioFormComponent } from './negocio/negocio-form/negocio-form.component';
+
+import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+import { MantenimientoRoutingModule } from './mantenimiento-routing.module';
+import { UbigeoModule } from './components/tablas/ubigeo/ubigeo.module';
+import { ParametroFormComponent } from './components/parametro/parametro-form/parametro-form.component';
+import { ParametroModule } from './components/parametro/parametro.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { ParametroListComponent } from './components/parametro/parametro-list/parametro-list.component';
 
 
 
 @NgModule({
   declarations: [
-    ParametroComponent,
-    ParametroFormComponent,
-    ParametroListComponent,
-    NegocioComponent,
-    NegocioListComponent,
-    NegocioFormComponent
+    LayoutPageComponent,
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    SharedModule
+    HttpClientModule,
+    MantenimientoRoutingModule,
+    SharedModule,
+    FormsModule
   ]
 })
 export class MantenimientoModule { }

@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BlackLoadingComponent } from './components/black-loading/black-loading.component';
-import { InputControlComponent } from './components/form/input-control/input-control.component';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { Error404PageComponent } from './pages/error404-page/error404-page.component';
+import { InputControlComponent } from './components/form/input-control/input-control.component';
 
 
 
 @NgModule({
-  declarations: [BlackLoadingComponent, InputControlComponent],
+  declarations: [BlackLoadingComponent, Error404PageComponent,InputControlComponent],
   imports: [
     CommonModule,
-    FormsModule,
-    BrowserModule
+    FormsModule
   ],
-  exports:[BlackLoadingComponent, InputControlComponent]
+  exports:[BlackLoadingComponent,InputControlComponent]
 })
 export class SharedModule { }

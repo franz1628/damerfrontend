@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UbigeoModule } from './ubigeo/ubigeo.module';
-import { BlackLoadingComponent } from './shared/components/black-loading/black-loading.component';
+
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 import { MantenimientoModule } from './mantenimiento/mantenimiento.module';
 
 @NgModule({
@@ -12,9 +12,9 @@ import { MantenimientoModule } from './mantenimiento/mantenimiento.module';
     AppComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
-    UbigeoModule,
     MantenimientoModule
   ],
   providers: [],
