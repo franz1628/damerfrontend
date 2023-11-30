@@ -11,6 +11,12 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { PaisFormComponent } from './components/pais/pais-form/pais-form.component';
 import { PaisListComponent } from './components/pais/pais-list/pais-list.component';
 import { BlackLoadingComponent } from '../../../../shared/components/black-loading/black-loading.component';
+import { DepartamentoFormComponent } from './components/departamento/departamento-form/departamento-form.component';
+import { DepartamentoListComponent } from './components/departamento/departamento-list/departamento-list.component';
+import { ProvinciaListComponent } from './components/provincia/provincia-list/provincia-list.component';
+import { ProvinciaFormComponent } from './components/provincia/provincia-form/provincia-form.component';
+import { DistritoFormComponent } from './components/distrito/distrito-form/distrito-form.component';
+import { DistritoListComponent } from './components/distrito/distrito-list/distrito-list.component';
 
 
 
@@ -22,7 +28,13 @@ import { BlackLoadingComponent } from '../../../../shared/components/black-loadi
     PaisComponent,
     PaisFormComponent,
     PaisListComponent,
-    DepartamentoComponent
+    DepartamentoComponent,
+    DepartamentoFormComponent,
+    DepartamentoListComponent,
+    ProvinciaListComponent,
+    ProvinciaFormComponent,
+    DistritoFormComponent,
+    DistritoListComponent
     
   ],
   imports: [

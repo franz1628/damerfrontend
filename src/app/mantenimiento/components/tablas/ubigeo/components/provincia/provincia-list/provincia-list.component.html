@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Descripcion</th>
+                    <th>Departamento</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let model of models">
+                    <td>{{model.id}}</td>
+                    <td>{{model.descripcion}}</td>
+                    <td>{{model.idDepartamento}}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" type="button" (click)="delete(model)"><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-info btn-sm" type="button" (click)="editModel(model)"><i class="bi bi-pencil"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<app-black-loading [show]="showLoading"></app-black-loading>
+  

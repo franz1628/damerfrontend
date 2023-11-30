@@ -1,23 +1,20 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../../../shared/services/alert.service';
-import { Pais } from '../../../interface/pais.interface';
+import { Pais, PaisInit } from '../../../interface/pais.interface';
+import { ValidFormService } from '../../../../../../../shared/services/validForm.service';
 
 @Component({
   selector: 'app-pais-form',
   templateUrl: './pais-form.component.html'
 })
 export class PaisFormComponent {
-  public model: Pais = {
-    id: 0,
-    descripcion: '',
-    estado: 1
-  }
+  public model: Pais = PaisInit
   public myForm: FormGroup = this.fb.group({
-    descripcion: [''],
+    descripcion: ['',Validators.required],
   })
 
-  constructor(public alert: AlertService, public fb: FormBuilder) { }
+  constructor(public alert: AlertService, public fb: FormBuilder, public validForm : ValidFormService) { }
 
   @Output() submitEmit: EventEmitter<Pais> = new EventEmitter();
 
@@ -26,43 +23,22 @@ export class PaisFormComponent {
       this.myForm.markAllAsTouched();
       return;
     }
-
-
+    
     this.submitEmit.emit({
       id:0,
       descripcion:this.myForm.controls["descripcion"].value,
       estado:1
     })
 
-    this.myForm.reset({
-      id: 0,
-      descripcion: '',
-      estado: 1
-    });
+    this.myForm.reset(PaisInit);
   }
 
   isValidField( field: string ): boolean | null {
-    return this.myForm.controls[field].errors
-      && this.myForm.controls[field].touched;
+    return this.validForm.isValidField(field,this.myForm);
   }
 
   getFieldError( field: string ): string | null {
-
-    if ( !this.myForm.controls[field] ) return null;
-
-    const errors = this.myForm.controls[field].errors || {};
-
-    for (const key of Object.keys(errors) ) {
-      switch( key ) {
-        case 'required':
-          return 'Este campo es requerido';
-
-        case 'minlength':
-          return `Mínimo ${ errors['minlength'].requiredLength } caracters.`;
-      }
-    }
-
-    return null;
+    return this.validForm.getFieldError(field, this.myForm);
   }
 
 }

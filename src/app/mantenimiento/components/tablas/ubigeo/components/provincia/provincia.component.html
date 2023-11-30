@@ -1,26 +1,14 @@
-<br>
-<h3>Provincia</h3>
-<hr>
-<div class="row">
-    <div class="col">
-        <button class="btn btn-info">Agregar</button>
-
-    </div>
-</div>
-
-<br>
+<h3 class="mt-3">{{title}}</h3>
 
 <div class="row">
-    <div class="col-md-12">
-        <table class="table table-bordered">
-            <thead>
-                <th>#</th>
-                <th>Descripcion</th>
-                <th>Acción</th>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-    </div>
+  <div class="col-md-4">
+    <app-provincia-form #provinciaForm (updateModelsEmit)="get()" [model]="modelEdit"></app-provincia-form>
+  </div>
+  <div class="col-md-8">
+    <app-provincia-list [models]="models" (updateModelsEmit)="get()" (editEmit)="editModel($event)"></app-provincia-list>
+  </div>
 </div>
+
+
+<br>
+

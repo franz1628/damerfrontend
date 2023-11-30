@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BlackLoadingComponent } from './components/black-loading/black-loading.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Error404PageComponent } from './pages/error404-page/error404-page.component';
 import { InputControlComponent } from './components/form/input-control/input-control.component';
 
@@ -11,7 +11,8 @@ import { InputControlComponent } from './components/form/input-control/input-con
   declarations: [BlackLoadingComponent, Error404PageComponent,InputControlComponent],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports:[BlackLoadingComponent,InputControlComponent]
 })

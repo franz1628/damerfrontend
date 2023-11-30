@@ -1,48 +1,54 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormBuilder, FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-input-control',
   templateUrl: './input-control.component.html',
-  styleUrl: './input-control.component.css',
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => InputControlComponent),
-    multi: true
-  }]
+  styleUrls: ['./input-control.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputControlComponent),
+      multi: true,
+    },
+  ],
 })
 export class InputControlComponent implements ControlValueAccessor {
-  public onChange: any = (_: any) => { };
-  public onTouch: any = () => {};
-  public valor:string=''
+  @Input() textControl: string = '';
+  @Input() idControl: string = '';
 
-  ngOnInit(): void {
-    
+  public myForm: FormGroup = this.fb.group({
+    [this.idControl]: [''],
+  });
+
+  get formControl() {
+    return this.myForm.controls[this.idControl];
   }
 
-  onInputChange(target: EventTarget | null) {
+  // Implementación de ControlValueAccessor
+  onChange: any = (_: any) => {};
+  onTouch: any = () => {};
 
-    this.onChange((target as HTMLInputElement).value);
- 
+  writeValue(value: any): void {
+    this.myForm.patchValue({ [this.idControl]: value });
   }
 
-  writeValue(obj: any): void {
-    this.valor = obj;
-  }
   registerOnChange(fn: any): void {
-    this.onChange = fn
-
+    this.onChange = fn;
   }
+
   registerOnTouched(fn: any): void {
-  
+    this.onTouch = fn;
   }
+
   setDisabledState?(isDisabled: boolean): void {
+    isDisabled ? this.myForm.disable() : this.myForm.enable();
+  }
 
-  } 
+  constructor(public fb: FormBuilder) {}
 
-  @Input()
-  public textControl: string = '';
-  @Input()
-  public idControl: string = '';
-
+  onInputChange() {
+    this.onChange(this.formControl.value);
+    this.onTouch();
+  }
 }
