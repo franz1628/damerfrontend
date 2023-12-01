@@ -7,16 +7,21 @@ import { DistritoComponent } from './ubigeo/components/distrito/distrito.compone
 import { LayoutPageComponent } from '../../pages/layout-page/layout-page.component';
 import { Error404PageComponent } from '../../../shared/pages/error404-page/error404-page.component';
 import { TablasComponent } from './tablas.component';
+import { LayoutTablasComponent } from './pages/layout-tablas/layout-tablas.component';
+import { TipoUrbanizacionComponent } from './tipo-urbanizacion/tipo-urbanizacion.component';
+import { CanalComponent } from './canal/canal.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LayoutPageComponent,
+    component: LayoutTablasComponent,
     children: [
       {path:'pais',component:PaisComponent},
       {path:'departamento',component:DepartamentoComponent},
       {path:'provincia',component:ProvinciaComponent},
       {path:'distrito',component:DistritoComponent},
+      {path:'tipoUrbanizacion',component:TipoUrbanizacionComponent},
+      {path:'canal',component:CanalComponent},
       {
         path: '404',
         component: Error404PageComponent,

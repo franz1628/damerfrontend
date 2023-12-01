@@ -1,40 +1,37 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#"  routerLink="">Damer</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" routerLinkActive="parametro" routerLink="/mantenimiento/parametro">Parámetro</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="negocio" routerLinkActive="negocio" routerLink="/mantenimiento/negocio">Negocio</a>
-                </li>
-                <li class="nav-item"></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Mantenimiento
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" routerLinkActive="pais" routerLink="/mantenimiento/tablas/pais">Tablas Varias</a></li>
+<app-mantenimiento-layout-header></app-mantenimiento-layout-header>
 
-                        <!-- <li><a class="dropdown-item" routerLinkActive="pais" routerLink="/mantenimiento/tablas/pais">Pais</a></li>
-                        <li>
-                            <a class="dropdown-item" routerLinkActive="departamento" routerLink="/mantenimiento/tablas/departamento">Departamento</a>
-                        </li>
-                        <li><a class="dropdown-item" routerLinkActive="provincia" routerLink="/mantenimiento/tablas/provincia">Provincia</a></li>
-                        <li><a class="dropdown-item" routerLinkActive="distrito" routerLink="/mantenimiento/tablas/distrito">Distrito</a></li> -->
-                    </ul>
-                </li>
-            </ul>
+<style>
+    .fs-small {
+        font-size: 0.7rem;
+    }
+</style>
+<div class="row">
+    <div class="col-md-2">
+        <div class="list-group">
+
+            <a class="list-group-item list-group-item-action fs-small" routerLinkActive="canal" routerLink="/mantenimiento/tablas/canal"> CANAL DE VENTA </a>
+            <a class="list-group-item list-group-item-action fs-small"> TIPO DE DIRECCION </a>
+            <a class="list-group-item list-group-item-action fs-small"> TIPO DE ESTUDIO </a>
+            <a class="list-group-item list-group-item-action fs-small"> TIPO DE PRESENTACIÓN </a>
+            <a class="list-group-item list-group-item-action fs-small"> TIPO DE MONEDA </a>
+            <a class="list-group-item list-group-item-action fs-small"> TIPO DE MONEDA POR PAÍS </a>
+            <a class="list-group-item list-group-item-action fs-small" routerLinkActive="pais" routerLink="/mantenimiento/tablas/pais"> UBIGEO 1 - PAIS </a>
+            <a class="list-group-item list-group-item-action fs-small" routerLinkActive="departamento" routerLink="/mantenimiento/tablas/departamento"> UBIGEO 2 - DEPARTAMENTO </a>
+            <a class="list-group-item list-group-item-action fs-small" routerLinkActive="provincia" routerLink="/mantenimiento/tablas/provincia"> UBIGEO 3 - PROVINCIA </a>
+            <a class="list-group-item list-group-item-action fs-small" routerLinkActive="distrito" routerLink="/mantenimiento/tablas/distrito"> UBIGEO 4 - DISTRITO </a>
+            <a class="list-group-item list-group-item-action fs-small" routerLinkActive="tipoUrbanizacion" routerLink="/mantenimiento/tablas/tipoUrbanizacion"> UBIGEO 5 - URBANIZACION </a>
+            <a class="list-group-item list-group-item-action fs-small"> UBIGEO 6 - VIA </a>
+            <a class="list-group-item list-group-item-action fs-small"> UNIDAD DE MEDIDA </a>
+            <a class="list-group-item list-group-item-action fs-small"> UNIDAD DE VENTA </a>
+
         </div>
     </div>
-</nav>
 
-<router-outlet></router-outlet>
+    <div class="col-md-10">
+        <router-outlet></router-outlet>
+    </div>
+</div>
 
-<h5>Footer</h5>
+
+
+<app-mantenimiento-layout-footer></app-mantenimiento-layout-footer>

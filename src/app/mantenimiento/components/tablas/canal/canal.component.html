@@ -1,0 +1,14 @@
+<h3 class="mt-3">{{title}}</h3>
+
+<div class="row">
+  <div class="col-md-4">
+    <app-canal-form #canalForm (updateModelsEmit)="get()" [model]="modelEdit"></app-canal-form>
+  </div>
+  <div class="col-md-8">
+    <app-canal-list [models]="models" (updateModelsEmit)="get()" (editEmit)="editModel($event)"></app-canal-list>
+  </div>
+</div>
+
+
+<br>
+

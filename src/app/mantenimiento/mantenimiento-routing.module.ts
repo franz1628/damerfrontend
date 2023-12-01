@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { Error404PageComponent } from '../shared/pages/error404-page/error404-page.component';
+import { ZonaComponent } from './components/zona/zona.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'negocio',
         loadChildren: () => import('./components/negocio/negocio.module').then(m => m.NegocioModule)
+      },
+      {
+        path : 'zona',
+        loadChildren: () => import('./components/zona/zona.module').then(m => m.ZonaModule)
       },
       {
         path: '404',

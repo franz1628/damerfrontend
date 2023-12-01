@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
@@ -12,19 +12,31 @@ import { ParametroModule } from './components/parametro/parametro.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ParametroListComponent } from './components/parametro/parametro-list/parametro-list.component';
+import { MantenimientoLayoutHeaderComponent } from './pages/mantenimiento-layout-header/mantenimiento-layout-header.component';
+import { MantenimientoLayoutFooterComponent } from './pages/mantenimiento-layout-footer/mantenimiento-layout-footer.component';
+import { ZonaComponent } from './components/zona/zona.component';
+import { ZonaFormComponent } from './components/zona/zona-form/zona-form.component';
+import { ZonaListComponent } from './components/zona/zona-list/zona-list.component';
 
 
 
 @NgModule({
   declarations: [
     LayoutPageComponent,
+    MantenimientoLayoutHeaderComponent,
+    MantenimientoLayoutFooterComponent,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     MantenimientoRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports : [
+    MantenimientoLayoutHeaderComponent,
+    MantenimientoLayoutFooterComponent,
   ]
 })
 export class MantenimientoModule { }
