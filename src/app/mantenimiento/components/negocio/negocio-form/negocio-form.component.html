@@ -15,69 +15,298 @@
   </ul>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-        <div class="row  mt-4">
-            <div class="col-md-6">
-                <!-- <app-input-control [idControl]="model.codigo.toString()" textControl="Código" [(ngModel)]="model.codigo" name="codigo"> </app-input-control>
-                <div class="row g-3 align-items-center"> -->
-                <div class="row">
-                    <div class="col-md-6">
-                      <label for="codigo" class="col-form-label">Codigo</label>
+        <form [formGroup]="myForm">
+            <div class="row  mt-4">
+                <div class="col-md-4">
+                    <div class="mb-3 row">
+                        <label for="codigo" class="col-md-3 col-form-label-sm">Código</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="codigo" name="codigo"
+                                formControlName="codigo" id="codigo" (keyup.enter)="buscarNegocio($event)"/>
+                        </div>
+                        <span *ngIf="isValidField('codigo')" class="form-text text-danger">
+                            {{ getFieldError('codigo') }}
+                        </span>
                     </div>
-                 
-                    <div class="col-md-6">
-                      
-        
-                      <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-sm" name="codigo" id="codigo" [(ngModel)]="model.codigo">
-                        <button class="btn btn-outline-info" type="button" id="button-addon2">Ver</button>
-                      </div>
-                      
+
+                    <div class="mb-3 row">
+                        <label for="ruc" class="col-md-3 col-form-label-sm">RUC</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control form-control-sm" placeholder="ruc" name="ruc"
+                                formControlName="ruc" id="ruc" />
+                        </div>
+                        <span *ngIf="isValidField('ruc')" class="form-text text-danger">
+                            {{ getFieldError('ruc') }}
+                        </span>
                     </div>
-                </div>
-        
-                <app-input-control [idControl]="model.ruc.toString()" textControl="RUC" [(ngModel)]="model.ruc" name="ruc"></app-input-control>
-                <app-input-control [idControl]="model.nombreComercial.toString()" textControl="Nombre Comercial" [(ngModel)]="model.nombreComercial" name="nombreComercial"></app-input-control>
-        
-                <app-input-control [idControl]="model.nombreResumido.toString()" textControl="Nombre Resumido" [(ngModel)]="model.nombreResumido" name="nombreResumido"></app-input-control>
-        
-                <app-input-control [idControl]="model.nombreTip.toString()" textControl="Nombre Tip" [(ngModel)]="model.nombreTip" name="nombreTip"></app-input-control>
-        
-                <app-input-control [idControl]="model.codCanal.toString()" textControl="Canal" [(ngModel)]="model.codCanal" name="codCanal"></app-input-control>
-        
-                <app-input-control [idControl]="model.entregaFactura.toString()" textControl="Facturas x compra" [(ngModel)]="model.entregaFactura" name="entregaFactura"></app-input-control>
-        
-                <app-input-control [idControl]="model.levantarNegocio.toString()" textControl="Levantar Negocio" [(ngModel)]="model.levantarNegocio" name="levantarNegocio"></app-input-control>
-        
-                <app-input-control [idControl]="model.negocioEquivalente.toString()" textControl="Negocio Equivalente" [(ngModel)]="model.negocioEquivalente" name="negocioEquivalente"></app-input-control>
-        
-                <app-input-control [idControl]="model.telefono.toString()" textControl="Telefono" [(ngModel)]="model.telefono" name="telefono"></app-input-control>
-        
-                <app-input-control [idControl]="model.fax.toString()" textControl="Fax" [(ngModel)]="model.fax" name="fax"></app-input-control>
-        
-        
-        
-                <app-input-control [idControl]="model.codDistrito.toString()" textControl="Distrito" [(ngModel)]="model.codDistrito" name="codDistrito"></app-input-control>
-                <app-input-control [idControl]="model.codUrb.toString()" textControl="Urbanizacion" [(ngModel)]="model.codUrb" name="codUrb"></app-input-control>
-                
+
+                    <div class="mb-3 row">
+                        <label for="nombreComercial" class="col-md-3 col-form-label-sm">Nombre Comercial</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="nombreComercial" name="nombreComercial"
+                                formControlName="nombreComercial" id="nombreComercial" />
+                        </div>
+                        <span *ngIf="isValidField('nombreComercial')" class="form-text text-danger">
+                            {{ getFieldError('nombreComercial') }}
+                        </span>
+                    </div>
+                    
+                    <div class="mb-3 row">
+                        <label for="nombreResumido" class="col-md-3 col-form-label-sm">Nombre Resumido</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="nombreResumido" name="nombreResumido"
+                                formControlName="nombreResumido" id="nombreResumido" />
+                        </div>
+                        <span *ngIf="isValidField('nombreResumido')" class="form-text text-danger">
+                            {{ getFieldError('nombreResumido') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="nombreTip" class="col-md-3 col-form-label-sm">Nombre TIP</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="nombreTip" name="nombreTip"
+                                formControlName="nombreTip" id="nombreTip" />
+                        </div>
+                        <span *ngIf="isValidField('nombreTip')" class="form-text text-danger">
+                            {{ getFieldError('nombreTip') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="codCanal" class="col-md-3 col-form-label-sm">Codigo Canal</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control form-control-sm" placeholder="codCanal" name="codCanal"
+                                formControlName="codCanal" id="codCanal" />
+                        </div>
+                        <span *ngIf="isValidField('codCanal')" class="form-text text-danger">
+                            {{ getFieldError('codCanal') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="entregaFactura" class="col-md-3 col-form-label-sm">Entrega Factura</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="entregaFactura" name="entregaFactura"
+                                formControlName="entregaFactura" id="entregaFactura" />
+                        </div>
+                        <span *ngIf="isValidField('entregaFactura')" class="form-text text-danger">
+                            {{ getFieldError('entregaFactura') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="levantarNegocio" class="col-md-3 col-form-label-sm">Levantar Negocio</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="levantarNegocio" name="levantarNegocio"
+                                formControlName="levantarNegocio" id="levantarNegocio" />
+                        </div>
+                        <span *ngIf="isValidField('levantarNegocio')" class="form-text text-danger">
+                            {{ getFieldError('levantarNegocio') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="negocioEquivalente" class="col-md-3 col-form-label-sm">Negocio Equivalente</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="negocioEquivalente" name="negocioEquivalente"
+                                formControlName="negocioEquivalente" id="negocioEquivalente" />
+                        </div>
+                        <span *ngIf="isValidField('negocioEquivalente')" class="form-text text-danger">
+                            {{ getFieldError('negocioEquivalente') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="telefono" class="col-md-3 col-form-label-sm">Teléfono</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="telefono" name="telefono"
+                                formControlName="telefono" id="telefono" />
+                        </div>
+                        <span *ngIf="isValidField('telefono')" class="form-text text-danger">
+                            {{ getFieldError('telefono') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="fax" class="col-md-3 col-form-label-sm">Fax</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="fax" name="fax"
+                                formControlName="fax" id="fax" />
+                        </div>
+                        <span *ngIf="isValidField('fax')" class="form-text text-danger">
+                            {{ getFieldError('fax') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="codDistrito" class="col-md-3 col-form-label-sm">Código distrito</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="codDistrito" id="codDistrito"  formControlName="codDistrito">
+                                <option value=""></option>
+                            </select>
+                          
+                        </div>
+                        <span *ngIf="isValidField('codDistrito')" class="form-text text-danger">
+                            {{ getFieldError('codDistrito') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="codUrb" class="col-md-3 col-form-label-sm">Código distrito</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="codUrb" id="codUrb" formControlName="codUrb">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <span *ngIf="isValidField('codUrb')" class="form-text text-danger">
+                            {{ getFieldError('codUrb') }}
+                        </span>
+                    </div>
+
+             
             
-        
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3 row">
+                        <label for="codVia" class="col-md-3 col-form-label-sm">Código distrito</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="codVia" id="codVia" formControlName="codVia">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <span *ngIf="isValidField('codVia')" class="form-text text-danger">
+                            {{ getFieldError('codVia') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="numeroDomicilio" class="col-md-3 col-form-label-sm">Numero Domicilio</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="numeroDomicilio" name="numeroDomicilio"
+                                formControlName="numeroDomicilio" id="numeroDomicilio" />
+                        </div>
+                        <span *ngIf="isValidField('numeroDomicilio')" class="form-text text-danger">
+                            {{ getFieldError('numeroDomicilio') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="interior" class="col-md-3 col-form-label-sm">Interior</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="interior" name="interior"
+                                formControlName="interior" id="interior" />
+                        </div>
+                        <span *ngIf="isValidField('interior')" class="form-text text-danger">
+                            {{ getFieldError('interior') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="manzana" class="col-md-3 col-form-label-sm">manzana</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="manzana" name="manzana"
+                                formControlName="manzana" id="manzana" />
+                        </div>
+                        <span *ngIf="isValidField('manzana')" class="form-text text-danger">
+                            {{ getFieldError('manzana') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="lote" class="col-md-3 col-form-label-sm">lote</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="lote" name="lote"
+                                formControlName="lote" id="lote" />
+                        </div>
+                        <span *ngIf="isValidField('lote')" class="form-text text-danger">
+                            {{ getFieldError('lote') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="referencia" class="col-md-3 col-form-label-sm">referencia</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="referencia" name="referencia"
+                                formControlName="referencia" id="referencia" />
+                        </div>
+                        <span *ngIf="isValidField('referencia')" class="form-text text-danger">
+                            {{ getFieldError('referencia') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="lat" class="col-md-3 col-form-label-sm">lat</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="lat" name="lat"
+                                formControlName="lat" id="lat" />
+                        </div>
+                        <span *ngIf="isValidField('lat')" class="form-text text-danger">
+                            {{ getFieldError('lat') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="lgn" class="col-md-3 col-form-label-sm">lgn</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="lgn" name="lgn"
+                                formControlName="lgn" id="lgn" />
+                        </div>
+                        <span *ngIf="isValidField('lgn')" class="form-text text-danger">
+                            {{ getFieldError('lgn') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="zonaAccidentada" class="col-md-3 col-form-label-sm">zonaAccidentada</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="zonaAccidentada" name="zonaAccidentada"
+                                formControlName="zonaAccidentada" id="zonaAccidentada" />
+                        </div>
+                        <span *ngIf="isValidField('zonaAccidentada')" class="form-text text-danger">
+                            {{ getFieldError('zonaAccidentada') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="zonaRiesgo" class="col-md-3 col-form-label-sm">zonaRiesgo</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="zonaRiesgo" name="zonaRiesgo"
+                                formControlName="zonaRiesgo" id="zonaRiesgo" />
+                        </div>
+                        <span *ngIf="isValidField('zonaRiesgo')" class="form-text text-danger">
+                            {{ getFieldError('zonaRiesgo') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="codRuta" class="col-md-3 col-form-label-sm">codRuta</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="codRuta" id="codRuta" formControlName="codRuta">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <span *ngIf="isValidField('codRuta')" class="form-text text-danger">
+                            {{ getFieldError('codRuta') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="aceptaProductos" class="col-md-3 col-form-label-sm">aceptaProductos</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="aceptaProductos" id="aceptaProductos" formControlName="aceptaProductos">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <span *ngIf="isValidField('aceptaProductos')" class="form-text text-danger">
+                            {{ getFieldError('aceptaProductos') }}
+                        </span>
+                    </div>
+
+                   
+                </div> 
             </div>
-            <div class="col-md-6">
-                <app-input-control [idControl]="model.codVia.toString()" textControl="Via" [(ngModel)]="model.codVia" name="codVia"></app-input-control>
-                <app-input-control [idControl]="model.numeroDomicilio.toString()" textControl="Numero domicilio" [(ngModel)]="model.numeroDomicilio" name="numeroDomicilio"></app-input-control>
-                <app-input-control [idControl]="model.interior.toString()" textControl="Interior" [(ngModel)]="model.interior" name="interior"></app-input-control>
-                <app-input-control [idControl]="model.manzana.toString()" textControl="manzana" [(ngModel)]="model.manzana" name="manzana"></app-input-control>
-                <app-input-control [idControl]="model.lote.toString()" textControl="lote" [(ngModel)]="model.lote" name="lote"></app-input-control>
-                <app-input-control [idControl]="model.referencia.toString()" textControl="referencia" [(ngModel)]="model.referencia" name="referencia"></app-input-control>
-                <app-input-control [idControl]="model.lat.toString()" textControl="Latitud" [(ngModel)]="model.lat" name="lat"></app-input-control>
-                <app-input-control [idControl]="model.lgn.toString()" textControl="Longitud" [(ngModel)]="model.lgn" name="lgn"></app-input-control>
-                <app-input-control [idControl]="model.zonaAccidentada.toString()" textControl="Zona Accidentada" [(ngModel)]="model.zonaAccidentada" name="zonaAccidentada"></app-input-control>
-                <app-input-control [idControl]="model.zonaRiesgo.toString()" textControl="Zona Riesgo" [(ngModel)]="model.zonaRiesgo" name="zonaRiesgo"></app-input-control>
-                <app-input-control [idControl]="model.codRuta.toString()" textControl="Codigo Ruta" [(ngModel)]="model.codRuta" name="codRuta"></app-input-control>
-                <app-input-control [idControl]="model.aceptaProductos.toString()" textControl="aceptaProductos" [(ngModel)]="model.aceptaProductos" name="aceptaProductos"></app-input-control>
-                <app-input-control [idControl]="model.tipoHorario.toString()" textControl="tipoHorario" [(ngModel)]="model.tipoHorario" name="tipoHorario"></app-input-control>
-            </div>
-        </div>
+        </form>
         
 
     </div>

@@ -4,7 +4,7 @@ import { NegocioComponent } from './negocio.component';
 import { NegocioFormComponent } from './negocio-form/negocio-form.component';
 import { NegocioListComponent } from './negocio-list/negocio-list.component';
 import { SharedModule } from '../../../shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NegocioRoutingModule } from './negocio-routing.module';
 
 @NgModule({
@@ -18,7 +18,8 @@ import { NegocioRoutingModule } from './negocio-routing.module';
         CommonModule,
         SharedModule,
         FormsModule,
-        NegocioRoutingModule
+        NegocioRoutingModule,
+        ReactiveFormsModule
     ]
 })
 export class NegocioModule { }

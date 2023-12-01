@@ -1,4 +1,5 @@
 export interface Negocio {
+    id:number,
     codigo: number,
     ruc: string,
     nombreComercial: string,
@@ -33,6 +34,7 @@ export interface Negocio {
 }
 
 export const NegocioInit: Negocio = {
+    id:0,
     codigo: 0,
     ruc: '',
     nombreComercial: '',

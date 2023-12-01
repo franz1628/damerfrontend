@@ -6,6 +6,7 @@ import { ProvinciaComponent } from './ubigeo/components/provincia/provincia.comp
 import { DistritoComponent } from './ubigeo/components/distrito/distrito.component';
 import { LayoutPageComponent } from '../../pages/layout-page/layout-page.component';
 import { Error404PageComponent } from '../../../shared/pages/error404-page/error404-page.component';
+import { TablasComponent } from './tablas.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'pais',
+        component: TablasComponent,
         pathMatch: 'full'
       },
       {
