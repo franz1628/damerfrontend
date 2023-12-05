@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Canal, CanalInit } from '../../interfaces/canal.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CanalService } from '../../service/canal';
+import { CanalService } from '../../service/canal.sevice';
 import { ValidFormService } from '../../../../../shared/services/validForm.service';
 import { AlertService } from '../../../../../shared/services/alert.service';
 

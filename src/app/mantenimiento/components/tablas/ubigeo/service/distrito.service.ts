@@ -4,12 +4,13 @@ import { Observable,catchError,of,throwError  } from 'rxjs';
 import { Response } from '../../../../../shared/interfaces/response.interface';
 import { Provincia } from '../interface/provincia.interface';
 import { Distrito } from '../interface/distrito.interface';
+import { environments } from '../../../../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DistritoService {
-  private apiUrl = 'http://localhost:8080/api/distrito'; // Reemplaza con la URL de tu backend
+  private apiUrl = environments+'api/distrito'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 

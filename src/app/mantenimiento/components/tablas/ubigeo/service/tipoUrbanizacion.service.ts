@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable,catchError,of,throwError  } from 'rxjs';
 import { Response } from '../../../../../shared/interfaces/response.interface';
 import { TipoUrbanizacion } from '../interface/tipoUrbzanizacion.interface';
+import { environments } from '../../../../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TipoUrbanizacionService {
-  private apiUrl = 'http://localhost:8080/api/tipoUrbanizacion'; // Reemplaza con la URL de tu backend
+  private apiUrl = environments+'/api/tipoUrbanizacion'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 

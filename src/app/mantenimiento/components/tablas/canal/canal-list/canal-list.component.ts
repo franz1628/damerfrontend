@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertService } from '../../../../../shared/services/alert.service';
-import { CanalService } from '../../service/canal';
+import { CanalService } from '../../service/canal.sevice';
 import { Canal } from '../../interfaces/canal.interface';
 
 @Component({

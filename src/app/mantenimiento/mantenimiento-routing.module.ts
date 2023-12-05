@@ -25,6 +25,10 @@ const routes: Routes = [
         loadChildren: () => import('./components/zona/zona.module').then(m => m.ZonaModule)
       },
       {
+        path : 'variedades',
+        loadChildren: () => import('./components/variedades/variedades.module').then(m => m.VariedadesModule)
+      },
+      {
         path: '404',
         component: Error404PageComponent,
       },

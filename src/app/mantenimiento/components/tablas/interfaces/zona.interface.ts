@@ -1,6 +1,7 @@
 export interface Zona {
     id: number ,
     codigo:number,
+    idTipoZona : number,
     descripcion: string,
     numeroOrden: number,
     alias1: string,
@@ -12,6 +13,7 @@ export interface Zona {
 export const ZonaInit: Zona = {
     id: 0 ,
     codigo:0,
+    idTipoZona : 0,
     descripcion: '',
     numeroOrden:0,
     alias1: "",

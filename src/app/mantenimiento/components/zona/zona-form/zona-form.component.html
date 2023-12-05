@@ -12,6 +12,21 @@
                     {{ getFieldError('codigo') }}
                 </span>
             </div>
+
+            <div class="mb-3 row">
+                <label for="idTipoZona" class="col-md-4 col-form-label-sm">Tipo de Zona</label>
+                <div class="col-sm-8">
+                    <select class="form-select" formControlName="idTipoZona">
+                        <option *ngFor="let tipoZona of listTipoZona" [value]="tipoZona.id">
+                            {{tipoZona.descripcion}}
+                        </option>
+                    </select>
+
+                </div>
+                <span *ngIf="isValidField('idTipoZona')" class="form-text text-danger">
+                    {{ getFieldError('idTipoZona') }}
+                </span>
+            </div>
             
             <div class="mb-3 row">
                 <label for="descripcion" class="col-md-4 col-form-label-sm">Descripcion</label>

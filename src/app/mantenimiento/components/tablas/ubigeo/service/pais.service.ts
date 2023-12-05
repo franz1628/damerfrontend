@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable,catchError,of,throwError  } from 'rxjs';
 import { Pais } from '../interface/pais.interface';
 import { Response } from '../../../../../shared/interfaces/response.interface';
+import { environments } from '../../../../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaisService {
-  private apiUrl = 'http://localhost:8080/api/pais'; // Reemplaza con la URL de tu backend
+  private apiUrl = environments+'api/pais'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 

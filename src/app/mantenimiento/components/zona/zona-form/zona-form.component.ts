@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { ValidFormService } from '../../../../shared/services/validForm.service';
 import { ZonaService } from '../../tablas/service/zona.service';
+import { TipoZonaService } from '../../../service/tipoZona.service';
+import { TipoZona } from '../../../interface/tipoZona';
 
 @Component({
   selector: 'app-zona-form',
@@ -16,7 +18,8 @@ export class ZonaFormComponent {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   public myForm: FormGroup = this.fb.group({
     id: [0],
-    codigo:[0],
+    codigo:[0, Validators.required],
+    idTipoZona:[0, Validators.required],
     descripcion: ['', Validators.required],
     numeroOrden: [0, Validators.required],
     alias1: [''],
@@ -25,15 +28,20 @@ export class ZonaFormComponent {
  
   })
 
-  //public listProvincia : Provincia[] = [];
+  public listTipoZona : TipoZona[] = [];
   
-  constructor(public alert: AlertService, public fb: FormBuilder, public validForm: ValidFormService, public service: ZonaService) {
+  constructor(
+    public alert: AlertService, 
+    public fb: FormBuilder, 
+    public validForm: ValidFormService, 
+    private service: ZonaService, 
+    private serviceTipoZona:TipoZonaService) {
 
   }
 
   ngOnInit(){
     this.showLoading = true
-    //this.provinciaService.get().subscribe(response => { this.showLoading = false; this.listProvincia = response.data });
+    this.serviceTipoZona.get().subscribe(response => { this.showLoading = false; this.listTipoZona = response.data });
   }
   
   get currentModel() {

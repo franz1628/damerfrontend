@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { Response } from '../../shared/interfaces/response.interface';
 import { Negocio } from '../interface/negocio.interface';
+import { environments } from '../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NegocioService {
-  private apiUrl = 'http://localhost:8080/api/negocio'; // Reemplaza con la URL de tu backend
+  private apiUrl = environments+'api/negocio'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 
@@ -18,6 +19,10 @@ export class NegocioService {
 
   getId(id: number): Observable<Response> {
     return this.http.get<Response>(`${this.apiUrl}/${id}`);
+  }
+
+  getCodigo(codigo: number): Observable<Response> {
+    return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
   }
 
   add(model: Negocio): Observable<Negocio> {

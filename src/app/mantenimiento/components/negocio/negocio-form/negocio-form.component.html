@@ -15,7 +15,7 @@
   </ul>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-        <form [formGroup]="myForm">
+        <form autocomplete="off" [formGroup]="myForm">
             <div class="row  mt-4">
                 <div class="col-md-4">
                     <div class="mb-3 row">
@@ -37,6 +37,17 @@
                         </div>
                         <span *ngIf="isValidField('ruc')" class="form-text text-danger">
                             {{ getFieldError('ruc') }}
+                        </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="direccion" class="col-md-3 col-form-label-sm">Dirección</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" placeholder="direccion" name="direccion"
+                                formControlName="direccion" id="direccion" />
+                        </div>
+                        <span *ngIf="isValidField('direccion')" class="form-text text-danger">
+                            {{ getFieldError('direccion') }}
                         </span>
                     </div>
 
@@ -74,15 +85,21 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="codCanal" class="col-md-3 col-form-label-sm">Codigo Canal</label>
+                        <label for="codCanal" class="col-md-3 col-form-label-sm">Canal</label>
                         <div class="col-sm-9">
-                            <input type="number" class="form-control form-control-sm" placeholder="codCanal" name="codCanal"
-                                formControlName="codCanal" id="codCanal" />
+                            <select class="form-select" formControlName="codCanal">
+                                <option *ngFor="let canal of listCanal" [value]="canal.codigo">
+                                    {{canal.descripcion}}
+                                </option>
+                            </select>
+        
                         </div>
                         <span *ngIf="isValidField('codCanal')" class="form-text text-danger">
                             {{ getFieldError('codCanal') }}
                         </span>
                     </div>
+
+                  
 
                     <div class="mb-3 row">
                         <label for="entregaFactura" class="col-md-3 col-form-label-sm">Entrega Factura</label>
@@ -140,12 +157,14 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="codDistrito" class="col-md-3 col-form-label-sm">Código distrito</label>
+                        <label for="codDistrito" class="col-md-3 col-form-label-sm">Distrito</label>
                         <div class="col-sm-9">
-                            <select class="form-select" name="codDistrito" id="codDistrito"  formControlName="codDistrito">
-                                <option value=""></option>
+                            <select class="form-select" formControlName="codDistrito">
+                                <option *ngFor="let distrito of listDistrito" [value]="distrito.codigo">
+                                    {{distrito.descripcion}}
+                                </option>
                             </select>
-                          
+        
                         </div>
                         <span *ngIf="isValidField('codDistrito')" class="form-text text-danger">
                             {{ getFieldError('codDistrito') }}
@@ -153,27 +172,26 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="codUrb" class="col-md-3 col-form-label-sm">Código distrito</label>
+                        <label for="codUrb" class="col-md-3 col-form-label-sm">Urbanizacion</label>
                         <div class="col-sm-9">
-                            <select class="form-select" name="codUrb" id="codUrb" formControlName="codUrb">
-                                <option value=""></option>
+                            <select class="form-select" formControlName="codUrb">
+                                <option *ngFor="let urbanizacion of listUrbanizacion" [value]="urbanizacion.codigo">
+                                    {{urbanizacion.descripcion}}
+                                </option>
                             </select>
+        
                         </div>
                         <span *ngIf="isValidField('codUrb')" class="form-text text-danger">
                             {{ getFieldError('codUrb') }}
                         </span>
                     </div>
-
-             
-            
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3 row">
-                        <label for="codVia" class="col-md-3 col-form-label-sm">Código distrito</label>
+                        <label for="codVia" class="col-md-3 col-form-label-sm">Código Via</label>
                         <div class="col-sm-9">
-                            <select class="form-select" name="codVia" id="codVia" formControlName="codVia">
-                                <option value=""></option>
-                            </select>
+                            <input type="text" class="form-control form-control-sm" placeholder="codVia" name="codVia"
+                                formControlName="codVia" id="codVia" />
                         </div>
                         <span *ngIf="isValidField('codVia')" class="form-text text-danger">
                             {{ getFieldError('codVia') }}
@@ -282,9 +300,8 @@
                     <div class="mb-3 row">
                         <label for="codRuta" class="col-md-3 col-form-label-sm">codRuta</label>
                         <div class="col-sm-9">
-                            <select class="form-select" name="codRuta" id="codRuta" formControlName="codRuta">
-                                <option value=""></option>
-                            </select>
+                            <input type="text" class="form-control form-control-sm" placeholder="codRuta" name="codRuta"
+                                formControlName="codRuta" id="codRuta" />
                         </div>
                         <span *ngIf="isValidField('codRuta')" class="form-text text-danger">
                             {{ getFieldError('codRuta') }}
@@ -294,13 +311,26 @@
                     <div class="mb-3 row">
                         <label for="aceptaProductos" class="col-md-3 col-form-label-sm">aceptaProductos</label>
                         <div class="col-sm-9">
-                            <select class="form-select" name="aceptaProductos" id="aceptaProductos" formControlName="aceptaProductos">
-                                <option value=""></option>
-                            </select>
+                            <input type="text" class="form-control form-control-sm" placeholder="aceptaProductos" name="aceptaProductos"
+                            formControlName="aceptaProductos" id="aceptaProductos" />
                         </div>
                         <span *ngIf="isValidField('aceptaProductos')" class="form-text text-danger">
                             {{ getFieldError('aceptaProductos') }}
                         </span>
+                    </div>
+
+                    <div class="input-group mt-3">
+                        <button class="btn btn-success btn-sm text-white " (click)="submit()" type="button" *ngIf="!currentModel.id">
+                            <i class="bi bi-box-arrow-down"></i> Guardar
+                        </button>
+                        <button class="btn btn-warning btn-sm text-white " (click)="nuevo()" type="button"
+                            *ngIf="currentModel.id">
+                            <i class="bi bi-plus-lg"></i> Nuevo
+                        </button>
+                        <button class="btn btn-info btn-sm text-white " (click)="submit()" type="button" *ngIf="currentModel.id">
+                            <i class="bi bi-pencil"></i> Guardar
+                        </button>
+        
                     </div>
 
                    
@@ -425,6 +455,9 @@
     </div>
   </div>
   
+@if(showLoading){
+    <app-black-loading [show]="showLoading"></app-black-loading>
+}
 
 
 

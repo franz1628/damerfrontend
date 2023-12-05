@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable,catchError,of,throwError  } from 'rxjs';
 import { Response } from '../../../../shared/interfaces/response.interface';
 import { Canal } from '../interfaces/canal.interface';
+import { environments } from '../../../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CanalService {
-  private apiUrl = 'http://localhost:8080/api/canal'; // Reemplaza con la URL de tu backend
+  private apiUrl = environments+'/api/canal'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 

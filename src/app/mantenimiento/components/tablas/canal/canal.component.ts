@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Canal, CanalInit } from '../interfaces/canal.interface';
 import { CanalFormComponent } from './canal-form/canal-form.component';
-import { CanalService } from '../service/canal';
+import { CanalService } from '../service/canal.sevice';
 
 @Component({
   selector: 'app-canal',

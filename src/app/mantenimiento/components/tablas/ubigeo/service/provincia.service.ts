@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable,catchError,of,throwError  } from 'rxjs';
 import { Response } from '../../../../../shared/interfaces/response.interface';
 import { Provincia } from '../interface/provincia.interface';
+import { environments } from '../../../../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProvinciaService {
-  private apiUrl = 'http://localhost:8080/api/provincia'; // Reemplaza con la URL de tu backend
+  private apiUrl = environments+'api/provincia'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 
