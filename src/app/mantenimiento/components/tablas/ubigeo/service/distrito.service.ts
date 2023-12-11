@@ -10,7 +10,7 @@ import { environments } from '../../../../../../environments/environments';
   providedIn: 'root'
 })
 export class DistritoService {
-  private apiUrl = environments+'api/distrito'; // Reemplaza con la URL de tu backend
+  private apiUrl = environments.baseUrl+'api/distrito'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 

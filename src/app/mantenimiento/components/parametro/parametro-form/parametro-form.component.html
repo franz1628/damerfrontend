@@ -1,43 +1,180 @@
 
 <h5>MANTENIMIENTO DE PARÁMETRO</h5>
 
-<form action="" (submit)="submit()">
+<form (ngSubmit)="submit()" autocomplete="off" [formGroup]="myForm">
     <div class="row">
         <div class="col-md-6">
             <h6>INFORMACION DEL PARÁMETRO</h6>
         
-            <app-input-control idControl="codigo" textControl="Código" [(ngModel)]="modelo.codigo" name="codigo"></app-input-control>
-            
-            <app-input-control idControl="descripcion" textControl="Descripción" [(ngModel)]="modelo.descripcion" name="descripcion"></app-input-control>
-            
-            <app-input-control idControl="descripcionResumida" textControl="Descripción Resumida" [(ngModel)]="modelo.descripcionResumida"  name="descripcionResumida"></app-input-control>
-            
-            <app-input-control idControl="tip" textControl="TIP" [(ngModel)]="modelo.tip" name="tip" ></app-input-control>
-            
-            <app-input-control idControl="inputClasificado" textControl="Input clasificado de referencia" [(ngModel)]="modelo.idInputClasificado" name="idInputClasificado" ></app-input-control>
-            
-            <app-input-control idControl="valorParametro1" textControl="Valor de parámetro 1" [(ngModel)]="modelo.valorParametro1" name="valorParametro1" ></app-input-control>
+            <div class="mb-3 row">
+                <label for="codigo" class="col-md-4 col-form-label-sm">Codigo</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="codigo" name="codigo"
+                        formControlName="codigo" id="codigo" />
+                </div>
+                <span *ngIf="isValidField('codigo')" class="form-text text-danger">
+                    {{ getFieldError('codigo') }}
+                </span>
+            </div>
 
-            <app-input-control idControl="valorParametro2" textControl="Valor de parámetro 2" [(ngModel)]="modelo.valorParametro2" name="valorParametro2" ></app-input-control>
+            <div class="mb-3 row">
+                <label for="descripcion" class="col-md-4 col-form-label-sm">descripcion</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="descripcion" name="descripcion"
+                        formControlName="descripcion" id="descripcion" />
+                </div>
+                <span *ngIf="isValidField('descripcion')" class="form-text text-danger">
+                    {{ getFieldError('descripcion') }}
+                </span>
+            </div>
 
-            <app-input-control idControl="valorParametro3" textControl="Valor de parámetro 3" [(ngModel)]="modelo.valorParametro3" name="valorParametro3" ></app-input-control>
+            <div class="mb-3 row">
+                <label for="descripcionResumida" class="col-md-4 col-form-label-sm">descripcionResumida</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="descripcionResumida" name="descripcionResumida"
+                        formControlName="descripcionResumida" id="descripcionResumida" />
+                </div>
+                <span *ngIf="isValidField('descripcionResumida')" class="form-text text-danger">
+                    {{ getFieldError('descripcionResumida') }}
+                </span>
+            </div>
             
+
+            <div class="mb-3 row">
+                <label for="tip" class="col-md-4 col-form-label-sm">tip</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="tip" name="tip"
+                        formControlName="tip" id="tip" />
+                </div>
+                <span *ngIf="isValidField('tip')" class="form-text text-danger">
+                    {{ getFieldError('tip') }}
+                </span>
+            </div>
+          
+            <div class="mb-3 row">
+                <label for="idInputClasificado" class="col-md-4 col-form-label-sm">Clasificado</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="idInputClasificado" name="idInputClasificado"
+                        formControlName="idInputClasificado" id="idInputClasificado" />
+                </div>
+                <span *ngIf="isValidField('idInputClasificado')" class="form-text text-danger">
+                    {{ getFieldError('idInputClasificado') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="valorParametro1" class="col-md-4 col-form-label-sm">valorParametro1</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="valorParametro1" name="valorParametro1"
+                        formControlName="valorParametro1" id="valorParametro1" />
+                </div>
+                <span *ngIf="isValidField('valorParametro1')" class="form-text text-danger">
+                    {{ getFieldError('valorParametro1') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="valorParametro2" class="col-md-4 col-form-label-sm">valorParametro2</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="valorParametro2" name="valorParametro2"
+                        formControlName="valorParametro2" id="valorParametro2" />
+                </div>
+                <span *ngIf="isValidField('valorParametro2')" class="form-text text-danger">
+                    {{ getFieldError('valorParametro2') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="valorParametro3" class="col-md-4 col-form-label-sm">valorParametro3</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="valorParametro3" name="valorParametro3"
+                        formControlName="valorParametro3" id="valorParametro3" />
+                </div>
+                <span *ngIf="isValidField('valorParametro3')" class="form-text text-danger">
+                    {{ getFieldError('valorParametro3') }}
+                </span>
+            </div>
+          
+    
          </div>
  
          <div class="col-md-6">
             <h6>VIGENCIA</h6>     
-            <app-input-control idControl="inicioVIgencia" textControl="Inicio de Vigencia" [(ngModel)]="modelo.inicioVigencia" name="inicioVigencia" ></app-input-control>
-            
-            
-            <h6>ALIAS PARA BUSQUEDA</h6>
-            <app-input-control idControl="alias1" textControl="Alias 1" [(ngModel)]="modelo.alias1" name="alias1" ></app-input-control>
-            <app-input-control idControl="alias2" textControl="Alias 2" [(ngModel)]="modelo.alias2" name="alias2" ></app-input-control>
-            <app-input-control idControl="alias3" textControl="Alias 3" [(ngModel)]="modelo.alias3" name="alias3" ></app-input-control>
 
-            <h6>INFORMACIÓN DE REGISTRO</h6>
-            <app-input-control idControl="idEstadoRegistro" textControl="Status del Registro" [(ngModel)]="modelo.idEstadoRegistro" name="idEstadoRegistro" ></app-input-control>
+            <div class="mb-3 row">
+                <label for="inicioVigencia" class="col-md-4 col-form-label-sm">inicioVigencia</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control form-control-sm" placeholder="inicioVigencia" name="inicioVigencia"
+                        formControlName="inicioVigencia" id="inicioVigencia" />
+                </div>
+                <span *ngIf="isValidField('inicioVigencia')" class="form-text text-danger">
+                    {{ getFieldError('inicioVigencia') }}
+                </span>
+            </div>
+
+            <h6>ALIAS PARA BUSQUEDA</h6>
+
+            <div class="mb-3 row">
+                <label for="alias1" class="col-md-4 col-form-label-sm">alias1</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="alias1" name="alias1"
+                        formControlName="alias1" id="alias1" />
+                </div>
+                <span *ngIf="isValidField('alias1')" class="form-text text-danger">
+                    {{ getFieldError('alias1') }}
+                </span>
+            </div>   
             
-            <button class="btn btn-success" type="submit"><i class="bi bi-save"></i> Guardar</button>
+            <div class="mb-3 row">
+                <label for="alias2" class="col-md-4 col-form-label-sm">alias2</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="alias2" name="alias2"
+                        formControlName="alias2" id="alias2" />
+                </div>
+                <span *ngIf="isValidField('alias2')" class="form-text text-danger">
+                    {{ getFieldError('alias2') }}
+                </span>
+            </div>  
+            <div class="mb-3 row">
+                <label for="alias3" class="col-md-4 col-form-label-sm">alias3</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="alias3" name="alias3"
+                        formControlName="alias3" id="alias3" />
+                </div>
+                <span *ngIf="isValidField('alias3')" class="form-text text-danger">
+                    {{ getFieldError('alias3') }}
+                </span>
+            </div>  
+            
+          
+            
+            <h6>INFORMACIÓN DE REGISTRO</h6>
+
+            <div class="mb-3 row">
+                <label for="idEstadoRegistro" class="col-md-4 col-form-label-sm">idEstadoRegistro</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="idEstadoRegistro" name="idEstadoRegistro"
+                        formControlName="idEstadoRegistro" id="idEstadoRegistro" />
+                </div>
+                <span *ngIf="isValidField('idEstadoRegistro')" class="form-text text-danger">
+                    {{ getFieldError('idEstadoRegistro') }}
+                </span>
+            </div>  
+
+            
+            <div class="input-group mt-3">
+                <button class="btn btn-success btn-sm text-white " type="submit" *ngIf="!currentModel.id">
+                    <i class="bi bi-box-arrow-down"></i> Guardar
+                </button>
+                <button class="btn btn-warning btn-sm text-white " (click)="nuevo()" type="button"
+                    *ngIf="currentModel.id">
+                    <i class="bi bi-plus-lg"></i> Nuevo
+                </button>
+                <button class="btn btn-info btn-sm text-white " type="submit" *ngIf="currentModel.id">
+                    <i class="bi bi-pencil"></i> Guardar
+                </button>
+
+            </div>
        
         </div>
     </div>

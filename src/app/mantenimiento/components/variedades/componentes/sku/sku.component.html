@@ -1,1 +1,13 @@
-<p>sku works!</p>
+<h3 class="mt-3">{{title}}</h3>
+
+<div class="row">
+  <div class="col-md-6">
+    <app-sku-form #skuForm (updateModelsEmit)="get(modelEdit.codCanasta,modelEdit.codMegaCateogoria,modelEdit.codCategoria)" [model]="modelEdit"></app-sku-form>
+  </div>
+  <div class="col-md-6">
+    <app-sku-list [models]="models" (updateModelsEmit)="get(modelEdit.codCanasta,modelEdit.codMegaCateogoria,modelEdit.codCategoria)" (editEmit)="editModel($event)"></app-sku-list>
+  </div>
+</div>
+
+
+<br>

@@ -2,18 +2,13 @@
 
 <div class="row">
   <div class="col-md-4">
-    <app-pais-form (submitEmit)="add($event)"></app-pais-form>
+    <app-pais-form #paisForm (updateModelsEmit)="get()" [model]="modelEdit"></app-pais-form>
   </div>
   <div class="col-md-8">
-    <app-pais-list [models]="models" (deleteEmit)="delete($event)" (editEmit)="editModel($event)"></app-pais-list>
+    <app-pais-list [models]="models" (updateModelsEmit)="get()" (editEmit)="editModel($event)"></app-pais-list>
   </div>
 </div>
 
 
-
-
 <br>
 
-
-
-<app-black-loading [show]="showLoading"></app-black-loading>

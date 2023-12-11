@@ -9,7 +9,7 @@ import { environments } from '../../../environments/environments';
   providedIn: 'root'
 })
 export class NegocioService {
-  private apiUrl = environments+'api/negocio'; // Reemplaza con la URL de tu backend
+  private apiUrl = environments.baseUrl+'api/negocio'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 

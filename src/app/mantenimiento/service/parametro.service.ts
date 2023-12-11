@@ -9,7 +9,7 @@ import { environments } from '../../../environments/environments';
   providedIn: 'root'
 })
 export class ParametroService {
-  private apiUrl = environments+'api/parametro'; // Reemplaza con la URL de tu backend
+  private apiUrl = environments.baseUrl+'api/parametro'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 

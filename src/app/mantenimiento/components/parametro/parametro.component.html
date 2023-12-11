@@ -1,11 +1,13 @@
-{{title}}
-<hr>
+<h3 class="mt-3">{{title}}</h3>
 
-<app-parametro-form [modelo]="getModelEdit" (submitEmit)="add($event)"></app-parametro-form>
+<div class="row">
+  <div class="col-md-6">
+    <app-parametro-form #parametroForm (updateModelsEmit)="get()" [model]="modelEdit"></app-parametro-form>
+  </div>
+  <div class="col-md-6">
+    <app-parametro-list [models]="models" (updateModelsEmit)="get()" (editEmit)="editModel($event)"></app-parametro-list>
+  </div>
+</div>
+
 
 <br>
-
-<app-parametro-list [models]="getModels" (deleteEmit)="delete($event)" (editEmit)="editModel($event)"></app-parametro-list>
-
-<app-black-loading [show]="showLoading"></app-black-loading>
-

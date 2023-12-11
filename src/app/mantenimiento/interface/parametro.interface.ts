@@ -13,5 +13,21 @@ export interface Parametro {
     alias2: string,
     alias3: string,
     idEstadoRegistro: number
+}
 
+export const ParametroInit = {
+    id: 0,
+    codigo: 0,
+    descripcion: '',
+    descripcionResumida: '',
+    tip: '',
+    idInputClasificado: 0,
+    valorParametro1: 0,
+    valorParametro2: 0,
+    valorParametro3: 0,
+    inicioVigencia: new Date(),
+    alias1: '',
+    alias2: '',
+    alias3: '',
+    idEstadoRegistro: 0
 }

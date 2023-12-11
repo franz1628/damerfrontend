@@ -1,1 +1,13 @@
-<p>mega-categoria works!</p>
+<h3 class="mt-3">{{title}}</h3>
+
+<div class="row">
+  <div class="col-md-6">
+    <app-mega-categoria-form #megaCategoriaForm (updateModelsEmit)="get($event)" (changeCodigoEmit)="get($event)" [model]="modelEdit"></app-mega-categoria-form>
+  </div>
+  <div class="col-md-6">
+    <app-mega-categoria-list #megaCategoriaList [models]="models" (updateModelsEmit)="get($event)" (editEmit)="editModel($event)"></app-mega-categoria-list>
+  </div>
+</div>
+
+
+<br>

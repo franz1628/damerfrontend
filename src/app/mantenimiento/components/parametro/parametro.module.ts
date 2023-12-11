@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ParametroComponent } from './parametro.component';
 import { ParametroFormComponent } from './parametro-form/parametro-form.component';
 import { ParametroListComponent } from './parametro-list/parametro-list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
 import { ParametroRoutingModule } from './parametro-routing.module';
 
@@ -17,7 +17,8 @@ import { ParametroRoutingModule } from './parametro-routing.module';
     CommonModule,
     FormsModule,
     SharedModule,
-    ParametroRoutingModule
+    ParametroRoutingModule,
+    ReactiveFormsModule
     
   ],
   exports:[]
