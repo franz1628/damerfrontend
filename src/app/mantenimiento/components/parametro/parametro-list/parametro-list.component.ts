@@ -8,7 +8,7 @@ import { ParametroService } from '../../../service/parametro.service';
   templateUrl: './parametro-list.component.html'
 })
 export class ParametroListComponent {
-  public showLoading: boolean = false;
+  public showLoading: boolean = true;
   constructor(public alert: AlertService, public service: ParametroService) { }
 
   @Input()

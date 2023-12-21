@@ -1,0 +1,16 @@
+<h5 class="text-center">TIpo de Cambio</h5>
+
+<div class="row">
+    <div class="col-4">
+        <h6 class="mb-3 text-center">INFORMACION DEL TIPO DE CAMBIO</h6>
+        <hr>
+        <app-tipo-cambio-form #tipoCambioFormComp (actualizarListEmit)="actualizarList()"></app-tipo-cambio-form>
+    </div>
+
+    <div class="col-8">
+        <h6 class="mb-3 text-center">TIPO DE CAMBIO REGISTRADOS</h6>
+        <hr>
+        <app-tipo-cambio-list #tipoCambioListComp (selectEditEmit)="selectEdit($event)"></app-tipo-cambio-list>
+    </div>
+</div>
+

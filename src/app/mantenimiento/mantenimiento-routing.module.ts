@@ -29,6 +29,14 @@ const routes: Routes = [
         loadChildren: () => import('./components/variedades/variedades.module').then(m => m.VariedadesModule)
       },
       {
+        path : 'medicion',
+        loadChildren: () => import('./components/medicion/medicion.module').then(m => m.MedicionModule)
+      },
+      {
+        path : 'tipoCambio',
+        loadChildren: () => import('./components/tipo-cambio/tipo-cambio.module').then(m => m.TipoCambioModule)
+      },
+      {
         path: '404',
         component: Error404PageComponent,
       },

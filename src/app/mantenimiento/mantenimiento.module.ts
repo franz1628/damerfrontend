@@ -17,6 +17,7 @@ import { MantenimientoLayoutFooterComponent } from './pages/mantenimiento-layout
 import { ZonaComponent } from './components/zona/zona.component';
 import { ZonaFormComponent } from './components/zona/zona-form/zona-form.component';
 import { ZonaListComponent } from './components/zona/zona-list/zona-list.component';
+import { TipoCambioComponent } from './components/tipo-cambio/tipo-cambio.component';
 
 
 
@@ -24,7 +25,7 @@ import { ZonaListComponent } from './components/zona/zona-list/zona-list.compone
   declarations: [
     LayoutPageComponent,
     MantenimientoLayoutHeaderComponent,
-    MantenimientoLayoutFooterComponent,
+    MantenimientoLayoutFooterComponent
   ],
   imports: [
     CommonModule,

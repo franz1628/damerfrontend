@@ -1,10 +1,14 @@
-<h3 class="mt-3">{{title}}</h3>
+<h5 class="text-center">{{title}}</h5>
 
 <div class="row">
   <div class="col-md-4">
+    <h6 class="mb-3 text-center">INFORMACION DEL PAÍS</h6>
+    <hr>
     <app-pais-form #paisForm (updateModelsEmit)="get()" [model]="modelEdit"></app-pais-form>
   </div>
   <div class="col-md-8">
+    <h6 class="mb-3 text-center">PAISES REGISTRADOS</h6>
+    <hr>
     <app-pais-list [models]="models" (updateModelsEmit)="get()" (editEmit)="editModel($event)"></app-pais-list>
   </div>
 </div>

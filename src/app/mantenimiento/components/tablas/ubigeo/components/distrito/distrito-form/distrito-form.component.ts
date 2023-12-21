@@ -20,7 +20,7 @@ export class DistritoFormComponent {
     id: [0],
     codigo:[0],
     descripcion: ['', Validators.required],
-    idProvincia: [0],
+    idProvincia: [''],
     estado: [1]
   })
 

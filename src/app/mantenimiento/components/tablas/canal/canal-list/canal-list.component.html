@@ -11,32 +11,35 @@
                     <th>Codigo</th>
                     <th>Descripcion</th>
                     <th>Resumida</th>
-                    <th>factorRecargo</th>
-                    <th>avancePermNego</th>
-                    <th>avancePermProsp</th>
-                    <th>tieneExhibidor</th>
+                    <th>Factor Recargo</th>
+                    <th>Avance PermNego</th>
+                    <th>Avance PermProsp</th>
+                    <th>Tiene Exhibidor</th>
 
                     <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let model of models">
-                    <td>{{model.id}}</td>
-                    <td>{{model.codigo}}</td>
-                    <td>{{model.descripcion}}</td>
-                    <td>{{model.descripcionResumida}}</td>
-                    <td>{{model.factorRecargo}}</td>
-                    <td>{{model.avancePermNego}}</td>
-                    <td>{{model.avancePermProsp}}</td>
-                    <td>{{model.tieneExhibidor}}</td>
+                @for (model of models; track $index) {
 
-                    <td>
-                        <button class="btn btn-danger btn-sm" type="button" (click)="delete(model)"><i
-                                class="bi bi-trash"></i></button>
-                        <button class="btn btn-info btn-sm" type="button" (click)="editModel(model)"><i
-                                class="bi bi-pencil"></i></button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{$index+1}}</td>
+                        <td>{{model.codigo}}</td>
+                        <td>{{model.descripcion}}</td>
+                        <td>{{model.descripcionResumida}}</td>
+                        <td>{{model.factorRecargo}}</td>
+                        <td>{{model.avancePermNego}}</td>
+                        <td>{{model.avancePermProsp}}</td>
+                        <td>{{model.tieneExhibidor}}</td>
+    
+                        <td>
+                            <button class="btn btn-danger btn-sm" type="button" (click)="delete(model)"><i
+                                    class="bi bi-trash"></i></button>
+                            <button class="btn btn-info btn-sm" type="button" (click)="editModel(model)"><i
+                                    class="bi bi-pencil"></i></button>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
         }

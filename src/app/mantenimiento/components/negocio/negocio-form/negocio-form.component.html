@@ -21,7 +21,7 @@
                     <div class="mb-3 row">
                         <label for="codigo" class="col-md-3 col-form-label-sm">Código</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="codigo" name="codigo"
+                            <input type="number" class="form-control form-control-sm" placeholder="codigo" name="codigo"
                                 formControlName="codigo" id="codigo" (keyup.enter)="buscarNegocio($event)"/>
                         </div>
                         <span *ngIf="isValidField('codigo')" class="form-text text-danger">
@@ -172,7 +172,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="codUrb" class="col-md-3 col-form-label-sm">Urbanizacion</label>
+                        <label for="codUrb" class="col-md-3 col-form-label-sm">Urbanización</label>
                         <div class="col-sm-9">
                             <select class="form-select" formControlName="codUrb">
                                 <option *ngFor="let urbanizacion of listUrbanizacion" [value]="urbanizacion.codigo">
@@ -221,7 +221,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="manzana" class="col-md-3 col-form-label-sm">manzana</label>
+                        <label for="manzana" class="col-md-3 col-form-label-sm">Manzana</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" placeholder="manzana" name="manzana"
                                 formControlName="manzana" id="manzana" />
@@ -232,7 +232,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="lote" class="col-md-3 col-form-label-sm">lote</label>
+                        <label for="lote" class="col-md-3 col-form-label-sm">Lote</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" placeholder="lote" name="lote"
                                 formControlName="lote" id="lote" />
@@ -243,7 +243,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="referencia" class="col-md-3 col-form-label-sm">referencia</label>
+                        <label for="referencia" class="col-md-3 col-form-label-sm">Referencia</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" placeholder="referencia" name="referencia"
                                 formControlName="referencia" id="referencia" />
@@ -254,7 +254,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="lat" class="col-md-3 col-form-label-sm">lat</label>
+                        <label for="lat" class="col-md-3 col-form-label-sm">Latitud</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" placeholder="lat" name="lat"
                                 formControlName="lat" id="lat" />
@@ -265,7 +265,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="lgn" class="col-md-3 col-form-label-sm">lgn</label>
+                        <label for="lgn" class="col-md-3 col-form-label-sm">longitud</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" placeholder="lgn" name="lgn"
                                 formControlName="lgn" id="lgn" />
@@ -276,7 +276,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="zonaAccidentada" class="col-md-3 col-form-label-sm">zonaAccidentada</label>
+                        <label for="zonaAccidentada" class="col-md-3 col-form-label-sm">Zona Accidentada</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" placeholder="zonaAccidentada" name="zonaAccidentada"
                                 formControlName="zonaAccidentada" id="zonaAccidentada" />
@@ -287,7 +287,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="zonaRiesgo" class="col-md-3 col-form-label-sm">zonaRiesgo</label>
+                        <label for="zonaRiesgo" class="col-md-3 col-form-label-sm">Zona Riesgo</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" placeholder="zonaRiesgo" name="zonaRiesgo"
                                 formControlName="zonaRiesgo" id="zonaRiesgo" />
@@ -298,7 +298,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="codRuta" class="col-md-3 col-form-label-sm">codRuta</label>
+                        <label for="codRuta" class="col-md-3 col-form-label-sm">Código Ruta</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" placeholder="codRuta" name="codRuta"
                                 formControlName="codRuta" id="codRuta" />
@@ -309,7 +309,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="aceptaProductos" class="col-md-3 col-form-label-sm">aceptaProductos</label>
+                        <label for="aceptaProductos" class="col-md-3 col-form-label-sm">Acepta Productos</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" placeholder="aceptaProductos" name="aceptaProductos"
                             formControlName="aceptaProductos" id="aceptaProductos" />

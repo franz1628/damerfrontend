@@ -11,13 +11,17 @@ import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
 })
 export class CategoriaListComponent {
   public showLoading: boolean = false;
-  constructor(public alert: AlertService, public service: CategoriaService) { }
+  constructor(public alert: AlertService, public service: CategoriaService) {
+    
+  }
 
   @Input()
   public models: Categoria[] = []
 
   @Output() editEmit: EventEmitter<Categoria> = new EventEmitter()
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
+
+  
 
   editModel(model: Categoria) {
     this.editEmit.emit(model)

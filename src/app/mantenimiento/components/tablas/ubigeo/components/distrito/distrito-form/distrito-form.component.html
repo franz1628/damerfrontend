@@ -28,6 +28,7 @@
                 <label for="idProvincia" class="col-md-2 col-form-label-sm">Provincia</label>
                 <div class="col-sm-10">
                     <select class="form-select" formControlName="idProvincia">
+                        <option value="">SELECCIONAR</option>
                         <option *ngFor="let provincia of listProvincia" [value]="provincia.id">
                             {{provincia.descripcion}}
                         </option>

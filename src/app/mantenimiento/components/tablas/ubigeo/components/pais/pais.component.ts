@@ -13,7 +13,7 @@ export class PaisComponent {
   public modal: boolean = false
   public models: Pais[] = [];
   public showLoading: boolean = false;
-  public title: string = 'Pais';
+  public title: string = 'PaÍs';
 
   public modelEdit: Pais = PaisInit;
 

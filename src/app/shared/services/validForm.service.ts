@@ -18,12 +18,15 @@ export class ValidFormService {
     const errors = myForm.controls[field].errors || {};
 
     for (const key of Object.keys(errors) ) {
+      
       switch( key ) {
         case 'required':
           return 'Este campo es requerido';
 
-        case 'minlength':
-          return `Mínimo ${ errors['minlength'].requiredLength } caracters.`;
+        case 'min':
+          return `Valor minimo ${ errors['min'].min }`;
+        default : 
+          return `No válido`;
       }
     }
 

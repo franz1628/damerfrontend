@@ -21,7 +21,7 @@ export class ProvinciaFormComponent {
   public myForm: FormGroup = this.fb.group({
     id: [0],
     descripcion: ['', Validators.required],
-    idDepartamento: [0],
+    idDepartamento: ['', Validators.required],
     estado: [1]
   })
 

@@ -1,0 +1,26 @@
+
+<form (ngSubmit)="submit()" autocomplete="off" [formGroup]="myForm">
+    <div class="mb-3 row">
+        <div class="col-sm-3">
+            <div class="input-group">
+                <span class="input-group-text">Año | mes</span>
+                <input type="text" class="form-control form-control-sm" placeholder="anio" name="anio" formControlName="anio" id="anio">
+                <input type="text" class="form-control form-control-sm" placeholder="mes" name="mes" formControlName="mes" id="mes" >
+                <button type="submit" class="btn btn-success form-control form-control-sm">Guardar</button>
+              </div>
+        </div>
+        <span *ngIf="isValidField('anio')" class="form-text text-danger">
+            {{ getFieldError('anio') }}
+        </span>
+        <span *ngIf="isValidField('mes')" class="form-text text-danger">
+            {{ getFieldError('mes') }}
+        </span>
+    </div>
+
+    <div class="mb-3 row">
+        <div class="col-sm-3">
+            <span>Medición: {{getMedicion}}</span>
+        </div>
+    </div>
+</form>
+

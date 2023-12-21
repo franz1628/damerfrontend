@@ -23,6 +23,7 @@ export class CanastaComponent {
   canastaForm!: CanastaFormComponent;
 
   @Output() emitCodCanasta:EventEmitter<Canasta> = new EventEmitter();
+  
 
   constructor(public service: CanastaService, public alert: AlertService) {
   }

@@ -17,7 +17,7 @@ export class ParametroFormComponent {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   public myForm: FormGroup = this.fb.group({
     id: [0],
-    codigo: [0,Validators.required],
+    codigo:  [0, [Validators.required, Validators.min(1), Validators.pattern(/^-?\d+$/)]],
     descripcion: ['',Validators.required],
     descripcionResumida: [''],
     tip: [''],
@@ -25,7 +25,7 @@ export class ParametroFormComponent {
     valorParametro1: [0],
     valorParametro2: [0],
     valorParametro3: [0],
-    inicioVigencia: new Date(),
+    inicioVigencia: [new Date()],
     alias1: [''],
     alias2: [''],
     alias3: [''],
@@ -54,6 +54,11 @@ export class ParametroFormComponent {
       this.myForm.markAllAsTouched();
       return;
     }
+
+    /*if(!Number.isInteger(parseInt(this.currentModel.codigo.toString())) || this.currentModel.codigo<=0){
+      this.alert.showAlert('Mensaje!', 'El codigo no es válido', 'warning');
+      return;
+    }*/
 
     if(!this.currentModel.id){
       this.service.add(this.currentModel).subscribe(() => {
