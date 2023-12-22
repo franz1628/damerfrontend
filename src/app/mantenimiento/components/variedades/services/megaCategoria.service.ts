@@ -29,6 +29,10 @@ export class MegaCategoriaService {
     return this.http.post<MegaCategoria>(this.apiUrl, model);
   }
 
+  postCodigo(codigo: number): Observable<MegaCategoria> {
+    return this.http.post<MegaCategoria>(`${this.apiUrl}/codigo`, {codigo});
+  }
+
   update(id: number, model: MegaCategoria): Observable<MegaCategoria> {
     return this.http.put<MegaCategoria>(`${this.apiUrl}/${id}`, model);
   }

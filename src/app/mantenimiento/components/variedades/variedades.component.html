@@ -3,10 +3,10 @@
       <button class="nav-link active" id="canasta-tab" data-bs-toggle="tab" data-bs-target="#canasta" type="button" role="tab" aria-controls="canasta" aria-selected="true">Canasta</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="megacategoria-tab" [disabled]="!codCanasta" data-bs-toggle="tab" data-bs-target="#megacategoria" type="button" role="tab" aria-controls="megacategoria" aria-selected="false">Mega categoría</button>
+      <button class="nav-link" id="megacategoria-tab"  data-bs-toggle="tab" data-bs-target="#megacategoria" type="button" role="tab" aria-controls="megacategoria" aria-selected="false">Mega categoría</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="categoria-tab" [disabled]="!codMegaCategoria" data-bs-toggle="tab" data-bs-target="#categoria" type="button" role="tab" aria-controls="categoria" aria-selected="false">Categoría</button>
+      <button class="nav-link" id="categoria-tab" data-bs-toggle="tab" data-bs-target="#categoria" type="button" role="tab" aria-controls="categoria" aria-selected="false">Categoría</button>
     </li>
     
     <li class="nav-item" role="presentation">
@@ -16,14 +16,14 @@
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane  show active" id="canasta" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
       
-      <app-canasta (emitCodCanasta)="setCodCanasta($event)"></app-canasta>
+      <app-canasta #canastaComp (emitCodCanasta)="setCodCanasta($event)"></app-canasta>
 
     </div>
     <div class="tab-pane " id="megacategoria" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-        <app-mega-categoria (emitCanastaMegaCategoria)="setCodCanastaMegaCategoria($event)"></app-mega-categoria>
+        <app-mega-categoria #megaCategoriaComp (emitCanastaMegaCategoria)="setCodCanastaMegaCategoria($event)"></app-mega-categoria>
     </div>
     <div class="tab-pane " id="categoria" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-       <app-categoria #categoriaComp (emitByCategoria)="setByCategoria($event)"></app-categoria>
+       <app-categoria #categoriaComp (selectCategoriaEmit)="selectCategoria($event)" (emitByCategoria)="setByCategoria($event)"></app-categoria>
        
     </div>
     <div class="tab-pane " id="sku" role="tabpanel" aria-labelledby="sku" tabindex="0">

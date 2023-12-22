@@ -4,7 +4,7 @@
   <div class="col-md-6">
     <h6 class="mb-3 text-center">INFORMACION DE LA CATEGORIA</h6>
     <hr>
-    <app-categoria-form #categoriaForm (updateModelsEmit)="get(modelEdit.codCanasta,modelEdit.codMegaCategoria)" [model]="modelEdit"></app-categoria-form>
+    <app-categoria-form #categoriaForm (selectCategoriaEmit)="selectCategoria($event)" (updateModelsEmit)="get(modelEdit.codCanasta,modelEdit.codMegaCategoria)" [model]="modelEdit"></app-categoria-form>
   </div>
   <div class="col-md-6">
     <h6 class="mb-3 text-center">CATEGORIAS REGISTRADAS</h6>

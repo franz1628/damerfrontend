@@ -18,6 +18,10 @@ export class CategoriaFormComponent {
   public model: Categoria = CategoriaInit;
   public showLoading: boolean = false;
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
+  @Output() selectCategoriaEmit: EventEmitter<Categoria> = new EventEmitter();
+
+
+
   public myForm: FormGroup = this.fb.group({
     id: [0, Validators.required],
     codigo: [0, Validators.required],
@@ -91,6 +95,16 @@ export class CategoriaFormComponent {
   nuevo() {
     this.myForm.patchValue(CategoriaInit);
     this.myForm.clearValidators()
+  }
+
+  buscar(){
+    const codigo = this.myForm.get('codigo')?.value;
+
+    this.service.postCodigo(codigo).subscribe(resp => {
+      this.myForm.patchValue(resp);
+      this.selectCategoriaEmit.emit(resp);
+    })
+    
   }
 
   isValidField(field: string): boolean | null {

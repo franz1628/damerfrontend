@@ -21,12 +21,14 @@ export class CanastaService {
     return this.http.get<Canasta>(`${this.apiUrl}/${id}`).pipe(catchError(error=>of(undefined)));
   }
 
-  getCodigo(codCanasta: number): Observable<Canasta|undefined> {
-    return this.http.get<Canasta>(`${this.apiUrl}/canasta/${codCanasta}`).pipe(catchError(error=>of(undefined)));
-  }
+
 
   add(model: Canasta): Observable<Canasta> {
     return this.http.post<Canasta>(this.apiUrl, model);
+  }
+
+  postCodigo(codigo: number): Observable<Canasta> {
+    return this.http.post<Canasta>(`${this.apiUrl}/codigo`, {codigo});
   }
 
   update(id: number, model: Canasta): Observable<Canasta> {
