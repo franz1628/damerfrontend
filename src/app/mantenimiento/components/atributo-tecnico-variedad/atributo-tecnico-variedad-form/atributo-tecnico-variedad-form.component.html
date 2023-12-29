@@ -1,0 +1,142 @@
+
+
+<form [formGroup]="model" autocomplete="off">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="mb-3 row">
+                <label for="codigo" class="col-md-4 col-form-label-sm">Codigo</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control form-control-sm" placeholder="codigo" name="codigo"
+                        formControlName="codigo" id="codigo" />
+                </div>
+                <span *ngIf="isValidField('codigo')" class="form-text text-danger">
+                    {{ getFieldError('codigo') }}
+                </span>
+            </div>
+
+
+
+            <div class="mb-3 row">
+                <label for="descripcion" class="col-md-4 col-form-label-sm">descripcion</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="descripcion"
+                        name="descripcion" formControlName="descripcion" id="descripcion" />
+                </div>
+                <span *ngIf="isValidField('descripcion')" class="form-text text-danger">
+                    {{ getFieldError('descripcion') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="descripcionResumida" class="col-md-4 col-form-label-sm">descripcionResumida</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="descripcionResumida"
+                        name="descripcionResumida" formControlName="descripcionResumida" id="descripcionResumida" />
+                </div>
+                <span *ngIf="isValidField('descripcionResumida')" class="form-text text-danger">
+                    {{ getFieldError('descripcionResumida') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="tip" class="col-md-4 col-form-label-sm">tip</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="tip"
+                        name="tip" formControlName="tip" id="tip" />
+                </div>
+                <span *ngIf="isValidField('tip')" class="form-text text-danger">
+                    {{ getFieldError('tip') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="posiblesValores" class="col-md-4 col-form-label-sm">posibles Valores
+                    Abreviada</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control form-control-sm" placeholder="posiblesValores"
+                        name="posiblesValores" formControlName="posiblesValores"
+                        id="posiblesValores" />
+                </div>
+                <span *ngIf="isValidField('posiblesValores')" class="form-text text-danger">
+                    {{ getFieldError('posiblesValores') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="solicitarUnidad" class="col-md-4 col-form-label-sm"> Solicitar Unidad</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control form-control-sm" placeholder="solicitarUnidad"
+                        name="solicitarUnidad" formControlName="solicitarUnidad"
+                        id="solicitarUnidad" />
+                </div>
+                <span *ngIf="isValidField('solicitarUnidad')" class="form-text text-danger">
+                    {{ getFieldError('solicitarUnidad') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="variosValores" class="col-md-4 col-form-label-sm">Varios Valores</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control form-control-sm" placeholder="variosValores"
+                        name="variosValores" formControlName="variosValores"
+                        id="variosValores" />
+                </div>
+                <span *ngIf="isValidField('variosValores')" class="form-text text-danger">
+                    {{ getFieldError('variosValores') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="idInputClasificado" class="col-md-4 col-form-label-sm">Input Clasificado</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control form-control-sm" placeholder="idInputClasificado"
+                        name="idInputClasificado" formControlName="idInputClasificado"
+                        id="idInputClasificado" />
+                </div>
+                <span *ngIf="isValidField('idInputClasificado')" class="form-text text-danger">
+                    {{ getFieldError('idInputClasificado') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="alias1" class="col-md-4 col-form-label-sm">Alias 1 </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="alias1" name="alias1"
+                        formControlName="alias1" id="alias1" />
+                </div>
+                <span *ngIf="isValidField('alias1')" class="form-text text-danger">
+                    {{ getFieldError('alias1') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="alias2" class="col-md-4 col-form-label-sm">Alias 2 </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="alias2" name="alias2"
+                        formControlName="alias2" id="alias2" />
+                </div>
+                <span *ngIf="isValidField('alias2')" class="form-text text-danger">
+                    {{ getFieldError('alias2') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="alias3" class="col-md-4 col-form-label-sm">Alias 3 </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="alias3" name="alias3"
+                        formControlName="alias3" id="alias3" />
+                </div>
+                <span *ngIf="isValidField('alias3')" class="form-text text-danger">
+                    {{ getFieldError('alias3') }}
+                </span>
+            </div>
+
+            <button class="btn btn-success" (click)="agregar()">Add</button>
+
+            <!-- <app-add-tipo-cambio [model]="getModel" (actualizarList)="actualizarList()"></app-add-tipo-cambio> -->
+        </div>
+    </div>
+
+
+</form>

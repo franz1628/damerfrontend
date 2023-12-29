@@ -1,0 +1,36 @@
+@if (loading) {
+    <app-div-cargando></app-div-cargando>
+}@else {
+    @if(models.length>0){
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>CodCliente</th>
+                    <th>Nombre Completo</th>
+                    <th>Cargo</th>
+                    <th>Correo</th>
+                    <!-- <th>Accion</th> -->
+                </tr>
+            </thead>
+        
+            <tbody>
+                
+                @for (model of models; track $index) {
+                    <tr>
+                        <td>{{$index+1}}</td>
+                        <td>{{model.codCliente}}</td>
+                        <td>{{model.nombreCompleto}}</td>
+                        <td>{{model.cargo}}</td>
+                        <td>{{model.correo}}</td>
+                        <td>
+                            <button class="btn btn-info" (click)="selectEdit(model)">Edit</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }@else {
+        <span>No se encontraron resultados</span>
+    }
+}

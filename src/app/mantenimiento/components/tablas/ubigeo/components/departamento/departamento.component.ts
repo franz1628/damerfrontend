@@ -22,7 +22,7 @@ export class DepartamentoComponent implements OnInit{
   constructor(public service: DepartamentoService, public alert: AlertService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.get();
   }
 

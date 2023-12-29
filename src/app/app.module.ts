@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { MantenimientoModule } from './mantenimiento/mantenimiento.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { MantenimientoModule } from './mantenimiento/mantenimiento.module';
     CommonModule,
     BrowserModule,
     AppRoutingModule,
-    MantenimientoModule
+    MantenimientoModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -16,18 +16,18 @@ const routes: Routes = [
     path: '',
     component: LayoutTablasComponent,
     children: [
-      {path:'pais',component:PaisComponent},
-      {path:'departamento',component:DepartamentoComponent},
-      {path:'provincia',component:ProvinciaComponent},
-      {path:'distrito',component:DistritoComponent},
-      {path:'tipoUrbanizacion',component:TipoUrbanizacionComponent},
-      {path:'canal',component:CanalComponent},
-      {
-        path: '404',
+      { path: 'pais', component: PaisComponent },
+      { path: 'departamento', component: DepartamentoComponent },
+      { path: 'provincia', component: ProvinciaComponent },
+      { path: 'distrito', component: DistritoComponent },
+      { path: 'tipoUrbanizacion', component: TipoUrbanizacionComponent },
+      { path: 'canal', component: CanalComponent }
+      , {
+        path: '404', 
         component: Error404PageComponent,
       },
       {
-        path: '',
+        path: '', 
         component: TablasComponent,
         pathMatch: 'full'
       },
@@ -36,7 +36,8 @@ const routes: Routes = [
         redirectTo: '404',
       }
     ]
-  }
+  },
+
 ];
 
 @NgModule({
@@ -44,4 +45,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class TablasRoutingModule { }
- 

@@ -1,0 +1,179 @@
+
+
+<form [formGroup]="model" autocomplete="off">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="mb-3 row">
+                <label for="codigo" class="col-md-4 col-form-label-sm">Codigo</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control form-control-sm" placeholder="codigo" name="codigo"
+                        formControlName="codigo" id="codigo" />
+                </div>
+                <span *ngIf="isValidField('codigo')" class="form-text text-danger">
+                    {{ getFieldError('codigo') }}
+                </span>
+            </div>
+
+
+
+            <div class="mb-3 row">
+                <label for="razonSocial" class="col-md-4 col-form-label-sm">razonSocial</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="razonSocial"
+                        name="razonSocial" formControlName="razonSocial" id="razonSocial" />
+                </div>
+                <span *ngIf="isValidField('razonSocial')" class="form-text text-danger">
+                    {{ getFieldError('razonSocial') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="razonSocialAbreviada" class="col-md-4 col-form-label-sm">RazonSocial
+                    Abreviada</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="razonSocialAbreviada"
+                        name="razonSocialAbreviada" formControlName="razonSocialAbreviada"
+                        id="razonSocialAbreviada" />
+                </div>
+                <span *ngIf="isValidField('razonSocialAbreviada')" class="form-text text-danger">
+                    {{ getFieldError('razonSocialAbreviada') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="razonSocialTip" class="col-md-4 col-form-label-sm">Razon Social Tip</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="razonSocialTip"
+                        name="razonSocialTip" formControlName="razonSocialTip" id="razonSocialTip" />
+                </div>
+                <span *ngIf="isValidField('razonSocialTip')" class="form-text text-danger">
+                    {{ getFieldError('razonSocialTip') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="ruc" class="col-md-4 col-form-label-sm">Numero de RUC</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="ruc" name="ruc"
+                        formControlName="ruc" id="ruc" />
+                </div>
+                <span *ngIf="isValidField('ruc')" class="form-text text-danger">
+                    {{ getFieldError('ruc') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="razonSocialCorporativa" class="col-md-4 col-form-label-sm">Razon Social
+                    Corporativa</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="razonSocialCorporativa"
+                        name="razonSocialCorporativa" formControlName="razonSocialCorporativa"
+                        id="razonSocialCorporativa" />
+                </div>
+                <span *ngIf="isValidField('razonSocialCorporativa')" class="form-text text-danger">
+                    {{ getFieldError('razonSocialCorporativa') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="codigoRubro" class="col-md-4 col-form-label-sm">Codigo Rubro</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="codigoRubro"
+                        name="codigoRubro" formControlName="codigoRubro" id="codigoRubro" />
+                </div>
+                <span *ngIf="isValidField('codigoRubro')" class="form-text text-danger">
+                    {{ getFieldError('codigoRubro') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="idCategorizacionCliente" class="col-md-4 col-form-label-sm">Categorizacion
+                    cliente</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm"
+                        placeholder="idCategorizacionCliente" name="idCategorizacionCliente"
+                        formControlName="idCategorizacionCliente" id="idCategorizacionCliente" />
+                </div>
+                <span *ngIf="isValidField('idCategorizacionCliente')" class="form-text text-danger">
+                    {{ getFieldError('idCategorizacionCliente') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="aniversario" class="col-md-4 col-form-label-sm">Aniversario cliente</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control form-control-sm" placeholder="aniversario"
+                        name="aniversario" formControlName="aniversario" id="aniversario" />
+                </div>
+                <span *ngIf="isValidField('aniversario')" class="form-text text-danger">
+                    {{ getFieldError('aniversario') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="web" class="col-md-4 col-form-label-sm">Pagina web </label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control form-control-sm" placeholder="web" name="web"
+                        formControlName="web" id="web" />
+                </div>
+                <span *ngIf="isValidField('web')" class="form-text text-danger">
+                    {{ getFieldError('web') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="mesCierre" class="col-md-4 col-form-label-sm">Mes Cierre </label>
+                <div class="col-sm-8">
+                    <select name="mesCierre" formControlName="mesCierre" id="mesCierre"
+                        class="form-select form-select-sm">
+                        <option value="">SELECCIONAR</option>
+                    </select>
+
+                </div>
+                <span *ngIf="isValidField('mesCierre')" class="form-text text-danger">
+                    {{ getFieldError('mesCierre') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="alias1" class="col-md-4 col-form-label-sm">Alias 1 </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="alias1" name="alias1"
+                        formControlName="alias1" id="alias1" />
+                </div>
+                <span *ngIf="isValidField('alias1')" class="form-text text-danger">
+                    {{ getFieldError('alias1') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="alias2" class="col-md-4 col-form-label-sm">Alias 2 </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="alias2" name="alias2"
+                        formControlName="alias2" id="alias2" />
+                </div>
+                <span *ngIf="isValidField('alias2')" class="form-text text-danger">
+                    {{ getFieldError('alias2') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="alias3" class="col-md-4 col-form-label-sm">Alias 3 </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" placeholder="alias3" name="alias3"
+                        formControlName="alias3" id="alias3" />
+                </div>
+                <span *ngIf="isValidField('alias3')" class="form-text text-danger">
+                    {{ getFieldError('alias3') }}
+                </span>
+            </div>
+
+            <button class="btn btn-success" (click)="agregar()">Add</button>
+
+            <!-- <app-add-tipo-cambio [model]="getModel" (actualizarList)="actualizarList()"></app-add-tipo-cambio> -->
+        </div>
+    </div>
+
+
+</form>

@@ -1,0 +1,68 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente" type="button"
+            role="tab" aria-controls="cliente" aria-selected="true">Cliente</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="direccion-tab" data-bs-toggle="tab" data-bs-target="#direccion" type="button"
+            role="tab" aria-controls="direccion" aria-selected="false">Direcciones</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contacto-tab" data-bs-toggle="tab" data-bs-target="#contacto" type="button"
+            role="tab" aria-controls="contacto" aria-selected="false">Contactos</button>
+    </li>
+
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane  show active" id="cliente" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <div class="row mt-4">
+            <div class="col-4">
+                <h6 class="mb-3 text-center">INFORMACION DEL TIPO DE CLIENTE</h6>
+                <hr>
+                <app-cliente-form #clienteFormComp (actualizarListEmit)="actualizarList()"></app-cliente-form>
+            </div>
+
+            <div class="col-8">
+                <h6 class="mb-3 text-center">CLIENTES REGISTRADOS</h6>
+                <hr>
+                <app-cliente-list #clienteListComp (selectEditEmit)="selectEdit($event)"></app-cliente-list>
+            </div>
+        </div>
+
+    </div>
+    <div class="tab-pane " id="direccion" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+        <div class="row mt-4">
+            <div class="col-4">
+                <h6 class="mb-3 text-center">DIRECCIONES DE CLIENTE</h6>
+                <hr>
+                <app-cliente-direccion-form #clienteDireccionFormComp
+                    (actualizarListEmit)="actualizarDireccionList()"></app-cliente-direccion-form>
+            </div>
+
+            <div class="col-8">
+                <h6 class="mb-3 text-center">DIRECCIONES REGISTRADAS</h6>
+                <hr>
+                <app-cliente-direccion-list #clienteDireccionListComp
+                    (selectEditEmit)="selectDireccionEdit($event)"></app-cliente-direccion-list>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane " id="contacto" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+        <div class="row mt-4">
+            <div class="col-4">
+                <h6 class="mb-3 text-center">CONTACTOS DE CLIENTE</h6>
+                <hr>
+                <app-cliente-contacto-form #clienteContactoFormComp
+                    (actualizarListEmit)="actualizarContactoList()"></app-cliente-contacto-form>
+            </div>
+
+            <div class="col-8">
+                <h6 class="mb-3 text-center">CONTACTOS REGISTRADOS</h6>
+                <hr>
+                <app-cliente-contacto-list #clienteContactoListComp
+                    (selectEditEmit)="selectContactoEdit($event)"></app-cliente-contacto-list>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -8,10 +8,7 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      {
-        path: 'tablas',
-        loadChildren: () => import('./components/tablas/tablas.module').then(m => m.TablasModule)
-      },
+ 
       {
         path: 'parametro',
         loadChildren: () => import('./components/parametro/parametro.module').then(m => m.ParametroModule)
@@ -20,10 +17,10 @@ const routes: Routes = [
         path: 'negocio',
         loadChildren: () => import('./components/negocio/negocio.module').then(m => m.NegocioModule)
       },
-      {
+      { 
         path : 'zona',
         loadChildren: () => import('./components/zona/zona.module').then(m => m.ZonaModule)
-      },
+      }, 
       {
         path : 'variedades',
         loadChildren: () => import('./components/variedades/variedades.module').then(m => m.VariedadesModule)
@@ -35,6 +32,18 @@ const routes: Routes = [
       {
         path : 'tipoCambio',
         loadChildren: () => import('./components/tipo-cambio/tipo-cambio.module').then(m => m.TipoCambioModule)
+      },
+      {
+        path : 'cliente',
+        loadChildren: () => import('./components/cliente/cliente.module').then(m => m.ClienteModule)
+      },
+      {
+        path : 'atributoTecnicoVariedad',
+        loadChildren: () => import('./components/atributo-tecnico-variedad/atributo-tecnico-variedad.module').then(m => m.AtributoTecnicoVariedadModule)
+      },
+      { 
+        path: 'tablas',
+        loadChildren: () => import('./components/tablas/tablas.module').then(m => m.TablasModule)
       },
       {
         path: '404',

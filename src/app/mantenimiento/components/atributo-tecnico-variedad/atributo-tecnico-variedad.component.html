@@ -1,0 +1,14 @@
+<div class="row mt-4">
+    <div class="col-4">
+        <h6 class="mb-3 text-center">INFORMACION DEL ATRIBUTO VARIEDAD</h6>
+        <hr>
+        
+        <app-atributo-tecnico-variedad-form #atributoTecnicoVariedadFormComp (actualizarListEmit)="actualizarList()"></app-atributo-tecnico-variedad-form>
+    </div>
+
+    <div class="col-8">
+        <h6 class="mb-3 text-center">ATRIBUTOS REGISTRADOS</h6>
+        <hr>
+        <app-atributo-tecnico-variedad-list #atributoTecnicoVariedadListComp (selectEditEmit)="selectEdit($event)"></app-atributo-tecnico-variedad-list>
+    </div>
+</div>

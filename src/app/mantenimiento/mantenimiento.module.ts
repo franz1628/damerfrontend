@@ -6,19 +6,9 @@ import { SharedModule } from '../shared/shared.module';
 
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { MantenimientoRoutingModule } from './mantenimiento-routing.module';
-import { UbigeoModule } from './components/tablas/ubigeo/ubigeo.module';
-import { ParametroFormComponent } from './components/parametro/parametro-form/parametro-form.component';
-import { ParametroModule } from './components/parametro/parametro.module';
-import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { ParametroListComponent } from './components/parametro/parametro-list/parametro-list.component';
 import { MantenimientoLayoutHeaderComponent } from './pages/mantenimiento-layout-header/mantenimiento-layout-header.component';
 import { MantenimientoLayoutFooterComponent } from './pages/mantenimiento-layout-footer/mantenimiento-layout-footer.component';
-import { ZonaComponent } from './components/zona/zona.component';
-import { ZonaFormComponent } from './components/zona/zona-form/zona-form.component';
-import { ZonaListComponent } from './components/zona/zona-list/zona-list.component';
-import { TipoCambioComponent } from './components/tipo-cambio/tipo-cambio.component';
-
 
 
 @NgModule({
@@ -33,7 +23,7 @@ import { TipoCambioComponent } from './components/tipo-cambio/tipo-cambio.compon
     MantenimientoRoutingModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports : [
     MantenimientoLayoutHeaderComponent,
