@@ -15,6 +15,8 @@ export class SkuComponent {
   public models: Sku[] = [];
   public showLoading: boolean = false;
   public title: string = 'Sku';
+  contenidoVisible: string = '';
+  botonActivo: string = '';
 
   public modelEdit: Sku = SkuInit;
 
@@ -38,4 +40,10 @@ export class SkuComponent {
   editModel(model: Sku) {
     this.skuForm.setModel(model)
   }
+
+  mostrarContenido(contenido: string): void {
+    this.contenidoVisible = contenido;
+    this.botonActivo = contenido;
+  }
+
 }

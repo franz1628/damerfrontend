@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
 import { AtributoTecnicoVariedadComponent } from './atributo-tecnico-variedad.component';
 import { AtributoTecnicoVariedadRoutingModule } from './atributo-tecnico-variedad-routing.module';
+import { AtributoTecnicoVariedadValoresComponent } from './atributo-tecnico-variedad-valores/atributo-tecnico-variedad-valores.component';
 
 
 
@@ -13,7 +14,8 @@ import { AtributoTecnicoVariedadRoutingModule } from './atributo-tecnico-varieda
   declarations: [
     AtributoTecnicoVariedadComponent,
     AtributoTecnicoVariedadListComponent,
-    AtributoTecnicoVariedadFormComponent
+    AtributoTecnicoVariedadFormComponent,
+    AtributoTecnicoVariedadValoresComponent
   ], 
   imports: [
   

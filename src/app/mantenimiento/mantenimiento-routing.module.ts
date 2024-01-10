@@ -41,9 +41,21 @@ const routes: Routes = [
         path : 'atributoTecnicoVariedad',
         loadChildren: () => import('./components/atributo-tecnico-variedad/atributo-tecnico-variedad.module').then(m => m.AtributoTecnicoVariedadModule)
       },
+      {
+        path : 'atributoTecnicoNegocio',
+        loadChildren: () => import('./components/atributo-tecnico-negocio/atributo-tecnico-negocio.module').then(m => m.AtributoTecnicoNegocioModule)
+      },
       { 
         path: 'tablas',
         loadChildren: () => import('./components/tablas/tablas.module').then(m => m.TablasModule)
+      },
+      { 
+        path: 'variable',
+        loadChildren: () => import('./components/variable/variable.module').then(m => m.VariableModule)
+      },
+      { 
+        path: 'contrato',
+        loadChildren: () => import('./components/contrato/contrato.module').then(m => m.ContratoModule)
       },
       {
         path: '404',

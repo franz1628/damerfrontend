@@ -1,6 +1,6 @@
 <div class="row">
 
-    <form (ngSubmit)="submit()" autocomplete="off" [formGroup]="myForm">
+    <form autocomplete="off" [formGroup]="myForm">
         <div class="row">
 
             <div class="col-6 ">
@@ -136,14 +136,14 @@
 
                 
             <div class="input-group mt-3">
-                <button class="btn btn-success btn-sm text-white " type="submit" *ngIf="!currentModel.id">
+                <button class="btn btn-success btn-sm text-white " type="text" (click)="submit()"  *ngIf="!currentModel.id">
                     <i class="bi bi-box-arrow-down"></i> Guardar
                 </button>
                 <button class="btn btn-warning btn-sm text-white " (click)="nuevo()" type="button"
                     *ngIf="currentModel.id">
                     <i class="bi bi-plus-lg"></i> Nuevo
                 </button>
-                <button class="btn btn-info btn-sm text-white " type="submit" *ngIf="currentModel.id">
+                <button class="btn btn-info btn-sm text-white " type="text" (click)="submit()"  *ngIf="currentModel.id">
                     <i class="bi bi-pencil"></i> Guardar
                 </button>
 

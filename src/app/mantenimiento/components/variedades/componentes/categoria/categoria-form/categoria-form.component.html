@@ -8,8 +8,19 @@
                 <div class="mb-3 row">
                     <label for="codigo" class="col-md-5 col-form-label-sm">Código</label>
                     <div class="col-sm-7">
-                        <input type="text" (keydown.enter)="buscar()" class="form-control form-control-sm" placeholder="codigo" name="codigo"
-                            formControlName="codigo" id="codigo"/>
+                        <div class="input-group input-group-sm">
+                            <input type="text" (keydown.enter)="buscar()" class="form-control form-control-sm col-3"
+                                placeholder="codigo" name="codigo" formControlName="codigo" id="codigo" />
+
+                            <input type="text" class="form-control form-control-sm" placeholder="Descripción"
+                                name="descripcionCategoria" id="descripcionCategoria"
+                                (input)="cambioDescripcion($event)" />
+
+                            <button type="button" class="btn btn-info btn-sm" (click)="buscarDescripcion()"><i
+                                    class="bi bi-search"></i></button>
+                        </div>
+
+
                     </div>
                     <span *ngIf="isValidField('codigo')" class="form-text text-danger">
                         {{ getFieldError('codigo') }}
@@ -19,10 +30,11 @@
                 <div class="mb-3 row">
                     <label for="codCanasta" class="col-md-5 col-form-label-sm">Canasta</label>
                     <div class="col-sm-7">
-                        <select class="form-select form-select-sm" name="codCanasta" formControlName="codCanasta" id="codCanasta">
+                        <select class="form-select form-select-sm" name="codCanasta" formControlName="codCanasta"
+                            id="codCanasta">
                             <option value="0">SELECCIONAR</option>
                             @for (canasta of listCanasta; track $index) {
-                                <option value="{{canasta.codigo}}">{{canasta.descripcion}}</option>
+                            <option value="{{canasta.codigo}}">{{canasta.descripcion}}</option>
                             }
                         </select>
                     </div>
@@ -34,10 +46,11 @@
                 <div class="mb-3 row">
                     <label for="codMegaCategoria" class="col-md-5 col-form-label-sm">Mega categoría</label>
                     <div class="col-sm-7">
-                        <select class="form-select form-select-sm" name="codMegaCategoria" formControlName="codMegaCategoria" id="codMegaCategoria">
+                        <select class="form-select form-select-sm" name="codMegaCategoria"
+                            formControlName="codMegaCategoria" id="codMegaCategoria">
                             <option value="0">SELECCIONAR</option>
                             @for (categoria of listMegaCategoria; track $index) {
-                                <option value="{{categoria.codigo}}">{{categoria.descripcion}}</option>
+                            <option value="{{categoria.codigo}}">{{categoria.descripcion}}</option>
                             }
                         </select>
                     </div>
@@ -45,53 +58,53 @@
                         {{ getFieldError('codMegaCategoria') }}
                     </span>
                 </div>
-        
+
                 <div class="mb-3 row">
                     <label for="descripcion" class="col-md-5 col-form-label-sm">Descripción</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control form-control-sm" placeholder="descripcion" name="descripcion"
-                            formControlName="descripcion" id="descripcion"/>
+                        <input type="text" class="form-control form-control-sm" placeholder="descripcion"
+                            name="descripcion" formControlName="descripcion" id="descripcion" />
                     </div>
                     <span *ngIf="isValidField('descripcion')" class="form-text text-danger">
                         {{ getFieldError('descripcion') }}
                     </span>
                 </div>
-        
+
                 <div class="mb-3 row">
                     <label for="descripcionResumida" class="col-md-5 col-form-label-sm">Descripción Resumida</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control form-control-sm" placeholder="descripcionResumida" name="descripcionResumida"
-                            formControlName="descripcionResumida" id="descripcionResumida"/>
+                        <input type="text" class="form-control form-control-sm" placeholder="descripcionResumida"
+                            name="descripcionResumida" formControlName="descripcionResumida" id="descripcionResumida" />
                     </div>
                     <span *ngIf="isValidField('descripcionResumida')" class="form-text text-danger">
                         {{ getFieldError('descripcionResumida') }}
                     </span>
                 </div>
-        
+
                 <div class="mb-3 row">
                     <label for="tip" class="col-md-5 col-form-label-sm">Tip</label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control form-control-sm" placeholder="tip" name="tip"
-                            formControlName="tip" id="tip"/>
+                            formControlName="tip" id="tip" />
                     </div>
                     <span *ngIf="isValidField('tip')" class="form-text text-danger">
                         {{ getFieldError('tip') }}
                     </span>
                 </div>
-        
 
-            
-        
-        
+
+
+
+
             </div>
-            
+
             <div class="col-6 ">
                 <div class="mb-3 row">
                     <label for="alias1" class="col-md-5 col-form-label-sm">Alias 1</label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control form-control-sm" placeholder="alias1" name="alias1"
-                            formControlName="alias1" id="alias1"/>
-                      
+                            formControlName="alias1" id="alias1" />
+
                     </div>
                     <span *ngIf="isValidField('alias1')" class="form-text text-danger">
                         {{ getFieldError('alias1') }}
@@ -101,8 +114,8 @@
                     <label for="alias2" class="col-md-5 col-form-label-sm">Alias 2</label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control form-control-sm" placeholder="alias2" name="alias2"
-                        formControlName="alias2" id="alias2"/>
-                      
+                            formControlName="alias2" id="alias2" />
+
                     </div>
                     <span *ngIf="isValidField('alias2')" class="form-text text-danger">
                         {{ getFieldError('alias2') }}
@@ -112,30 +125,65 @@
                     <label for="alias3" class="col-md-5 col-form-label-sm">Alias 3</label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control form-control-sm" placeholder="alias3" name="alias3"
-                            formControlName="alias3" id="alias3"/>
-                      
+                            formControlName="alias3" id="alias3" />
+
                     </div>
                     <span *ngIf="isValidField('alias3')" class="form-text text-danger">
                         {{ getFieldError('alias3') }}
                     </span>
                 </div>
 
-                
-            <div class="input-group mt-3">
-                <button class="btn btn-success btn-sm text-white " type="button" (click)="submit()" *ngIf="!currentModel.id">
-                    <i class="bi bi-box-arrow-down"></i> Guardar
-                </button>
-                <button class="btn btn-warning btn-sm text-white " (click)="nuevo()" type="button"
-                    *ngIf="currentModel.id">
-                    <i class="bi bi-plus-lg"></i> Nuevo
-                </button>
-                <button class="btn btn-info btn-sm text-white " type="button" (click)="submit()" *ngIf="currentModel.id">
-                    <i class="bi bi-pencil"></i> Guardar
-                </button>
 
-            </div>
+                <div class="input-group mt-3">
+                    <button class="btn btn-success btn-sm text-white " type="button" (click)="submit()"
+                        *ngIf="!currentModel.id">
+                        <i class="bi bi-box-arrow-down"></i> Guardar
+                    </button>
+                    <button class="btn btn-warning btn-sm text-white " (click)="nuevo()" type="button"
+                        *ngIf="currentModel.id">
+                        <i class="bi bi-plus-lg"></i> Nuevo
+                    </button>
+                    <button class="btn btn-info btn-sm text-white " type="button" (click)="submit()"
+                        *ngIf="currentModel.id">
+                        <i class="bi bi-pencil"></i> Guardar
+                    </button>
+
+                </div>
             </div>
         </div>
     </form>
 
 </div>
+
+
+@if(modalBusquedaDescripcion){
+    <div class="modal" tabindex="-1" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Busqueda Categoría</h5>
+                    <button type="button" class="btn-close" (click)="modalBusquedaDescripcion=!modalBusquedaDescripcion"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        @if(categoriasBusqueda.length>0){
+
+                            @for (categoria of categoriasBusqueda; track $index) {
+                                <tr>
+                                    <td> <button type="button" class="btn btn-info" (click)="elegirCategoriaBusqueda(categoria)"><i class="bi bi-arrow-left"></i></button></td> 
+                                    <td>{{categoria.codigo}}</td>
+                                    <td>{{categoria.descripcion}}</td>
+                               
+                                </tr>
+                            }
+                        }@else{
+                            <tr><td>No se encontraron Resultados...</td></tr>
+                        }
+                    </table>
+                   
+                </div>
+            
+            </div>
+        </div>
+    </div>
+}

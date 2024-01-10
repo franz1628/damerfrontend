@@ -14,12 +14,18 @@ import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
   templateUrl: './categoria-form.component.html'
 })
 export class CategoriaFormComponent {
+
+
   @Input()
   public model: Categoria = CategoriaInit;
   public showLoading: boolean = false;
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   @Output() selectCategoriaEmit: EventEmitter<Categoria> = new EventEmitter();
+  @Output() editEmit: EventEmitter<Categoria> = new EventEmitter()
 
+  public descripcionCategoria : string = '';
+  public modalBusquedaDescripcion : boolean = false;
+  public categoriasBusqueda:Categoria[] = [];
 
 
   public myForm: FormGroup = this.fb.group({
@@ -106,6 +112,36 @@ export class CategoriaFormComponent {
     })
     
   }
+
+  elegirCategoriaBusqueda(categoria: Categoria) {
+    this.myForm.patchValue({codigo:categoria.codigo});
+    this.buscar();
+    this.editEmit.emit(categoria)
+
+  }
+
+  cambioDescripcion(event:Event){
+    const e = event.target as HTMLInputElement;
+    this.descripcionCategoria = e.value;
+    
+  }
+
+  buscarDescripcion() {
+
+    if(this.descripcionCategoria!=''){
+      this.modalBusquedaDescripcion = true;
+      this.service.postDescripcion(this.descripcionCategoria).subscribe(x=>{
+        this.categoriasBusqueda = x;
+      });
+
+    }
+
+
+
+    
+    
+  } 
+  
 
   isValidField(field: string): boolean | null {
     return this.validForm.isValidField(field, this.myForm);

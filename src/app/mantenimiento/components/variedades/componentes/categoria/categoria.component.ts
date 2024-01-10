@@ -7,6 +7,7 @@ import { CategoriaFormComponent } from './categoria-form/categoria-form.componen
 import { CanastaService } from '../../services/canasta.service';
 import { CanastaInit } from '../../interfaces/canasta.interface';
 import { CategoriaService } from '../../services/categoria.service';
+import { CategoriaAtributosComponent } from './categoria-atributos/categoria-atributos.component';
 
 @Component({
   selector: 'app-categoria',
@@ -17,11 +18,16 @@ export class CategoriaComponent {
   public models: Categoria[] = [];
   public showLoading: boolean = false;
   public title: string = 'Categoria';
+  contenidoVisible: string = '';
+  botonActivo: string = '';
 
   public modelEdit: Categoria = CategoriaInit;
 
   @ViewChild('categoriaForm')
   categoriaForm!: CategoriaFormComponent;
+
+  @ViewChild('categoriaAtributos')
+  categoriaAtributos!: CategoriaAtributosComponent;
 
   @Output() emitByCategoria:EventEmitter<number[]> = new EventEmitter();
   @Output() selectCategoriaEmit:EventEmitter<Categoria> = new EventEmitter();
@@ -41,11 +47,18 @@ export class CategoriaComponent {
   }
 
   editModel(model: Categoria) {
+  
     this.categoriaForm.setModel(model);
+    this.categoriaAtributos && this.categoriaAtributos.setCategoria(model);
     this.emitByCategoria.emit([model.codCanasta,model.codMegaCategoria,model.codigo])
   }
 
   selectCategoria(categoria : Categoria){
     this.selectCategoriaEmit.emit(categoria);
+  }
+
+  mostrarContenido(contenido: string): void {
+    this.contenidoVisible = contenido;
+    this.botonActivo = contenido;
   }
 }

@@ -16,6 +16,11 @@ import { MegaCategoriaFormComponent } from './componentes/mega-categoria/mega-ca
 import { SharedModule } from "../../../shared/shared.module";
 import { SkuFormComponent } from './componentes/sku/sku-form/sku-form.component';
 import { SkuListComponent } from './componentes/sku/sku-list/sku-list.component';
+import { CategoriaAtributosComponent } from './componentes/categoria/categoria-atributos/categoria-atributos.component';
+import { CategoriaCanalVentaComponent } from './componentes/categoria/categoria-canal-venta/categoria-canal-venta.component';
+import { CategoriaExhibidoresComponent } from './componentes/categoria/categoria-exhibidores/categoria-exhibidores.component';
+import { SkuAtributosComponent } from './componentes/sku/sku-atributos/sku-atributos.component';
+import { SkuUnidadesVentaComponent } from './componentes/sku/sku-unidades-venta/sku-unidades-venta.component';
 
 
 
@@ -33,7 +38,12 @@ import { SkuListComponent } from './componentes/sku/sku-list/sku-list.component'
         CategoriaFormComponent,
         CategoriaListComponent,
         SkuFormComponent,
-        SkuListComponent
+        SkuListComponent,
+        CategoriaAtributosComponent,
+        CategoriaCanalVentaComponent,
+        CategoriaExhibidoresComponent,
+        SkuAtributosComponent,
+        SkuUnidadesVentaComponent
     ],
     imports: [
         CommonModule,

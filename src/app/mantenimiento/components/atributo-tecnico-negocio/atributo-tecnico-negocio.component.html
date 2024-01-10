@@ -1,1 +1,13 @@
-<p>atributo-tecnico-negocio works!</p>
+<div class="row mt-4">
+    <div class="col-4">
+        <h6 class="mb-3 text-center">INFORMACION DEL ATRIBUTO NEGOCIO</h6>
+        <hr>
+        <app-atributo-tecnico-negocio-form #atributoTecnicoNegocioFormComp (actualizarListEmit)="actualizarList()"></app-atributo-tecnico-negocio-form>
+    </div>
+
+    <div class="col-8">
+        <h6 class="mb-3 text-center">ATRIBUTOS REGISTRADOS</h6>
+        <hr>
+        <app-atributo-tecnico-negocio-list #atributoTecnicoNegocioListComp (selectEditEmit)="selectEdit($event)"></app-atributo-tecnico-negocio-list>
+    </div>
+</div>

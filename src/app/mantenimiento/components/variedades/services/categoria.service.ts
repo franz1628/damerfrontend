@@ -36,6 +36,10 @@ export class CategoriaService {
     return this.http.post<Categoria>(`${this.apiUrl}/codigo`, {codigo});
   }
 
+  postDescripcion(descripcion: string): Observable<Categoria[]> {
+    return this.http.post<Categoria[]>(`${this.apiUrl}/descripcion`, {descripcion});
+  }
+
   update(id: number, model: Categoria): Observable<Categoria> {
     return this.http.put<Categoria>(`${this.apiUrl}/${id}`, model);
   }

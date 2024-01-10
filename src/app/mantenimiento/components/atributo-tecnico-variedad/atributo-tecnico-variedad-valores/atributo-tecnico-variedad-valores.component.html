@@ -1,0 +1,58 @@
+<form [formGroup]="models">
+    <div formArrayName="modelos">
+        <table class="table table-bordered table-sm text-center">
+            <thead>
+                <tr>
+                    <th colspan="9">VALORES DEL ATRIBUTO TÉCNICO VARIEDAD</th>
+                </tr>
+                <tr>
+                    <th rowspan="2">Código </th>
+                    <th rowspan="2">Valor </th>
+                    <th rowspan="2">Comentarios </th>
+                    <th rowspan="2">Alias </th>
+                    <th rowspan="2">Convenio de confidencialidad </th>
+                    <th colspan="2">Status del registro</th>
+                    <th colspan="2">Acciones</th>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <th>Fecha</th>
+                    <th></th>
+                </tr>
+    
+            </thead>
+            <tbody>
+             
+    
+                    <tr *ngFor="let model of modelosArray.controls; let i = index" [formGroupName]="i">
+                        <td><input class="form-control" formControlName="codigo"></td>
+                        <td> <input class="form-control" formControlName="valor"> </td>
+                        <td> <input class="form-control" formControlName="comentario"> </td>
+                        <td> <input class="form-control" formControlName="alias1"> </td>
+                        <td>{{model.get('idConvenio')?.value}}</td>
+                        <td>{{model.get('estado')?.value}}</td>
+                        <td>{{model.get('fechaRegistro')?.value}}</td>
+                        <td>
+                            <div class="btn-group">
+
+                                @if(model.get('id')?.value!=0){
+                                    <button class="btn btn-info btn-sm" (click)="editModel(i)"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
+                                    @if(modelosArray.controls.length==i+1){
+                                        <button class="btn btn-primary btn-sm" (click)="add()"><i class="bi bi-plus-lg"></i></button>
+                                    }
+                                }@else{
+                                    <button class="btn btn-success btn-sm" (click)="save(i)"><i class="bi bi-save2"></i></button>
+                                }
+                            </div>
+
+                            
+                           
+                        </td>
+                    </tr>
+              
+            </tbody>
+        </table>
+    </div>
+
+</form>
