@@ -26,12 +26,16 @@ export class ClienteDireccionService {
     return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
   }
 
+  getCodCliente(codCliente: number): Observable<Response> {
+    return this.http.get<Response>(`${this.apiUrl}/codCliente/${codCliente}`);
+  }
+
   add(model: ClienteDireccion): Observable<ClienteDireccion> {
     return this.http.post<ClienteDireccion>(this.apiUrl, model);
   }
 
-  update(id: number, model: ClienteDireccion): Observable<ClienteDireccion> {
-    return this.http.put<ClienteDireccion>(`${this.apiUrl}/${id}`, model);
+  update(id: number, model: ClienteDireccion): Observable<Response> {
+    return this.http.put<Response>(`${this.apiUrl}/${id}`, model);
   }
 
   delete(model: ClienteDireccion): Observable<ClienteDireccion> {

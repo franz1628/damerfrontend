@@ -1,3 +1,5 @@
+import { Cliente, ClienteInit } from "./cliente";
+
 export interface ClienteDireccion {
     id:number,
     codCliente: number,
@@ -11,7 +13,8 @@ export interface ClienteDireccion {
     lote: string,
     referencia: string,
     estado: number,
-    fechaRegistro: Date
+    fechaRegistro: Date,
+    Cliente:Cliente
     
 }
 export const ClienteDireccionInit: ClienteDireccion = {
@@ -27,5 +30,6 @@ export const ClienteDireccionInit: ClienteDireccion = {
     lote: '',
     referencia: '',
     estado: 1,
-    fechaRegistro: new Date()
+    fechaRegistro: new Date(),
+    Cliente:ClienteInit
 };

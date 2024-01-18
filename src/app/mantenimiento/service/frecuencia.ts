@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
-import { Cliente } from '../interface/cliente';
+import { Frecuencia } from '../interface/frecuencia';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteService {
-  private apiUrl = environments.baseUrl+'api/cliente'; // Reemplaza con la URL de tu backend
+export class FrecuenciaService {
+  private apiUrl = environments.baseUrl+'api/frecuencia'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 
@@ -25,15 +25,15 @@ export class ClienteService {
     return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
   }
 
-  add(model: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.apiUrl, model);
+  add(model: Frecuencia): Observable<Frecuencia> {
+    return this.http.post<Frecuencia>(this.apiUrl, model);
   }
 
-  update(id: number, model: Cliente): Observable<Response> {
-    return this.http.put<Response>(`${this.apiUrl}/${id}`, model);
+  update(id: number, model: Frecuencia): Observable<Frecuencia> {
+    return this.http.put<Frecuencia>(`${this.apiUrl}/${id}`, model);
   }
 
-  delete(model: Cliente): Observable<Cliente> {
-    return this.http.delete<Cliente>(`${this.apiUrl}/${model.id}`);
+  delete(model: Frecuencia): Observable<Frecuencia> {
+    return this.http.delete<Frecuencia>(`${this.apiUrl}/${model.id}`);
   }
 }

@@ -1,1 +1,185 @@
-<p>contrato-form works!</p>
+
+
+<form [formGroup]="model" autocomplete="off">
+    <h6>CONTRATOS</h6>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-12">
+        
+                    <div class="mb-3 row">
+                        <label for="clientes" class="col-md-5 col-form-label-sm">Clientes</label>
+                        <div class="col-sm-7">
+                            <select class="form-select form-select-sm" name="clientes"
+                                formControlName="clientes" id="clientes" multiple>
+                                
+                                @for (cliente of clientes; track $index) {
+                                <option value="{{cliente.id}}">{{cliente.razonSocial}}</option>
+                                }
+                            </select>
+                        </div>
+                        <span *ngIf="isValidField('clientes')" class="form-text text-danger">
+                            {{ getFieldError('clientes') }}
+                        </span>
+                    </div>
+        
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-12">
+        
+                    <div class="mb-3 row">
+                        <label for="categorias" class="col-md-5 col-form-label-sm">Categorias</label>
+                        <div class="col-sm-7">
+                            <select class="form-select form-select-sm" name="categorias"
+                                formControlName="categorias" id="categorias" multiple>
+                                
+                                @for (categoria of categorias; track $index) {
+                                <option value="{{categoria.codigo}}">{{categoria.descripcion}}</option>
+                                }
+                            </select>
+                        </div>
+                        <span *ngIf="isValidField('categorias')" class="form-text text-danger">
+                            {{ getFieldError('categorias') }}
+                        </span>
+                    </div>
+        
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-12">
+        
+                    <div class="mb-3 row">
+                        <label for="zonas" class="col-md-5 col-form-label-sm">Zonas</label>
+                        <div class="col-sm-7">
+                            <select class="form-select form-select-sm" name="zonas"
+                                formControlName="zonas" id="zonas" multiple>
+                                
+                                @for (zona of zonas; track $index) {
+                                <option value="{{zona.codigo}}">{{zona.descripcion}}</option>
+                                }
+                            </select>
+                        </div>
+                        <span *ngIf="isValidField('zonas')" class="form-text text-danger">
+                            {{ getFieldError('zonas') }}
+                        </span>
+                    </div>
+        
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-12">
+        
+                    <div class="mb-3 row">
+                        <label for="canals" class="col-md-5 col-form-label-sm">Canales</label>
+                        <div class="col-sm-7">
+                            <select class="form-select form-select-sm" name="canals"
+                                formControlName="canals" id="canals" multiple>
+                                
+                                @for (canal of canals; track $index) {
+                                <option value="{{canal.codigo}}">{{canal.descripcion}}</option>
+                                }
+                            </select>
+                        </div>
+                        <span *ngIf="isValidField('canals')" class="form-text text-danger">
+                            {{ getFieldError('canals') }}
+                        </span>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-12">
+        
+                    <div class="mb-3 row">
+                        <label for="fechaInicial" class="col-md-5 col-form-label-sm">Fecha Inicial</label>
+                        <div class="col-sm-7">
+                            <input type="date" class="form-control" formControlName="fechaInicial">
+                        </div>
+                        <span *ngIf="isValidField('fechaInicial')" class="form-text text-danger">
+                            {{ getFieldError('fechaInicial') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+        
+                    <div class="mb-3 row">
+                        <label for="fechaFinal" class="col-md-5 col-form-label-sm">Fecha Inicial</label>
+                        <div class="col-sm-7">
+                            <input type="date" class="form-control" formControlName="fechaFinal">
+                        </div>
+                        <span *ngIf="isValidField('fechaFinal')" class="form-text text-danger">
+                            {{ getFieldError('fechaFinal') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+        
+                    <div class="mb-3 row">
+                        <label for="diaEntrega" class="col-md-5 col-form-label-sm">Día de Entrega</label>
+                        <div class="col-sm-7">
+                            <input type="number" class="form-control" formControlName="diaEntrega">
+                        </div>
+                        <span *ngIf="isValidField('diaEntrega')" class="form-text text-danger">
+                            {{ getFieldError('diaEntrega') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+        
+                    <div class="mb-3 row">
+                        <label for="extension" class="col-md-5 col-form-label-sm">Admitir extensión</label>
+                        <div class="col-sm-7">
+                            <input type="checkbox" class="form-check-input" formControlName="extension">
+                        </div>
+                        <span *ngIf="isValidField('extension')" class="form-text text-danger">
+                            {{ getFieldError('extension') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+        
+                    <div class="mb-3 row">
+                        <label for="frecuencias" class="col-md-5 col-form-label-sm">Frecuencias</label>
+                        <div class="col-sm-7">
+                            <select class="form-select form-select-sm" name="frecuencias"
+                                formControlName="frecuencias" id="frecuencias" multiple>
+                                
+                                @for (frecuencia of frecuencias; track $index) {
+                                <option value="{{frecuencia.id}}">{{frecuencia.descripcion}}</option>
+                                }
+                            </select>
+                        </div>
+                        <span *ngIf="isValidField('frecuencias')" class="form-text text-danger">
+                            {{ getFieldError('frecuencias') }}
+                        </span>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+  
+
+
+
+
+</form>

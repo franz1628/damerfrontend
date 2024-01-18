@@ -1,0 +1,28 @@
+<h6>VALORES DEL ATRIBUTO TECNICO</h6>
+<table class="table table-bordered table-sm">
+    <thead>
+        <tr>
+            <td colspan="2">Valor de atributo tecnico</td>
+            <td colspan="2">Status del registro</td>
+        </tr>
+        <tr>
+            <td>Valor</td>
+            <td>Comentario</td>
+            <td>Status</td>
+            <td>Fecha</td>
+            <td></td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (model of models; track $index) {
+            <tr>
+                <td>{{model.CategoriaAtributoTecnico.codAtributoTecnicoVariedad}}</td>
+                <td>{{model.CategoriaAtributoTecnico.comentario}}</td>
+                <td>{{model.estado}}</td>
+                <td>{{model.fechaRegistro}}</td>
+                <td><button class="btn btn-info">Editar</button><button class="btn btn-danger">Eliminar</button></td>
+            </tr>
+        }
+    </tbody>
+</table>

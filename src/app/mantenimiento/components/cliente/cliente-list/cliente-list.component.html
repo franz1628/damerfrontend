@@ -9,6 +9,8 @@
                     <th>Razon Social</th>
                     <th>Razon Social Ab</th>
                     <th>RUC</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
                     <!-- <th>Accion</th> -->
                 </tr>
             </thead>
@@ -21,13 +23,18 @@
                         <td>{{model.razonSocial}}</td>
                         <td>{{model.razonSocialAbreviada}}</td>
                         <td>{{model.ruc}}</td>
+                        <td>  <app-badge-estado [estado]="model.estado"></app-badge-estado> </td>
+                        <td>{{model.fechaRegistro.toString().slice(0,10)}}</td>
                         <td>
-                            <button class="btn btn-info" (click)="selectEdit(model)">Edit</button>
+                            <button class="btn btn-info" (click)="selectEdit(model)"><i class="bi bi-pencil"></i> Editar</button>
+                            <button class="btn btn-danger" (click)="borrar(model)"><i class="bi bi-trash"></i> Suspender</button>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+
+        
     }@else {
         <span>No se encontraron resultados</span>
     }

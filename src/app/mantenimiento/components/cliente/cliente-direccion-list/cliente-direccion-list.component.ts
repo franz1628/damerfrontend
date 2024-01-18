@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ClienteDireccion } from '../../../interface/clienteDireccion';
 import { ClienteDireccionService } from '../../../service/clienteDireccion';
+import { Cliente, ClienteInit } from '../../../interface/cliente';
 
 @Component({
   selector: 'app-cliente-direccion-list',
@@ -10,10 +11,12 @@ export class ClienteDireccionListComponent {
   public models:ClienteDireccion[] = [];
   public loading:boolean=false;
   @Output() selectEditEmit : EventEmitter<ClienteDireccion> = new EventEmitter();
+  @Input() 
+  cliente :Cliente = ClienteInit;
 
   constructor(public service : ClienteDireccionService){ }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.actualizarList();
   }
 
@@ -21,9 +24,13 @@ export class ClienteDireccionListComponent {
     this.selectEditEmit.emit(model);
   }
 
+  get getModel(){
+    return this.cliente;
+  }
+
   actualizarList(){
     this.loading=true;
-    this.service.get().subscribe(resp => {
+    this.service.getCodCliente(this.getModel.codigo).subscribe(resp => {
       this.models = resp.data;
       this.loading=false;
     })

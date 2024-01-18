@@ -26,6 +26,10 @@ export class ClienteContactoService {
     return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
   }
 
+  getCodCliente(codCliente: number): Observable<Response> {
+    return this.http.get<Response>(`${this.apiUrl}/codCliente/${codCliente}`);
+  }
+
   add(model: ClienteContacto): Observable<ClienteContacto> {
     return this.http.post<ClienteContacto>(this.apiUrl, model);
   }

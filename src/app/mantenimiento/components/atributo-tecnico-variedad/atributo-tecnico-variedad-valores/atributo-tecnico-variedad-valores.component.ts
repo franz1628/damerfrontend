@@ -4,39 +4,45 @@ import { AtributoTecnicoVariedadService } from '../../../service/atributoTecnico
 import { AtributoTecnicoVariedadValorService } from '../../../service/atributoTecnicoVariedadValor';
 import { AtributoTecnicoVariedadValor, AtributoTecnicoVariedadValorInit } from '../../../interface/atributoTecnicoVariedadValor';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-atributo-tecnico-variedad-valores',
   templateUrl: './atributo-tecnico-variedad-valores.component.html'
 })
-export class AtributoTecnicoVariedadValoresComponent implements OnInit{
+export class AtributoTecnicoVariedadValoresComponent implements OnInit {
   @Input()
-  modelAtributoTecnicoVariedad : AtributoTecnicoVariedad = AtributoTecnicoVariedadInit
+  modelAtributoTecnicoVariedad: AtributoTecnicoVariedad = AtributoTecnicoVariedadInit
 
-  models!:FormGroup;
+  models!: FormGroup;
 
-  
+
   constructor(
     private service: AtributoTecnicoVariedadValorService,
-    private fb: FormBuilder
-    ){
+    private fb: FormBuilder,
+    private alert: AlertService
+  ) {
 
   }
 
   ngOnInit(): void {
+    this.cargaModels();
 
+  }
+
+  cargaModels() {
     this.models = this.fb.group({
       modelos: this.fb.array([]),
-    }); 
-    
-    if(this.modelAtributoTecnicoVariedad.id!=0){
-      this.service.postCodAtributoTecnicoVariedad(this.modelAtributoTecnicoVariedad.codigo).subscribe(x=>{
-        
-        x.forEach(y=>{
+    });
+
+    if (this.modelAtributoTecnicoVariedad.id != 0) {
+      this.service.postCodAtributoTecnicoVariedad(this.modelAtributoTecnicoVariedad.codigo).subscribe(x => {
+
+        x.forEach(y => {
           const nuevoModelo = this.fb.group({
             id: [y.id],
-            codigo: [y.codigo], 
-            codAtributoTecnicoVariedad: [y.codAtributoTecnicoVariedad], 
+            codigo: [y.codigo],
+            codAtributoTecnicoVariedad: [y.codAtributoTecnicoVariedad],
             valor: [y.valor, Validators.required],
             comentario: [y.comentario],
             alias1: [y.alias1],
@@ -45,8 +51,8 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit{
           });
 
           this.modelosArray.push(nuevoModelo);
-          
-        })   
+
+        })
       });
     }
   }
@@ -55,20 +61,23 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit{
     return this.models.get('modelos') as FormArray;
   }
 
-  editModel(num:number){
-     const modelo = this.modelosArray.controls[num].getRawValue();
-    
-    this.service.update(modelo.id,modelo).subscribe(x=>{
-      console.log(x);
-      
-    });
+  editModel(num: number) {
+    this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
+      const modelo = this.modelosArray.controls[num].getRawValue();
+
+      this.service.update(modelo.id, modelo).subscribe(x => {
+
+        this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
+      });
+    })
+
   }
 
-  add(){
+  add() {
     const nuevoModelo = this.fb.group({
       id: [0],
-      codigo: [0], 
-      codAtributoTecnicoVariedad: [this.modelAtributoTecnicoVariedad.codigo], 
+      codigo: [0],
+      codAtributoTecnicoVariedad: [this.modelAtributoTecnicoVariedad.codigo],
       valor: ['', Validators.required],
       comentario: [''],
       alias1: [''],
@@ -79,13 +88,17 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit{
     this.modelosArray.push(nuevoModelo);
   }
 
-  save(num:number){
-    const modelo = this.modelosArray.controls[num].getRawValue();
+  save(num: number) {
+    this.alert.showAlertConfirm('Aviso', '¿Desea agregar?', 'warning', () => {
+      const modelo = this.modelosArray.controls[num].getRawValue();
 
-    this.service.add(modelo).subscribe(x=>{
-     
+      this.service.add(modelo).subscribe(x => {
+        this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
+        this.cargaModels();
+      });
     });
+
   }
- 
-  
+
+
 }

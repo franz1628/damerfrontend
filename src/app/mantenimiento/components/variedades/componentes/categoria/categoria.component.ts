@@ -26,9 +26,6 @@ export class CategoriaComponent {
   @ViewChild('categoriaForm')
   categoriaForm!: CategoriaFormComponent;
 
-  @ViewChild('categoriaAtributos')
-  categoriaAtributos!: CategoriaAtributosComponent;
-
   @Output() emitByCategoria:EventEmitter<number[]> = new EventEmitter();
   @Output() selectCategoriaEmit:EventEmitter<Categoria> = new EventEmitter();
 
@@ -47,9 +44,8 @@ export class CategoriaComponent {
   }
 
   editModel(model: Categoria) {
-  
+    this.modelEdit = model;
     this.categoriaForm.setModel(model);
-    this.categoriaAtributos && this.categoriaAtributos.setCategoria(model);
     this.emitByCategoria.emit([model.codCanasta,model.codMegaCategoria,model.codigo])
   }
 

@@ -36,7 +36,7 @@
         (editEmit)="editModel($event)"></app-categoria-list>
     </div>
     <div *ngIf="contenidoVisible === 'atributos'">
-      <app-categoria-atributos #categoriaAtributos ></app-categoria-atributos>
+      <app-categoria-atributos [codCategoria]="modelEdit.codigo" #categoriaAtributos ></app-categoria-atributos>
     </div>
     <div *ngIf="contenidoVisible === 'canales'">
       <app-categoria-canal-venta></app-categoria-canal-venta>

@@ -8,12 +8,14 @@
             <td rowspan="2">Nº orden SKU</td>
             <td rowspan="2">Ind. Ver. Subordinado</td>
             <td colspan="2">Status del registro</td>
+            <td colspan="2"></td>
         </tr>
         <tr>
             <td>Codigo</td>
             <td>Descripcion</td>
             <td>Status</td>
             <td>Fecha</td>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -27,36 +29,17 @@
                 <td>{{model.indVerificado}}</td>
                 <td>{{model.estado}}</td>
                 <td>{{model.fechaRegistro}}</td>
-                
+                <td><button class="btn btn-info">Editar</button><button class="btn btn-danger">Eliminar</button></td>
+                <td><button  (click)="elegirAtributo(model)">-></button></td>
 
 
             </tr>
         }
     </tbody>
 </table>
+ @if(getIdCategoriaAtributoTecnico!=0){
+     <app-categoria-valor [idCategoriaAtributoTecnico]="getIdCategoriaAtributoTecnico"></app-categoria-valor>
+ }
 
 
-<h6>VALORES DEL ATRIBUTO TECNICO</h6>
-<table class="table table-bordered table-sm">
-    <thead>
-        <tr>
-            <td colspan="2">Valor de atributo tecnico</td>
-            <td colspan="2">Status del registro</td>
-        </tr>
-        <tr>
-            <td>Valor</td>
-            <td>Comentario</td>
-            <td>Status</td>
-            <td>Fecha</td>
-        </tr>
-    </thead>
 
-    <tbody>
-        <tr>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-    </tbody>
-</table>

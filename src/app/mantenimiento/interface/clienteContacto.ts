@@ -1,3 +1,5 @@
+import { Cliente, ClienteInit } from "./cliente";
+
 export interface ClienteContacto {
     id:number,
     codCliente: number,
@@ -5,7 +7,8 @@ export interface ClienteContacto {
     cargo: number,
     correo: string,
     estado: number,
-    fechaRegistro: Date
+    fechaRegistro: Date,
+    Cliente:Cliente
     
 }
 export const ClienteContactoInit: ClienteContacto = {
@@ -15,5 +18,6 @@ export const ClienteContactoInit: ClienteContacto = {
     cargo: 0,
     correo: '',
     estado: 1,
-    fechaRegistro: new Date()
+    fechaRegistro: new Date(),
+    Cliente:ClienteInit
 };

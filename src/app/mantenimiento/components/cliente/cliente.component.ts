@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ClienteListComponent } from './cliente-list/cliente-list.component';
 import { ClienteFormComponent } from './cliente-form/cliente-form.component';
-import { Cliente } from '../../interface/cliente';
+import { Cliente, ClienteInit } from '../../interface/cliente';
 import { ClienteDireccionListComponent } from './cliente-direccion-list/cliente-direccion-list.component';
 import { ClienteContactoListComponent } from './cliente-contacto-list/cliente-contacto-list.component';
 import { ClienteDireccionFormComponent } from './cliente-direccion-form/cliente-direccion-form.component';
@@ -14,6 +14,8 @@ import { ClienteContacto } from '../../interface/clienteContacto';
   templateUrl: './cliente.component.html'
 })
 export class ClienteComponent {
+  model : Cliente = ClienteInit;
+
   @ViewChild('clienteListComp')
   clienteListComp!: ClienteListComponent;
 
@@ -45,7 +47,17 @@ export class ClienteComponent {
   }
 
   selectEdit(model:Cliente){
+    this.model = model;
+    console.log(model);
+    
     this.clienteFormComp.selectEdit(model);
+  }
+
+  resetModel(){
+   
+    
+    this.model = ClienteInit;
+    console.log(this.model);
   }
 
   selectDireccionEdit(model:ClienteDireccion){

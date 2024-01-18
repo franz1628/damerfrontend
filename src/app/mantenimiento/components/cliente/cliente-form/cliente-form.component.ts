@@ -4,6 +4,8 @@ import { ValidFormService } from '../../../../shared/services/validForm.service'
 import { ClienteService } from '../../../service/cliente';
 import { RegexService } from '../../../../shared/services/regex.service';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
+import { AlertService } from '../../../../shared/services/alert.service';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-cliente-form',
@@ -12,7 +14,7 @@ import { Cliente, ClienteInit } from '../../../interface/cliente';
 export class ClienteFormComponent {
   public model = this.fb.group({
     id: [0],
-    codigo: [0],
+    codigo: [0,Validators.required],
     idPais: [1],
     razonSocial: ['',Validators.required],
     razonSocialAbreviada: ['',Validators.required],
@@ -30,6 +32,7 @@ export class ClienteFormComponent {
   })
 
   @Output() actualizarListEmit: EventEmitter<null> = new EventEmitter();
+  @Output() resetModelEmit: EventEmitter<null> = new EventEmitter();
 
 
 
@@ -37,13 +40,14 @@ export class ClienteFormComponent {
     private fb: FormBuilder,
     private validForm: ValidFormService,
     private service: ClienteService,
-    private regexService : RegexService
+    private regexService : RegexService,
+    private alert: AlertService
   ) {
 
   }
 
   ngOnInit(): void {
-
+    this.reset();
   }
 
   get getModel() {
@@ -61,7 +65,7 @@ export class ClienteFormComponent {
     }
 
     this.service.add(this.getModel).subscribe(resp => {
-      this.model.reset();
+      this.reset();
       this.actualizarList();
     })
 
@@ -72,8 +76,35 @@ export class ClienteFormComponent {
   }
 
   nuevo() {
-    this.model.patchValue(ClienteInit);
+    this.reset();
   }
+
+  reset(){
+    this.model.patchValue(ClienteInit);
+    this.resetModelEmit.emit();
+  }
+
+  editar(){
+    this.service.update(this.getModel.id,this.getModel).pipe(
+      catchError(error => {
+        this.alert.showAlert('Mensaje',error.error.message,'warning');
+        return throwError(()=>error);
+      })
+    ).subscribe(x=>{
+        this.alert.showAlert('Mensaje',x.message,'success');
+        this.actualizarList();
+        this.reset();
+    });
+  } 
+
+  borrar(){
+    this.service.delete(this.getModel).subscribe(x=>{
+      this.alert.showAlert('Mensaje','Suspendido correctamente','success');
+      this.actualizarList();
+      this.reset();
+    });
+  }
+
 
   isValidField(field: string): boolean | null {
     return this.validForm.isValidField(field, this.model);
