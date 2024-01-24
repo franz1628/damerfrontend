@@ -8,6 +8,19 @@ import { ClienteDireccionFormComponent } from './cliente-direccion-form/cliente-
 import { ClienteContactoFormComponent } from './cliente-contacto-form/cliente-contacto-form.component';
 import { ClienteDireccion } from '../../interface/clienteDireccion';
 import { ClienteContacto } from '../../interface/clienteContacto';
+import { ClienteCategoria } from '../../interface/clienteCategoria';
+import { ClienteCategoriaFormComponent } from './cliente-categoria-form/cliente-categoria-form.component';
+import { ClienteCategoriaListComponent } from './cliente-categoria-list/cliente-categoria-list.component';
+import { ClienteCanal } from '../../interface/clienteCanal';
+import { ClienteZona } from '../../interface/clienteZona';
+import { ClienteCanalFormComponent } from './cliente-canal-form/cliente-canal-form.component';
+import { ClienteZonaFormComponent } from './cliente-zona-form/cliente-zona-form.component';
+import { ClienteCanalListComponent } from './cliente-canal-list/cliente-canal-list.component';
+import { ClienteZonaListComponent } from './cliente-zona-list/cliente-zona-list.component';
+import { Categoria, CategoriaInit } from '../variedades/interfaces/categoria.interface';
+import { AtributoFuncionalVariedad } from '../../interface/atributoFuncionalVariedad';
+import { ClienteAtributoFuncionalFormComponent } from './cliente-atributo-funcional-form/cliente-atributo-funcional-form.component';
+import { ClienteAtributoFuncionalListComponent } from './cliente-atributo-funcional-list/cliente-atributo-funcional-list.component';
 
 @Component({
   selector: 'app-cliente',
@@ -15,17 +28,30 @@ import { ClienteContacto } from '../../interface/clienteContacto';
 })
 export class ClienteComponent {
   model : Cliente = ClienteInit;
+  modelCategoria : Categoria = CategoriaInit;
 
   @ViewChild('clienteListComp')
   clienteListComp!: ClienteListComponent;
-
-  @ViewChild('clienteDireccionListComp')
+ 
+  @ViewChild('clienteDireccionListComp') 
   clienteDireccionListComp!: ClienteDireccionListComponent;
 
   @ViewChild('clienteContactoListComp')
   clienteContactoListComp!: ClienteContactoListComponent;
 
-  @ViewChild('clienteFormComp')
+  @ViewChild('clienteCategoriaListComp')
+  clienteCategoriaListComp!: ClienteCategoriaListComponent;
+
+  @ViewChild('clienteAtributoFuncionalListComp')
+  clienteAtributoFuncionalListComp!: ClienteAtributoFuncionalListComponent;
+
+  @ViewChild('clienteCanalListComp')
+  clienteCanalListComp!: ClienteCanalListComponent;
+
+  @ViewChild('clienteZonaListComp')
+  clienteZonaListComp!: ClienteZonaListComponent;
+
+  @ViewChild('clienteFormComp') 
   clienteFormComp!: ClienteFormComponent;
 
   @ViewChild('clienteDireccionFormComp')
@@ -33,6 +59,26 @@ export class ClienteComponent {
 
   @ViewChild('clienteContactoFormComp')
   clienteContactoFormComp!: ClienteContactoFormComponent;
+
+  @ViewChild('clienteCategoriaFormComp')
+  clienteCategoriaFormComp!: ClienteCategoriaFormComponent;
+
+  @ViewChild('clienteAtributoFuncionalFormComp')
+  clienteAtributoFuncionalFormComp!: ClienteAtributoFuncionalFormComponent;
+
+  @ViewChild('clienteCanalFormComp')
+  clienteCanalFormComp!: ClienteCanalFormComponent;
+
+  @ViewChild('clienteZonaFormComp')
+  clienteZonaFormComp!: ClienteZonaFormComponent;
+
+  get getModel(){
+    return this.model
+  }
+
+  get getModelCategoria(){
+    return this.modelCategoria
+  }
 
   actualizarList(){
     this.clienteListComp.actualizarList();
@@ -46,18 +92,30 @@ export class ClienteComponent {
     this.clienteContactoListComp.actualizarList();
   }
 
+  actualizarCategoriaList(){
+    this.clienteCategoriaListComp.actualizarList();
+  }
+
+  actualizarAtributoList(){
+    this.clienteAtributoFuncionalListComp.actualizarList();
+  }
+
+  actualizarCanalList(){
+    this.clienteCanalListComp.actualizarList();
+  }
+
+  actualizarZonaList(){
+    this.clienteZonaListComp.actualizarList();
+  }
+
   selectEdit(model:Cliente){
-    this.model = model;
-    console.log(model);
+    this.model = model; 
     
     this.clienteFormComp.selectEdit(model);
   }
 
   resetModel(){
-   
-    
-    this.model = ClienteInit;
-    console.log(this.model);
+    this.model = ClienteInit; 
   }
 
   selectDireccionEdit(model:ClienteDireccion){
@@ -67,4 +125,23 @@ export class ClienteComponent {
   selectContactoEdit(model:ClienteContacto){
     this.clienteContactoFormComp.selectEdit(model);
   }
+
+  selectCategoriaEdit(model:ClienteCategoria){
+    this.clienteCategoriaFormComp.selectEdit(model); 
+    this.modelCategoria = model.Categoria;
+    
+  }
+
+  selectAtributoEdit(model:AtributoFuncionalVariedad){
+    this.clienteAtributoFuncionalFormComp.selectEdit(model); 
+  }
+
+  selectCanalEdit(model:ClienteCanal){
+    this.clienteCanalFormComp.selectEdit(model); 
+  }
+
+  selectZonaEdit(model:ClienteZona){
+    this.clienteZonaFormComp.selectEdit(model); 
+  }
+
 }

@@ -11,6 +11,7 @@ import { Categoria } from '../../variedades/interfaces/categoria.interface';
 import { CategoriaService } from '../../variedades/services/categoria.service';
 import { Frecuencia } from '../../../interface/frecuencia';
 import { FrecuenciaService } from '../../../service/frecuencia';
+import { ClienteCategoriaService } from '../../../service/clienteCategoria';
 
 @Component({
   selector: 'app-contrato-form',
@@ -44,6 +45,7 @@ export class ContratoFormComponent implements OnInit{
     private serviceCanal : CanalService,
     private serviceCategoria : CategoriaService,
     private serviceFrecuencia : FrecuenciaService,
+    private serviceClienteCategoria : ClienteCategoriaService
 
   ) {
 
@@ -62,13 +64,25 @@ export class ContratoFormComponent implements OnInit{
       this.canals = x.data;
     });
 
-    this.serviceCategoria.get().subscribe((x)=>{
-      this.categorias = x.data;
-    });
 
     this.serviceFrecuencia.get().subscribe((x)=>{
       this.frecuencias = x.data;
     });
+  }
+
+  changeCliente(event:Event){
+    const a = event.target as HTMLInputElement
+    this.serviceClienteCategoria.getCodCliente(parseInt(a.value)).subscribe(x=>{
+      let arr_categorias = [];
+      
+      for (let index = 0; index < x.data.length; index++) {
+        const element = x.data[index];
+        arr_categorias.push(element.Categoria)
+      }
+      
+      this.categorias = arr_categorias;
+    })
+    
   }
 
   isValidField(field: string): boolean | null {

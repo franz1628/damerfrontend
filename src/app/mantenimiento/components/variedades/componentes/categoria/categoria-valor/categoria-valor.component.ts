@@ -17,7 +17,6 @@ export class CategoriaValorComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(this.idCategoriaAtributoTecnico);
     if(this.idCategoriaAtributoTecnico != 0){
       this.service.postIdCategoriaAtributoTecnico(this.idCategoriaAtributoTecnico).subscribe(x=>{
         this.models = x;

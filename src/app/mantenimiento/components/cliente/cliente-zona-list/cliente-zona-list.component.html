@@ -6,10 +6,9 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Razon Social</th>
-                    <th>Razon Social Ab</th>
-                    <th>RUC</th>
-                    <th>Estado</th>
+                    <th>Zona</th>
+                    <th>Agrupacion</th>
+
                     <th>Fecha</th>
                    <th>Accion</th> 
                 </tr>
@@ -20,10 +19,9 @@
                 @for (model of models; track $index) {
                     <tr>
                         <td>{{$index+1}}</td>
-                        <td>{{model.razonSocial}}</td>
-                        <td>{{model.razonSocialAbreviada}}</td>
-                        <td>{{model.ruc}}</td>
-                        <td>  <app-badge-estado [estado]="model.estado"></app-badge-estado> </td>
+                        <td>{{model.Zona.descripcion}}</td>
+                        <td>{{model.nombreAgrupacion}}</td>
+                       
                         <td>{{model.fechaRegistro.toString().slice(0,10)}}</td>
                         <td>
                             <button class="btn btn-info" (click)="selectEdit(model)"><i class="bi bi-pencil"></i> Editar</button>

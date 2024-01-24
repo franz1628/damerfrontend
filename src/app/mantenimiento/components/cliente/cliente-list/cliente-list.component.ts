@@ -5,19 +5,19 @@ import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-cliente-list',
-  templateUrl: './cliente-list.component.html'
-})
-export class ClienteListComponent {
-  public models:Cliente[] = [];
+  templateUrl: './cliente-list.component.html' 
+}) 
+export class ClienteListComponent {  
+  public models:Cliente[] = [];    
   public loading:boolean=false;
   @Output() selectEditEmit : EventEmitter<Cliente> = new EventEmitter();
-
+ 
   constructor(public service : ClienteService, private alert:AlertService){ }
 
   ngOnInit(): void {
     this.actualizarList();
   } 
- 
+  
   selectEdit(model:Cliente){
     this.selectEditEmit.emit(model);
   }

@@ -24,8 +24,7 @@ export class CategoriaAtributosComponent implements OnInit{
   ngOnInit(): void {
     if(this.codCategoria!=0){
       this.serviceCategoriaAtributoTecnico.postCodCategoria(this.codCategoria).subscribe(x=>{
-        console.log(x);
-        
+
         this.models = x;
       })
     }

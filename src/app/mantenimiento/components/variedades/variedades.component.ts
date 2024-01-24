@@ -55,9 +55,6 @@ export class VariedadesComponent {
   }
 
   selectCategoria(categoria : Categoria){
-    console.log(categoria);
-
-    
     this.canastaService.postCodigo(categoria.codCanasta).subscribe(resp =>{
       this.canastaComp.editModel(resp);
       this.megaCategoriaService.postCodigo(categoria.codMegaCategoria).subscribe(resp => {

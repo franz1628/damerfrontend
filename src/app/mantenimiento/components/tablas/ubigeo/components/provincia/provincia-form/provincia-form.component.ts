@@ -51,8 +51,6 @@ export class ProvinciaFormComponent {
       this.service.add(this.currentModel)
         .pipe(catchError(val => of(undefined)))
         .subscribe(res => {
-          console.log(res);
-          
           if(res){
             this.showLoading = false;
             this.updateModelsEmit.emit();

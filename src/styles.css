@@ -1,1 +1,118 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.navbar-toggler-icon {
+    background-color: #ffffff;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #e1e8f0;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+    border-color: #545b62;
+}
+
+/* Tablas */
+.table {
+    background-color: #ffffff;
+}
+
+.table th, .table td {
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e1e8f0;
+}
+
+/* Pestañas (Tabs) */
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    background-color: #343a40;
+    color: #ffffff;
+    border-color: #343a40;
+}
+
+/* Navegación (Navs) */
+.nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+/* Acordeón */
+.card {
+    border: 1px solid #dee2e6;
+}
+
+.card-header {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.card-header:hover {
+    background-color: #545b62;
+}
+
+/* Alertas */
+.alert-primary {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #007bff;
+}
+
+.alert-primary a {
+    color: #ffffff;
+}
+
+.alert-primary hr {
+    border-top-color: #0056b3;
+}
+
+/* Formularios */
+.form-control {
+    border-color: #ced4da;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
