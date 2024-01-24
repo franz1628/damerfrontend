@@ -3,15 +3,17 @@
         <button class="nav-link active" id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente" type="button"
             role="tab" aria-controls="cliente" aria-selected="true">CLiente</button>
     </li>
+    @if(this.cliente.codigo!=0 && this.categoria.codigo!=0){
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="contrato-tab" data-bs-toggle="tab" data-bs-target="#contrato" type="button"
             role="tab" aria-controls="contrato" aria-selected="false">Contrato</button>
     </li>
+    }
 
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane  show active" id="cliente" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
- 
+
         <div class="row mt-4">
             <div class="col-4">
 
@@ -37,16 +39,15 @@
                 <div class="mb-3 row">
                     <label for="categorias" class="col-md-5 col-form-label-sm">Categorias</label>
                     <div class="col-sm-7">
-                        <select class="form-select form-select-sm" name="categorias" id="categorias">
+                        <select class="form-select form-select-sm" name="categorias" id="categorias"
+                            (change)="changeCategoria($event)">
                             <option value="0">SELECCIONAR</option>
                             @for (categoria of categorias; track $index) {
                             <option value="{{categoria.codigo}}">{{categoria.descripcion}}</option>
                             }
                         </select>
                     </div>
-                    <span *ngIf="isValidField('categorias')" class="form-text text-danger">
-                        {{ getFieldError('categorias') }}
-                    </span>
+
                 </div>
 
             </div>
@@ -54,6 +55,8 @@
         </div>
 
     </div>
+    @if(this.cliente.codigo!=0 && this.categoria.codigo!=0){
+
     <div class="tab-pane " id="contrato" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
 
         <form [formGroup]="model" autocomplete="off">
@@ -62,50 +65,127 @@
             <div class="row">
                 <div class="col-md-6">
 
-
-                    <div class="row">
-                        <div class="col-12">
-
-                            <div class="mb-3 row">
-                                <label for="zonas" class="col-md-5 col-form-label-sm">Zonas</label>
-                                <div class="col-sm-7">
-                                    <select class="form-select form-select-sm" name="zonas" formControlName="zonas"
-                                        id="zonas" multiple>
-
-                                        @for (zona of zonas; track $index) {
-                                        <option value="{{zona.codigo}}">{{zona.descripcion}}</option>
-                                        }
-                                    </select>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    ESTUDIO
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="mb-3 row">
+                                      
+                                        <div class="col-sm-12">
+                                            <div *ngFor="let tipoEstudio of tipoEstudios; let i = index"
+                                                class="form-check">
+                                                <input type="checkbox" class="form-check-input" name="tipoEstudios"
+                                                    formControlName="tipoEstudios" [value]="tipoEstudio.codigo"
+                                                    id="tipoEstudio_{{ i }}">
+                                                <label class="form-check-label" for="tipoEstudio_{{ i }}">{{
+                                                    tipoEstudio.descripcion }}</label>
+                                            </div>
+                                        </div>
+                                        <span *ngIf="isValidField('tipoEstudios')" class="form-text text-danger">
+                                            {{ getFieldError('tipoEstudios') }}
+                                        </span>
+                                    </div>
                                 </div>
-                                <span *ngIf="isValidField('zonas')" class="form-text text-danger">
-                                    {{ getFieldError('zonas') }}
-                                </span>
                             </div>
-
                         </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    ZONA
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="mb-3 row">
+                                      
+                                        <div class="col-sm-12">
+                                            <div *ngFor="let zona of zonas; let i = index" class="form-check">
+                                                <input type="checkbox" class="form-check-input" name="zonas"
+                                                    formControlName="zonas" [value]="zona.codigo" id="zona_{{ i }}">
+                                                <label class="form-check-label" for="zona_{{ i }}">{{ zona.descripcion
+                                                    }}</label>
+                                            </div>
+                                        </div>
+                                        <span *ngIf="isValidField('zonas')" class="form-text text-danger">
+                                            {{ getFieldError('zonas') }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    CANAL
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="mb-3 row">
+                                      
+                                        <div class="col-sm-12">
+                                            <div *ngFor="let canal of canals; let i = index" class="form-check">
+                                                <input type="checkbox" class="form-check-input" name="canals"
+                                                    formControlName="canals" [value]="canal.codigo" id="canal_{{ i }}">
+                                                <label class="form-check-label" for="canal_{{ i }}">{{ canal.descripcion
+                                                    }}</label>
+                                            </div>
+                                        </div>
+                                        <span *ngIf="isValidField('canals')" class="form-text text-danger">
+                                            {{ getFieldError('canals') }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    QUIEBRE
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="mb-3 row">
+                                      
+                                        <div class="col-sm-12">
+                                            <div *ngFor="let atributoFuncionalVariedad of atributoFuncionalVariedads; let i = index"
+                                                class="form-check">
+                                                <input type="checkbox" class="form-check-input"
+                                                    name="atributoFuncionalVariedads"
+                                                    formControlName="atributoFuncionalVariedads"
+                                                    [value]="atributoFuncionalVariedad.codigo"
+                                                    id="atributoFuncionalVariedad_{{ i }}">
+                                                <label class="form-check-label"
+                                                    for="atributoFuncionalVariedad_{{ i }}">{{
+                                                    atributoFuncionalVariedad.descripcion }}</label>
+                                            </div>
+                                        </div>
+                                        <span *ngIf="isValidField('atributoFuncionalVariedads')"
+                                            class="form-text text-danger">
+                                            {{ getFieldError('atributoFuncionalVariedads') }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="row">
-                        <div class="col-12">
-
-                            <div class="mb-3 row">
-                                <label for="canals" class="col-md-5 col-form-label-sm">Canales</label>
-                                <div class="col-sm-7">
-                                    <select class="form-select form-select-sm" name="canals" formControlName="canals"
-                                        id="canals" multiple>
-
-                                        @for (canal of canals; track $index) {
-                                        <option value="{{canal.codigo}}">{{canal.descripcion}}</option>
-                                        }
-                                    </select>
-                                </div>
-                                <span *ngIf="isValidField('canals')" class="form-text text-danger">
-                                    {{ getFieldError('canals') }}
-                                </span>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
@@ -198,5 +278,6 @@
 
         </form>
     </div>
+    }
 
 </div>

@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
-import { Cliente } from '../interface/cliente';
+import { TipoEstudio } from '../interface/tipoEstudio';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteService {
-  private apiUrl = environments.baseUrl+'api/cliente'; // Reemplaza con la URL de tu backend
+export class TipoEstudioService {
+  private apiUrl = environments.baseUrl+'api/TipoEstudio'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 
@@ -21,19 +21,19 @@ export class ClienteService {
     return this.http.get<Response>(`${this.apiUrl}/${id}`);
   }
 
-  postCodigo(codigo: number): Observable<Cliente> {
-    return this.http.post<Cliente>(`${this.apiUrl}/codigo`,{codigo});
+  getCodigo(codigo: number): Observable<Response> {
+    return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
   }
 
-  add(model: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.apiUrl, model);
+  add(model: TipoEstudio): Observable<TipoEstudio> {
+    return this.http.post<TipoEstudio>(this.apiUrl, model);
   }
 
-  update(id: number, model: Cliente): Observable<Response> {
+  update(id: number, model: TipoEstudio): Observable<Response> {
     return this.http.put<Response>(`${this.apiUrl}/${id}`, model);
   }
 
-  delete(model: Cliente): Observable<Cliente> {
-    return this.http.delete<Cliente>(`${this.apiUrl}/${model.id}`);
+  delete(model: TipoEstudio): Observable<TipoEstudio> {
+    return this.http.delete<TipoEstudio>(`${this.apiUrl}/${model.id}`);
   }
 }

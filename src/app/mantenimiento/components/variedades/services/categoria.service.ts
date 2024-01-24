@@ -17,9 +17,6 @@ export class CategoriaService {
     return this.http.get<Response>(this.apiUrl);
   }
 
-  getId(id: number): Observable<Categoria|undefined> {
-    return this.http.get<Categoria>(`${this.apiUrl}/${id}`).pipe(catchError(error=>of(undefined)));
-  }
 
 
   getCodigoCanastaMegaCategoria(codCanasta: number, codMegaCategoria: number): Observable<Response> {
