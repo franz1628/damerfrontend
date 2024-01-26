@@ -1,7 +1,9 @@
+<h4>Mantenimiento de Contratos</h4>
+
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
         <button class="nav-link active" id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente" type="button"
-            role="tab" aria-controls="cliente" aria-selected="true">CLiente</button>
+            role="tab" aria-controls="cliente" aria-selected="true">Cliente</button>
     </li>
     @if(this.cliente.codigo!=0 && this.categoria.codigo!=0){
     <li class="nav-item" role="presentation">
@@ -15,7 +17,7 @@
     <div class="tab-pane  show active" id="cliente" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 
         <div class="row mt-4">
-            <div class="col-4">
+            <div class="col-2">
 
                 <div class="mb-3 row">
                     <label for="codCliente" class="col-md-5 col-form-label-sm">Cliente</label>
@@ -34,7 +36,7 @@
             </div>
 
 
-            <div class="col-4">
+            <div class="col-2">
 
                 <div class="mb-3 row">
                     <label for="categorias" class="col-md-5 col-form-label-sm">Categorias</label>
@@ -60,10 +62,9 @@
     <div class="tab-pane " id="contrato" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
 
         <form [formGroup]="model" autocomplete="off">
-            <h6>CONTRATOS</h6>
-            <hr>
+            <br>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
 
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
@@ -74,7 +75,7 @@
                                 </button>
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show"
-                                data-bs-parent="#accordionExample">
+                                >
                                 <div class="accordion-body">
                                     <div class="mb-3 row">
                                       
@@ -83,7 +84,9 @@
                                                 class="form-check">
                                                 <input type="checkbox" class="form-check-input" name="tipoEstudios"
                                                     formControlName="tipoEstudios" [value]="tipoEstudio.codigo"
-                                                    id="tipoEstudio_{{ i }}">
+                                                    id="tipoEstudio_{{ i }}"
+                                                    
+                                                    >
                                                 <label class="form-check-label" for="tipoEstudio_{{ i }}">{{
                                                     tipoEstudio.descripcion }}</label>
                                             </div>
@@ -103,14 +106,17 @@
                                 </button>
                             </h2>
                             <div id="collapseTwo" class="accordion-collapse collapse"
-                                data-bs-parent="#accordionExample">
+                                >
                                 <div class="accordion-body">
                                     <div class="mb-3 row">
                                       
                                         <div class="col-sm-12">
                                             <div *ngFor="let zona of zonas; let i = index" class="form-check">
                                                 <input type="checkbox" class="form-check-input" name="zonas"
-                                                    formControlName="zonas" [value]="zona.codigo" id="zona_{{ i }}">
+                                                    formControlName="zonas" [value]="zona.codigo" id="zona_{{ i }}"
+                                                    [checked]="getModel.zonas.includes(zona.codigo)"
+                                                    (change)="toggleCheckbox(zona.codigo)"
+                                                    >
                                                 <label class="form-check-label" for="zona_{{ i }}">{{ zona.descripcion
                                                     }}</label>
                                             </div>
@@ -130,14 +136,17 @@
                                 </button>
                             </h2>
                             <div id="collapseThree" class="accordion-collapse collapse"
-                                data-bs-parent="#accordionExample">
+                                >
                                 <div class="accordion-body">
                                     <div class="mb-3 row">
                                       
                                         <div class="col-sm-12">
                                             <div *ngFor="let canal of canals; let i = index" class="form-check">
                                                 <input type="checkbox" class="form-check-input" name="canals"
-                                                    formControlName="canals" [value]="canal.codigo" id="canal_{{ i }}">
+                                                    formControlName="canals" [value]="canal.codigo" id="canal_{{ i }}"
+                                                    [checked]="getModel.canals.includes(canal.codigo)"
+                                                    (change)="toggleCheckbox(canal.codigo)"
+                                                    >
                                                 <label class="form-check-label" for="canal_{{ i }}">{{ canal.descripcion
                                                     }}</label>
                                             </div>
@@ -158,7 +167,7 @@
                                 </button>
                             </h2>
                             <div id="collapseFour" class="accordion-collapse collapse"
-                                data-bs-parent="#accordionExample">
+                                >
                                 <div class="accordion-body">
                                     <div class="mb-3 row">
                                       
@@ -169,7 +178,10 @@
                                                     name="atributoFuncionalVariedads"
                                                     formControlName="atributoFuncionalVariedads"
                                                     [value]="atributoFuncionalVariedad.codigo"
-                                                    id="atributoFuncionalVariedad_{{ i }}">
+                                                    id="atributoFuncionalVariedad_{{ i }}"  
+                                                    [checked]="getModel.atributoFuncionalVariedads.includes(atributoFuncionalVariedad.codigo)"
+                                                    (change)="toggleCheckbox(atributoFuncionalVariedad.codigo)"
+                                                    >
                                                 <label class="form-check-label"
                                                     for="atributoFuncionalVariedad_{{ i }}">{{
                                                     atributoFuncionalVariedad.descripcion }}</label>
@@ -186,8 +198,15 @@
 
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-info" (click)="actualizarEleccion()">Actualizar</button>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5"></div>
+                <div class="col-md-4">
                     <div class="row">
                         <div class="col-12">
 

@@ -4,8 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ClienteService } from '../../../service/cliente';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
 import { ZonaService } from '../../tablas/service/zona.service';
-import { Zona } from '../../tablas/interfaces/zona.interface';
-import { Canal } from '../../tablas/interfaces/canal.interface';
+import { Zona, ZonaInit } from '../../tablas/interfaces/zona.interface';
+import { Canal, CanalInit } from '../../tablas/interfaces/canal.interface';
 import { CanalService } from '../../tablas/service/canal.sevice';
 import { Categoria, CategoriaInit } from '../../variedades/interfaces/categoria.interface';
 import { CategoriaService } from '../../variedades/services/categoria.service';
@@ -13,23 +13,32 @@ import { Frecuencia } from '../../../interface/frecuencia';
 import { FrecuenciaService } from '../../../service/frecuencia';
 import { ClienteCategoriaService } from '../../../service/clienteCategoria';
 import { TipoEstudioService } from '../../../service/tipoEstudio';
-import { TipoEstudio } from '../../../interface/tipoEstudio';
-import { AtributoFuncionalVariedad } from '../../../interface/atributoFuncionalVariedad';
+import { TipoEstudio, TipoEstudioInit } from '../../../interface/tipoEstudio';
+import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../../interface/atributoFuncionalVariedad';
 import { AtributoFuncionalVariedadService } from '../../../service/atributoFuncionalVariedad';
 import { ClienteZonaService } from '../../../service/clienteZona';
 import { ClienteCanalService } from '../../../service/clienteCanal';
+
+interface contratoForm {
+  id: number,
+  tipoEstudios: number[],
+  zonas: number[],
+  canals: number[],
+  atributoFuncionalVariedads: number[],
+}
 
 @Component({
   selector: 'app-contrato-form',
   templateUrl: './contrato-form.component.html'
 })
+
 export class ContratoFormComponent implements OnInit{
   public model = this.fb.group({
     id: [0],
-    tipoEstudios: [0],
-    zonas: [0],
-    canals: [0],
-    atributoFuncionalVariedads: [0],
+    tipoEstudios: [[0]],
+    zonas: [[0]],
+    canals: [[0]],
+    atributoFuncionalVariedads: [[0]],
     fechaInicial: [''],
     fechaFinal: [''],
     diaEntrega: [1],
@@ -80,6 +89,10 @@ export class ContratoFormComponent implements OnInit{
       this.tipoEstudios = x.data;
     });
     
+  }
+
+  get getModel(){
+    return this.model.value as contratoForm
   }
 
   changeCliente(event:Event){
@@ -141,6 +154,29 @@ export class ContratoFormComponent implements OnInit{
 
     });
 
+  }
+
+  actualizarEleccion(){
+    console.log(this.getModel);
+    
+  }
+
+  toggleCheckbox(codigo: number): void {
+    const atributoFuncionalVariedadsArray = this.model.get('atributoFuncionalVariedads')?.value || [];
+
+    // Verificar si el código ya está presente en el array
+    const index = atributoFuncionalVariedadsArray.indexOf(codigo);
+
+    if (index !== -1) {
+      // Si está presente, quitarlo del array
+      atributoFuncionalVariedadsArray.splice(index, 1);
+    } else {
+      // Si no está presente, agregarlo al array
+      atributoFuncionalVariedadsArray.push(codigo);
+    }
+
+    // Actualizar el valor del formulario con el nuevo array
+    this.model.patchValue({ atributoFuncionalVariedads: atributoFuncionalVariedadsArray });
   }
 
   isValidField(field: string): boolean | null {

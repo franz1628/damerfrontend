@@ -4,29 +4,29 @@
             role="tab" aria-controls="cliente" aria-selected="true">Cliente</button>
     </li>
     @if(model.id!=0){
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="direccion-tab" data-bs-toggle="tab" data-bs-target="#direccion" type="button"
-                role="tab" aria-controls="direccion" aria-selected="false">Direcciones</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="contacto-tab" data-bs-toggle="tab" data-bs-target="#contacto" type="button"
-                role="tab" aria-controls="contacto" aria-selected="false">Contactos</button>
-        </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="direccion-tab" data-bs-toggle="tab" data-bs-target="#direccion" type="button"
+            role="tab" aria-controls="direccion" aria-selected="false">Direcciones</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contacto-tab" data-bs-toggle="tab" data-bs-target="#contacto" type="button"
+            role="tab" aria-controls="contacto" aria-selected="false">Contactos</button>
+    </li>
 
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="categoria-tab" data-bs-toggle="tab" data-bs-target="#categoria" type="button"
-                role="tab" aria-controls="categoria" aria-selected="false">Categorias</button>
-        </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="categoria-tab" data-bs-toggle="tab" data-bs-target="#categoria" type="button"
+            role="tab" aria-controls="categoria" aria-selected="false">Categorias</button>
+    </li>
 
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="canal-tab" data-bs-toggle="tab" data-bs-target="#canal" type="button"
-                role="tab" aria-controls="canal" aria-selected="false">Canales</button>
-        </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="canal-tab" data-bs-toggle="tab" data-bs-target="#canal" type="button" role="tab"
+            aria-controls="canal" aria-selected="false">Canales</button>
+    </li>
 
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="zona-tab" data-bs-toggle="tab" data-bs-target="#zona" type="button"
-                role="tab" aria-controls="zona" aria-selected="false">Zonas</button>
-        </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="zona-tab" data-bs-toggle="tab" data-bs-target="#zona" type="button" role="tab"
+            aria-controls="zona" aria-selected="false">Zonas</button>
+    </li>
     }
 
 </ul>
@@ -47,117 +47,146 @@
             </div>
         </div>
 
-    </div>  
+    </div>
     @if(model.id!=0){
-        <div class="tab-pane " id="direccion" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-            <div class="row mt-4">
-                <div class="col-4">
-                    <h6 class="mb-3 text-center">DIRECCIONES DE CLIENTE</h6>
-                    <hr>
-    
-                    <app-cliente-direccion-form [cliente]="model" #clienteDireccionFormComp
-                        (actualizarListEmit)="actualizarDireccionList()"></app-cliente-direccion-form>
-    
-                </div>
-    
-                <div class="col-8">
-                    <h6 class="mb-3 text-center">DIRECCIONES REGISTRADAS</h6>
-                    <hr>
-                    <app-cliente-direccion-list [cliente]="model" #clienteDireccionListComp
-                        (selectEditEmit)="selectDireccionEdit($event)"></app-cliente-direccion-list>
-                </div>
+    <div class="tab-pane " id="direccion" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+        <div class="row mt-4">
+            <div class="col-4">
+                <h6 class="mb-3 text-center">DIRECCIONES DE CLIENTE</h6>
+                <hr>
+
+                <app-cliente-direccion-form [cliente]="model" #clienteDireccionFormComp
+                    (actualizarListEmit)="actualizarDireccionList()"></app-cliente-direccion-form>
+
+            </div>
+
+            <div class="col-8">
+                <h6 class="mb-3 text-center">DIRECCIONES REGISTRADAS</h6>
+                <hr>
+                <app-cliente-direccion-list [cliente]="model" #clienteDireccionListComp
+                    (selectEditEmit)="selectDireccionEdit($event)"></app-cliente-direccion-list>
             </div>
         </div>
-        <div class="tab-pane " id="contacto" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-            <div class="row mt-4">
-                <div class="col-4">
-                    <h6 class="mb-3 text-center">CONTACTOS DE CLIENTE</h6>
-                    <hr>
-                    <app-cliente-contacto-form [cliente]="model" #clienteContactoFormComp
-                        (actualizarListEmit)="actualizarContactoList()"></app-cliente-contacto-form>
-                </div>
-    
-                <div class="col-8">
-                    <h6 class="mb-3 text-center">CONTACTOS REGISTRADOS</h6>
-                    <hr>
-                    <app-cliente-contacto-list [cliente]="model" #clienteContactoListComp
-                        (selectEditEmit)="selectContactoEdit($event)"></app-cliente-contacto-list>
-                </div>
+    </div>
+    <div class="tab-pane " id="contacto" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+        <div class="row mt-4">
+            <div class="col-4">
+                <h6 class="mb-3 text-center">CONTACTOS DE CLIENTE</h6>
+                <hr>
+                <app-cliente-contacto-form [cliente]="model" #clienteContactoFormComp
+                    (actualizarListEmit)="actualizarContactoList()"></app-cliente-contacto-form>
+            </div>
+
+            <div class="col-8">
+                <h6 class="mb-3 text-center">CONTACTOS REGISTRADOS</h6>
+                <hr>
+                <app-cliente-contacto-list [cliente]="model" #clienteContactoListComp
+                    (selectEditEmit)="selectContactoEdit($event)"></app-cliente-contacto-list>
             </div>
         </div>
+    </div>
 
-        <div class="tab-pane " id="categoria" role="tabpanel" aria-labelledby="categoria-tab" tabindex="0">
-            <div class="row mt-4">
-                <div class="col-6">
-                    <h6 class="mb-3 text-center">CATEGORIAS DE CLIENTE</h6>
-                    <hr>
-                    <app-cliente-categoria-form [cliente]="model" #clienteCategoriaFormComp
-                        (actualizarListEmit)="actualizarCategoriaList()"></app-cliente-categoria-form>
-                </div>
-    
-                <div class="col-6">
-                    <h6 class="mb-3 text-center">CATEGORIAS REGISTRADOS</h6>
-                    <hr>
-                    <app-cliente-categoria-list [cliente]="model" #clienteCategoriaListComp
-                        (selectEditEmit)="selectCategoriaEdit($event)"></app-cliente-categoria-list>
-                </div>
+    <div class="tab-pane " id="categoria" role="tabpanel" aria-labelledby="categoria-tab" tabindex="0">
+        <div class="row mt-4">
+            <div class="col-6">
+                <h6 class="mb-3 text-center">CATEGORIAS DE CLIENTE</h6>
+                <hr>
+                <app-cliente-categoria-form [cliente]="model" #clienteCategoriaFormComp
+                    (actualizarListEmit)="actualizarCategoriaList()"></app-cliente-categoria-form>
+            </div>
 
+            <div class="col-6">
+                <h6 class="mb-3 text-center">CATEGORIAS REGISTRADOS</h6>
+                <hr>
+                <app-cliente-categoria-list [cliente]="model" #clienteCategoriaListComp
+                    (selectEditEmit)="selectCategoriaEdit($event)"></app-cliente-categoria-list>
+            </div>
+
+
+        </div>
+        @if(getModelCategoria.codigo!=0){
+        <div class="row mt-4">
+            <div class="col-6">
+                <h6 class="mb-3 text-center">ATRIBUTO DE LA CATEGORIA</h6>
+                <hr>
+                <app-cliente-atributo-funcional-form #clienteAtributoFuncionalFormComp [cliente]="getModel"
+                    [categoria]="getModelCategoria"
+                    (actualizarListEmit)="actualizarAtributoList()"></app-cliente-atributo-funcional-form>
+            </div>
+
+            <div class="col-6">
+                <h6 class="mb-3 text-center">ATRIBUTOS REGISTRADOS</h6>
+                <hr>
+                <button class="btn btn-info" (click)="abrirModalFormular()">Formula</button>
+
+               
+                <div class="modal {{showModalFormula?'d-block':''}} ">
+                    <div class="modal-dialog  modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Formula</h1>
+                                <button type="button" class="btn-close" (click)="showModalFormula=false"></button>
+                            </div>
+                            <div class="modal-body">
+                                <app-cliente-formula #clienteFormulaComp></app-cliente-formula>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="showModalFormula=false">Cerrar</button>
+                                <button type="button" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
+                <app-cliente-atributo-funcional-list #clienteAtributoFuncionalListComp [cliente]="getModel"
+                    [categoria]="getModelCategoria"
+                    (selectEditEmit)="selectAtributoEdit($event)"></app-cliente-atributo-funcional-list>
             </div>
-            @if(getModelCategoria.codigo!=0){
-                <div class="row mt-4">
-                    <div class="col-6">
-                        <h6 class="mb-3 text-center">ATRIBUTO DE LA CATEGORIA</h6>
-                        <hr>
-                        <app-cliente-atributo-funcional-form #clienteAtributoFuncionalFormComp [cliente]="getModel" [categoria]="getModelCategoria" (actualizarListEmit)="actualizarAtributoList()"></app-cliente-atributo-funcional-form>
-                    </div>
-        
-                    <div class="col-6">
-                        <h6 class="mb-3 text-center">ATRIBUTOS REGISTRADOS</h6>
-                        <hr>
-                        <app-cliente-atributo-funcional-list #clienteAtributoFuncionalListComp [cliente]="getModel" [categoria]="getModelCategoria" (selectEditEmit)="selectAtributoEdit($event)"></app-cliente-atributo-funcional-list>
-                    </div>
-    
-                    
-                </div>
-            }
+
+
         </div>
 
-        <div class="tab-pane " id="canal" role="tabpanel" aria-labelledby="canal-tab" tabindex="0">
-            <div class="row mt-4">
-                <div class="col-4">
-                    <h6 class="mb-3 text-center">CANAL DE CLIENTE</h6>
-                    <hr>
-                    <app-cliente-canal-form [cliente]="model" #clienteCanalFormComp
-                        (actualizarListEmit)="actualizarCanalList()"></app-cliente-canal-form>
-                </div>
-    
-                <div class="col-8">
-                    <h6 class="mb-3 text-center">CANAL REGISTRADOS</h6>
-                    <hr>
-                    <app-cliente-canal-list [cliente]="model" #clienteCanalListComp
-                        (selectEditEmit)="selectCanalEdit($event)"></app-cliente-canal-list>
-                </div>
-            </div>
-        </div>
 
-        <div class="tab-pane " id="zona" role="tabpanel" aria-labelledby="zona-tab" tabindex="0">
-            <div class="row mt-4">
-                <div class="col-4">
-                    <h6 class="mb-3 text-center">ZONA DE CLIENTE</h6>
-                    <hr>
-                    <app-cliente-zona-form [cliente]="model" #clienteZonaFormComp
-                        (actualizarListEmit)="actualizarZonaList()"></app-cliente-zona-form>
-                </div>
-    
-                <div class="col-8">
-                    <h6 class="mb-3 text-center">ZONA REGISTRADOS</h6>
-                    <hr>
-                    <app-cliente-zona-list [cliente]="model" #clienteZonaListComp
-                        (selectEditEmit)="selectZonaEdit($event)"></app-cliente-zona-list>
-                </div>
+
+
+        }
+    </div>
+
+    <div class="tab-pane " id="canal" role="tabpanel" aria-labelledby="canal-tab" tabindex="0">
+        <div class="row mt-4">
+            <div class="col-4">
+                <h6 class="mb-3 text-center">CANAL DE CLIENTE</h6>
+                <hr>
+                <app-cliente-canal-form [cliente]="model" #clienteCanalFormComp
+                    (actualizarListEmit)="actualizarCanalList()"></app-cliente-canal-form>
+            </div>
+
+            <div class="col-8">
+                <h6 class="mb-3 text-center">CANAL REGISTRADOS</h6>
+                <hr>
+                <app-cliente-canal-list [cliente]="model" #clienteCanalListComp
+                    (selectEditEmit)="selectCanalEdit($event)"></app-cliente-canal-list>
             </div>
         </div>
+    </div>
+
+    <div class="tab-pane " id="zona" role="tabpanel" aria-labelledby="zona-tab" tabindex="0">
+        <div class="row mt-4">
+            <div class="col-4">
+                <h6 class="mb-3 text-center">ZONA DE CLIENTE</h6>
+                <hr>
+                <app-cliente-zona-form [cliente]="model" #clienteZonaFormComp
+                    (actualizarListEmit)="actualizarZonaList()"></app-cliente-zona-form>
+            </div>
+
+            <div class="col-8">
+                <h6 class="mb-3 text-center">ZONA REGISTRADOS</h6>
+                <hr>
+                <app-cliente-zona-list [cliente]="model" #clienteZonaListComp
+                    (selectEditEmit)="selectZonaEdit($event)"></app-cliente-zona-list>
+            </div>
+        </div>
+    </div>
     }
 
 </div>

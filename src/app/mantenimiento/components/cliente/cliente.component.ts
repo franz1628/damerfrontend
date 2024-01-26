@@ -21,6 +21,7 @@ import { Categoria, CategoriaInit } from '../variedades/interfaces/categoria.int
 import { AtributoFuncionalVariedad } from '../../interface/atributoFuncionalVariedad';
 import { ClienteAtributoFuncionalFormComponent } from './cliente-atributo-funcional-form/cliente-atributo-funcional-form.component';
 import { ClienteAtributoFuncionalListComponent } from './cliente-atributo-funcional-list/cliente-atributo-funcional-list.component';
+import { ClienteFormulaComponent } from './cliente-formula/cliente-formula.component';
 
 @Component({
   selector: 'app-cliente',
@@ -29,6 +30,7 @@ import { ClienteAtributoFuncionalListComponent } from './cliente-atributo-funcio
 export class ClienteComponent {
   model : Cliente = ClienteInit;
   modelCategoria : Categoria = CategoriaInit;
+  showModalFormula: boolean = false;
 
   @ViewChild('clienteListComp')
   clienteListComp!: ClienteListComponent;
@@ -71,11 +73,14 @@ export class ClienteComponent {
 
   @ViewChild('clienteZonaFormComp')
   clienteZonaFormComp!: ClienteZonaFormComponent;
+  
+  @ViewChild('clienteFormulaComp')
+  clienteFormulaComp!: ClienteFormulaComponent;
 
   get getModel(){
     return this.model
   }
-
+ 
   get getModelCategoria(){
     return this.modelCategoria
   }
@@ -134,6 +139,7 @@ export class ClienteComponent {
 
   selectAtributoEdit(model:AtributoFuncionalVariedad){
     this.clienteAtributoFuncionalFormComp.selectEdit(model); 
+    this.clienteFormulaComp.cargaAtributosValores(model.Categoria);
   }
 
   selectCanalEdit(model:ClienteCanal){
@@ -142,6 +148,10 @@ export class ClienteComponent {
 
   selectZonaEdit(model:ClienteZona){
     this.clienteZonaFormComp.selectEdit(model); 
+  }
+
+  abrirModalFormular(){
+    this.showModalFormula = true;
   }
 
 }

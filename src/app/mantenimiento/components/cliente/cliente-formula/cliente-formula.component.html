@@ -1,0 +1,53 @@
+<form action="" [formGroup]="model">
+    
+    <h6>VALORES DE ATRIBUTO TÉCNICO VARIEDAD</h6>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-7">
+    
+                    <div class="mb-3 row">
+                        <label for="idAtributoTecnicoVariedad" class="col-md-4 col-form-label-sm">Codigo Canal</label>
+                        <div class="col-sm-8">
+                            <select name="idAtributoTecnicoVariedad" id="idAtributoTecnicoVariedad" formControlName="idAtributoTecnicoVariedad" (change)="changeAtributo($event)">
+                                <option value="0">SELECCIONAR</option>
+                                @for (categoriaAtributoTecnico of categoriaAtributoTecnicos; track $index) {
+                                    <option value={{categoriaAtributoTecnico.id}}>{{categoriaAtributoTecnico.AtributoTecnicoVariedad.descripcion}}</option>
+                                }
+                            </select>
+        
+                        </div>
+                        <span *ngIf="isValidField('idAtributoTecnicoVariedad')" class="form-text text-danger">
+                            {{ getFieldError('idAtributoTecnicoVariedad') }}
+                        </span>
+                    </div>
+    
+                    
+                </div>
+            </div>
+    
+            <div class="mb-3 row">
+                <div class="col-sm-8">
+    
+                    @for (categoriaAtributoTecnicoValor of categoriaAtributoTecnicoValors; track $index) {
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="categoriaAtributoTecnicoValor_{{$index}}" id="categoriaAtributoTecnicoValor_{{$index}}"
+                        value="{{categoriaAtributoTecnicoValor.id}}">
+                        <label class="form-check-label" for="categoriaAtributoTecnicoValor_{{$index}}">
+                            {{categoriaAtributoTecnicoValor.comentario}}
+                        </label>
+                    </div>
+    
+                    } 
+    
+    
+                </div>
+    
+            </div>
+    
+           
+        </div>
+    </div>
+</form>
