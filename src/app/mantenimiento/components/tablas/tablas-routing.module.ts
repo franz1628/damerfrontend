@@ -10,6 +10,9 @@ import { TablasComponent } from './tablas.component';
 import { LayoutTablasComponent } from './pages/layout-tablas/layout-tablas.component';
 import { TipoUrbanizacionComponent } from './tipo-urbanizacion/tipo-urbanizacion.component';
 import { CanalComponent } from './canal/canal.component';
+import { TipoUnidadMedidaComponent } from './tipo-unidad-medida/tipo-unidad-medida.component';
+import { UnidadMedidaComponent } from './unidad-medida/unidad-medida.component';
+import { TipoInformeOrdenComponent } from './tipo-informe-orden/tipo-informe-orden.component';
 
 const routes: Routes = [
   {
@@ -21,7 +24,10 @@ const routes: Routes = [
       { path: 'provincia', component: ProvinciaComponent },
       { path: 'distrito', component: DistritoComponent },
       { path: 'tipoUrbanizacion', component: TipoUrbanizacionComponent },
-      { path: 'canal', component: CanalComponent }
+      { path: 'canal', component: CanalComponent },
+      { path: 'tipoUnidadMedida', component: TipoUnidadMedidaComponent },
+      { path: 'tipoInformeOrden', component: TipoInformeOrdenComponent },
+      { path: 'unidadMedida', component: UnidadMedidaComponent }
       , {
         path: '404', 
         component: Error404PageComponent,

@@ -27,6 +27,15 @@ import { ProvinciaListComponent } from './ubigeo/components/provincia/provincia-
 import { DistritoComponent } from './ubigeo/components/distrito/distrito.component';
 import { PaisComponent } from './ubigeo/components/pais/pais.component';
 import { ProvinciaComponent } from './ubigeo/components/provincia/provincia.component';
+import { UnidadMedidaComponent } from './unidad-medida/unidad-medida.component';
+import { TipoUnidadMedidaComponent } from './tipo-unidad-medida/tipo-unidad-medida.component';
+import { TipoUnidadMedidaListComponent } from './tipo-unidad-medida/tipo-unidad-medida-list/tipo-unidad-medida-list.component';
+import { TipoUnidadMedidaFormComponent } from './tipo-unidad-medida/tipo-unidad-medida-form/tipo-unidad-medida-form.component';
+import { UnidadMedidaFormComponent } from './unidad-medida/unidad-medida-form/unidad-medida-form.component';
+import { UnidadMedidaListComponent } from './unidad-medida/unidad-medida-list/unidad-medida-list.component';
+import { TipoInformeOrdenComponent } from './tipo-informe-orden/tipo-informe-orden.component';
+import { TipoInformeOrdenListComponent } from './tipo-informe-orden/tipo-informe-orden-list/tipo-informe-orden-list.component';
+import { TipoInformeOrdenFormComponent } from './tipo-informe-orden/tipo-informe-orden-form/tipo-informe-orden-form.component';
 
 
 
@@ -54,7 +63,16 @@ import { ProvinciaComponent } from './ubigeo/components/provincia/provincia.comp
     DistritoComponent,
     ProvinciaComponent,
     ProvinciaFormComponent,
-    ProvinciaListComponent
+    ProvinciaListComponent,
+    UnidadMedidaComponent,
+    TipoUnidadMedidaComponent,
+    TipoUnidadMedidaListComponent,
+    TipoUnidadMedidaFormComponent,
+    UnidadMedidaFormComponent,
+    UnidadMedidaListComponent,
+    TipoInformeOrdenComponent,
+    TipoInformeOrdenListComponent,
+    TipoInformeOrdenFormComponent
   ],  
     imports: [
         CommonModule,

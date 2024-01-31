@@ -18,10 +18,11 @@ import { ClienteZonaFormComponent } from './cliente-zona-form/cliente-zona-form.
 import { ClienteCanalListComponent } from './cliente-canal-list/cliente-canal-list.component';
 import { ClienteZonaListComponent } from './cliente-zona-list/cliente-zona-list.component';
 import { Categoria, CategoriaInit } from '../variedades/interfaces/categoria.interface';
-import { AtributoFuncionalVariedad } from '../../interface/atributoFuncionalVariedad';
+import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../interface/atributoFuncionalVariedad';
 import { ClienteAtributoFuncionalFormComponent } from './cliente-atributo-funcional-form/cliente-atributo-funcional-form.component';
 import { ClienteAtributoFuncionalListComponent } from './cliente-atributo-funcional-list/cliente-atributo-funcional-list.component';
 import { ClienteFormulaComponent } from './cliente-formula/cliente-formula.component';
+import { AlertService } from '../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-cliente',
@@ -30,7 +31,14 @@ import { ClienteFormulaComponent } from './cliente-formula/cliente-formula.compo
 export class ClienteComponent {
   model : Cliente = ClienteInit;
   modelCategoria : Categoria = CategoriaInit;
+  atributoFuncionalVariedad : AtributoFuncionalVariedad = AtributoFuncionalVariedadInit;
   showModalFormula: boolean = false;
+
+  constructor(
+    private alert: AlertService
+  ){
+
+  }
 
   @ViewChild('clienteListComp')
   clienteListComp!: ClienteListComponent;
@@ -140,6 +148,7 @@ export class ClienteComponent {
   selectAtributoEdit(model:AtributoFuncionalVariedad){
     this.clienteAtributoFuncionalFormComp.selectEdit(model); 
     this.clienteFormulaComp.cargaAtributosValores(model.Categoria);
+    this.atributoFuncionalVariedad = model;
   }
 
   selectCanalEdit(model:ClienteCanal){
@@ -151,7 +160,11 @@ export class ClienteComponent {
   }
 
   abrirModalFormular(){
-    this.showModalFormula = true;
+    if(this.atributoFuncionalVariedad.id!=0){
+      this.showModalFormula = true;
+    }else{
+      this.alert.showAlert('Mensaje','Debe escoger un atributo funcional','warning');
+    }
   }
 
 }

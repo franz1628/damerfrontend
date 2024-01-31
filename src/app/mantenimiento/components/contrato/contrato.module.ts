@@ -5,6 +5,7 @@ import { ContratoListComponent } from './contrato-list/contrato-list.component';
 import { ContratoFormComponent } from './contrato-form/contrato-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContratoRoutingModule } from './contrato-routing.module';
+import { ContratoArbolComponent } from './contrato-arbol/contrato-arbol.component';
 
 
 
@@ -12,7 +13,8 @@ import { ContratoRoutingModule } from './contrato-routing.module';
   declarations: [
     ContratoComponent,
     ContratoListComponent,
-    ContratoFormComponent
+    ContratoFormComponent,
+    ContratoArbolComponent
   ],
   imports: [
     CommonModule,

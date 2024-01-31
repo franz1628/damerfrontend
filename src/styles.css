@@ -10,3 +10,19 @@
     .table-sm > :not(caption) > * > * {
         padding: 0.25rem 0.25rem;
       }
+
+      .input-group span {
+        display: flex;
+        align-items: center;
+        padding: .2rem .5rem; /* Ajusta el padding para hacerlo más pequeño */
+        margin-bottom: 0;
+        font-size: 0.8rem; /* Ajusta el tamaño del texto */
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        text-align: center;
+        white-space: nowrap;
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+        border-radius: .2rem; /* Ajusta el radio del borde para que se vea más compacto */
+      }

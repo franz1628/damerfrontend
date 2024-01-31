@@ -80,15 +80,10 @@
                                     <div class="mb-3 row">
                                       
                                         <div class="col-sm-12">
-                                            <div *ngFor="let tipoEstudio of tipoEstudios; let i = index"
-                                                class="form-check">
+                                            <div formArrayName="tipoEstudios" *ngFor="let tipoEstudio of getTipoEstudios.controls; let i = index" class="form-check">
                                                 <input type="checkbox" class="form-check-input" name="tipoEstudios"
-                                                    formControlName="tipoEstudios" [value]="tipoEstudio.codigo"
-                                                    id="tipoEstudio_{{ i }}"
-                                                    
-                                                    >
-                                                <label class="form-check-label" for="tipoEstudio_{{ i }}">{{
-                                                    tipoEstudio.descripcion }}</label>
+                                                    [formControlName]="i" id="tipoEstudio_{{ i }}">
+                                                <label class="form-check-label" for="tipoEstudio_{{ i }}">{{tipoEstudios[i].descripcion}}</label>
                                             </div>
                                         </div>
                                         <span *ngIf="isValidField('tipoEstudios')" class="form-text text-danger">
@@ -111,14 +106,10 @@
                                     <div class="mb-3 row">
                                       
                                         <div class="col-sm-12">
-                                            <div *ngFor="let zona of zonas; let i = index" class="form-check">
+                                            <div formArrayName="zonas" *ngFor="let zona of getZonas.controls; let i = index" class="form-check">
                                                 <input type="checkbox" class="form-check-input" name="zonas"
-                                                    formControlName="zonas" [value]="zona.codigo" id="zona_{{ i }}"
-                                                    [checked]="getModel.zonas.includes(zona.codigo)"
-                                                    (change)="toggleCheckbox(zona.codigo)"
-                                                    >
-                                                <label class="form-check-label" for="zona_{{ i }}">{{ zona.descripcion
-                                                    }}</label>
+                                                    [formControlName]="i" id="zona_{{ i }}">
+                                                <label class="form-check-label" for="zona_{{ i }}">{{zonas[i].nombreAgrupacion}}</label>
                                             </div>
                                         </div>
                                         <span *ngIf="isValidField('zonas')" class="form-text text-danger">
@@ -141,18 +132,41 @@
                                     <div class="mb-3 row">
                                       
                                         <div class="col-sm-12">
-                                            <div *ngFor="let canal of canals; let i = index" class="form-check">
+                                            <div formArrayName="canals" *ngFor="let canal of getCanals.controls; let i = index" class="form-check">
                                                 <input type="checkbox" class="form-check-input" name="canals"
-                                                    formControlName="canals" [value]="canal.codigo" id="canal_{{ i }}"
-                                                    [checked]="getModel.canals.includes(canal.codigo)"
-                                                    (change)="toggleCheckbox(canal.codigo)"
-                                                    >
-                                                <label class="form-check-label" for="canal_{{ i }}">{{ canal.descripcion
-                                                    }}</label>
+                                                    [formControlName]="i" id="canal_{{ i }}">
+                                                <label class="form-check-label" for="canal_{{ i }}">{{canals[i].nombreAgrupacion}}</label>
                                             </div>
                                         </div>
                                         <span *ngIf="isValidField('canals')" class="form-text text-danger">
                                             {{ getFieldError('canals') }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    TIPO INFORME
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse"
+                                >
+                                <div class="accordion-body">
+                                    <div class="mb-3 row">
+                                      
+                                        <div class="col-sm-12">
+                                            <div formArrayName="tipoInformeOrdens" *ngFor="let tipoInformeOrden of getTipoInformeOrdens.controls; let i = index" class="form-check">
+                                                <input type="checkbox" class="form-check-input" name="tipoInformeOrdens"
+                                                    [formControlName]="i" id="tipoInformeOrden_{{ i }}">
+                                                <label class="form-check-label" for="tipoInformeOrden_{{ i }}">{{tipoInformeOrdens[i].descripcion}}</label>
+                                            </div>
+                                        </div>
+                                        <span *ngIf="isValidField('tipoInformeOrdens')" class="form-text text-danger">
+                                            {{ getFieldError('tipoInformeOrdens') }}
                                         </span>
                                     </div>
                                 </div>
@@ -172,19 +186,11 @@
                                     <div class="mb-3 row">
                                       
                                         <div class="col-sm-12">
-                                            <div *ngFor="let atributoFuncionalVariedad of atributoFuncionalVariedads; let i = index"
-                                                class="form-check">
-                                                <input type="checkbox" class="form-check-input"
-                                                    name="atributoFuncionalVariedads"
-                                                    formControlName="atributoFuncionalVariedads"
-                                                    [value]="atributoFuncionalVariedad.codigo"
-                                                    id="atributoFuncionalVariedad_{{ i }}"  
-                                                    [checked]="getModel.atributoFuncionalVariedads.includes(atributoFuncionalVariedad.codigo)"
-                                                    (change)="toggleCheckbox(atributoFuncionalVariedad.codigo)"
-                                                    >
-                                                <label class="form-check-label"
-                                                    for="atributoFuncionalVariedad_{{ i }}">{{
-                                                    atributoFuncionalVariedad.descripcion }}</label>
+                                         
+                                            <div formArrayName="atributoFuncionalVariedads" *ngFor="let atributoFuncionalVariedad of getAtributoFuncionalVariedads.controls; let i = index" class="form-check">
+                                                <input type="checkbox" class="form-check-input" name="atributoFuncionalVariedads"
+                                                    [formControlName]="i" id="atributoFuncionalVariedad_{{ i }}">
+                                                <label class="form-check-label" for="atributoFuncionalVariedad_{{ i }}">{{atributoFuncionalVariedads[i].descripcion}}</label>
                                             </div>
                                         </div>
                                         <span *ngIf="isValidField('atributoFuncionalVariedads')"
@@ -200,12 +206,15 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-info" (click)="actualizarEleccion()">Actualizar</button>
+                            <button class="btn btn-sm btn-info" (click)="actualizarEleccion()">Actualizar</button>
                         </div>
                     </div>
 
                 </div>
-                <div class="col-md-5"></div>
+                <div class="col-md-5">
+                    <app-contrato-arbol [contratoForm]="getModel"  #contratoArbolComp></app-contrato-arbol>
+
+                </div>
                 <div class="col-md-4">
                     <div class="row">
                         <div class="col-12">
@@ -213,7 +222,7 @@
                             <div class="mb-3 row">
                                 <label for="fechaInicial" class="col-md-5 col-form-label-sm">Fecha Inicial</label>
                                 <div class="col-sm-7">
-                                    <input type="date" class="form-control" formControlName="fechaInicial">
+                                    <input type="date" class="form-control form-control-sm" formControlName="fechaInicial">
                                 </div>
                                 <span *ngIf="isValidField('fechaInicial')" class="form-text text-danger">
                                     {{ getFieldError('fechaInicial') }}
@@ -243,7 +252,7 @@
                             <div class="mb-3 row">
                                 <label for="diaEntrega" class="col-md-5 col-form-label-sm">Día de Entrega</label>
                                 <div class="col-sm-7">
-                                    <input type="number" class="form-control" formControlName="diaEntrega">
+                                    <input type="number" class="form-control form-control-sm" formControlName="diaEntrega">
                                 </div>
                                 <span *ngIf="isValidField('diaEntrega')" class="form-text text-danger">
                                     {{ getFieldError('diaEntrega') }}

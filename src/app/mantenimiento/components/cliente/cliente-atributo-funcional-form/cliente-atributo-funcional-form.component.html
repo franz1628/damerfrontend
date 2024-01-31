@@ -84,26 +84,45 @@
             </div>
 
             <div class="mb-3 row">
-                <label for="idTipoUnidadMedida" class="col-md-4 col-form-label-sm">idTipoUnidadMedida</label>
+                <label for="codTipoUnidadMedida" class="col-md-4 col-form-label-sm">Tipo Unidad</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" name="idTipoUnidadMedida" id="idTipoUnidadMedida" formControlName="idTipoUnidadMedida">
-
+                    <select class="form-select form-select-sm" id="codTipoUnidadMedida" name="codTipoUnidadMedida" formControlName="codTipoUnidadMedida" (change)="changeTipoUnidadMedida($event)">
+                        <option value="0">Seleccionar</option>
+                        @for (tipoUnidadMedida of tipoUnidadMedidas; track $index) {
+                            <option value="{{tipoUnidadMedida.codigo}}">{{tipoUnidadMedida.descripcion}}</option>
+                        }
+                    </select>
                 </div>
-                <span *ngIf="isValidField('idTipoUnidadMedida')" class="form-text text-danger">
-                    {{ getFieldError('idTipoUnidadMedida') }}
+                <span *ngIf="isValidField('codTipoUnidadMedida')" class="form-text text-danger">
+                    {{ getFieldError('codTipoUnidadMedida') }}
                 </span>
             </div>
 
             <div class="mb-3 row">
-                <label for="idUnidadMedida" class="col-md-4 col-form-label-sm">idUnidadMedida</label>
+                <label for="codUnidadMedida" class="col-md-4 col-form-label-sm">Unidad Medida</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" name="idUnidadMedida" id="idUnidadMedida" formControlName="idUnidadMedida">
-
+                    <select class="form-select form-select-sm" id="codUnidadMedida" name="codUnidadMedida" formControlName="codUnidadMedida">
+                        <option value="0">Seleccionar</option>
+                        @for (unidadMedida of unidadMedidas; track $index) {
+                            <option value="{{unidadMedida.codigo}}">{{unidadMedida.descripcion}}</option>
+                        }
+                    </select>
                 </div>
-                <span *ngIf="isValidField('idUnidadMedida')" class="form-text text-danger">
-                    {{ getFieldError('idUnidadMedida') }}
+                <span *ngIf="isValidField('codUnidadMedida')" class="form-text text-danger">
+                    {{ getFieldError('codUnidadMedida') }}
                 </span>
             </div>
+
+            <!-- <div class="mb-3 row">
+                <label for="codUnidadMedida" class="col-md-4 col-form-label-sm">Unidad Medida</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" name="codUnidadMedida" id="codUnidadMedida" formControlName="codUnidadMedida">
+
+                </div>
+                <span *ngIf="isValidField('codUnidadMedida')" class="form-text text-danger">
+                    {{ getFieldError('codUnidadMedida') }}
+                </span>
+            </div> -->
             <div class="mb-3 row">
                 <label for="alias1" class="col-md-4 col-form-label-sm">alias1</label>
                 <div class="col-sm-8">
@@ -136,10 +155,10 @@
             </div>
 
             @if(!getModel.id){
-                <button class="btn btn-success" (click)="agregar()"><i class="bi bi-box-arrow-down"></i> Guardar</button>
+                <button class="btn btn-sm btn-success" (click)="agregar()"><i class="bi bi-box-arrow-down"></i> Guardar</button>
             }@else{
-                <button class="btn btn-info" (click)="editar()"><i class="bi bi-pencil"></i> Editar</button>
-                <button class="btn btn-warning" (click)="nuevo()"><i class="bi bi-plus"></i> Nuevo</button>
+                <button class="btn btn-sm btn-info" (click)="editar()"><i class="bi bi-pencil"></i> Editar</button>
+                <button class="btn btn-sm btn-warning" (click)="nuevo()"><i class="bi bi-plus"></i> Nuevo</button>
             }
 
             <!-- <app-add-tipo-cambio [model]="getModel" (actualizarList)="actualizarList()"></app-add-tipo-cambio> -->

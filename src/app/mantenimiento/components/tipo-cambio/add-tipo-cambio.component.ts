@@ -4,7 +4,7 @@ import { TipoCambioService } from '../../service/tipoCambio.service';
 
 @Component({
   selector: 'app-add-tipo-cambio', 
-  template:'<button class="btn btn-success" (click)="agregar()">Add</button>'
+  template:'<button class="btn btn-sm btn-success" (click)="agregar()">Add</button>'
 })
 export class AddTipoCambioComponent {
   @Input() model:TipoCambio = TipoCambioInit

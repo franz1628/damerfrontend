@@ -10,6 +10,10 @@ import { RegexService } from '../../../../shared/services/regex.service';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { AtributoFuncionalVariedadService } from '../../../service/atributoFuncionalVariedad';
 import { catchError, throwError } from 'rxjs';
+import { UnidadMedidaService } from '../../../service/unidadMedida';
+import { TipoUnidadMedida } from '../../../interface/tipoUnidadMedida';
+import { UnidadMedida } from '../../../interface/unidadMedida';
+import { TipoUnidadMedidaService } from '../../../service/tipoUnidadMedida';
 
 @Component({
   selector: 'app-cliente-atributo-funcional-form',
@@ -22,6 +26,8 @@ export class ClienteAtributoFuncionalFormComponent {
   @Input()
   categoria :Categoria = CategoriaInit; 
   atributoFuncionalVariedads:AtributoFuncionalVariedad[] = [];
+  tipoUnidadMedidas:TipoUnidadMedida[] = [];
+  unidadMedidas:UnidadMedida[] = [];
 
   public model = this.fb.group({
     id:[0],
@@ -32,8 +38,8 @@ export class ClienteAtributoFuncionalFormComponent {
     descripcionResumida: ['',Validators.required],
     tip: ['',Validators.required],
     idIndiceAtributo: [0,Validators.required],
-    idTipoUnidadMedida: [0,Validators.required],
-    idUnidadMedida: [0,Validators.required],
+    codTipoUnidadMedida: [0,Validators.required],
+    codUnidadMedida: [0,Validators.required],
     alias1: ['',Validators.required],
     alias2: ['',Validators.required],
     alias3: ['',Validators.required]
@@ -46,6 +52,8 @@ export class ClienteAtributoFuncionalFormComponent {
     private serviceCategoria : CategoriaService,
     private regexService : RegexService,
     private alert : AlertService,
+    private serviceTipoUnidadMedida : TipoUnidadMedidaService,
+    private serviceUnidadMedida : UnidadMedidaService
   ) {
 
   }
@@ -56,6 +64,10 @@ export class ClienteAtributoFuncionalFormComponent {
     this.serviceCategoria.get().subscribe(x=>{
       this.atributoFuncionalVariedads = x.data;
     })
+
+    this.serviceTipoUnidadMedida.get().subscribe(x=>{
+      this.tipoUnidadMedidas = x.data;
+    });
   }
 
   get getModel() {
@@ -105,6 +117,16 @@ export class ClienteAtributoFuncionalFormComponent {
 
   nuevo() {
     this.model.patchValue(AtributoFuncionalVariedadInit);
+  }
+
+  changeTipoUnidadMedida(e:Event):void{
+    const codTipoUnidadMedida = (e.target as HTMLInputElement).value;
+
+    this.serviceUnidadMedida.postCodTipoUnidadMedida(parseInt(codTipoUnidadMedida)).subscribe(x=>{
+      console.log(x);
+      
+      this.unidadMedidas = x.data
+    })
   }
 
   isValidField(field: string): boolean | null {

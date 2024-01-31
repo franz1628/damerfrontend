@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ValidFormService } from '../../../../shared/services/validForm.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ClienteService } from '../../../service/cliente';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
 import { ZonaService } from '../../tablas/service/zona.service';
@@ -18,137 +18,185 @@ import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../
 import { AtributoFuncionalVariedadService } from '../../../service/atributoFuncionalVariedad';
 import { ClienteZonaService } from '../../../service/clienteZona';
 import { ClienteCanalService } from '../../../service/clienteCanal';
+import { TipoInformeOrdenService } from '../../../service/tipoInformeOrden';
+import { TipoInformeOrden } from '../../../interface/tipoInformeOrden';
+import { ContratoArbolComponent } from '../contrato-arbol/contrato-arbol.component';
+import { ContratoForm } from '../../../interface/contratoForm';
+import { ClienteZona } from '../../../interface/clienteZona';
+import { ClienteCanal } from '../../../interface/clienteCanal';
 
-interface contratoForm {
-  id: number,
-  tipoEstudios: number[],
-  zonas: number[],
-  canals: number[],
-  atributoFuncionalVariedads: number[],
-}
+
 
 @Component({
   selector: 'app-contrato-form',
   templateUrl: './contrato-form.component.html'
 })
 
-export class ContratoFormComponent implements OnInit{
+export class ContratoFormComponent implements OnInit {
   public model = this.fb.group({
     id: [0],
-    tipoEstudios: [[0]],
-    zonas: [[0]],
-    canals: [[0]],
-    atributoFuncionalVariedads: [[0]],
+    tipoEstudios: this.fb.array<number>([]),
+    zonas: this.fb.array<number>([]),
+    canals: this.fb.array<number>([]),
+    atributoFuncionalVariedads: this.fb.array<number>([]),
+    tipoInformeOrdens: this.fb.array<number>([]),
     fechaInicial: [''],
     fechaFinal: [''],
     diaEntrega: [1],
     frecuencias: [0],
     extension: [0],
-  })
+  });
 
-  public cliente : Cliente = ClienteInit;
-  public categoria : Categoria = CategoriaInit;
+  public cliente: Cliente = ClienteInit;
+  public categoria: Categoria = CategoriaInit;
+  @ViewChild('contratoArbolComp')
+  contratoArbolComp!: ContratoArbolComponent;
 
-  clientes:Cliente[] = [];
-  zonas:Zona[] = [];
-  canals:Canal[] = [];
-  categorias:Categoria[] = [];
-  frecuencias:Frecuencia[] = [];
-  tipoEstudios:TipoEstudio[] = [];
-  atributoFuncionalVariedads:AtributoFuncionalVariedad[] = [];
+  clientes: Cliente[] = [];
+  zonas: ClienteZona[] = [];
+  canals: ClienteCanal[] = [];
+  categorias: Categoria[] = [];
+  frecuencias: Frecuencia[] = [];
+  tipoEstudios: TipoEstudio[] = [];
+  atributoFuncionalVariedads: AtributoFuncionalVariedad[] = [];
+  tipoInformeOrdens: TipoInformeOrden[] = [];
 
   constructor(
     private fb: FormBuilder,
     private validForm: ValidFormService,
-    private serviceCliente : ClienteService,
-    private serviceZona : ZonaService,
-    private serviceCanal : CanalService,
-    private serviceCategoria : CategoriaService,
-    private serviceFrecuencia : FrecuenciaService,
-    private serviceClienteCategoria : ClienteCategoriaService,
-    private serviceClienteZona : ClienteZonaService,
-    private serviceClienteCanal : ClienteCanalService,
+    private serviceCliente: ClienteService,
+    private serviceZona: ZonaService,
+    private serviceCanal: CanalService,
+    private serviceCategoria: CategoriaService,
+    private serviceFrecuencia: FrecuenciaService,
+    private serviceClienteCategoria: ClienteCategoriaService,
+    private serviceClienteZona: ClienteZonaService,
+    private serviceClienteCanal: ClienteCanalService,
     private serviceTipoEstudio: TipoEstudioService,
     private serviceAtributoFuncionalVariedad: AtributoFuncionalVariedadService,
+    private serviceTipoInformeOrden: TipoInformeOrdenService
 
   ) {
 
   }
 
   ngOnInit(): void {
-    
-    this.serviceCliente.get().subscribe((x)=>{
+
+    this.serviceCliente.get().subscribe((x) => {
       this.clientes = x.data;
     });
 
-    this.serviceFrecuencia.get().subscribe((x)=>{
+    this.serviceFrecuencia.get().subscribe((x) => {
       this.frecuencias = x.data;
     });
 
-    this.serviceTipoEstudio.get().subscribe((x)=>{
+    this.serviceTipoEstudio.get().subscribe((x) => {
       this.tipoEstudios = x.data;
+
+      const arr = this.model.get('tipoEstudios') as FormArray;
+      for (let index = 0; index < x.data.length; index++) {
+        const control = this.fb.control(true);
+        arr.push(control);
+      }
     });
-    
+    this.serviceTipoInformeOrden.get().subscribe((x) => {
+      this.tipoInformeOrdens = x.data;
+
+      const arr = this.model.get('tipoInformeOrdens') as FormArray;
+      for (let index = 0; index < x.data.length; index++) {
+        const control = this.fb.control(true);
+        arr.push(control);
+      }
+    });
+
   }
 
-  get getModel(){
-    return this.model.value as contratoForm
+  get getZonas(): FormArray {
+    return this.model.get('zonas') as FormArray;
   }
 
-  changeCliente(event:Event){
-    
+  get getCanals(): FormArray {
+    return this.model.get('canals') as FormArray;
+  }
+
+  get getTipoEstudios(): FormArray {
+    return this.model.get('tipoEstudios') as FormArray;
+  }
+
+  get getAtributoFuncionalVariedads(): FormArray {
+    return this.model.get('atributoFuncionalVariedads') as FormArray;
+  }
+
+  get getTipoInformeOrdens(): FormArray {
+    return this.model.get('tipoInformeOrdens') as FormArray;
+  }
+
+
+
+  get getModel(): ContratoForm {
+    return this.model.value as ContratoForm;
+  }
+
+  changeCliente(event: Event) {
+
     const a = event.target as HTMLInputElement
 
-    this.serviceCliente.postCodigo(parseInt(a.value)).subscribe(x=>{
-      
+    this.serviceCliente.postCodigo(parseInt(a.value)).subscribe(x => {
+
       this.cliente = x
     });
 
 
-    this.serviceClienteCategoria.getCodCliente(parseInt(a.value)).subscribe(x=>{
+    this.serviceClienteCategoria.getCodCliente(parseInt(a.value)).subscribe(x => {
       let arr_categorias = [];
-      
+
       for (let index = 0; index < x.data.length; index++) {
         const element = x.data[index];
         arr_categorias.push(element.Categoria)
       }
-      
+
       this.categorias = arr_categorias;
     })
-    
+
   }
 
-  changeCategoria(event:Event){ 
+  changeCategoria(event: Event) {
     const a = event.target as HTMLInputElement
-    this.serviceCategoria.postCodigo(parseInt(a.value)).subscribe(x=>{
+    this.serviceCategoria.postCodigo(parseInt(a.value)).subscribe(x => {
       this.categoria = x || CategoriaInit;
 
-      if(parseInt(a.value)!=0){
-        this.serviceAtributoFuncionalVariedad.getCodClienteCodCategoria(this.cliente.codigo,this.categoria.codigo).subscribe((x)=>{
-          console.log(x);
+      if (parseInt(a.value) != 0) {
+        this.serviceAtributoFuncionalVariedad.getCodClienteCodCategoria(this.cliente.codigo, this.categoria.codigo).subscribe((x) => {
+
           this.atributoFuncionalVariedads = x.data;
+
+          const arr = this.model.get('atributoFuncionalVariedads') as FormArray;
+          for (let index = 0; index < x.data.length; index++) {
+            const control = this.fb.control(true);
+            arr.push(control);
+          }
         });
 
-        this.serviceClienteZona.getCodCliente(this.cliente.codigo).subscribe((x)=>{
-          let arr_zonas = [];
-      
+        this.serviceClienteZona.getCodCliente(this.cliente.codigo).subscribe((x) => {
+          this.zonas = x.data;
+ 
+          const arr = this.model.get('zonas') as FormArray;
           for (let index = 0; index < x.data.length; index++) {
-            const element = x.data[index];
-            arr_zonas.push(element.Zona)
+            const control = this.fb.control(true);
+            arr.push(control);
           }
-          
-          this.zonas = arr_zonas;
+
         });
-    
-        this.serviceClienteCanal.getCodCliente(this.cliente.codigo).subscribe((x)=>{
-          let arr_canals = [];
-      
+
+        this.serviceClienteCanal.getCodCliente(this.cliente.codigo).subscribe((x) => {
+          this.canals = x.data;
+
+          const arr = this.model.get('canals') as FormArray;
           for (let index = 0; index < x.data.length; index++) {
-            const element = x.data[index];
-            arr_canals.push(element.Canal)
+            const control = this.fb.control(true);
+            arr.push(control);
           }
-          
-          this.canals = arr_canals;
+
         });
       }
 
@@ -156,27 +204,28 @@ export class ContratoFormComponent implements OnInit{
 
   }
 
-  actualizarEleccion(){
-    console.log(this.getModel);
-    
+  actualizarEleccion() {
+  
+
+    this.contratoArbolComp.actualizarArbol(this.model.value as ContratoForm,this.canals,this.zonas,this.atributoFuncionalVariedads,this.tipoEstudios,this.tipoInformeOrdens);
   }
 
   toggleCheckbox(codigo: number): void {
-    const atributoFuncionalVariedadsArray = this.model.get('atributoFuncionalVariedads')?.value || [];
 
-    // Verificar si el código ya está presente en el array
+
+
+    /*let atributoFuncionalVariedadsArray = this.getModel.atributoFuncionalVariedads;
+
     const index = atributoFuncionalVariedadsArray.indexOf(codigo);
 
     if (index !== -1) {
-      // Si está presente, quitarlo del array
       atributoFuncionalVariedadsArray.splice(index, 1);
     } else {
-      // Si no está presente, agregarlo al array
       atributoFuncionalVariedadsArray.push(codigo);
     }
 
-    // Actualizar el valor del formulario con el nuevo array
-    this.model.patchValue({ atributoFuncionalVariedads: atributoFuncionalVariedadsArray });
+    this.model.patchValue({ atributoFuncionalVariedads: atributoFuncionalVariedadsArray });*/
+
   }
 
   isValidField(field: string): boolean | null {

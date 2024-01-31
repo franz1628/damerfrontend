@@ -117,7 +117,7 @@
             <div class="col-6">
                 <h6 class="mb-3 text-center">ATRIBUTOS REGISTRADOS</h6>
                 <hr>
-                <button class="btn btn-info" (click)="abrirModalFormular()">Formula</button>
+                <button class="btn btn-sm btn-info" (click)="abrirModalFormular()">Formula</button>
 
                
                 <div class="modal {{showModalFormula?'d-block':''}} ">
@@ -131,8 +131,8 @@
                                 <app-cliente-formula #clienteFormulaComp></app-cliente-formula>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" (click)="showModalFormula=false">Cerrar</button>
-                                <button type="button" class="btn btn-primary">Guardar</button>
+                                <button type="button" class="btn btn-sm btn-secondary" (click)="showModalFormula=false">Cerrar</button>
+                                <button type="button" class="btn btn-sm btn-primary">Guardar</button>
                             </div>
                         </div>
                     </div>

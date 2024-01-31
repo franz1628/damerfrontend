@@ -1,6 +1,6 @@
 <form action="" [formGroup]="model">
     
-    <h6>VALORES DE ATRIBUTO TÉCNICO VARIEDAD</h6>
+
     
     <div class="row">
         <div class="col-md-12">
@@ -8,9 +8,9 @@
                 <div class="col-sm-7">
     
                     <div class="mb-3 row">
-                        <label for="idAtributoTecnicoVariedad" class="col-md-4 col-form-label-sm">Codigo Canal</label>
+                        <label for="idAtributoTecnicoVariedad" class="col-md-4 col-form-label-sm">Atributo técnico</label>
                         <div class="col-sm-8">
-                            <select name="idAtributoTecnicoVariedad" id="idAtributoTecnicoVariedad" formControlName="idAtributoTecnicoVariedad" (change)="changeAtributo($event)">
+                            <select class="form-select form-select-sm" name="idAtributoTecnicoVariedad" id="idAtributoTecnicoVariedad" formControlName="idAtributoTecnicoVariedad" (change)="changeAtributo($event)">
                                 <option value="0">SELECCIONAR</option>
                                 @for (categoriaAtributoTecnico of categoriaAtributoTecnicos; track $index) {
                                     <option value={{categoriaAtributoTecnico.id}}>{{categoriaAtributoTecnico.AtributoTecnicoVariedad.descripcion}}</option>
