@@ -27,7 +27,8 @@ export class ClienteCategoriaListComponent {
 
   actualizarList(){
     this.loading=true;
-    this.service.getCodCliente(this.cliente.codigo).subscribe(resp => {
+    this.service.postIdCliente(this.cliente.id).subscribe(resp => {
+
       this.models = resp.data;
       this.loading=false;
     })

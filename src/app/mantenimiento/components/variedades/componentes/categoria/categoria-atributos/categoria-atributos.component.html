@@ -1,45 +1,18 @@
-<h6>ATRIBUTOS TECNICOS DE LA CATEGORIA</h6>
-<table class="table table-sm table-bordered">
-    <thead class="table-success">
-        <tr>
-            <td colspan="2">Atributo Tecnico</td>
-            <td rowspan="2">Comentario</td>
-            <td rowspan="2">Tipo unidad de medida</td>
-            <td rowspan="2">Nº orden SKU</td>
-            <td rowspan="2">Ind. Ver. Subordinado</td>
-            <td colspan="2">Status del registro</td>
-            <td colspan="2"></td>
-        </tr>
-        <tr>
-            <td>Codigo</td>
-            <td>Descripcion</td>
-            <td>Status</td>
-            <td>Fecha</td>
-            <td></td>
-        </tr>
-    </thead>
-    <tbody>
-        @for (model of models; track $index) {
-            <tr>
-                <td>{{model.AtributoTecnicoVariedad.codigo}}</td>
-                <td>{{model.AtributoTecnicoVariedad.descripcion}}</td>
-                <td>{{model.comentario}}</td>
-                <td>{{model.idTipoUnidadMedida}}</td>
-                <td>{{model.numOrdenSku}}</td>
-                <td>{{model.indVerificado}}</td>
-                <td>{{model.estado}}</td>
-                <td>{{model.fechaRegistro}}</td>
-                <td><button class="btn btn-sm btn-info">Editar</button><button class="btn btn-sm btn-danger">Eliminar</button></td>
-                <td><button  (click)="elegirAtributo(model)">-></button></td>
+<h5 class="text-center">{{title}}</h5>
+
+<div class="row">
+  <div class="col-md-4">
+    <h6 class="mb-3 text-center">INFORMACION DEL TIPO INFORME ORDEN</h6>
+    <hr>
+    <app-categoria-atributos-form #categoriaAtributoTecnicoForm (updateModelsEmit)="get()" [model]="modelEdit"></app-categoria-atributos-form>
+    
+  </div>
+  <div class="col-md-8">
+    <h6 class="mb-3 text-center">TIPO INFORME ORDEN REGISTRADOS</h6>
+    <hr>
+    <app-categoria-atributos-list [models]="models" (updateModelsEmit)="get()" (editEmit)="editModel($event)"></app-categoria-atributos-list>
+  </div>
+</div>
 
 
-            </tr>
-        }
-    </tbody>
-</table>
- @if(getIdCategoriaAtributoTecnico!=0){
-     <app-categoria-valor [idCategoriaAtributoTecnico]="getIdCategoriaAtributoTecnico"></app-categoria-valor>
- }
-
-
-
+<br>

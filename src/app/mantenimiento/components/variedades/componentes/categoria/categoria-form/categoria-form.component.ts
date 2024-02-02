@@ -72,6 +72,9 @@ export class CategoriaFormComponent {
       return;
     }
 
+    console.log(this.currentModel); return
+    
+
     if (!this.currentModel.id) {
       this.service.add(this.currentModel).subscribe(() => {
         this.showLoading = false;
@@ -99,7 +102,13 @@ export class CategoriaFormComponent {
   }
 
   nuevo() {
+    const codCanasta = this.currentModel.codCanasta;
+    const codMegaCategoria = this.currentModel.codMegaCategoria;
+    console.log(codCanasta);
+    console.log(codMegaCategoria);
+    
     this.myForm.patchValue(CategoriaInit);
+    this.myForm.patchValue({codCanasta:codCanasta,codMegaCategoria:codMegaCategoria});
     this.myForm.clearValidators()
   }
 

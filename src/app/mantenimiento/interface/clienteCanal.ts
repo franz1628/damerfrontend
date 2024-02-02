@@ -4,8 +4,8 @@ import { Cliente, ClienteInit } from "./cliente";
 
 export interface ClienteCanal {
     id: number,
-    codCliente: number,
-    codCanal: number,
+    idCliente: number,
+    idCanal: number,
     nombreAgrupacion: string,
     fechaRegistro: Date,
     Cliente: Cliente,
@@ -14,8 +14,8 @@ export interface ClienteCanal {
 }
 export const ClienteCanalInit: ClienteCanal = {
     id: 0,
-    codCliente: 0,
-    codCanal: 0,
+    idCliente: 0,
+    idCanal: 0,
     nombreAgrupacion: '',
     fechaRegistro: new Date(),
     Cliente: ClienteInit,

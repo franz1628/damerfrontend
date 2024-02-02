@@ -22,8 +22,8 @@ export class ClienteCategoriaFormComponent {
 
   public model = this.fb.group({
     id:[0],
-    codCliente: [0,Validators.required],
-    codCategoria: [0,Validators.required],
+    idCliente: [0,Validators.required],
+    idCategoria: [0,Validators.required],
     nombreAgrupacion: ['',Validators.required],
   })
 
@@ -39,7 +39,7 @@ export class ClienteCategoriaFormComponent {
   }
 
   ngOnInit(): void {
-    this.model.patchValue({codCliente:this.cliente.codigo});
+    this.model.patchValue({idCliente:this.cliente.id});
 
     this.serviceCategoria.get().subscribe(x=>{
       this.categorias = x.data;

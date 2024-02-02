@@ -17,18 +17,18 @@
             </div>
 
             <div class="mb-3 row">
-                <label for="codCategoria" class="col-md-4 col-form-label-sm">Codigo Categoria</label>
+                <label for="idCategoria" class="col-md-4 col-form-label-sm">Codigo Categoria</label>
                 <div class="col-sm-8">
-                    <select class="form-select form-select-sm" name="codCategoria" id="codCategoria" formControlName="codCategoria">
+                    <select class="form-select form-select-sm" name="idCategoria" id="idCategoria" formControlName="idCategoria">
                         <option value="0">SELECCIONAR</option>
                         @for (categoria of categorias; track $index) {
-                            <option value={{categoria.codigo}}>{{categoria.descripcion}}</option>
+                            <option value={{categoria.id}}>{{categoria.descripcion}}</option>
                         }
                     </select>
 
                 </div>
-                <span *ngIf="isValidField('codCategoria')" class="form-text text-danger">
-                    {{ getFieldError('codCategoria') }}
+                <span *ngIf="isValidField('idCategoria')" class="form-text text-danger">
+                    {{ getFieldError('idCategoria') }}
                 </span>
             </div>
 

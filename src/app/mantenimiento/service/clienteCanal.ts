@@ -5,6 +5,12 @@ import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
 import { ClienteCanal } from '../interface/clienteCanal';
 
+export interface ResponseClienteCanal {
+  data: ClienteCanal[],
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +33,10 @@ export class ClienteCanalService {
 
   getCodCliente(codCliente: number): Observable<Response> {
     return this.http.get<Response>(`${this.apiUrl}/codCliente/${codCliente}`);
+  }
+
+  postIdCliente(idCliente: number): Observable<ResponseClienteCanal> {
+    return this.http.post<ResponseClienteCanal>(`${this.apiUrl}/idCliente/`, {idCliente});
   }
 
   add(model: ClienteCanal): Observable<ClienteCanal> {

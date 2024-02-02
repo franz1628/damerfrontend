@@ -22,6 +22,8 @@ import { CategoriaExhibidoresComponent } from './componentes/categoria/categoria
 import { SkuAtributosComponent } from './componentes/sku/sku-atributos/sku-atributos.component';
 import { SkuUnidadesVentaComponent } from './componentes/sku/sku-unidades-venta/sku-unidades-venta.component';
 import { CategoriaValorComponent } from './componentes/categoria/categoria-valor/categoria-valor.component';
+import { CategoriaAtributosListComponent } from './componentes/categoria/categoria-atributos/categoria-atributos-list/categoria-atributos-list.component';
+import { CategoriaAtributosFormComponent } from './componentes/categoria/categoria-atributos/categoria-atributos-form/categoria-atributos-form.component';
 
 
 
@@ -45,7 +47,9 @@ import { CategoriaValorComponent } from './componentes/categoria/categoria-valor
         CategoriaExhibidoresComponent,
         SkuAtributosComponent,
         SkuUnidadesVentaComponent,
-        CategoriaValorComponent
+        CategoriaValorComponent,
+        CategoriaAtributosListComponent,
+        CategoriaAtributosFormComponent
     ],
     imports: [
         CommonModule,
