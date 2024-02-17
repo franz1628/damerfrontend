@@ -26,3 +26,9 @@
         border: 1px solid #ced4da;
         border-radius: .2rem; /* Ajusta el radio del borde para que se vea más compacto */
       }
+
+      .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem; /* 14px */
+        line-height: 1.5;
+    }

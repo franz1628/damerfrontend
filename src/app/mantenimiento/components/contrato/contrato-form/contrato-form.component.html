@@ -1,20 +1,44 @@
+
+<style>
+    button.nav-link.active {
+  background: black !important;
+  color: white !important;
+}
+</style>
+
 <h4>Mantenimiento de Contratos</h4>
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente" type="button"
-            role="tab" aria-controls="cliente" aria-selected="true">Cliente</button>
+        <button class="nav-link active " id="listado-tab" data-bs-toggle="tab" data-bs-target="#listado" type="button"
+            role="tab" aria-controls="listado" aria-selected="true">Listado</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link " id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente" type="button"
+            role="tab" aria-controls="cliente" aria-selected="true">Nuevo</button>
     </li>
     @if(this.cliente.codigo!=0 && this.categoria.codigo!=0){
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="contrato-tab" data-bs-toggle="tab" data-bs-target="#contrato" type="button"
-            role="tab" aria-controls="contrato" aria-selected="false">Contrato</button>
+            role="tab" aria-controls="contrato" aria-selected="false" #botonContrato>Contrato</button>
     </li>
     }
+    <li class="nav-item" role="presentation">
+        <button class="nav-link " id="edicion-tab" data-bs-toggle="tab" data-bs-target="#edicion" type="button"
+            role="tab" aria-controls="edicion" aria-selected="true" #botonEdicion>Edición</button>
+    </li>
 
 </ul>
 <div class="tab-content" id="myTabContent">
-    <div class="tab-pane  show active" id="cliente" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+    <div class="tab-pane show active " id="listado" role="tabpanel" aria-labelledby="home-tab" tabindex="2">
+        <div class="row mt-4">
+            <div class="col-12">
+                <app-contrato-list (emitEditarContrato) = "editarContrato($event)"></app-contrato-list>
+            </div>
+        </div>
+
+    </div>
+    <div class="tab-pane  " id="cliente" role="tabpanel" aria-labelledby="cliente-tab" tabindex="0">
 
         <div class="row mt-4">
             <div class="col-2">
@@ -26,7 +50,7 @@
                             id="codCliente">
                             <option value="0">SELECCIONAR</option>
                             @for (cliente of clientes; track $index) {
-                            <option value="{{cliente.codigo}}">{{cliente.razonSocial}}</option>
+                            <option value="{{cliente.id}}">{{cliente.razonSocial}}</option>
                             }
                         </select>
                     </div>
@@ -45,7 +69,7 @@
                             (change)="changeCategoria($event)">
                             <option value="0">SELECCIONAR</option>
                             @for (categoria of categorias; track $index) {
-                            <option value="{{categoria.codigo}}">{{categoria.descripcion}}</option>
+                            <option value="{{categoria.id}}">{{categoria.descripcion}}</option>
                             }
                         </select>
                     </div>
@@ -59,7 +83,7 @@
     </div>
     @if(this.cliente.codigo!=0 && this.categoria.codigo!=0){
 
-    <div class="tab-pane " id="contrato" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+    <div class="tab-pane " id="contrato" role="tabpanel" aria-labelledby="contrato-tab" tabindex="1">
 
         <form [formGroup]="model" autocomplete="off">
             <br>
@@ -80,14 +104,23 @@
                                     <div class="mb-3 row">
                                       
                                         <div class="col-sm-12">
-                                            <div formArrayName="tipoEstudios" *ngFor="let tipoEstudio of getTipoEstudios.controls; let i = index" class="form-check">
-                                                <input type="checkbox" class="form-check-input" name="tipoEstudios"
+                                            <!-- <div formArrayName="tipoEstudios" *ngFor="let tipoEstudio of getTipoEstudios.controls; let i = index" class="form-check">
+                                                <input type="radio" class="form-check-input" name="tipoEstudios"
                                                     [formControlName]="i" id="tipoEstudio_{{ i }}">
                                                 <label class="form-check-label" for="tipoEstudio_{{ i }}">{{tipoEstudios[i].descripcion}}</label>
-                                            </div>
+
+                                            
+                                            </div> -->
+
+                                            <select class="form-select form-select-sm" formControlName="tipoEstudio">
+                                                <option value="0">[SELECCIONAR]</option>
+                                                @for (tipoEstudio of tipoEstudios; track $index) {
+                                                    <option value="{{tipoEstudio.id}}">{{tipoEstudio.descripcion}}</option>
+                                                }
+                                            </select>
                                         </div>
-                                        <span *ngIf="isValidField('tipoEstudios')" class="form-text text-danger">
-                                            {{ getFieldError('tipoEstudios') }}
+                                        <span *ngIf="isValidField('tipoEstudio')" class="form-text text-danger">
+                                            {{ getFieldError('tipoEstudio') }}
                                         </span>
                                     </div>
                                 </div>
@@ -206,106 +239,182 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-sm btn-info" (click)="actualizarEleccion()">Actualizar</button>
+                            <button class="btn btn-sm btn-info mt-4" (click)="actualizarEleccion()"><i class="bi bi-arrow-clockwise"></i> Actualizar</button>
                         </div>
                     </div>
 
                 </div>
                 <div class="col-md-5">
-                    <app-contrato-arbol [contratoForm]="getModel"  #contratoArbolComp></app-contrato-arbol>
+                    <app-contrato-arbol [contratoForm]="getModel" (guardarEmit)="guardarContrato($event)"  #contratoArbolComp></app-contrato-arbol>
 
                 </div>
                 <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-12">
 
-                            <div class="mb-3 row">
-                                <label for="fechaInicial" class="col-md-5 col-form-label-sm">Fecha Inicial</label>
-                                <div class="col-sm-7">
-                                    <input type="date" class="form-control form-control-sm" formControlName="fechaInicial">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link active" id="periodo-tab" data-bs-toggle="tab" data-bs-target="#periodo-tab-pane" type="button" role="tab" aria-controls="periodo-tab-pane" aria-selected="true">Periodo</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="variable-tab" data-bs-toggle="tab" data-bs-target="#variable-tab-pane" type="button" role="tab" aria-controls="variable-tab-pane" aria-selected="false">Variable</button>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="periodo-tab-pane" role="tabpanel" aria-labelledby="periodo-tab" tabindex="0">
+                            <div class="row mt-4">
+                                <div class="col-12">
+        
+                                    <div class="mb-3 row">
+                                        <label for="fechaInicio" class="col-md-5 col-form-label-sm">Fecha Inicial</label>
+                                        <div class="col-sm-7">
+                                            <input type="date" class="form-control form-control-sm" formControlName="fechaInicio" (change)="generateMonths()">
+                                        </div>
+                                        <span *ngIf="isValidField('fechaInicio')" class="form-text text-danger">
+                                            {{ getFieldError('fechaInicio') }}
+                                        </span>
+                                    </div>
                                 </div>
-                                <span *ngIf="isValidField('fechaInicial')" class="form-text text-danger">
-                                    {{ getFieldError('fechaInicial') }}
+                            </div>
+        
+                            <div class="row">
+                                <div class="col-12">
+        
+                                    <div class="mb-3 row">
+                                        <label for="fechaFin" class="col-md-5 col-form-label-sm">Fecha Fin</label>
+                                        <div class="col-sm-7">
+                                            <input type="date" class="form-control form-control-sm" formControlName="fechaFin" (change)="generateMonths()">
+                                        </div>
+                                        <span *ngIf="isValidField('fechaFin')" class="form-text text-danger">
+                                            {{ getFieldError('fechaFin') }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12" formArrayName="meses">
+                                    <div *ngFor="let month of getMeses.controls; let i = index" class="form-check">
+                                        <input [formControlName]="i" type="checkbox" [id]="months[i]" [name]="months[i]" class="form-check-input" checked>
+                                        <label [for]="months[i]">{{ months[i] }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                           
+        
+                            <div class="row">
+                                <div class="col-12">
+        
+                                    <div class="mb-3 row">
+                                        <label for="diaEntrega" class="col-md-5 col-form-label-sm">Día de Entrega</label>
+                                        <div class="col-sm-7">
+                                            <input type="number" class="form-control form-control-sm" formControlName="diaEntrega">
+                                        </div>
+                                        <span *ngIf="isValidField('diaEntrega')" class="form-text text-danger">
+                                            {{ getFieldError('diaEntrega') }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="col-12">
+        
+                                    <div class="mb-3 row">
+                                        <label for="extension" class="col-md-5 col-form-label-sm">Admitir extensión</label>
+                                        <div class="col-sm-7">
+                                            <input type="checkbox" class="form-check-input" formControlName="extension">
+                                        </div>
+                                        <span *ngIf="isValidField('extension')" class="form-text text-danger">
+                                            {{ getFieldError('extension') }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="col-12">
+        
+                                    <div class="mb-3 row">
+                                        <label for="idFrecuencia" class="col-md-5 col-form-label-sm">Frecuencia</label>
+                                        <div class="col-sm-7">
+                                            <select class="form-select form-select-sm" name="idFrecuencia" (change)="generateMonths()"
+                                                formControlName="idFrecuencia" id="idFrecuencia">
+                                                <option value="0">[SELECCIONAR]</option>
+                                                @for (frecuencia of frecuencias; track $index) {
+                                                <option value="{{frecuencia.id}}">{{frecuencia.descripcion}}</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <span *ngIf="isValidField('idFrecuencia')" class="form-text text-danger">
+                                            {{ getFieldError('idFrecuencia') }}
+                                        </span>
+                                    </div>
+        
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+        
+                                    <div class="mb-3 row">
+                                        <label for="shot" class="col-md-5 col-form-label-sm">Shot</label>
+                                        <div class="col-sm-7">
+                                            <input type="checkbox" class="form-check-input" formControlName="shot">
+                                        </div>
+                                        <span *ngIf="isValidField('shot')" class="form-text text-danger">
+                                            {{ getFieldError('shot') }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        
+        
+                            <div class="mb-3 row">
+                                <h6>UNIDADES DE VENTA</h6>
+                                <div class="col-sm-12">
+                                    <div formArrayName="categoriaUnidadVentas" *ngFor="let categoriaUnidadVenta of getCategoriaUnidadVentas.controls; let i = index" class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="categoriaUnidadVentas"
+                                            [formControlName]="i" id="categoriaUnidadVenta_{{ i }}">
+                                        <label class="form-check-label" for="categoriaUnidadVenta_{{ i }}">{{categoriaUnidadVentas[i].UnidadVenta.descripcion}}</label>
+                                    </div>
+                                </div>
+                                <span *ngIf="isValidField('categoriaUnidadVentas')" class="form-text text-danger">
+                                    {{ getFieldError('categoriaUnidadVentas') }}
                                 </span>
                             </div>
+                            
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-
-                            <div class="mb-3 row">
-                                <label for="fechaFinal" class="col-md-5 col-form-label-sm">Fecha Inicial</label>
-                                <div class="col-sm-7">
-                                    <input type="date" class="form-control" formControlName="fechaFinal">
+                        <div class="tab-pane fade" id="variable-tab-pane" role="tabpanel" aria-labelledby="variable-tab" tabindex="0">
+                            <div class="mb-3 row mt-4">
+                                      
+                                <div class="col-sm-12">
+                                    <div formArrayName="variables" *ngFor="let variable of getVariables.controls; let i = index" class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="variables"
+                                            [formControlName]="i" id="variable_{{ i }}">
+                                        <label class="form-check-label" for="variable_{{ i }}">{{variables[i].descripcion}}</label>
+                                    </div>
                                 </div>
-                                <span *ngIf="isValidField('fechaFinal')" class="form-text text-danger">
-                                    {{ getFieldError('fechaFinal') }}
+                                <span *ngIf="isValidField('variables')" class="form-text text-danger">
+                                    {{ getFieldError('variables') }}
                                 </span>
                             </div>
+                            
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-12">
+                      </div>
 
-                            <div class="mb-3 row">
-                                <label for="diaEntrega" class="col-md-5 col-form-label-sm">Día de Entrega</label>
-                                <div class="col-sm-7">
-                                    <input type="number" class="form-control form-control-sm" formControlName="diaEntrega">
-                                </div>
-                                <span *ngIf="isValidField('diaEntrega')" class="form-text text-danger">
-                                    {{ getFieldError('diaEntrega') }}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-
-                            <div class="mb-3 row">
-                                <label for="extension" class="col-md-5 col-form-label-sm">Admitir extensión</label>
-                                <div class="col-sm-7">
-                                    <input type="checkbox" class="form-check-input" formControlName="extension">
-                                </div>
-                                <span *ngIf="isValidField('extension')" class="form-text text-danger">
-                                    {{ getFieldError('extension') }}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-
-                            <div class="mb-3 row">
-                                <label for="frecuencias" class="col-md-5 col-form-label-sm">Frecuencias</label>
-                                <div class="col-sm-7">
-                                    <select class="form-select form-select-sm" name="frecuencias"
-                                        formControlName="frecuencias" id="frecuencias" multiple>
-
-                                        @for (frecuencia of frecuencias; track $index) {
-                                        <option value="{{frecuencia.id}}">{{frecuencia.descripcion}}</option>
-                                        }
-                                    </select>
-                                </div>
-                                <span *ngIf="isValidField('frecuencias')" class="form-text text-danger">
-                                    {{ getFieldError('frecuencias') }}
-                                </span>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
             </div>
-
-
-
-
-
         </form>
     </div>
     }
 
+    <div class="tab-pane " id="edicion" role="tabpanel" aria-labelledby="edicion-tab" tabindex="1">
+        <app-contrato-edicion #edicionComp></app-contrato-edicion>
+    </div>
+
 </div>
+
+
+<app-black-loading [show]="showLoading"></app-black-loading>
+

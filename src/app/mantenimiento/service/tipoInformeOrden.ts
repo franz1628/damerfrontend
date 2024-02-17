@@ -5,6 +5,12 @@ import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
 import { TipoInformeOrden } from '../interface/tipoInformeOrden';
 
+export interface ResponseTipoInformeOrden {
+  data: TipoInformeOrden[],
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root' 
 })

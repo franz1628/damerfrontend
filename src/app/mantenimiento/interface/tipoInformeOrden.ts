@@ -1,3 +1,4 @@
+import { TipoEstudio } from "./tipoEstudio";
 
 export interface TipoInformeOrden {
     id: number,
@@ -12,6 +13,7 @@ export interface TipoInformeOrden {
     alias1: string,
     alias2: string,
     alias3: string,
+    TipoEstudio:TipoEstudio[],
     fechaRegistro: Date,
     estado : number,
 }
@@ -28,6 +30,7 @@ export const TipoInformeOrdenInit: TipoInformeOrden = {
     alias1: '',
     alias2: '',
     alias3: '',
+    TipoEstudio:[],
     fechaRegistro: new Date(),
     estado : 1,
 };

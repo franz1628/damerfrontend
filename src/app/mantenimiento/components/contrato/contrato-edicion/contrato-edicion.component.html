@@ -1,0 +1,241 @@
+
+<h4 class="mt-4">Edicion de Contrato</h4>
+
+<div class="row">
+    <div class="col-md-3">..</div>
+    <div class="col-md-7">
+
+
+        @if(this.tipoEstudios.length!=0){
+        <form [formGroup]="model" autocomplete="off">
+
+            <button class="btn btn-success mb-4" (click)="guardar()"><i class="bi bi-cloud-download"></i>
+                Guardar</button>
+
+            <div class="accordion" id="accTipoEstudio">
+
+                <div *ngFor="let tipoEstudio of arr_detalles; index as idx1">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <div class="input-group mb-3">
+
+                                <div class="input-group-text">
+                                    <input type="checkbox" id="tipoEstudio_{{ idx1 }}" class="form-check-input me-2"
+                                    [checked]="checkTipoEstudios[idx1]"
+                                    (click)="changeTipoEstudio($event,idx1.toString())" name="tipoEstudios" aria-label="Checkbox">
+                                </div>
+
+                                <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+                                    [attr.data-bs-target]="'#co' + idx1" aria-expanded="true">
+                                    {{tipoEstudios[idx1].descripcion}}
+                                </button>
+                            </div>
+                        </h2>
+                        <div id="co{{idx1}}" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                <div class="accordion" id="acczona{{idx1}}">
+                                    <div *ngFor="let zona of  tipoEstudio; index as idx2">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-text">
+                                                        <input type="checkbox" class="form-check-input me-2 "
+                                                            aria-label="Checkbox"
+                                                            [checked]="getCheckZonas[idx1][idx2]"
+                                                            (click)="changeZona($event,idx1+'-'+idx2)">
+                                                    </div>
+                                                    <button class="accordion-button form-control" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        [attr.data-bs-target]="'#zona' + idx1+idx2"
+                                                        aria-expanded="true">
+                                                        {{zonas[idx2].descripcion}}
+                                                    </button>
+                                                </div>
+                                            </h2>
+                                            <div id="zona{{idx1+''+idx2}}" class="accordion-collapse collapse show">
+                                                <div class="accordion-body">
+                                                    <div class="accordion" id="acccanal{{idx1+idx2}}">
+
+
+                                                        <div *ngFor="let canal of zona; index as idx3">
+                                                            <div class="accordion-item">
+                                                                <h2 class="accordion-header">
+
+                                                                    <div class="input-group mb-3">
+                                                                        <div class="input-group-text">
+                                                                            <input type="checkbox"
+                                                                                class="form-check-input me-2 "
+                                                                                aria-label="Checkbox"
+                                                                                [checked]="getCheckCanals[idx1][idx2][idx3]"
+                                                                                (click)="changeCanal($event,idx1+'-'+idx2+'-'+idx3)">
+                                                                        </div>
+                                                                        <button class="accordion-button form-control"
+                                                                            type="button" data-bs-toggle="collapse"
+                                                                            [attr.data-bs-target]="'#canal'  + idx1+idx2+idx3"
+                                                                            aria-expanded="true">
+                                                                            {{canals[idx3].descripcion}}
+                                                                        </button>
+                                                                    </div>
+
+
+                                                                </h2>
+                                                                <div id="canal{{ idx1+''+idx2+''+idx3}}"
+                                                                    class="accordion-collapse collapse show">
+                                                                    <div class="accordion-body">
+
+                                                                        <div class="accordion"
+                                                                            id="acctipoInformeOrden{{ idx1+idx2+idx3}}">
+                                                                            <div
+                                                                                *ngFor="let tipoInformeOrden of canal; index as idx4">
+                                                                                <div class="accordion-item">
+                                                                                    <h2 class="accordion-header">
+
+                                                                                        <div class="input-group mb-3">
+                                                                                            <div
+                                                                                                class="input-group-text">
+                                                                                                <input type="checkbox"
+                                                                                                    class="form-check-input me-2 "
+                                                                                                    [checked]="this.checkTipoInformeOrdens[idx1][idx2][idx3][idx4]"
+                                                                                                    aria-label="Checkbox"
+                                                                                                    (click)="changeTipoInformeOrden($event,idx1+'-'+idx2+'-'+idx3+'-'+idx4)"
+                                                                                                    aria-label="Checkbox">
+                                                                                            </div>
+                                                                                            <button
+                                                                                                class="accordion-button form-control"
+                                                                                                type="button"
+                                                                                                data-bs-toggle="collapse"
+                                                                                                [attr.data-bs-target]="'#tipoInformeOrden' + idx1+idx2+idx3+idx4"
+                                                                                                aria-expanded="true">
+                                                                                                {{tipoInformeOrdens[idx4].descripcion}}
+                                                                                            </button>
+                                                                                        </div>
+
+                                                                                    </h2>
+                                                                                    <div id="tipoInformeOrden{{idx1+''+idx2+''+idx3+''+idx4}}"
+                                                                                        class="accordion-collapse collapse show">
+                                                                                        <div class="accordion-body">
+                                                                                            <div class="accordion"
+                                                                                                id="accatributoFuncionalVariedad{{idx1+idx2+idx3+idx4}}">
+                                                                                                <div
+                                                                                                    *ngFor="let contrato of tipoInformeOrden; index as idx5">
+                                                                                                    <div
+                                                                                                        class="accordion-item">
+                                                                                                        <h2
+                                                                                                            class="accordion-header">
+
+                                                                                                            <div
+                                                                                                                class="input-group mb-3">
+                                                                                                                <div
+                                                                                                                    class="input-group-text">
+                                                                                                                    <input
+                                                                                                                        type="checkbox"
+                                                                                                                        class="form-check-input me-2 "
+                                                                                                                        aria-label="Checkbox"
+                                                                                                                        [checked]="contrato.valor"
+                                                                                                                        (change)="toggleCheckbox(contrato,idx1+'-'+idx2+'-'+idx3+'-'+idx4+'-'+idx5)">
+
+                                                                                                                </div>
+                                                                                                                <button
+                                                                                                                    class="accordion-button form-control"
+                                                                                                                    type="button"
+                                                                                                                    data-bs-toggle="collapse"
+                                                                                                                    [attr.data-bs-target]="'#atributoFuncionalVariedad' + idx1+idx2+idx3+idx4+idx5"
+                                                                                                                    aria-expanded="true">
+                                                                                                                    {{atributoFuncionalVariedads[idx5].descripcion}}
+                                                                                                                </button>
+                                                                                                            </div>
+
+                                                                                                        </h2>
+                                                                                                        <div id="atributoFuncionalVariedad{{idx1+''+idx2+''+idx3+''+idx4+''+idx5}}"
+                                                                                                            class="accordion-collapse collapse show">
+
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </form>
+        }
+    </div>
+
+    <div class="col-md-2">
+        <table class="table table-sm table-bordered table-striped">
+            <tbody>
+
+                <tr>
+                    <td>Cliente</td>
+                    <td>{{contrato.Cliente.razonSocial}}</td>
+                </tr>
+                <tr>
+                    <td>Categoria</td>
+                    <td>{{contrato.Categoria.descripcion}}</td>
+                </tr>
+                <tr>
+                    <td>Nro Contrato</td>
+                    <td>{{contrato.id}}</td>
+                </tr>
+                <tr>
+                    <td>Version</td>
+                    <td>{{contrato.version}}</td>
+                </tr>
+                <tr>
+                    <td>Fecha Inicio</td>
+                    <td>{{contrato.fechaInicio}}</td>
+                </tr>
+                <tr>
+                    <td>Fecha Fin</td>
+                    <td>{{contrato.fechaFin}}</td>
+                </tr>
+                <tr>
+                    <td>Dia entrega</td>
+                    <td>{{contrato.diaEntrega}}</td>
+                </tr>
+                <tr>
+                    <td>Extension</td>
+                    <td>{{contrato.extension?'SI':'NO'}}</td>
+                </tr>
+                <tr>
+                    <td>Frecuencia</td>
+                    <td>{{contrato.Frecuencia.descripcion}}</td>
+                </tr>
+                <tr>
+                    <td>Shot</td>
+                    <td>{{contrato.shot?'SI':'NO'}}</td>
+                </tr>
+                <tr>
+                    <td>Estado</td>
+                    <td>{{contrato.EstadoContrato.descripcion}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

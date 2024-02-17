@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidFormService } from '../../../../../shared/services/validForm.service';
 import { AlertService } from '../../../../../shared/services/alert.service';
 import { TipoInformeOrden, TipoInformeOrdenInit } from '../../../../interface/tipoInformeOrden';
 import { TipoInformeOrdenService } from '../../../../service/tipoInformeOrden';
+import { TipoEstudioService } from '../../../../service/tipoEstudio';
+import { TipoEstudio } from '../../../../interface/tipoEstudio';
 
 @Component({
   selector: 'app-tipo-informe-orden-form',
@@ -17,59 +19,104 @@ export class TipoInformeOrdenFormComponent {
   public myForm: FormGroup = this.fb.group({
     id: [0],
     codigo: [0, [Validators.required, Validators.min(1), Validators.pattern(/^-?\d+$/)]],
-    descripcion:  ['', Validators.required],
+    descripcion: ['', Validators.required],
     descripcionResumida: [''],
     tip: [''],
     claseInforme: [0],
     estudios: [0],
     variables: [0],
-    unidades: [0],
+    unidades: [0], 
     alias1: [''],
     alias2: [''],
     alias3: [''],
+    tipoEstudios: this.fb.array([])
   })
 
+  tipoEstudios:TipoEstudio[] = []
+ 
   //public listProvincia : Provincia[] = [];
-  
-  constructor(public alert: AlertService, public fb: FormBuilder, public validForm: ValidFormService, public service: TipoInformeOrdenService) {
+
+  constructor(
+    private alert: AlertService,
+    private fb: FormBuilder,
+    private validForm: ValidFormService,
+    private service: TipoInformeOrdenService,
+    private serviceTipoEstudio: TipoEstudioService
+  ) {
 
   }
-
-  ngOnInit(){
+  
+  ngOnInit() {
     this.showLoading = true
-    //this.provinciaService.get().subscribe(response => { this.showLoading = false; this.listProvincia = response.data });
+    this.serviceTipoEstudio.get().subscribe(x=>{
+      this.tipoEstudios = x.data
+      for (let id = 0; id < x.data.length; id++) {
+
+        const control = this.fb.control(true);
+        this.getTipoEstudios.push(control);
+      }
+      this.showLoading = false;
+    });
   }
-  
+
   get currentModel() {
-    
-    return this.myForm.value as TipoInformeOrden;
+    return this.myForm.value as TipoInformeOrden; 
   }
+
+  get getTipoEstudios() {
+    return this.myForm.get('tipoEstudios') as FormArray
+  }
+ 
 
   submit() {
+
+  
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
-      return;
+      return; 
     }
+    
+    this.showLoading = true; 
 
-    if(!this.currentModel.id){
+    this.currentModel.TipoEstudio = this.tipoEstudios.filter((x,i)=>this.getTipoEstudios.value[i])
+
+    if (!this.currentModel.id) {
+      
+
       this.service.add(this.currentModel).subscribe(() => {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
         this.myForm.patchValue(TipoInformeOrdenInit);
         this.myForm.clearValidators()
+        this.myForm.reset()
       });
-    }else{
-      this.service.update(this.currentModel.id,this.currentModel).subscribe(() => {
+    } else {
+      this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
         this.showLoading = false;
         this.updateModelsEmit.emit();
+        this.myForm.reset()
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
       });
     }
   }
 
   setModel(model: TipoInformeOrden) {
+    
     this.myForm.patchValue(model);
+
+    const editTipoEstudios = model.TipoEstudio;
+    const arr:boolean[] = [];
+
+    for (let i = 0; i < this.tipoEstudios.length; i++) {
+      if(editTipoEstudios.find(x=>x.id == this.tipoEstudios[i].id)){
+        arr.push(true);
+      }else{
+        arr.push(false);
+      }
+    }
+
+    this.getTipoEstudios.patchValue(arr)
   }
 
   nuevo() {

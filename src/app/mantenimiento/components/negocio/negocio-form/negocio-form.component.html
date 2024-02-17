@@ -1,19 +1,23 @@
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Negocios</button>
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
+            role="tab" aria-controls="home-tab-pane" aria-selected="true">Negocios</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Contactos</button>
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button"
+            role="tab" aria-controls="profile-tab-pane" aria-selected="false">Contactos</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Horarios Pactados</button>
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button"
+            role="tab" aria-controls="contact-tab-pane" aria-selected="false">Horarios Pactados</button>
     </li>
-    
+
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#zonasCliente" type="button" role="tab" aria-controls="zonasCliente" aria-selected="false">Zonas por cliente</button>
-      </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#zonasCliente" type="button"
+            role="tab" aria-controls="zonasCliente" aria-selected="false">Zonas por cliente</button>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
         <form autocomplete="off" [formGroup]="myForm">
             <div class="row  mt-4">
@@ -22,7 +26,7 @@
                         <label for="codigo" class="col-md-3 col-form-label-sm">Código</label>
                         <div class="col-sm-9">
                             <input type="number" class="form-control form-control-sm" placeholder="codigo" name="codigo"
-                                formControlName="codigo" id="codigo" (keyup.enter)="buscarNegocio($event)"/>
+                                formControlName="codigo" id="codigo" (keyup.enter)="buscarNegocio($event)" />
                         </div>
                         <span *ngIf="isValidField('codigo')" class="form-text text-danger">
                             {{ getFieldError('codigo') }}
@@ -43,8 +47,8 @@
                     <div class="mb-3 row">
                         <label for="direccion" class="col-md-3 col-form-label-sm">Dirección</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="direccion" name="direccion"
-                                formControlName="direccion" id="direccion" />
+                            <input type="text" class="form-control form-control-sm" placeholder="direccion"
+                                name="direccion" formControlName="direccion" id="direccion" />
                         </div>
                         <span *ngIf="isValidField('direccion')" class="form-text text-danger">
                             {{ getFieldError('direccion') }}
@@ -54,19 +58,19 @@
                     <div class="mb-3 row">
                         <label for="nombreComercial" class="col-md-3 col-form-label-sm">Nombre Comercial</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="nombreComercial" name="nombreComercial"
-                                formControlName="nombreComercial" id="nombreComercial" />
+                            <input type="text" class="form-control form-control-sm" placeholder="nombreComercial"
+                                name="nombreComercial" formControlName="nombreComercial" id="nombreComercial" />
                         </div>
                         <span *ngIf="isValidField('nombreComercial')" class="form-text text-danger">
                             {{ getFieldError('nombreComercial') }}
                         </span>
                     </div>
-                    
+
                     <div class="mb-3 row">
                         <label for="nombreResumido" class="col-md-3 col-form-label-sm">Nombre Resumido</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="nombreResumido" name="nombreResumido"
-                                formControlName="nombreResumido" id="nombreResumido" />
+                            <input type="text" class="form-control form-control-sm" placeholder="nombreResumido"
+                                name="nombreResumido" formControlName="nombreResumido" id="nombreResumido" />
                         </div>
                         <span *ngIf="isValidField('nombreResumido')" class="form-text text-danger">
                             {{ getFieldError('nombreResumido') }}
@@ -76,8 +80,8 @@
                     <div class="mb-3 row">
                         <label for="nombreTip" class="col-md-3 col-form-label-sm">Nombre TIP</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="nombreTip" name="nombreTip"
-                                formControlName="nombreTip" id="nombreTip" />
+                            <input type="text" class="form-control form-control-sm" placeholder="nombreTip"
+                                name="nombreTip" formControlName="nombreTip" id="nombreTip" />
                         </div>
                         <span *ngIf="isValidField('nombreTip')" class="form-text text-danger">
                             {{ getFieldError('nombreTip') }}
@@ -87,25 +91,29 @@
                     <div class="mb-3 row">
                         <label for="codCanal" class="col-md-3 col-form-label-sm">Canal</label>
                         <div class="col-sm-9">
-                            <select class="form-select" formControlName="codCanal">
+                            <select class="form-select form-select-sm" formControlName="codCanal">
+                                <option value="0">SELECCIONAR</option>
                                 <option *ngFor="let canal of listCanal" [value]="canal.codigo">
                                     {{canal.descripcion}}
                                 </option>
                             </select>
-        
+
                         </div>
                         <span *ngIf="isValidField('codCanal')" class="form-text text-danger">
                             {{ getFieldError('codCanal') }}
                         </span>
                     </div>
 
-                  
+
 
                     <div class="mb-3 row">
                         <label for="entregaFactura" class="col-md-3 col-form-label-sm">Entrega Factura</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="entregaFactura" name="entregaFactura"
-                                formControlName="entregaFactura" id="entregaFactura" />
+                            <select class="form-select form-select-sm" formControlName="entregaFactura">
+                                <option value="0">SELECCIONAR</option>
+                                <option value="1">SI</option>
+                                <option value="2">NO</option>
+                            </select>
                         </div>
                         <span *ngIf="isValidField('entregaFactura')" class="form-text text-danger">
                             {{ getFieldError('entregaFactura') }}
@@ -115,8 +123,11 @@
                     <div class="mb-3 row">
                         <label for="levantarNegocio" class="col-md-3 col-form-label-sm">Levantar Negocio</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="levantarNegocio" name="levantarNegocio"
-                                formControlName="levantarNegocio" id="levantarNegocio" />
+                            <select class="form-select form-select-sm" formControlName="levantarNegocio">
+                                <option value="0">SELECCIONAR</option>
+                                <option value="1">SI</option>
+                                <option value="2">NO</option>
+                            </select>
                         </div>
                         <span *ngIf="isValidField('levantarNegocio')" class="form-text text-danger">
                             {{ getFieldError('levantarNegocio') }}
@@ -126,8 +137,11 @@
                     <div class="mb-3 row">
                         <label for="negocioEquivalente" class="col-md-3 col-form-label-sm">Negocio Equivalente</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="negocioEquivalente" name="negocioEquivalente"
-                                formControlName="negocioEquivalente" id="negocioEquivalente" />
+                            <select class="form-select form-select-sm" formControlName="negocioEquivalente">
+                                <option value="0">SELECCIONAR</option>
+                                <option value="1">SI</option>
+                                <option value="2">NO</option>
+                            </select>
                         </div>
                         <span *ngIf="isValidField('negocioEquivalente')" class="form-text text-danger">
                             {{ getFieldError('negocioEquivalente') }}
@@ -137,8 +151,8 @@
                     <div class="mb-3 row">
                         <label for="telefono" class="col-md-3 col-form-label-sm">Teléfono</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="telefono" name="telefono"
-                                formControlName="telefono" id="telefono" />
+                            <input type="text" class="form-control form-control-sm" placeholder="telefono"
+                                name="telefono" formControlName="telefono" id="telefono" />
                         </div>
                         <span *ngIf="isValidField('telefono')" class="form-text text-danger">
                             {{ getFieldError('telefono') }}
@@ -164,7 +178,7 @@
                                     {{distrito.descripcion}}
                                 </option>
                             </select>
-        
+
                         </div>
                         <span *ngIf="isValidField('codDistrito')" class="form-text text-danger">
                             {{ getFieldError('codDistrito') }}
@@ -179,7 +193,7 @@
                                     {{urbanizacion.descripcion}}
                                 </option>
                             </select>
-        
+
                         </div>
                         <span *ngIf="isValidField('codUrb')" class="form-text text-danger">
                             {{ getFieldError('codUrb') }}
@@ -201,8 +215,8 @@
                     <div class="mb-3 row">
                         <label for="numeroDomicilio" class="col-md-3 col-form-label-sm">Numero Domicilio</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="numeroDomicilio" name="numeroDomicilio"
-                                formControlName="numeroDomicilio" id="numeroDomicilio" />
+                            <input type="text" class="form-control form-control-sm" placeholder="numeroDomicilio"
+                                name="numeroDomicilio" formControlName="numeroDomicilio" id="numeroDomicilio" />
                         </div>
                         <span *ngIf="isValidField('numeroDomicilio')" class="form-text text-danger">
                             {{ getFieldError('numeroDomicilio') }}
@@ -212,8 +226,8 @@
                     <div class="mb-3 row">
                         <label for="interior" class="col-md-3 col-form-label-sm">Interior</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="interior" name="interior"
-                                formControlName="interior" id="interior" />
+                            <input type="text" class="form-control form-control-sm" placeholder="interior"
+                                name="interior" formControlName="interior" id="interior" />
                         </div>
                         <span *ngIf="isValidField('interior')" class="form-text text-danger">
                             {{ getFieldError('interior') }}
@@ -245,8 +259,8 @@
                     <div class="mb-3 row">
                         <label for="referencia" class="col-md-3 col-form-label-sm">Referencia</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="referencia" name="referencia"
-                                formControlName="referencia" id="referencia" />
+                            <input type="text" class="form-control form-control-sm" placeholder="referencia"
+                                name="referencia" formControlName="referencia" id="referencia" />
                         </div>
                         <span *ngIf="isValidField('referencia')" class="form-text text-danger">
                             {{ getFieldError('referencia') }}
@@ -278,8 +292,12 @@
                     <div class="mb-3 row">
                         <label for="zonaAccidentada" class="col-md-3 col-form-label-sm">Zona Accidentada</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="zonaAccidentada" name="zonaAccidentada"
-                                formControlName="zonaAccidentada" id="zonaAccidentada" />
+                          
+                                <select class="form-select form-select-sm" name="zonaAccidentada"  formControlName="zonaAccidentada">
+                                    <option value="0">SELECCIONAR</option>
+                                    <option value="1">SI</option>
+                                    <option value="2">NO</option>
+                                </select>
                         </div>
                         <span *ngIf="isValidField('zonaAccidentada')" class="form-text text-danger">
                             {{ getFieldError('zonaAccidentada') }}
@@ -289,8 +307,14 @@
                     <div class="mb-3 row">
                         <label for="zonaRiesgo" class="col-md-3 col-form-label-sm">Zona Riesgo</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="zonaRiesgo" name="zonaRiesgo"
-                                formControlName="zonaRiesgo" id="zonaRiesgo" />
+                          
+                                <select class="form-select form-select-sm" name="zonaRiesgo" formControlName="zonaRiesgo">
+                                    <option value="0">SELECCIONAR</option>
+                                    <option value="1">SI</option>
+                                    <option value="2">NO</option>
+                                </select>
+
+                            
                         </div>
                         <span *ngIf="isValidField('zonaRiesgo')" class="form-text text-danger">
                             {{ getFieldError('zonaRiesgo') }}
@@ -311,8 +335,11 @@
                     <div class="mb-3 row">
                         <label for="aceptaProductos" class="col-md-3 col-form-label-sm">Acepta Productos</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="aceptaProductos" name="aceptaProductos"
-                            formControlName="aceptaProductos" id="aceptaProductos" />
+                            <select class="form-select form-select-sm" name="aceptaProductos" formControlName="aceptaProductos">
+                                <option value="0">SELECCIONAR</option>
+                                <option value="1">ACEPTA MAS CATEGORIAS</option>
+                                <option value="2">NO ACEPTA MAS CATEGORIAS</option>
+                            </select>
                         </div>
                         <span *ngIf="isValidField('aceptaProductos')" class="form-text text-danger">
                             {{ getFieldError('aceptaProductos') }}
@@ -320,24 +347,26 @@
                     </div>
 
                     <div class="input-group mt-3">
-                        <button class="btn btn-sm btn-success btn-sm text-white " (click)="submit()" type="button" *ngIf="!currentModel.id">
+                        <button class="btn btn-sm btn-success btn-sm text-white " (click)="submit()" type="button"
+                            *ngIf="!currentModel.id">
                             <i class="bi bi-box-arrow-down"></i> Guardar
                         </button>
                         <button class="btn btn-sm btn-warning btn-sm text-white " (click)="nuevo()" type="button"
                             *ngIf="currentModel.id">
                             <i class="bi bi-plus-lg"></i> Nuevo
                         </button>
-                        <button class="btn btn-sm btn-info btn-sm text-white " (click)="submit()" type="button" *ngIf="currentModel.id">
+                        <button class="btn btn-sm btn-info btn-sm text-white " (click)="submit()" type="button"
+                            *ngIf="currentModel.id">
                             <i class="bi bi-pencil"></i> Guardar
                         </button>
-        
+
                     </div>
 
-                   
-                </div> 
+
+                </div>
             </div>
         </form>
-        
+
 
     </div>
     <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
@@ -388,11 +417,11 @@
         </div>
 
         <div class="row mt-4">
-            
+
 
             <div class="col-md-12">
                 <h5>HORARIO PACTADO POR DIA DE LA SEMANA</h5>
-       
+
                 <table class="table table-borderd table-borderd">
                     <tr>
                         <th colspan="10">CONTACTOS DE NEGOCIO</th>
@@ -453,11 +482,8 @@
             </div>
         </div>
     </div>
-  </div>
-  
+</div>
+
 @if(showLoading){
-    <app-black-loading [show]="showLoading"></app-black-loading>
+<app-black-loading [show]="showLoading"></app-black-loading>
 }
-
-
-

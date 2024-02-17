@@ -5,6 +5,7 @@ import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
 import { Cliente } from '../interface/cliente';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +24,10 @@ export class ClienteService {
 
   postCodigo(codigo: number): Observable<Cliente> {
     return this.http.post<Cliente>(`${this.apiUrl}/codigo`,{codigo});
+  }
+
+  postId(id: number): Observable<Cliente> {
+    return this.http.post<Cliente>(`${this.apiUrl}/id/`, {id});
   }
 
   add(model: Cliente): Observable<Cliente> {

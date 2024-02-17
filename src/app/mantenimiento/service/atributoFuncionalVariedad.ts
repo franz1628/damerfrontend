@@ -5,6 +5,12 @@ import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
 import { AtributoFuncionalVariedad } from '../interface/atributoFuncionalVariedad';
 
+export interface ResponseAtributoFuncionalVariedad {
+  data: AtributoFuncionalVariedad[],
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +33,10 @@ export class AtributoFuncionalVariedadService {
 
   getCodClienteCodCategoria(codCliente: number, codCategoria:number): Observable<Response> {
     return this.http.get<Response>(`${this.apiUrl}/codCliente/${codCliente}/${codCategoria}`);
+  }
+
+  postIdClienteIdCategoria(idCliente: number, idCategoria:number): Observable<ResponseAtributoFuncionalVariedad> {
+    return this.http.post<ResponseAtributoFuncionalVariedad>(`${this.apiUrl}/idClienteidCategoria/`,{idCliente,idCategoria});
   }
 
   add(model: AtributoFuncionalVariedad): Observable<AtributoFuncionalVariedad> {

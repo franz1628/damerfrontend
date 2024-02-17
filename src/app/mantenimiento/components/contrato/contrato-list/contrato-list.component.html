@@ -1,1 +1,242 @@
-<p>contrato-list works!</p>
+<div class="row">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-4 border">Nro contrato agrupado</div>
+            <div class="col-md-4 border">Cliente</div>
+            <div class="col-md-4 border">Categoría</div>
+        </div>
+
+
+
+        @for (grupo of listContratosGrupo; track $index) {
+
+
+        <div class="accordion" id="accordionExample{{$index}}">
+            <div class="accordion-item row">
+
+                <div class="col-md-1 border">
+                    <div class="accordion-button collapsed p-1" type="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#collapseOne'+$index" aria-expanded="true" aria-controls="collapseOne">
+                    </div>
+                </div>
+                <div class="col-md-3 border bg-success-subtle">{{grupo[0].Cliente.codigo +
+                    ''+grupo[0].Categoria.codigo}}</div>
+                <div class="col-md-4 border bg-success-subtle">{{grupo[0].Cliente.razonSocial}}</div>
+                <div class="col-md-4 border bg-success-subtle">{{grupo[0].Categoria.descripcion}}</div>
+                <div id="collapseOne{{$index}}" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <table class="table table-bordered table-sm">
+                            <thead class="table-info">
+                                <tr>
+                                    <th>Nro Contrato</th>
+                                    <th>Ver.</th>
+                                    <th>Dia entrega</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin</th>
+                                    <th>Extension</th>
+                                    <th>Frecuencia</th>
+                                    <th>Shot</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead> 
+                            <tbody>
+                                @for (contrato of grupo; track $index) {
+                                <tr>
+                                    <td>{{contrato.id}}</td>
+                                    <td>{{contrato.version}}</td>
+                                    <td>{{contrato.diaEntrega}}</td>
+                                    <td>{{contrato.fechaInicio}}</td>
+                                    <td>{{contrato.fechaFin}}</td>
+                                    <td>{{contrato.extension?'SI':'NO'}}</td>
+                                    <td>{{contrato.Frecuencia.descripcion}}</td>
+                                    <td>{{contrato.shot?'SI':'NO'}}</td>
+                                    <td>{{contrato.EstadoContrato.descripcion}}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" (click)="asignaFormContrato(contrato)">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#modalEstadoContrato"
+                                            (click)="modalEstadoContrato(contrato)">
+                                            <i class="bi bi-device-ssd"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-primary" (click)="handleEditarContrato(contrato)">
+                                            <i class="bi bi-list-ul"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        }
+
+    </div>
+
+    <div class="col-md-4">
+        <form [formGroup]="model" autocomplete="off" (submit)="submitEditarForm()">
+            <div class="row mt-4">
+                <div class="col-12">
+
+                    <div class="mb-3 row">
+                        <label for="fechaInicio" class="col-md-5 col-form-label-sm">Fecha Inicial</label>
+                        <div class="col-sm-7">
+                            <input type="date" class="form-control form-control-sm" formControlName="fechaInicio">
+                        </div>
+                        <span *ngIf="isValidField('fechaInicio')" class="form-text text-danger">
+                            {{ getFieldError('fechaInicio') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="mb-3 row">
+                        <label for="fechaFin" class="col-md-5 col-form-label-sm">Fecha Fin</label>
+                        <div class="col-sm-7">
+                            <input type="date" class="form-control form-control-sm" formControlName="fechaFin">
+                        </div>
+                        <span *ngIf="isValidField('fechaFin')" class="form-text text-danger">
+                            {{ getFieldError('fechaFin') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="mb-3 row">
+                        <label for="diaEntrega" class="col-md-5 col-form-label-sm">Día de Entrega</label>
+                        <div class="col-sm-7">
+                            <input type="number" class="form-control form-control-sm" formControlName="diaEntrega">
+                        </div>
+                        <span *ngIf="isValidField('diaEntrega')" class="form-text text-danger">
+                            {{ getFieldError('diaEntrega') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="mb-3 row">
+                        <label for="extension" class="col-md-5 col-form-label-sm">Admitir extensión</label>
+                        <div class="col-sm-7">
+                            <input type="checkbox" class="form-check-input" formControlName="extension">
+                        </div>
+                        <span *ngIf="isValidField('extension')" class="form-text text-danger">
+                            {{ getFieldError('extension') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="mb-3 row">
+                        <label for="idFrecuencia" class="col-md-5 col-form-label-sm">Frecuencia </label>
+                        <div class="col-sm-7">
+                            <select class="form-select form-select-sm" name="idFrecuencia"
+                                formControlName="idFrecuencia" id="idFrecuencia">
+                                <option value="0">[SELECCIONAR]</option>
+                                @for (frecuencia of frecuencias; track $index) {
+                                <option value="{{frecuencia.id}}">{{frecuencia.descripcion}}</option>
+                                }
+                            </select>
+                        </div>
+                        <span *ngIf="isValidField('idFrecuencia')" class="form-text text-danger">
+                            {{ getFieldError('idFrecuencia') }}
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="mb-3 row">
+                        <label for="shot" class="col-md-5 col-form-label-sm">Shot</label>
+                        <div class="col-sm-7">
+                            <input type="checkbox" class="form-check-input" formControlName="shot">
+                        </div>
+                        <span *ngIf="isValidField('shot')" class="form-text text-danger">
+                            {{ getFieldError('shot') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="mb-3">
+                        <button class="btn btn-success"> <i class="bi bi-pencil"></i> GUARDAR</button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+    <div class="modal fade" id="modalEstadoContrato" tabindex="-1" aria-labelledby="modalEstadoContratoLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form [formGroup]="modelEstadoContrato" autocomplete="off">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalEstadoContratoLabel">Cambiar Estado</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+    
+                        <div class="mb-3 row">
+                            <label for="idEstadoContrato" class="col-md-5 col-form-label-sm">Frecuencia </label>
+                            <div class="col-sm-7">
+                                <select class="form-select form-select-sm" name="idEstadoContrato"
+                                    formControlName="idEstadoContrato" id="idEstadoContrato">
+                                    <option value="0">[SELECCIONAR]</option>
+                                    @for (estadoContrato of estadoContratos; track $index) {
+                                    <option value="{{estadoContrato.id}}">{{estadoContrato.descripcion}}</option>
+                                    }
+                                </select>
+                            </div>
+                            <span *ngIf="isValidFieldEstadoContrato('idEstadoContrato')" class="form-text text-danger">
+                                {{ getFieldErrorEstadoContrato('idEstadoContrato') }}
+                            </span>
+                        </div>
+    
+                        <div class="mb-3 row">
+                            <label for="motivo" class="col-md-5 col-form-label-sm">Motivo </label>
+                            <div class="col-sm-7">
+                                <textarea class="form-control" id="motivo" name="motivo" formControlName="motivo"
+                                style="height: 100px"></textarea>
+                            </div>
+                            <span *ngIf="isValidFieldEstadoContrato('motivo')" class="form-text text-danger">
+                                {{ getFieldErrorEstadoContrato('motivo') }}
+                            </span>
+                        </div>
+    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" #botonCerrarModalEstado>Cerrar</button>
+                        <button type="button" class="btn btn-primary" (click)="submitEstadoContrato($event)" >Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

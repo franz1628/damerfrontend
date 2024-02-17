@@ -6,21 +6,25 @@ import { ContratoFormComponent } from './contrato-form/contrato-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContratoRoutingModule } from './contrato-routing.module';
 import { ContratoArbolComponent } from './contrato-arbol/contrato-arbol.component';
+import { ContratoEdicionComponent } from './contrato-edicion/contrato-edicion.component';
+import { SharedModule } from "../../../shared/shared.module";
 
 
 
 @NgModule({
-  declarations: [
-    ContratoComponent,
-    ContratoListComponent,
-    ContratoFormComponent,
-    ContratoArbolComponent
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    ContratoRoutingModule
-  ]
+    declarations: [
+        ContratoComponent,
+        ContratoListComponent,
+        ContratoFormComponent,
+        ContratoArbolComponent,
+        ContratoEdicionComponent
+    ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        ContratoRoutingModule,
+        SharedModule
+    ]
 })
 export class ContratoModule { }

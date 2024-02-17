@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
-import { ClienteZona } from '../interface/clienteZona';
+import { CategoriaUnidadVenta } from '../interface/categoriaUnidadVenta';
 
-export interface ResponseClienteZona {
-  data: ClienteZona[],
+export interface ResponseCategoriaUnidadVenta {
+  data: CategoriaUnidadVenta[],
   state: number,
   message: string
 }
@@ -14,8 +14,8 @@ export interface ResponseClienteZona {
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteZonaService {
-  private apiUrl = environments.baseUrl+'api/clienteZona'; // Reemplaza con la URL de tu backend
+export class CategoriaUnidadVentaService {
+  private apiUrl = environments.baseUrl+'api/categoriaUnidadVenta'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 
@@ -35,19 +35,19 @@ export class ClienteZonaService {
     return this.http.get<Response>(`${this.apiUrl}/codCliente/${codCliente}`);
   }
 
-  postIdCliente(idCliente: number): Observable<ResponseClienteZona> {
-    return this.http.post<ResponseClienteZona>(`${this.apiUrl}/idCliente/`, {idCliente});
+  postIdCategoria(idCategoria: number): Observable<ResponseCategoriaUnidadVenta> {
+    return this.http.post<ResponseCategoriaUnidadVenta>(`${this.apiUrl}/idCategoria/`, {idCategoria});
   }
 
-  add(model: ClienteZona): Observable<ClienteZona> {
-    return this.http.post<ClienteZona>(this.apiUrl, model);
+  add(model: CategoriaUnidadVenta): Observable<CategoriaUnidadVenta> {
+    return this.http.post<CategoriaUnidadVenta>(this.apiUrl, model);
   }
 
-  update(id: number, model: ClienteZona): Observable<Response> {
+  update(id: number, model: CategoriaUnidadVenta): Observable<Response> {
     return this.http.put<Response>(`${this.apiUrl}/${id}`, model);
   }
 
-  delete(model: ClienteZona): Observable<ClienteZona> {
-    return this.http.delete<ClienteZona>(`${this.apiUrl}/${model.id}`);
+  delete(model: CategoriaUnidadVenta): Observable<CategoriaUnidadVenta> {
+    return this.http.delete<CategoriaUnidadVenta>(`${this.apiUrl}/${model.id}`);
   }
 }

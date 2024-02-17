@@ -6,10 +6,11 @@ import { TipoInformeOrden } from "./tipoInformeOrden";
 
 export interface ContratoForm {
     id: number;
-    tipoEstudios: number[];
+    tipoEstudio: number;
     zonas: number[];
     canals: number[];
     atributoFuncionalVariedads: number[];
+    categoriaUnidadVentas: number[];
     tipoInformeOrdens: number[];
     fechaInicial: string;
     fechaFinal: string;

@@ -4,13 +4,14 @@
         <app-div-cargando></app-div-cargando>
 
         } @else {
-        <table class="table table-sm table-bordered">
+        <table class="table table-sm table-bordered fs-6">
             <thead class="table-success">
                 <tr>
                     <th>#</th>
                     <th>Codigo</th>
                     <th>Descripcion</th>
                     <th>Resumida</th>
+                    <th>Tipo Estudio</th>
                     <th>Acción</th>
                 </tr>
             </thead>
@@ -22,6 +23,13 @@
                         <td>{{model.codigo}}</td>
                         <td>{{model.descripcion}}</td>
                         <td>{{model.descripcionResumida}}</td>
+                        <td>
+                            <ul>
+                                @for (tipoEstudio of model.TipoEstudio; track $index) {
+                                  <li>  {{tipoEstudio.descripcion}}</li>
+                                }
+                            </ul>
+                        </td>
 
     
                         <td>

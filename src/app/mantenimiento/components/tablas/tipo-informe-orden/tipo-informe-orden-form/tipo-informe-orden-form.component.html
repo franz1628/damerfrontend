@@ -12,7 +12,7 @@
                     {{ getFieldError('codigo') }}
                 </span>
             </div>
-            
+
             <div class="mb-3 row">
                 <label for="descripcion" class="col-md-4 col-form-label-sm">Descripcion</label>
                 <div class="col-sm-8">
@@ -27,14 +27,14 @@
             <div class="mb-3 row">
                 <label for="descripcionResumida" class="col-md-4 col-form-label-sm">Descripcion Resumida</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" placeholder="descripcionResumida" name="descripcionResumida"
-                        formControlName="descripcionResumida" id="descripcionResumida" />
+                    <input type="text" class="form-control form-control-sm" placeholder="descripcionResumida"
+                        name="descripcionResumida" formControlName="descripcionResumida" id="descripcionResumida" />
                 </div>
                 <span *ngIf="isValidField('descripcionResumida')" class="form-text text-danger">
                     {{ getFieldError('descripcionResumida') }}
                 </span>
             </div>
-            
+
             <div class="mb-3 row">
                 <label for="tip" class="col-md-4 col-form-label-sm">Tip</label>
                 <div class="col-sm-8">
@@ -49,8 +49,8 @@
             <div class="mb-3 row">
                 <label for="claseInforme" class="col-md-4 col-form-label-sm">clase de Informe</label>
                 <div class="col-sm-8">
-                    <select type="text" class="form-select form-select-sm" placeholder="claseInforme" name="claseInforme"
-                        formControlName="claseInforme" id="claseInforme" >
+                    <select type="text" class="form-select form-select-sm" placeholder="claseInforme"
+                        name="claseInforme" formControlName="claseInforme" id="claseInforme">
                         <option value="0">Seleccionar</option>
                         <option value="1">Clase001</option>
                         <option value="2">Clase002</option>
@@ -62,12 +62,12 @@
                 </span>
             </div>
 
-            
+
             <div class="mb-3 row">
                 <label for="estudios" class="col-md-4 col-form-label-sm">Estudios que comprende</label>
                 <div class="col-sm-8">
                     <select type="text" class="form-select form-select-sm" placeholder="estudios" name="estudios"
-                        formControlName="estudios" id="estudios" >
+                        formControlName="estudios" id="estudios">
                         <option value="0">Seleccionar</option>
                         <option value="1">ALGUNOS</option>
                         <option value="2">TODOS</option>
@@ -83,7 +83,7 @@
                 <label for="variables" class="col-md-4 col-form-label-sm">Variables que comprende</label>
                 <div class="col-sm-8">
                     <select type="text" class="form-select form-select-sm" placeholder="variables" name="variables"
-                        formControlName="variables" id="variables" >
+                        formControlName="variables" id="variables">
                         <option value="0">Seleccionar</option>
                         <option value="1">ALGUNOS</option>
                         <option value="2">TODOS</option>
@@ -99,7 +99,7 @@
                 <label for="unidades" class="col-md-4 col-form-label-sm">Unidades de vta que comprende</label>
                 <div class="col-sm-8">
                     <select type="text" class="form-select form-select-sm" placeholder="unidades" name="unidades"
-                        formControlName="unidades" id="unidades" >
+                        formControlName="unidades" id="unidades">
                         <option value="0">Seleccionar</option>
                         <option value="1">ALGUNOS</option>
                         <option value="2">TODOS</option>
@@ -110,6 +110,22 @@
                     {{ getFieldError('unidades') }}
                 </span>
             </div>
+
+            <div class="mb-3 row">
+                <div class="col-md-12" formArrayName="tipoEstudios">
+            
+                    @for (tipoEstudio of getTipoEstudios.controls; track $index;) {
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value={{tipoEstudios[$index].id}} [id]="'te'+tipoEstudios[$index].id" [formControlName]="$index">
+                            <label class="form-check-label fs-6" [for]="'te'+tipoEstudios[$index].id">
+                                {{tipoEstudios[$index].descripcion}}
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+
 
             <div class="mb-3 row">
                 <label for="alias1" class="col-md-4 col-form-label-sm">Alias 1</label>
@@ -161,3 +177,4 @@
         </form>
     </div>
 </div>
+<app-black-loading [show]="showLoading"></app-black-loading>

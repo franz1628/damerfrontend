@@ -27,7 +27,8 @@ export class TipoInformeOrdenComponent {
 
   get(): void {
     this.showLoading = true
-    this.service.get().subscribe(response => { this.showLoading = false; this.models = response.data });
+    this.service.get().subscribe(response => { this.showLoading = false; this.models = response.data;console.log(this.models);
+     });
   }
 
   editModel(model: TipoInformeOrden) {
