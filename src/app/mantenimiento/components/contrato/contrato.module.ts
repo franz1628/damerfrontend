@@ -8,6 +8,7 @@ import { ContratoRoutingModule } from './contrato-routing.module';
 import { ContratoArbolComponent } from './contrato-arbol/contrato-arbol.component';
 import { ContratoEdicionComponent } from './contrato-edicion/contrato-edicion.component';
 import { SharedModule } from "../../../shared/shared.module";
+import { ContratoEtiquetasComponent } from './contrato-etiquetas/contrato-etiquetas.component';
 
 
 
@@ -17,7 +18,8 @@ import { SharedModule } from "../../../shared/shared.module";
         ContratoListComponent,
         ContratoFormComponent,
         ContratoArbolComponent,
-        ContratoEdicionComponent
+        ContratoEdicionComponent,
+        ContratoEtiquetasComponent
     ],
     imports: [
         CommonModule,

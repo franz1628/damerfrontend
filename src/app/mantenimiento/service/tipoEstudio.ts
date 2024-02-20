@@ -5,6 +5,12 @@ import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
 import { TipoEstudio } from '../interface/tipoEstudio';
 
+export interface ResponseTipoEstudioOne {
+  data: TipoEstudio,
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,8 +23,8 @@ export class TipoEstudioService {
     return this.http.get<Response>(this.apiUrl);
   }
 
-  getId(id: number): Observable<Response> {
-    return this.http.get<Response>(`${this.apiUrl}/${id}`);
+  getId(id: number): Observable<ResponseTipoEstudioOne> {
+    return this.http.get<ResponseTipoEstudioOne>(`${this.apiUrl}/${id}`);
   }
 
   getCodigo(codigo: number): Observable<Response> {

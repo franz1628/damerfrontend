@@ -1,0 +1,142 @@
+<form [formGroup]="model" autocomplete="off">
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button bg-info text-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    ESTUDIO
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <div class="mb-3 row">
+    
+                        <div class="col-sm-12">
+    
+                            <select class="form-select form-select-sm" formControlName="tipoEstudios"
+                                (change)="changeTipoEstudio($event)">
+                                <option value="0">[SELECCIONAR]</option>
+                                @for (tipoEstudio of tipoEstudios; track $index) {
+                                <option value="{{tipoEstudio.id}}">{{tipoEstudio.descripcion}}</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed  bg-warning text-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    ZONA
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <div class="mb-3 row">
+    
+                        <div class="col-sm-12">
+                            <div formArrayName="zonas"
+                                *ngFor="let zona of getZonas.controls; let i = index"
+                                class="form-check">
+                                <input type="checkbox" class="form-check-input" name="zonas"
+                                    [formControlName]="i" id="zona_{{ i }}">
+                                <label class="form-check-label"
+                                    for="zona_{{ i }}">{{zonas[i].nombreAgrupacion}}</label>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-success text-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    CANAL
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <div class="mb-3 row">
+    
+                        <div class="col-sm-12">
+                            <div formArrayName="canals"
+                                *ngFor="let canal of getCanals.controls; let i = index"
+                                class="form-check">
+                                <input type="checkbox" class="form-check-input" name="canals"
+                                    [formControlName]="i" id="canal_{{ i }}">
+                                <label class="form-check-label"
+                                    for="canal_{{ i }}">{{canals[i].nombreAgrupacion}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed  bg-danger text-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    TIPO INFORME
+                </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <div class="mb-3 row">
+    
+                        <div class="col-sm-12">
+                            <div formArrayName="tipoInformeOrdens"
+                                *ngFor="let tipoInformeOrden of getTipoInformeOrdens.controls; let i = index"
+                                class="form-check">
+                                <input type="checkbox" class="form-check-input" name="tipoInformeOrdens"
+                                    [formControlName]="i" id="tipoInformeOrden_{{ i }}">
+                                <label class="form-check-label"
+                                    for="tipoInformeOrden_{{ i }}">{{tipoInformeOrdens[i].descripcion}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed  bg-primary text-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    ATRIBUTOS
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <div class="mb-3 row">
+    
+                        <div class="col-sm-12">
+    
+                            <div formArrayName="atributoFuncionalVariedads"
+                                *ngFor="let atributoFuncionalVariedad of getAtributoFuncionalVariedads.controls; let i = index"
+                                class="form-check">
+                                <input type="checkbox" class="form-check-input"
+                                    name="atributoFuncionalVariedads" [formControlName]="i"
+                                    id="atributoFuncionalVariedad_{{ i }}">
+                                <label class="form-check-label"
+                                    for="atributoFuncionalVariedad_{{ i }}">{{atributoFuncionalVariedads[i].descripcion}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-sm btn-info mt-4" (click)="actualizarEleccion()"><i
+                    class="bi bi-arrow-clockwise"></i> Actualizar</button>
+        </div>
+    </div>
+</form>

@@ -1,6 +1,7 @@
 
 import { Canal, CanalInit } from "../components/tablas/interfaces/canal.interface";
 import { Cliente, ClienteInit } from "./cliente";
+import { TipoInformeOrden, TipoInformeOrdenInit } from "./tipoInformeOrden";
 
 export interface TipoEstudio {
     id: number,
@@ -18,15 +19,16 @@ export interface TipoEstudio {
     alias1 :  string,
     alias2 :  string,
     alias3 :  string,
+    TipoInformeOrden:TipoInformeOrden[],
     fechaRegistro: Date,
     estado : number,
 }
 export const TipoEstudioInit: TipoEstudio = {
     id: 0,
     codigo :  0,
-    descripcion :  'string',
-    descripcionResumida :  'string',
-    tip :  'string',
+    descripcion :  '',
+    descripcionResumida :  '',
+    tip :  '',
     intTipoProyeccion :  0,
     intPrioridadLevantamiento :  0,
     indicarSolicitarBandeja :  0,
@@ -34,9 +36,10 @@ export const TipoEstudioInit: TipoEstudio = {
     especificarAtributo :  0,
     indicarEspecificarSku :  0,
     indicarMuestraReal :  0,
-    alias1 :  'string',
-    alias2 :  'string',
-    alias3 :  'string',
+    alias1 :  '',
+    alias2 :  '',
+    alias3 :  '',
+    TipoInformeOrden: [],
     fechaRegistro: new Date(),
     estado : 1,
 };

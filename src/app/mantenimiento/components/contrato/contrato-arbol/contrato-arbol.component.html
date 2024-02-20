@@ -16,7 +16,7 @@
                 name="tipoEstudios" aria-label="Checkbox">
             </div>
 
-            <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+            <button class="accordion-button form-control bg-info text-white" type="button" data-bs-toggle="collapse"
               [attr.data-bs-target]="'#co' + idx1" aria-expanded="true">
               {{tipoEstudios[idx1].descripcion}}
             </button>
@@ -33,7 +33,7 @@
                         <input type="checkbox" class="form-check-input me-2 " aria-label="Checkbox"
                           [checked]="this.checkZonas[idx1][idx2]" (click)="changeZona($event,idx1+'-'+idx2)">
                       </div>
-                      <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+                      <button class="accordion-button form-control bg-warning text-white" type="button" data-bs-toggle="collapse"
                         [attr.data-bs-target]="'#zona' + idx1+idx2" aria-expanded="true">
                         {{zonas[idx2].descripcion}}
                       </button>
@@ -54,7 +54,7 @@
                                     [checked]="this.checkCanals[idx1][idx2][idx3]"
                                     (click)="changeCanal($event,idx1+'-'+idx2+'-'+idx3)">
                                 </div>
-                                <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button form-control bg-success text-white" type="button" data-bs-toggle="collapse"
                                   [attr.data-bs-target]="'#canal'  + idx1+idx2+idx3" aria-expanded="true">
                                   {{canals[idx3].descripcion}}
                                 </button>
@@ -77,7 +77,7 @@
                                               aria-label="Checkbox"
                                               (click)="changeTipoInformeOrden($event,idx1+'-'+idx2+'-'+idx3+'-'+idx4)">
                                           </div>
-                                          <button class="accordion-button form-control" type="button"
+                                          <button class="accordion-button form-control bg-danger text-white" type="button"
                                             data-bs-toggle="collapse"
                                             [attr.data-bs-target]="'#tipoInformeOrden' + idx1+idx2+idx3+idx4"
                                             aria-expanded="true">
@@ -101,7 +101,7 @@
                                                         aria-label="Checkbox" [checked]="contrato.valor"
                                                         (change)="toggleCheckbox(contrato,idx1+'-'+idx2+'-'+idx3+'-'+idx4+'-'+idx5)">
                                                     </div>
-                                                    <button class="accordion-button form-control" type="button"
+                                                    <button class="accordion-button form-control bg-primary text-white" type="button"
                                                       data-bs-toggle="collapse"
                                                       [attr.data-bs-target]="'#atributoFuncionalVariedad' + idx1+idx2+idx3+idx4+idx5"
                                                       aria-expanded="true">

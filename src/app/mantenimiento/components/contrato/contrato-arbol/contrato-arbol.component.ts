@@ -4,19 +4,17 @@ import { Canal } from '../../tablas/interfaces/canal.interface';
 import { TipoEstudio } from '../../../interface/tipoEstudio';
 import { AtributoFuncionalVariedad } from '../../../interface/atributoFuncionalVariedad';
 import { TipoInformeOrden } from '../../../interface/tipoInformeOrden';
-import { ClienteZonaService } from '../../../service/clienteZona';
-import { ClienteCanalService } from '../../../service/clienteCanal';
 import { TipoEstudioService } from '../../../service/tipoEstudio';
 import { AtributoFuncionalVariedadService } from '../../../service/atributoFuncionalVariedad';
 import { TipoInformeOrdenService } from '../../../service/tipoInformeOrden';
-import { ClienteCanal } from '../../../interface/clienteCanal';
-import { ClienteZona } from '../../../interface/clienteZona';
 import { ContratoForm } from '../../../interface/contratoForm';
 import { Form, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ContratoService } from '../../../service/contrato';
 import { Contrato, ContratoInit } from '../../../interface/contrato';
 import { ContratoDetalleService } from '../../../service/contratoDetalle';
 import { ContratoDetalle } from '../../../interface/contratoDetalle';
+import { ZonaService } from '../../tablas/service/zona.service';
+import { CanalService } from '../../tablas/service/canal.sevice';
 
 @Component({
   selector: 'app-contrato-arbol',
@@ -47,15 +45,29 @@ export class ContratoArbolComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: ContratoService,
-    private servicioContratoDetalle: ContratoDetalleService
+    private servicioContratoDetalle: ContratoDetalleService,
+    private serviceZona : ZonaService,
+    private serviceCanal:CanalService,
+    private serviceTipoInformeOrden:TipoInformeOrdenService,
+    private serviceTipoEstudio:TipoEstudioService,
+    private serviceAtributoFuncionalVariedad:AtributoFuncionalVariedadService
   ) {
-
+    console.log('bb');
   }
 
   ngOnInit(): void {
+    console.log('aa');
+    
     this.model = this.fb.group({
       atributoFuncionalVariedads: this.fb.array
     });
+   
+    this.serviceZona.get().subscribe(x=>this.zonas = x.data);
+    this.serviceCanal.get().subscribe(x=>this.canals = x.data);
+    this.serviceTipoEstudio.get().subscribe(x=>this.tipoEstudios = x.data);
+    this.serviceTipoInformeOrden.get().subscribe(x=>this.tipoInformeOrdens = x.data);
+    this.serviceAtributoFuncionalVariedad.get().subscribe(x=>this.atributoFuncionalVariedads = x.data);
+
   }
 
   changeTipoEstudio(event:Event,lugar:string){
@@ -161,24 +173,20 @@ export class ContratoArbolComponent implements OnInit {
   }
 
   actualizarArbol(
-    contrato: ContratoForm,
-    canals: ClienteCanal[],
-    zonas: ClienteZona[],
-    atributoFuncionalVariedads: AtributoFuncionalVariedad[],
-    tipoEstudios: TipoEstudio[],
-    tipoInformeOrdens: TipoInformeOrden[]): void {
+    contrato: ContratoForm
+    ): void{
 
-    this.canals = [];
-    this.zonas = [];
-    this.tipoEstudios = [];
-    this.tipoInformeOrdens = [];
-    this.atributoFuncionalVariedads = [];
+    this.zonas = contrato.zonas;
+    this.canals = contrato.canals;
+    this.atributoFuncionalVariedads = contrato.atributoFuncionalVariedads;
+    this.tipoInformeOrdens = contrato.tipoInformeOrdens;
 
 
     const detalles: ContratoDetalle[][][][][] = []
-    for (let index = 0; index < [contrato.tipoEstudio].length; index++) {
+   
+    for (let index = 0; index < [contrato.tipoEstudios].length; index++) {
       const arr_tipoEstudios: ContratoDetalle[][][][] = []
-      if(!contrato.tipoEstudio)continue;
+      if(!contrato.tipoEstudios)continue;
       this.checkTipoEstudios[index] = true;
       this.checkZonas[index]=[];
       this.checkCanals[index]=[];
@@ -204,16 +212,15 @@ export class ContratoArbolComponent implements OnInit {
          
 
             for (let q = 0; q < contrato.atributoFuncionalVariedads.length; q++) {
-              const resp = contrato.atributoFuncionalVariedads[q];
               if(!contrato.atributoFuncionalVariedads[q])continue;
            
 
               const control: ContratoDetalle = {
-                idTipoEstudio: tipoEstudios[index].id,
-                idZona: zonas[j].Zona.id,
-                idCanal: canals[k].Canal.id,
-                idTipoInforme: tipoInformeOrdens[z].id,
-                idAtributoFuncionalVariedad: atributoFuncionalVariedads[q].id,
+                idTipoEstudio: [contrato.tipoEstudios][index],
+                idZona: contrato.zonas[j].id,
+                idCanal: contrato.canals[k].id,
+                idTipoInforme: contrato.tipoInformeOrdens[z].id,
+                idAtributoFuncionalVariedad: contrato.atributoFuncionalVariedads[q].id,
                 estado: 1,
                 id: 0,
                 idContrato: 0,
@@ -233,7 +240,9 @@ export class ContratoArbolComponent implements OnInit {
     this.arr_detalles = detalles
 
 
-    for (let index = 0; index < [contrato.tipoEstudio].length; index++) {
+ 
+    
+    /*for (let index = 0; index < [contrato.tipoEstudio].length; index++) {
       const resp = contrato.tipoEstudio;
 
       this.tipoEstudios.push(tipoEstudios[index]);
@@ -267,8 +276,9 @@ export class ContratoArbolComponent implements OnInit {
 
       this.atributoFuncionalVariedads.push(atributoFuncionalVariedads[index]);
 
-    }
+    }*/
   }
+
 
   toggleCheckbox(item: ContratoDetalle,lugar:string) {
     const arrUbi = lugar.split("-");
@@ -312,23 +322,9 @@ export class ContratoArbolComponent implements OnInit {
   }
 
   guardar() {
-    /* console.log(this.arr_detalles);
-      return;
-  */
 
-
-      // const contrato:Contrato = {
-      //   id:0,
-      //   idCliente:1,
-      //   idCategoria:1,
-      //   diaEntrega:15,
-      //   extension:1,
-      //   fechaInicio:'2024-01-01',
-      //   fechaFin:'2024-12-31',
-      //   idFrecuencia:1,
-      //   shot:1,
-      //   estado:1 
-      // };
+    console.log(this.contratoForm);return;
+    
 
     const contratoDetalle: ContratoDetalle[] = [];
 
@@ -351,11 +347,6 @@ export class ContratoArbolComponent implements OnInit {
                 estado: 1
               }
               contratoDetalle.push(contratoDetalleRow);
-
-              // this.servicioContratoDetalle.add(contratoDetalle).subscribe(x=>{
-              //   console.log('Correcto');
-
-              // })
             })
           })
         })
@@ -363,10 +354,5 @@ export class ContratoArbolComponent implements OnInit {
     });
 
     this.guardarEmit.emit(contratoDetalle);
-
-
-
-
-
   }
 }

@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ContratoDetalle, ContratoDetalleInit } from '../../../interface/contratoDetalle';
 import { Zona, ZonaInit } from '../../tablas/interfaces/zona.interface';
 import { Canal, CanalInit } from '../../tablas/interfaces/canal.interface';
 import { TipoEstudio, TipoEstudioInit } from '../../../interface/tipoEstudio';
 import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../../interface/atributoFuncionalVariedad';
-import { ContratoForm } from '../../../interface/contratoForm';
+import { ContratoForm, ContratoFormInit } from '../../../interface/contratoForm';
 import { TipoInformeOrden, TipoInformeOrdenInit } from '../../../interface/tipoInformeOrden';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ContratoService } from '../../../service/contrato';
@@ -19,6 +19,7 @@ import { AtributoFuncionalVariedadService } from '../../../service/atributoFunci
 import { TipoInformeOrdenService } from '../../../service/tipoInformeOrden';
 import { AtributoTecnicoNegocioInit } from '../../../interface/atributoTecnicoNegocio';
 import { AlertService } from '../../../../shared/services/alert.service';
+import { ContratoEtiquetasComponent } from '../contrato-etiquetas/contrato-etiquetas.component';
 
 
 @Component({
@@ -30,11 +31,17 @@ export class ContratoEdicionComponent implements OnInit {
   @Input()
   contratoForm!: ContratoForm
 
+  @ViewChild('contratoEtiquetas')
+  contratoEtiquetas!: ContratoEtiquetasComponent;
+
   zonas_M: Zona[] = [];
   canals_M: Canal[] = [];
   tipoEstudios_M: TipoEstudio[] = [];
   atributoFuncionalVariedads_M: AtributoFuncionalVariedad[] = [];
   tipoInformeOrdens_M: TipoInformeOrden[] = [];
+
+  idCliente:number=0;
+  idCategoria:number=0;
 
   zonas: Zona[] = [];
   canals: Canal[] = [];
@@ -191,128 +198,221 @@ export class ContratoEdicionComponent implements OnInit {
     return this.checkZonas
   }
 
+  actualizarEleccion(contratoForm:ContratoForm) {
+   
+    
+    contratoForm.idCategoria=this.idCategoria;
+    contratoForm.idCliente=this.idCliente;
+    this.actualizarArbol(this.contrato,contratoForm);
+  }
+
   actualizarArbol(
-    contrato: Contrato): void {
+    contrato: Contrato,contratoForm:ContratoForm=ContratoFormInit): void {
     this.contrato = contrato;
-    this.servicieContratoDetalle.getIdContrato(contrato.id).subscribe(x => {
-      this.serviceClienteZona.postIdCliente(contrato.idCliente).subscribe(y => {
-        const clienteZonas = y.data
-        for (let id = 0; id < clienteZonas.length; id++) {
-          this.zonas_M.push(clienteZonas[id].Zona);
-        }
-
-        this.serviceClienteCanal.postIdCliente(contrato.idCliente).subscribe(z => {
-
-          const clienteCanals = z.data
-          for (let id = 0; id < clienteCanals.length; id++) {
-            this.canals_M.push(clienteCanals[id].Canal);
+    this.arr_detalles = [];
+    this.checkTipoEstudios = [];
+    this.checkZonas= [];
+    this.checkCanals= [];
+    this.checkTipoInformeOrdens= [];
+  
+    
+    if(contratoForm.zonas.length==0){
+      console.log('franz');
+      
+      this.servicieContratoDetalle.getIdContrato(contrato.id).subscribe(x => {
+        this.serviceClienteZona.postIdCliente(contrato.idCliente).subscribe(y => {
+  
+  
+          const clienteZonas = y.data
+          for (let id = 0; id < clienteZonas.length; id++) {
+            this.zonas_M.push(clienteZonas[id].Zona);
           }
-
-          this.serviceAtributoFuncionalVariedad.postIdClienteIdCategoria(contrato.idCliente, contrato.idCategoria).subscribe(a => {
-            const clienteAtributos = a.data
-            for (let id = 0; id < clienteAtributos.length; id++) {
-              this.atributoFuncionalVariedads_M.push(clienteAtributos[id]);
+  
+          this.serviceClienteCanal.postIdCliente(contrato.idCliente).subscribe(z => {
+  
+            this.contratoEtiquetas.actualizarEtiquetas(contrato.idCliente,contrato.idCategoria);
+  
+            const clienteCanals = z.data
+            for (let id = 0; id < clienteCanals.length; id++) {
+              this.canals_M.push(clienteCanals[id].Canal);
             }
-
-
-
-            for (let b = 0; b < x.data.length; b++) {
-
-              const contratoDetalleData = x.data[b];
-
-              if (!this.tipoEstudios.find(x => x.id == contratoDetalleData.idTipoEstudio)) {
-                this.tipoEstudios.push(this.tipoEstudios_M.find(x => x.id == contratoDetalleData.idTipoEstudio) || TipoEstudioInit)
+  
+            this.serviceAtributoFuncionalVariedad.postIdClienteIdCategoria(contrato.idCliente, contrato.idCategoria).subscribe(a => {
+              const clienteAtributos = a.data
+              for (let id = 0; id < clienteAtributos.length; id++) {
+                this.atributoFuncionalVariedads_M.push(clienteAtributos[id]);
               }
-
-              if (!this.zonas.find(x => x.id == contratoDetalleData.idZona)) {
-                this.zonas.push(this.zonas_M.find(x => x.id == contratoDetalleData.idZona) || ZonaInit)
-              }
-
-              if (!this.canals.find(x => x.id == contratoDetalleData.idCanal)) {
-                this.canals.push(this.canals_M.find(x => x.id == contratoDetalleData.idCanal) || CanalInit)
-              }
-
-              if (!this.tipoInformeOrdens.find(x => x.id == contratoDetalleData.idTipoInforme)) {
-                this.tipoInformeOrdens.push(this.tipoInformeOrdens_M.find(x => x.id == contratoDetalleData.idTipoInforme) || TipoInformeOrdenInit)
-              }
-
-              if (!this.atributoFuncionalVariedads.find(x => x.id == contratoDetalleData.idAtributoFuncionalVariedad)) {
-                this.atributoFuncionalVariedads.push(this.atributoFuncionalVariedads_M.find(x => x.id == contratoDetalleData.idAtributoFuncionalVariedad) || AtributoFuncionalVariedadInit)
-              }
-            }
-
-            const detalles: ContratoDetalle[][][][][] = []
-            for (let index = 0; index < this.tipoEstudios.length; index++) {
-              const arr_tipoEstudios: ContratoDetalle[][][][] = []
-              if (!this.tipoEstudios[index]) continue;
-              this.checkTipoEstudios[index] = true;
-              this.checkZonas[index]=[];
-              this.checkCanals[index]=[];
-              this.checkTipoInformeOrdens[index]=[];
-
-              for (let j = 0; j < this.zonas.length; j++) {
-                const arr_canals: ContratoDetalle[][][] = []
-                this.checkZonas[index][j] = false;
-                this.checkCanals[index][j] = []
-                this.checkTipoInformeOrdens[index][j] = []
-
-                if (!this.zonas[index]) continue;
-                for (let k = 0; k < this.canals.length; k++) {
-                  const arr_tipoInforme: ContratoDetalle[][] = []
-                  this.checkCanals[index][j][k]=false
-                  this.checkTipoInformeOrdens[index][j][k]=[]
-
-                  if (!this.canals[index]) continue;
-                  for (let m = 0; m < this.tipoInformeOrdens.length; m++) {
-                    const atri: ContratoDetalle[] = []
-                    this.checkTipoInformeOrdens[index][j][k][m]=false
-                  
-                    if (!this.tipoInformeOrdens[index]) continue;
-                    for (let q = 0; q < this.atributoFuncionalVariedads.length; q++) {
-                      if (!this.atributoFuncionalVariedads[index]) continue;
-
-                      const contratoDetalleSea: ContratoDetalle = x.data.find(o => o.idZona == this.zonas[j].id && o.idCanal == this.canals[k].id && o.idTipoInforme == this.tipoInformeOrdens[m].id && o.idTipoEstudio == this.tipoEstudios[index].id && o.idAtributoFuncionalVariedad == this.atributoFuncionalVariedads[q].id) || ContratoDetalleInit;
-
-
-                      const control: ContratoDetalle = {
-                        idTipoEstudio: this.tipoEstudios[index].id,
-                        idZona: this.zonas[j].id,
-                        idCanal: this.canals[k].id,
-                        idTipoInforme: this.tipoInformeOrdens[m].id,
-                        idAtributoFuncionalVariedad: this.atributoFuncionalVariedads[q].id,
-                        estado: 1,
-                        id: 0,
-                        idContrato: 0,
-                        valor: contratoDetalleSea?.valor || 1
-                      };
-                      
-                      if(contratoDetalleSea?.valor==1) {
-                        this.checkTipoInformeOrdens[index][j][k][m]=true
-                        this.checkCanals[index][j][k]=true
-                        this.checkZonas[index][j]=true
-                      }
-                      
-
-                      atri.push(contratoDetalleSea);
-                    }
-
-                    arr_tipoInforme.push(atri);
-                  }
-                  arr_canals.push(arr_tipoInforme)
+              this.tipoEstudios= [];
+              this.zonas= [];
+              this.canals= [];
+              this.tipoInformeOrdens= [];
+              this.atributoFuncionalVariedads= [];
+  
+  
+              for (let b = 0; b < x.data.length; b++) {
+  
+                const contratoDetalleData = x.data[b];
+  
+                if (!this.tipoEstudios.find(x => x.id == contratoDetalleData.idTipoEstudio)) {
+                  this.tipoEstudios.push(this.tipoEstudios_M.find(x => x.id == contratoDetalleData.idTipoEstudio) || TipoEstudioInit)
                 }
-                arr_tipoEstudios.push(arr_canals)
+  
+                if (!this.zonas.find(x => x.id == contratoDetalleData.idZona)) {
+                  this.zonas.push(this.zonas_M.find(x => x.id == contratoDetalleData.idZona) || ZonaInit)
+                }
+  
+                if (!this.canals.find(x => x.id == contratoDetalleData.idCanal)) {
+                  this.canals.push(this.canals_M.find(x => x.id == contratoDetalleData.idCanal) || CanalInit)
+                }
+  
+                if (!this.tipoInformeOrdens.find(x => x.id == contratoDetalleData.idTipoInforme)) {
+                  this.tipoInformeOrdens.push(this.tipoInformeOrdens_M.find(x => x.id == contratoDetalleData.idTipoInforme) || TipoInformeOrdenInit)
+                }
+  
+                if (!this.atributoFuncionalVariedads.find(x => x.id == contratoDetalleData.idAtributoFuncionalVariedad)) {
+                  this.atributoFuncionalVariedads.push(this.atributoFuncionalVariedads_M.find(x => x.id == contratoDetalleData.idAtributoFuncionalVariedad) || AtributoFuncionalVariedadInit)
+                }
               }
-              detalles.push(arr_tipoEstudios);
-            }
-
-            this.arr_detalles = detalles
-
+  
+              const detalles: ContratoDetalle[][][][][] = []
+              for (let index = 0; index < this.tipoEstudios.length; index++) {
+                const arr_tipoEstudios: ContratoDetalle[][][][] = []
+                if (!this.tipoEstudios[index]) continue;
+                this.checkTipoEstudios[index] = true;
+                this.checkZonas[index]=[];
+                this.checkCanals[index]=[];
+                this.checkTipoInformeOrdens[index]=[];
+  
+                for (let j = 0; j < this.zonas.length; j++) {
+                  const arr_canals: ContratoDetalle[][][] = []
+                  this.checkZonas[index][j] = false;
+                  this.checkCanals[index][j] = []
+                  this.checkTipoInformeOrdens[index][j] = []
+  
+                  if (!this.zonas[index]) continue;
+                  for (let k = 0; k < this.canals.length; k++) {
+                    const arr_tipoInforme: ContratoDetalle[][] = []
+                    this.checkCanals[index][j][k]=false
+                    this.checkTipoInformeOrdens[index][j][k]=[]
+  
+                    if (!this.canals[index]) continue;
+                    for (let m = 0; m < this.tipoInformeOrdens.length; m++) {
+                      const atri: ContratoDetalle[] = []
+                      this.checkTipoInformeOrdens[index][j][k][m]=false
+                    
+                      if (!this.tipoInformeOrdens[index]) continue;
+                      for (let q = 0; q < this.atributoFuncionalVariedads.length; q++) {
+                        if (!this.atributoFuncionalVariedads[index]) continue;
+  
+                        const contratoDetalleSea: ContratoDetalle = x.data.find(o => o.idZona == this.zonas[j].id && o.idCanal == this.canals[k].id && o.idTipoInforme == this.tipoInformeOrdens[m].id && o.idTipoEstudio == this.tipoEstudios[index].id && o.idAtributoFuncionalVariedad == this.atributoFuncionalVariedads[q].id) || ContratoDetalleInit;
+  
+  
+                        const control: ContratoDetalle = {
+                          idTipoEstudio: this.tipoEstudios[index].id,
+                          idZona: this.zonas[j].id,
+                          idCanal: this.canals[k].id,
+                          idTipoInforme: this.tipoInformeOrdens[m].id,
+                          idAtributoFuncionalVariedad: this.atributoFuncionalVariedads[q].id,
+                          estado: 1,
+                          id: 0,
+                          idContrato: 0,
+                          valor: contratoDetalleSea?.valor || 1
+                        };
+                        
+                        if(contratoDetalleSea?.valor==1) {
+                          this.checkTipoInformeOrdens[index][j][k][m]=true
+                          this.checkCanals[index][j][k]=true
+                          this.checkZonas[index][j]=true
+                        }
+                        
+  
+                        atri.push(contratoDetalleSea);
+                      }
+  
+                      arr_tipoInforme.push(atri);
+                    }
+                    arr_canals.push(arr_tipoInforme)
+                  }
+                  arr_tipoEstudios.push(arr_canals)
+                }
+                detalles.push(arr_tipoEstudios);
+              }
+  
+              this.arr_detalles = detalles
+  
+            })
           })
         })
+  
+  
       })
+    }else{
+      console.log(contratoForm);
+      
+      this.zonas = contratoForm.zonas;
+      this.canals = contratoForm.canals;
+      this.atributoFuncionalVariedads = contratoForm.atributoFuncionalVariedads;
+      this.tipoInformeOrdens = contratoForm.tipoInformeOrdens;
 
 
-    })
+      const detalles: ContratoDetalle[][][][][] = []
+    
+      for (let index = 0; index < [contratoForm.tipoEstudios].length; index++) {
+        const arr_tipoEstudios: ContratoDetalle[][][][] = []
+        if(!contratoForm.tipoEstudios)continue;
+        this.checkTipoEstudios[index] = true;
+        this.checkZonas[index]=[];
+        this.checkCanals[index]=[];
+        this.checkTipoInformeOrdens[index]=[];
+        for (let j = 0; j < contratoForm.zonas.length; j++) {
+          const arr_canals: ContratoDetalle[][][] = []
+          if(!contratoForm.zonas[j])continue;
+          this.checkZonas[index][j] = true;
+          this.checkCanals[index][j] = []
+          this.checkTipoInformeOrdens[index][j] = []
+
+          for (let k = 0; k < contratoForm.canals.length; k++) {
+            const arr_tipoInforme: ContratoDetalle[][] = []
+            if(!contratoForm.canals[k])continue;
+            this.checkCanals[index][j][k]=true
+            this.checkTipoInformeOrdens[index][j][k]=[]
+        
+
+            for (let z = 0; z < contratoForm.tipoInformeOrdens.length; z++) {
+              const atri: ContratoDetalle[] = []
+              if(!contratoForm.tipoInformeOrdens[z])continue;
+              this.checkTipoInformeOrdens[index][j][k][z]=true
+          
+
+              for (let q = 0; q < contratoForm.atributoFuncionalVariedads.length; q++) {
+                if(!contratoForm.atributoFuncionalVariedads[q])continue;
+            
+
+                const control: ContratoDetalle = {
+                  idTipoEstudio: [contratoForm.tipoEstudios][index],
+                  idZona: contratoForm.zonas[j].id,
+                  idCanal: contratoForm.canals[k].id,
+                  idTipoInforme: contratoForm.tipoInformeOrdens[z].id,
+                  idAtributoFuncionalVariedad: contratoForm.atributoFuncionalVariedads[q].id,
+                  estado: 1,
+                  id: 0,
+                  idContrato: 0,
+                  valor: 1
+                };
+                atri.push(control);
+              }
+              arr_tipoInforme.push(atri);
+            }
+            arr_canals.push(arr_tipoInforme)
+          }
+          arr_tipoEstudios.push(arr_canals)
+        }
+        detalles.push(arr_tipoEstudios);
+      }
+
+      this.arr_detalles = detalles
+    }
+
   }
 
   toggleCheckbox(item: ContratoDetalle, lugar:string) {

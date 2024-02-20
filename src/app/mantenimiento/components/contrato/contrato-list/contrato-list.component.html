@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10">
         <div class="row">
             <div class="col-md-4 border">Nro contrato agrupado</div>
             <div class="col-md-4 border">Cliente</div>
@@ -25,12 +25,14 @@
                 <div class="col-md-4 border bg-success-subtle">{{grupo[0].Categoria.descripcion}}</div>
                 <div id="collapseOne{{$index}}" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-bordered table-sm fs-6">
                             <thead class="table-info">
-                                <tr>
-                                    <th>Nro Contrato</th>
+                                <tr class="fs-6">
+                                    <th>Nº Contrato</th>
                                     <th>Ver.</th>
                                     <th>Dia entrega</th>
+                                    <th>Aprobación</th>
+                                    <th>Modificación</th>
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Fin</th>
                                     <th>Extension</th>
@@ -46,6 +48,8 @@
                                     <td>{{contrato.id}}</td>
                                     <td>{{contrato.version}}</td>
                                     <td>{{contrato.diaEntrega}}</td>
+                                    <td>{{contrato.fechaAprobacion}}</td>
+                                    <td>{{contrato.fechaModificacion}}</td>
                                     <td>{{contrato.fechaInicio}}</td>
                                     <td>{{contrato.fechaFin}}</td>
                                     <td>{{contrato.extension?'SI':'NO'}}</td>
@@ -80,7 +84,7 @@
 
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-2">
         <form [formGroup]="model" autocomplete="off" (submit)="submitEditarForm()">
             <div class="row mt-4">
                 <div class="col-12">

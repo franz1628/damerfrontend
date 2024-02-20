@@ -32,3 +32,8 @@
         font-size: 0.875rem; /* 14px */
         line-height: 1.5;
     }
+
+    .input-group-text {
+      background: white !important;
+      border-bottom: 1px solid #c6bebe !important;
+    }

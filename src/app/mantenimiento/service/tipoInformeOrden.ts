@@ -11,6 +11,12 @@ export interface ResponseTipoInformeOrden {
   message: string
 }
 
+export interface ResponseTipoInformeOrdenOne {
+  data: TipoInformeOrden,
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root' 
 })
@@ -23,8 +29,8 @@ export class TipoInformeOrdenService {
     return this.http.get<Response>(this.apiUrl);
   }
 
-  getId(id: number): Observable<Response> {
-    return this.http.get<Response>(`${this.apiUrl}/${id}`);
+  getId(id: number): Observable<ResponseTipoInformeOrdenOne> {
+    return this.http.get<ResponseTipoInformeOrdenOne>(`${this.apiUrl}/${id}`);
   }
 
   getCodigo(codigo: number): Observable<Response> {

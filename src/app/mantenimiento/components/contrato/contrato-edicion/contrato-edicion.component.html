@@ -2,7 +2,9 @@
 <h4 class="mt-4">Edicion de Contrato</h4>
 
 <div class="row">
-    <div class="col-md-3">..</div>
+    <div class="col-md-3">
+        <app-contrato-etiquetas (actualizarArbol)="actualizarEleccion($event)" #contratoEtiquetas></app-contrato-etiquetas>
+    </div>
     <div class="col-md-7">
 
 
@@ -25,7 +27,7 @@
                                     (click)="changeTipoEstudio($event,idx1.toString())" name="tipoEstudios" aria-label="Checkbox">
                                 </div>
 
-                                <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button form-control bg-info  text-white" type="button" data-bs-toggle="collapse"
                                     [attr.data-bs-target]="'#co' + idx1" aria-expanded="true">
                                     {{tipoEstudios[idx1].descripcion}}
                                 </button>
@@ -44,7 +46,7 @@
                                                             [checked]="getCheckZonas[idx1][idx2]"
                                                             (click)="changeZona($event,idx1+'-'+idx2)">
                                                     </div>
-                                                    <button class="accordion-button form-control" type="button"
+                                                    <button class="accordion-button form-control bg-warning text-white" type="button"
                                                         data-bs-toggle="collapse"
                                                         [attr.data-bs-target]="'#zona' + idx1+idx2"
                                                         aria-expanded="true">
@@ -69,7 +71,7 @@
                                                                                 [checked]="getCheckCanals[idx1][idx2][idx3]"
                                                                                 (click)="changeCanal($event,idx1+'-'+idx2+'-'+idx3)">
                                                                         </div>
-                                                                        <button class="accordion-button form-control"
+                                                                        <button class="accordion-button form-control bg-success text-white"
                                                                             type="button" data-bs-toggle="collapse"
                                                                             [attr.data-bs-target]="'#canal'  + idx1+idx2+idx3"
                                                                             aria-expanded="true">
@@ -101,7 +103,7 @@
                                                                                                     aria-label="Checkbox">
                                                                                             </div>
                                                                                             <button
-                                                                                                class="accordion-button form-control"
+                                                                                                class="accordion-button form-control bg-danger text-white"
                                                                                                 type="button"
                                                                                                 data-bs-toggle="collapse"
                                                                                                 [attr.data-bs-target]="'#tipoInformeOrden' + idx1+idx2+idx3+idx4"
@@ -136,7 +138,7 @@
 
                                                                                                                 </div>
                                                                                                                 <button
-                                                                                                                    class="accordion-button form-control"
+                                                                                                                    class="accordion-button form-control bg-primary text-white"
                                                                                                                     type="button"
                                                                                                                     data-bs-toggle="collapse"
                                                                                                                     [attr.data-bs-target]="'#atributoFuncionalVariedad' + idx1+idx2+idx3+idx4+idx5"
