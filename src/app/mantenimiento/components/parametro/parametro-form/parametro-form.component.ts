@@ -4,6 +4,8 @@ import { Parametro, ParametroInit } from '../../../interface/parametro.interface
 import { AlertService } from '../../../../shared/services/alert.service';
 import { ValidFormService } from '../../../../shared/services/validForm.service';
 import { ParametroService } from '../../../service/parametro.service';
+import { ClasificadoReferenciaService } from '../../../service/clasificadoReferencia';
+import { ClasificadoReferencia } from '../../../interface/clasificadoReferencia';
 
 
 @Component({
@@ -17,31 +19,38 @@ export class ParametroFormComponent {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   public myForm: FormGroup = this.fb.group({
     id: [0],
-    codigo:  [0, [Validators.required, Validators.min(1), Validators.pattern(/^-?\d+$/)]],
     descripcion: ['',Validators.required],
     descripcionResumida: [''],
     tip: [''],
-    idInputClasificado: [0],
+    idClasificadoReferencia: [0],
     valorParametro1: [0],
     valorParametro2: [0],
     valorParametro3: [0],
     inicioVigencia: [new Date()],
     alias1: [''],
     alias2: [''],
-    alias3: [''],
-    idEstadoRegistro: [1]
+    alias3: ['']
  
   })
 
-  //public listProvincia : Provincia[] = [];
+  public clasificadoReferencias : ClasificadoReferencia[] = [];
   
-  constructor(public alert: AlertService, public fb: FormBuilder, public validForm: ValidFormService, public service: ParametroService) {
+  constructor(
+    private alert: AlertService, 
+    private fb: FormBuilder, 
+    private validForm: ValidFormService, 
+    private service: ParametroService,
+    private serviceClasificadoReferencia:ClasificadoReferenciaService
+    ) {
 
   }
 
   ngOnInit(){
-    this.showLoading = true
-    //this.provinciaService.get().subscribe(response => { this.showLoading = false; this.listProvincia = response.data });
+    this.showLoading = true;
+    this.serviceClasificadoReferencia.get().subscribe(x=>{
+      this.clasificadoReferencias = x.data;
+    })
+
   }
   
   get currentModel() {
@@ -55,11 +64,6 @@ export class ParametroFormComponent {
       return;
     }
 
-    /*if(!Number.isInteger(parseInt(this.currentModel.codigo.toString())) || this.currentModel.codigo<=0){
-      this.alert.showAlert('Mensaje!', 'El codigo no es válido', 'warning');
-      return;
-    }*/
-
     if(!this.currentModel.id){
       this.service.add(this.currentModel).subscribe(() => {
         this.showLoading = false;
@@ -67,12 +71,14 @@ export class ParametroFormComponent {
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
         this.myForm.patchValue(ParametroInit);
         this.myForm.clearValidators()
+        this.myForm.reset()
       });
     }else{
       this.service.update(this.currentModel.id,this.currentModel).subscribe(() => {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+        this.myForm.reset()
       });
     }
   }

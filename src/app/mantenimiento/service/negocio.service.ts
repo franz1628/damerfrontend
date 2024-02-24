@@ -5,6 +5,12 @@ import { Response } from '../../shared/interfaces/response.interface';
 import { Negocio } from '../interface/negocio.interface';
 import { environments } from '../../../environments/environments';
 
+export interface ResponseNegocio {
+  data: Negocio[],
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,8 +27,8 @@ export class NegocioService {
     return this.http.get<Response>(`${this.apiUrl}/${id}`);
   }
 
-  getCodigo(codigo: number): Observable<Response> {
-    return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
+  postDescripcion(descripcion: string): Observable<ResponseNegocio> {
+    return this.http.post<ResponseNegocio>(`${this.apiUrl}/postDescripcion`, {descripcion});
   }
 
   add(model: Negocio): Observable<Negocio> {

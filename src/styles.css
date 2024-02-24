@@ -37,3 +37,10 @@
       background: white !important;
       border-bottom: 1px solid #c6bebe !important;
     }
+
+    .selected-row td {
+      background-color: #f0ad4e !important;
+    }
+    td{
+      cursor: pointer !important;
+    }

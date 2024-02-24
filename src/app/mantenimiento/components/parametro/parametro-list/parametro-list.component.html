@@ -6,7 +6,7 @@
             <app-div-cargando></app-div-cargando>
 
         } @else {
-        <table class="table table-sm table-bordered">
+        <table class="table table-sm table-bordered" >
             <thead class="table-success">
                 <tr>
                     <th>#</th>
@@ -19,9 +19,9 @@
             </thead>
             <tbody>
                 @for (model of models; track $index) {
-                    <tr>
+                    <tr (click)="elegirModel(model, $index)"  [ngClass]="{'selected-row': $index === selectedRowIndex}"  >
                         <td>{{$index+1}}</td>
-                        <td>{{model.codigo}}</td>
+                        <td>{{model.id}}</td>
                         <td>{{model.descripcion}}</td>
     
     

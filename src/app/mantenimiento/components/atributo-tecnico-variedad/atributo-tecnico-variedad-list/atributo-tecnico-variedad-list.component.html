@@ -8,21 +8,22 @@
                     <th>#</th>
                     <th>Codigo</th>
                     <th>Descripcion</th>
-                    <th>Resumida</th>
-                    <!-- <th>Accion</th> -->
+                    <th>Resumidas</th>
+                    <th>Accion</th>
                 </tr>
             </thead>
         
             <tbody>
                 
                 @for (model of models; track $index) {
-                    <tr>
+                    <tr class="fs-6" (click)="selectEdit(model,$index)" [ngClass]="{'selected-row': $index === selectedRowIndex}"  >
                         <td>{{$index+1}}</td>
-                        <td>{{model.codigo}}</td>
+                        <td>{{model.id}}</td>
                         <td>{{model.descripcion}}</td>
                         <td>{{model.descripcionResumida}}</td>
-                        <td>
-                            <button class="btn btn-sm btn-info" (click)="selectEdit(model)">Edit</button>
+                        <td> 
+                            <button class="btn btn-sm btn-info" (click)="selectEdit(model,$index)"> <i class="bi bi-pencil"></i> </button>
+                            <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>
                 }
@@ -33,3 +34,4 @@
     }
 }
 
+<app-black-loading [show]="showLoading"></app-black-loading>

@@ -1,6 +1,5 @@
 export interface Parametro {
     id: number,
-    codigo: number,
     descripcion: string,
     descripcionResumida: string,
     tip: string,
@@ -17,7 +16,6 @@ export interface Parametro {
 
 export const ParametroInit = {
     id: 0,
-    codigo: 0,
     descripcion: '',
     descripcionResumida: '',
     tip: '',

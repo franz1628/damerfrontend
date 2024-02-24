@@ -11,6 +11,11 @@ import { DistritoService } from '../../tablas/ubigeo/service/distrito.service';
 import { Urbanizacion } from '../../tablas/interfaces/urbanizacion.interface';
 import { UrbanizacionService } from '../../tablas/service/urbanizacion.service';
 import { Distrito } from '../../tablas/ubigeo/interface/distrito.interface';
+import { DepartamentoService } from '../../tablas/ubigeo/service/departamento.service';
+import { ProvinciaService } from '../../tablas/ubigeo/service/provincia.service';
+import { Departamento } from '../../tablas/ubigeo/interface/departamento.interface';
+import { Provincia } from '../../tablas/ubigeo/interface/provincia.interface';
+import { RegexService } from '../../../../shared/services/regex.service';
 
 
 @Component({
@@ -21,53 +26,67 @@ export class NegocioFormComponent {
 
 
   @Input()
-  public model: Negocio = NegocioInit;
-  public showLoading: boolean = false;
+  model: Negocio = NegocioInit;
+  showLoading: boolean = false;
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
-  public myForm: FormGroup = this.fb.group({
+
+  myForm: FormGroup = this.fb.group({
     id: [0, Validators.required],
-    codigo: [0, [Validators.required, Validators.min(1), Validators.pattern(/^-?\d+$/)]],
     ruc: ['', Validators.required],
     nombreComercial: ['', Validators.required],
     nombreResumido: [''],
     nombreTip: [''],
-    codCanal: [0, Validators.required],
+    idCanal: [0, Validators.required],
     direccion: ['', Validators.required],
-    codDistrito: [0, Validators.required],
-    codUrb: [0],
-    codRuta: [0],
+    idDepartamento: [0],
+    idProvincia: [0],
+    idDistrito: [0, [Validators.required,Validators.pattern(this.regexService.regexCombo)]],
+    idUrbanizacion: [0],
+    idRuta: [0],
     lat: [''],
     lgn: [''],
-    entregaFactura: [1],
-    levantarNegocio: [1],
-    negocioEquivalente: [1],
+    entregaFactura: [''],
+    levantarNegocio: [''],
+    negocioEquivalente: [''],
     telefono: [''],
     fax: [''],
     referencia: [''],
-    zonaAccidentada: [1],
-    zonaRiesgo: [1],
+    zonaAccidentada: [''],
+    zonaRiesgo: [''],
     aceptaProductos: [1],
     tipoHorario: [1],
-    codVia: [1],
+    idVia: [1],
     numeroDomicilio: [1],
     interior: [''],
     manzana: [''],
     lote: [''],
   })
 
-  public listCanal : Canal[] = [];
-  public listDistrito : Distrito[] = [];
-  public listUrbanizacion : Urbanizacion[] = [];
+  listCanal: Canal[] = [];
+  listDistrito: Distrito[] = [];
+  listUrbanizacion: Urbanizacion[] = [];
+  negocioDescripcion: string = '';
+  negociosEncontrados: Negocio[] = [];
+  selectedRowIndex: number = -1;
+
+  departamentos:Departamento[] = [];
+  provincias:Provincia[] = [];
+
+  idDepartamento:number=0;
+  idProvincia:number=0;
 
   constructor(
-    public alert: AlertService,
-    public fb: FormBuilder,
-    public validForm: ValidFormService,
+    private alert: AlertService,
+    private fb: FormBuilder,
+    private validForm: ValidFormService,
     private service: NegocioService,
-    private canalService : CanalService,
+    private canalService: CanalService,
+    private departamentoService: DepartamentoService,
+    private provinciaService: ProvinciaService,
     private distritoService: DistritoService,
-    private urbanizacionService: UrbanizacionService
-    ) {
+    private urbanizacionService: UrbanizacionService,
+    private regexService:RegexService
+  ) {
   }
 
   ngOnInit() {
@@ -75,38 +94,51 @@ export class NegocioFormComponent {
     this.canalService.get().subscribe(response => { this.showLoading = false; this.listCanal = response.data });
     this.distritoService.get().subscribe(response => { this.showLoading = false; this.listDistrito = response.data });
     this.urbanizacionService.get().subscribe(response => { this.showLoading = false; this.listUrbanizacion = response.data });
+    this.departamentoService.get().subscribe(response => { this.showLoading = false; this.departamentos = response.data });
+    this.provinciaService.get().subscribe(response => { this.showLoading = false; this.provincias = response.data });
   }
 
   get currentModel() {
     return this.myForm.value as Negocio;
   }
 
-  buscarNegocio($event: Event) {
-    const codigo = ($event.target as HTMLInputElement).value;
+  buscarNegocio(texto: string) {
+    if (texto.length < 3) {
+      this.alert.showAlert('Mensaje', 'Debe tener más de 3 caracteres', "warning");
+      return;
+    } 
+
     this.showLoading = true;
-    this.service.getCodigo(parseInt(codigo)).subscribe(resp => {
-      
-      const negocio = resp.data;
-
-      if(negocio){
-        this.setModel(negocio)
-      }else{
-        this.alert.showAlert('¡Mensaje!', 'No existe un negocio con ese código', 'warning');
-        this.myForm.reset();
-        this.myForm.patchValue({codigo});
+    this.selectedRowIndex = -1;
+    this.service.postDescripcion(texto).subscribe(x => {
+      if (x.data.length == 0) {
+        this.alert.showAlert('Mensaje', 'No se encontraron resultados', "warning");
+        return;
       }
-      this.showLoading = false;
-      
-    });
 
-    return false;
+      this.negociosEncontrados = x.data;
+      this.showLoading = false;
+
+    });
   }
 
+  elegirNegocio(miNegocio: Negocio, index: number):void {
+   this.myForm.patchValue(miNegocio);
+   this.selectedRowIndex = index;
+  }
+
+
+ 
   submit() {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
       return;
     }
+
+    this.negociosEncontrados = [];
+    this.selectedRowIndex = -1;
+    this.negocioDescripcion = '';
+    this.showLoading = true;
 
     if (!this.currentModel.id) {
       this.service.add(this.currentModel).subscribe(() => {
@@ -115,15 +147,31 @@ export class NegocioFormComponent {
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
         this.myForm.patchValue(NegocioInit);
         this.myForm.clearValidators();
-        this.myForm.reset();
-      });
+        this.showLoading = false;
+
+      }); 
     } else {
       this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+        this.myForm.patchValue(NegocioInit);
+        this.myForm.clearValidators();
+        this.showLoading = false; 
       });
     }
+  }
+
+  get getProvincias(){
+    return this.provincias.filter(x=>x.idDepartamento==this.myForm.value.idDepartamento);
+  }
+
+  get getDistritos(){
+    return this.listDistrito.filter(x=>x.idProvincia==this.myForm.value.idProvincia);
+  }
+
+  get getUrbanizacions(){
+    return this.listUrbanizacion.filter(x=>x.idDistrito==this.myForm.value.idDistrito);
   }
 
   setModel(model: Negocio) {

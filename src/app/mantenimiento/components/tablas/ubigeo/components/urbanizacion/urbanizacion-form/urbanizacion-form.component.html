@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col">
+      <form (ngSubmit)="submit()" autocomplete="off" [formGroup]="myForm">
+  
+        <div class="mb-3 row">
+          <label for="descripcion" class="col-md-3 col-form-label-sm">Descripcion</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control form-control-sm" placeholder="descripcion" name="descripcion"
+              formControlName="descripcion" id="descripcion"/>
+          </div>
+          <span *ngIf="isValidField('descripcion')" class="form-text text-danger">
+            {{ getFieldError('descripcion') }}
+          </span>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="idDepartamento" class="col-md-3 col-form-label-sm">Departamento</label>
+            <div class="col-sm-9">
+                <select class="form-select form-select-sm" formControlName="idDepartamento">
+                    <option value="0">SELECCIONAR</option>
+                    @for (departamento of departamentos; track $index) {
+                        <option value={{departamento.id}}>{{departamento.descripcion}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="idProvincia" class="col-md-3 col-form-label-sm">Provincia</label>
+            <div class="col-sm-9">
+                <select class="form-select form-select-sm" formControlName="idProvincia">
+                    <option value="0">SELECCIONAR</option>
+                    @for (provincia of getProvincias; track $index) {
+                        <option value={{provincia.id}}>{{provincia.descripcion}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="idDistrito" class="col-md-3 col-form-label-sm">Distrito</label>
+            <div class="col-sm-9">
+                <select class="form-select form-select-sm" formControlName="idDistrito">
+                    <option value="0">SELECCIONAR</option>
+                    @for (distrito of getDistritos; track $index) {
+                        <option value={{distrito.id}}>{{distrito.descripcion}}</option>
+                    }
+                    
+                </select>
+
+            </div>
+            <span *ngIf="isValidField('idDistrito')" class="form-text text-danger">
+                {{ getFieldError('idDistrito') }}
+            </span>
+        </div>
+       
+  
+        <div class="input-group mt-3">
+          <button class="btn btn-sm btn-success btn-sm text-white " type="submit" *ngIf="currentModel.id==0">
+            <i class="bi bi-box-arrow-down"></i> Guardar
+          </button>
+          <button class="btn btn-sm btn-warning btn-sm text-white " (click)="nuevo()" type="button" *ngIf="currentModel.id!=0">
+            <i class="bi bi-plus-lg"></i> Nuevo
+          </button>
+          <button class="btn btn-sm btn-info btn-sm text-white " type="submit" *ngIf="currentModel.id!=0">
+            <i class="bi bi-pencil"></i> Guardar
+          </button>
+         
+        </div>
+  
+      </form>
+    </div>
+  </div>
+
+  
+
+<app-black-loading [show]="showLoading"></app-black-loading>

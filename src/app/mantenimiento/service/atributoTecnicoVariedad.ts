@@ -21,10 +21,6 @@ export class AtributoTecnicoVariedadService {
     return this.http.get<Response>(`${this.apiUrl}/${id}`);
   }
 
-  getCodigo(codigo: number): Observable<Response> {
-    return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
-  }
-
   add(model: AtributoTecnicoVariedad): Observable<AtributoTecnicoVariedad> {
     return this.http.post<AtributoTecnicoVariedad>(this.apiUrl, model);
   }

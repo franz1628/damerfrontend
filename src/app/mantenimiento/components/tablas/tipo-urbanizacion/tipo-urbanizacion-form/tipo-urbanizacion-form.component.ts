@@ -16,14 +16,16 @@ export class TipoUrbanizacionFormComponent {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   public myForm: FormGroup = this.fb.group({
     id: [0],
-    codigo:[0],
     descripcion: ['', Validators.required],
     descripcionResumida: ['', Validators.required],
-    estado: [1]
   })
 
-
-  constructor(public alert: AlertService, public fb: FormBuilder, public validForm: ValidFormService, public service: TipoUrbanizacionService) {
+  constructor(
+    public alert: AlertService, 
+    public fb: FormBuilder, 
+    public validForm: ValidFormService, 
+    public service: TipoUrbanizacionService
+    ) {
 
   }
 
@@ -47,12 +49,14 @@ export class TipoUrbanizacionFormComponent {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
+        this.myForm.reset()
       });
     }else{
       this.service.update(this.currentModel.id,this.currentModel).subscribe(() => {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+        this.myForm.reset()
       });
     }
   }

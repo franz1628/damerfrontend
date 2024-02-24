@@ -3,7 +3,7 @@
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
             role="tab" aria-controls="home-tab-pane" aria-selected="true">Negocios</button>
     </li>
-    <li class="nav-item" role="presentation">
+    <!-- <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button"
             role="tab" aria-controls="profile-tab-pane" aria-selected="false">Contactos</button>
     </li>
@@ -15,23 +15,13 @@
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#zonasCliente" type="button"
             role="tab" aria-controls="zonasCliente" aria-selected="false">Zonas por cliente</button>
-    </li>
+    </li> -->
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
         <form autocomplete="off" [formGroup]="myForm">
             <div class="row  mt-4">
                 <div class="col-md-4">
-                    <div class="mb-3 row">
-                        <label for="codigo" class="col-md-3 col-form-label-sm">Código</label>
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control form-control-sm" placeholder="codigo" name="codigo"
-                                formControlName="codigo" id="codigo" (keyup.enter)="buscarNegocio($event)" />
-                        </div>
-                        <span *ngIf="isValidField('codigo')" class="form-text text-danger">
-                            {{ getFieldError('codigo') }}
-                        </span>
-                    </div>
 
                     <div class="mb-3 row">
                         <label for="ruc" class="col-md-3 col-form-label-sm">RUC</label>
@@ -58,8 +48,14 @@
                     <div class="mb-3 row">
                         <label for="nombreComercial" class="col-md-3 col-form-label-sm">Nombre Comercial</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="nombreComercial"
-                                name="nombreComercial" formControlName="nombreComercial" id="nombreComercial" />
+
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control form-control-sm" placeholder="Nombre comercial"
+                                    name="nombreComercial" formControlName="nombreComercial" id="nombreComercial" />
+                                <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#modalBuscarNegocio"><i class="bi bi-search"></i></button>
+                            </div>
+
                         </div>
                         <span *ngIf="isValidField('nombreComercial')" class="form-text text-danger">
                             {{ getFieldError('nombreComercial') }}
@@ -69,7 +65,7 @@
                     <div class="mb-3 row">
                         <label for="nombreResumido" class="col-md-3 col-form-label-sm">Nombre Resumido</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="nombreResumido"
+                            <input type="text" class="form-control form-control-sm" placeholder="Nombre resumido"
                                 name="nombreResumido" formControlName="nombreResumido" id="nombreResumido" />
                         </div>
                         <span *ngIf="isValidField('nombreResumido')" class="form-text text-danger">
@@ -80,7 +76,7 @@
                     <div class="mb-3 row">
                         <label for="nombreTip" class="col-md-3 col-form-label-sm">Nombre TIP</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="nombreTip"
+                            <input type="text" class="form-control form-control-sm" placeholder="Tip"
                                 name="nombreTip" formControlName="nombreTip" id="nombreTip" />
                         </div>
                         <span *ngIf="isValidField('nombreTip')" class="form-text text-danger">
@@ -89,9 +85,9 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="codCanal" class="col-md-3 col-form-label-sm">Canal</label>
+                        <label for="idCanal" class="col-md-3 col-form-label-sm">Canal</label>
                         <div class="col-sm-9">
-                            <select class="form-select form-select-sm" formControlName="codCanal">
+                            <select class="form-select form-select-sm" formControlName="idCanal">
                                 <option value="0">SELECCIONAR</option>
                                 <option *ngFor="let canal of listCanal" [value]="canal.codigo">
                                     {{canal.descripcion}}
@@ -99,8 +95,8 @@
                             </select>
 
                         </div>
-                        <span *ngIf="isValidField('codCanal')" class="form-text text-danger">
-                            {{ getFieldError('codCanal') }}
+                        <span *ngIf="isValidField('idCanal')" class="form-text text-danger">
+                            {{ getFieldError('idCanal') }}
                         </span>
                     </div>
 
@@ -110,9 +106,9 @@
                         <label for="entregaFactura" class="col-md-3 col-form-label-sm">Entrega Factura</label>
                         <div class="col-sm-9">
                             <select class="form-select form-select-sm" formControlName="entregaFactura">
-                                <option value="0">SELECCIONAR</option>
-                                <option value="1">SI</option>
-                                <option value="2">NO</option>
+                                <option value="">SELECCIONAR</option>
+                                <option value="true">SI</option>
+                                <option value="false">NO</option>
                             </select>
                         </div>
                         <span *ngIf="isValidField('entregaFactura')" class="form-text text-danger">
@@ -124,9 +120,9 @@
                         <label for="levantarNegocio" class="col-md-3 col-form-label-sm">Levantar Negocio</label>
                         <div class="col-sm-9">
                             <select class="form-select form-select-sm" formControlName="levantarNegocio">
-                                <option value="0">SELECCIONAR</option>
-                                <option value="1">SI</option>
-                                <option value="2">NO</option>
+                                <option value="">SELECCIONAR</option>
+                                <option value="true">SI</option>
+                                <option value="false">NO</option>
                             </select>
                         </div>
                         <span *ngIf="isValidField('levantarNegocio')" class="form-text text-danger">
@@ -138,9 +134,9 @@
                         <label for="negocioEquivalente" class="col-md-3 col-form-label-sm">Negocio Equivalente</label>
                         <div class="col-sm-9">
                             <select class="form-select form-select-sm" formControlName="negocioEquivalente">
-                                <option value="0">SELECCIONAR</option>
-                                <option value="1">SI</option>
-                                <option value="2">NO</option>
+                                <option value="">SELECCIONAR</option>
+                                <option value="true">SI</option>
+                                <option value="false">NO</option>
                             </select>
                         </div>
                         <span *ngIf="isValidField('negocioEquivalente')" class="form-text text-danger">
@@ -171,44 +167,71 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="codDistrito" class="col-md-3 col-form-label-sm">Distrito</label>
+                        <label for="idDepartamento" class="col-md-3 col-form-label-sm">Departamento</label>
                         <div class="col-sm-9">
-                            <select class="form-select" formControlName="codDistrito">
-                                <option *ngFor="let distrito of listDistrito" [value]="distrito.codigo">
-                                    {{distrito.descripcion}}
-                                </option>
+                            <select class="form-select form-select-sm" formControlName="idDepartamento">
+                                <option value="0">SELECCIONAR</option>
+                                @for (departamento of departamentos; track $index) {
+                                    <option value={{departamento.id}}>{{departamento.descripcion}}</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="idProvincia" class="col-md-3 col-form-label-sm">Provincia</label>
+                        <div class="col-sm-9">
+                            <select class="form-select form-select-sm" formControlName="idProvincia">
+                                <option value="0">SELECCIONAR</option>
+                                @for (provincia of getProvincias; track $index) {
+                                    <option value={{provincia.id}}>{{provincia.descripcion}}</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="idDistrito" class="col-md-3 col-form-label-sm">Distrito</label>
+                        <div class="col-sm-9">
+                            <select class="form-select form-select-sm" formControlName="idDistrito">
+                                <option value="0">SELECCIONAR</option>
+                                @for (distrito of getDistritos; track $index) {
+                                    <option value={{distrito.id}}>{{distrito.descripcion}}</option>
+                                }
+                                
                             </select>
 
                         </div>
-                        <span *ngIf="isValidField('codDistrito')" class="form-text text-danger">
-                            {{ getFieldError('codDistrito') }}
+                        <span *ngIf="isValidField('idDistrito')" class="form-text text-danger">
+                            {{ getFieldError('idDistrito') }}
                         </span>
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="codUrb" class="col-md-3 col-form-label-sm">Urbanización</label>
+                        <label for="idUrbanizacion" class="col-md-3 col-form-label-sm">Urbanización</label>
                         <div class="col-sm-9">
-                            <select class="form-select" formControlName="codUrb">
-                                <option *ngFor="let urbanizacion of listUrbanizacion" [value]="urbanizacion.codigo">
+                            <select class="form-select form-select-sm" formControlName="idUrbanizacion">
+                                <option value="0">SELECCIONAR</option>
+                                <option *ngFor="let urbanizacion of getUrbanizacions" [value]="urbanizacion.id">
                                     {{urbanizacion.descripcion}}
                                 </option>
                             </select>
 
                         </div>
-                        <span *ngIf="isValidField('codUrb')" class="form-text text-danger">
-                            {{ getFieldError('codUrb') }}
+                        <span *ngIf="isValidField('idUrbanizacion')" class="form-text text-danger">
+                            {{ getFieldError('idUrbanizacion') }}
                         </span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3 row">
-                        <label for="codVia" class="col-md-3 col-form-label-sm">Código Via</label>
+                        <label for="idVia" class="col-md-3 col-form-label-sm">Código Via</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="codVia" name="codVia"
-                                formControlName="codVia" id="codVia" />
+                            <input type="text" class="form-control form-control-sm" placeholder="idVia" name="idVia"
+                                formControlName="idVia" id="idVia" />
                         </div>
-                        <span *ngIf="isValidField('codVia')" class="form-text text-danger">
-                            {{ getFieldError('codVia') }}
+                        <span *ngIf="isValidField('idVia')" class="form-text text-danger">
+                            {{ getFieldError('idVia') }}
                         </span>
                     </div>
 
@@ -292,12 +315,13 @@
                     <div class="mb-3 row">
                         <label for="zonaAccidentada" class="col-md-3 col-form-label-sm">Zona Accidentada</label>
                         <div class="col-sm-9">
-                          
-                                <select class="form-select form-select-sm" name="zonaAccidentada"  formControlName="zonaAccidentada">
-                                    <option value="0">SELECCIONAR</option>
-                                    <option value="1">SI</option>
-                                    <option value="2">NO</option>
-                                </select>
+
+                            <select class="form-select form-select-sm" name="zonaAccidentada"
+                                formControlName="zonaAccidentada">
+                                <option value="">SELECCIONAR</option>
+                                <option value="true">SI</option>
+                                <option value="false">NO</option>
+                            </select>
                         </div>
                         <span *ngIf="isValidField('zonaAccidentada')" class="form-text text-danger">
                             {{ getFieldError('zonaAccidentada') }}
@@ -307,14 +331,14 @@
                     <div class="mb-3 row">
                         <label for="zonaRiesgo" class="col-md-3 col-form-label-sm">Zona Riesgo</label>
                         <div class="col-sm-9">
-                          
-                                <select class="form-select form-select-sm" name="zonaRiesgo" formControlName="zonaRiesgo">
-                                    <option value="0">SELECCIONAR</option>
-                                    <option value="1">SI</option>
-                                    <option value="2">NO</option>
-                                </select>
 
-                            
+                            <select class="form-select form-select-sm" name="zonaRiesgo" formControlName="zonaRiesgo">
+                                <option value="">SELECCIONAR</option>
+                                <option value="true">SI</option>
+                                <option value="false">NO</option>
+                            </select>
+
+
                         </div>
                         <span *ngIf="isValidField('zonaRiesgo')" class="form-text text-danger">
                             {{ getFieldError('zonaRiesgo') }}
@@ -322,20 +346,21 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="codRuta" class="col-md-3 col-form-label-sm">Código Ruta</label>
+                        <label for="idRuta" class="col-md-3 col-form-label-sm">Código Ruta</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="codRuta" name="codRuta"
-                                formControlName="codRuta" id="codRuta" />
+                            <input type="text" class="form-control form-control-sm" placeholder="Ruta" name="idRuta"
+                                formControlName="idRuta" id="idRuta" />
                         </div>
-                        <span *ngIf="isValidField('codRuta')" class="form-text text-danger">
-                            {{ getFieldError('codRuta') }}
+                        <span *ngIf="isValidField('idRuta')" class="form-text text-danger">
+                            {{ getFieldError('idRuta') }}
                         </span>
                     </div>
 
                     <div class="mb-3 row">
                         <label for="aceptaProductos" class="col-md-3 col-form-label-sm">Acepta Productos</label>
                         <div class="col-sm-9">
-                            <select class="form-select form-select-sm" name="aceptaProductos" formControlName="aceptaProductos">
+                            <select class="form-select form-select-sm" name="aceptaProductos"
+                                formControlName="aceptaProductos">
                                 <option value="0">SELECCIONAR</option>
                                 <option value="1">ACEPTA MAS CATEGORIAS</option>
                                 <option value="2">NO ACEPTA MAS CATEGORIAS</option>
@@ -483,6 +508,61 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalBuscarNegocio" tabindex="-1" aria-labelledby="modalBuscarNegocioLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalBuscarNegocioLabel">Buscar Negocio</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Descripción..." [(ngModel)]="negocioDescripcion">
+                            <button class="btn btn-primary" type="button" (click)="buscarNegocio(negocioDescripcion)"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        @if(negociosEncontrados.length==0){
+                            Sin resultados...
+                        }@else {
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Descripción</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody>
+                                    @for (negociosEncontrado of negociosEncontrados; track $index) {
+                                        <tr (click)="elegirNegocio(negociosEncontrado,$index)" [ngClass]="{'selected-row': $index === selectedRowIndex}"  >
+                                            <td>{{negociosEncontrado.id}}</td>
+                                            <td>{{negociosEncontrado.nombreComercial}}</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @if(showLoading){
 <app-black-loading [show]="showLoading"></app-black-loading>

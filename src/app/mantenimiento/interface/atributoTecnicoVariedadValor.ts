@@ -1,7 +1,6 @@
 export interface AtributoTecnicoVariedadValor {
     id: number,
-    codigo : number,
-    codAtributoTecnicoVariedad : number,
+    idAtributoTecnicoVariedad : number,
 	valor : string,
 	comentario : string,
 	alias1 : string,
@@ -12,8 +11,7 @@ export interface AtributoTecnicoVariedadValor {
 }
 export const AtributoTecnicoVariedadValorInit: AtributoTecnicoVariedadValor = {
     id: 0,
-    codigo : 0,
-    codAtributoTecnicoVariedad : 0,
+    idAtributoTecnicoVariedad : 0,
 	valor : '',
 	comentario : '', 
 	alias1 : '',

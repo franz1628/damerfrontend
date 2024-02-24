@@ -9,7 +9,7 @@
                 <div class="col-sm-8">
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text">{{cliente.codigo}}</span>
+                        <span class="input-group-text">{{cliente.id}}</span>
                         <span class="input-group-text">{{cliente.razonSocial}}</span>
                       </div>
                 </div>
@@ -17,18 +17,18 @@
             </div>
 
             <div class="mb-3 row">
-                <label for="codZona" class="col-md-4 col-form-label-sm">Codigo Zona</label>
+                <label for="idZona" class="col-md-4 col-form-label-sm">Codigo Zona</label>
                 <div class="col-sm-8">
-                    <select name="codZona" id="codZona" formControlName="codZona">
+                    <select name="idZona" id="idZona" formControlName="idZona">
                         <option value="0">SELECCIONAR</option>
                         @for (zona of zonas; track $index) {
-                            <option value={{zona.codigo}}>{{zona.descripcion}}</option>
+                            <option value={{zona.id}}>{{zona.descripcion}}</option>
                         }
                     </select>
 
                 </div>
-                <span *ngIf="isValidField('codZona')" class="form-text text-danger">
-                    {{ getFieldError('codZona') }}
+                <span *ngIf="isValidField('idZona')" class="form-text text-danger">
+                    {{ getFieldError('idZona') }}
                 </span>
             </div>
 

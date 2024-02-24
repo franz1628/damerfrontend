@@ -25,8 +25,8 @@ export class AtributoTecnicoVariedadValorService {
 
 
 
-  postCodAtributoTecnicoVariedad(codAtributoTecnicoVariedad: number): Observable<AtributoTecnicoVariedadValor[]> {
-    return this.http.post<AtributoTecnicoVariedadValor[]>(`${this.apiUrl}/CodAtributoTecnicoVariedad`, {codAtributoTecnicoVariedad});
+  postIdAtributoTecnicoVariedad(idAtributoTecnicoVariedad: number): Observable<AtributoTecnicoVariedadValor[]> {
+    return this.http.post<AtributoTecnicoVariedadValor[]>(`${this.apiUrl}/idAtributoTecnicoVariedad`, {idAtributoTecnicoVariedad});
   }
 
   add(model: AtributoTecnicoVariedadValor): Observable<AtributoTecnicoVariedadValor> {

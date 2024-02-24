@@ -1,48 +1,55 @@
-<div class="row mt-4">
-  <div class="col-4">
-    <h6 class="mb-3 text-center">INFORMACION DEL ATRIBUTO VARIEDAD</h6>
-    <hr>
-
-    <app-atributo-tecnico-variedad-form #atributoTecnicoVariedadFormComp
-      (actualizarListEmit)="actualizarList()"></app-atributo-tecnico-variedad-form>
-  </div>
-
-
-
-  <div class="col-md-6">
-    <div class="list-group mt-3">
-      <button type="button" class="list-group-item list-group-item-action active" 
-        [class.active]="botonActivo === 'registrados'" (click)="mostrarContenido('registrados')">Atributos
-        registrados</button>
-
-      @if(model.id!=0){
-        <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'valores'"
-        (click)="mostrarContenido('valores')">Valores atributos</button>
-      }  
-  
-
-
-    </div>
-  </div>
-
-</div>
-
-
-
-<hr>
 <div class="row">
-  <div class="col-md-8">
-    @if(contenidoVisible === 'registrados'){
+  <div class="col-md-6">
+
     <h6 class="mb-3 text-center">ATRIBUTOS REGISTRADOS</h6>
     <hr>
     <app-atributo-tecnico-variedad-list #atributoTecnicoVariedadListComp
       (selectEditEmit)="selectEdit($event)"></app-atributo-tecnico-variedad-list>
 
-    }@else if (contenidoVisible === 'valores' && model.id != 0) {
-    <app-atributo-tecnico-variedad-valores
-      [modelAtributoTecnicoVariedad]="model"></app-atributo-tecnico-variedad-valores>
+
+  </div>
+  <div class="col-md-2">
+    <div class="list-group mt-3">
+      <button type="button" class="list-group-item list-group-item-action active"
+        [class.active]="botonActivo === 'registrados'" (click)="mostrarContenido('registrados')">Atributos
+        registrados</button>
+
+      @if(getModel.id!=0){
+      <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'valores'"
+        (click)="mostrarContenido('valores')">Valores atributos</button>
+      }
+
+
+
+    </div>
+  </div>
+  <div class="col-md-4">
+
+    @if(contenidoVisible === 'registrados'){
+    <h6 class="mb-3 text-center">INFORMACION DEL ATRIBUTO VARIEDAD</h6>
+    <hr>
+
+    <app-atributo-tecnico-variedad-form #atributoTecnicoVariedadFormComp
+      (actualizarListEmit)="actualizarList()"></app-atributo-tecnico-variedad-form>
+
+    }@else if (contenidoVisible === 'valores' && getModel.id != 0) {
+    <app-atributo-tecnico-variedad-valores #atributoTecnicoVariedadValoresComp
+      [modelAtributoTecnicoVariedad]="getModel"></app-atributo-tecnico-variedad-valores>
     }
 
 
+
   </div>
+
+
+
+
+
+
 </div>
+
+
+
+
+
+<hr>

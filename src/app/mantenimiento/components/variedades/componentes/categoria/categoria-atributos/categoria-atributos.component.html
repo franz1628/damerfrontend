@@ -2,13 +2,13 @@
 
 <div class="row">
   <div class="col-md-4">
-    <h6 class="mb-3 text-center">INFORMACION DEL TIPO INFORME ORDEN</h6>
+    <h6 class="mb-3 text-center">INFORMACION DE ATRIBUTO TECNICO</h6>
     <hr>
     <app-categoria-atributos-form #categoriaAtributoTecnicoForm (updateModelsEmit)="get()" [model]="modelEdit"></app-categoria-atributos-form>
     
   </div>
   <div class="col-md-8">
-    <h6 class="mb-3 text-center">TIPO INFORME ORDEN REGISTRADOS</h6>
+    <h6 class="mb-3 text-center">ATRIBUTO TECNICO REGISTRADOS</h6>
     <hr>
     <app-categoria-atributos-list [models]="models" (updateModelsEmit)="get()" (editEmit)="editModel($event)"></app-categoria-atributos-list>
   </div>

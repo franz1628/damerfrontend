@@ -4,18 +4,20 @@ import { ValidFormService } from '../../../../shared/services/validForm.service'
 import { AtributoTecnicoVariedadService } from '../../../service/atributoTecnicoVariedad';
 import { RegexService } from '../../../../shared/services/regex.service';
 import { AtributoTecnicoVariedad, AtributoTecnicoVariedadInit } from '../../../interface/atributoTecnicoVariedad';
-
-@Component({
+import { AlertService } from '../../../../shared/services/alert.service';
+ 
+@Component({ 
   selector: 'app-atributo-tecnico-variedad-form',
   templateUrl: './atributo-tecnico-variedad-form.component.html'
 })
 export class AtributoTecnicoVariedadFormComponent {
+  showLoading:boolean=false;
+
   public model = this.fb.group({
     id: [0],
     idPais: [0],
-    codigo: [0,Validators.required],
     descripcion: [''],
-    descripcionResumida: [''],
+    descripcionResumida: [''], 
     tip: [''],
     posiblesValores: [0],
     solicitarUnidad: [0],
@@ -34,7 +36,9 @@ export class AtributoTecnicoVariedadFormComponent {
     private fb: FormBuilder,
     private validForm: ValidFormService,
     private service: AtributoTecnicoVariedadService,
-    private regexService : RegexService
+    private regexService : RegexService,
+    private alert:AlertService,
+
   ) {
 
   }
@@ -47,21 +51,36 @@ export class AtributoTecnicoVariedadFormComponent {
     return this.model.value as AtributoTecnicoVariedad
   }
 
+
   actualizarList() {
     this.actualizarListEmit.emit();
   }
 
-  agregar() {
+
+
+  submit() {
     if (this.model.invalid) {
       this.model.markAllAsTouched();
       return;
     }
 
-    this.service.add(this.getModel).subscribe(resp => {
-      this.model.reset();
-      this.actualizarList();
-    })
-
+    if(!this.getModel.id){
+      this.service.add(this.getModel).subscribe(() => {
+        this.showLoading = false;
+        this.actualizarListEmit.emit();
+        this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
+        this.model.patchValue(AtributoTecnicoVariedadInit);
+        this.model.clearValidators()
+        this.model.reset()
+      });
+    }else{
+      this.service.update(this.getModel.id,this.getModel).subscribe(() => {
+        this.showLoading = false;
+        this.actualizarListEmit.emit();
+        this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+        this.model.reset()
+      });
+    }
   }
 
   selectEdit(model: AtributoTecnicoVariedad) {

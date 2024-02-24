@@ -15,7 +15,7 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit {
   modelAtributoTecnicoVariedad: AtributoTecnicoVariedad = AtributoTecnicoVariedadInit
 
   models!: FormGroup;
-
+  idAtributoTecnicoVariedad:number=0;
 
   constructor(
     private service: AtributoTecnicoVariedadValorService,
@@ -26,23 +26,23 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cargaModels();
+    //this.cargaModels();
 
   }
 
-  cargaModels() {
+  cargaModels(idAtributoTecnicoVariedad: number) {
+    this.idAtributoTecnicoVariedad = idAtributoTecnicoVariedad;
     this.models = this.fb.group({
       modelos: this.fb.array([]),
     });
 
-    if (this.modelAtributoTecnicoVariedad.id != 0) {
-      this.service.postCodAtributoTecnicoVariedad(this.modelAtributoTecnicoVariedad.codigo).subscribe(x => {
+    if (idAtributoTecnicoVariedad != 0) {
+      this.service.postIdAtributoTecnicoVariedad(idAtributoTecnicoVariedad).subscribe(x => {
 
         x.forEach(y => {
           const nuevoModelo = this.fb.group({
             id: [y.id],
-            codigo: [y.codigo],
-            codAtributoTecnicoVariedad: [y.codAtributoTecnicoVariedad],
+            idAtributoTecnicoVariedad: [y.idAtributoTecnicoVariedad],
             valor: [y.valor, Validators.required],
             comentario: [y.comentario],
             alias1: [y.alias1],
@@ -76,8 +76,7 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit {
   add() {
     const nuevoModelo = this.fb.group({
       id: [0],
-      codigo: [0],
-      codAtributoTecnicoVariedad: [this.modelAtributoTecnicoVariedad.codigo],
+      idAtributoTecnicoVariedad: [this.modelAtributoTecnicoVariedad.id],
       valor: ['', Validators.required],
       comentario: [''],
       alias1: [''],
@@ -94,7 +93,7 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit {
 
       this.service.add(modelo).subscribe(x => {
         this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
-        this.cargaModels();
+        this.cargaModels(this.idAtributoTecnicoVariedad);
       });
     });
 

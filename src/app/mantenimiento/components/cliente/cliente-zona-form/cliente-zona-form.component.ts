@@ -22,8 +22,10 @@ export class ClienteZonaFormComponent {
 
   public model = this.fb.group({
     id:[0],
-    codCliente: [0,Validators.required],
-    codZona: [0,Validators.required],
+    codCliente: [0],
+    codZona: [0],
+    idZona: [0],
+    idCliente: [0],
     nombreAgrupacion: ['',Validators.required],
   })
 
@@ -39,7 +41,7 @@ export class ClienteZonaFormComponent {
   }
 
   ngOnInit(): void {
-    this.model.patchValue({codCliente:this.cliente.codigo});
+    this.model.patchValue({idCliente:this.cliente.id});
 
     this.serviceZona.get().subscribe(x=>{
       this.zonas = x.data;

@@ -17,9 +17,18 @@ export class ParametroListComponent {
   @Output() editEmit: EventEmitter<Parametro> = new EventEmitter()
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
 
+  selectedRowIndex: number = -1;
+
   editModel(model: Parametro) {
-    this.editEmit.emit(model)
+    this.editEmit.emit(model);
+  } 
+
+  elegirModel(model: any, index: number) {
+    this.editEmit.emit(model);
+    this.selectedRowIndex = index;
   }
+
+
 
   delete(model: Parametro) {
     this.showLoading = true
