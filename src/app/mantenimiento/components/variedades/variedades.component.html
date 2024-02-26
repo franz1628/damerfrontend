@@ -10,17 +10,17 @@
     </li>
     
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="sku-tab" [disabled]="!codCategoria" data-bs-toggle="tab" data-bs-target="#sku" type="button" role="tab" aria-controls="sku" aria-selected="false">SKU</button>
+        <button class="nav-link" id="sku-tab" [disabled]="!idCategoria" data-bs-toggle="tab" data-bs-target="#sku" type="button" role="tab" aria-controls="sku" aria-selected="false">SKU</button>
       </li>
   </ul>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane  show active" id="canasta" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
       
-      <app-canasta #canastaComp (emitCodCanasta)="setCodCanasta($event)"></app-canasta>
+      <app-canasta #canastaComp (emitIdCanasta)="setIdCanasta($event)"></app-canasta>
 
     </div>
     <div class="tab-pane " id="megacategoria" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-        <app-mega-categoria #megaCategoriaComp (emitCanastaMegaCategoria)="setCodCanastaMegaCategoria($event)"></app-mega-categoria>
+        <app-mega-categoria #megaCategoriaComp (emitCanastaMegaCategoria)="setIdCanastaMegaCategoria($event)"></app-mega-categoria>
     </div>
     <div class="tab-pane " id="categoria" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
        <app-categoria #categoriaComp (selectCategoriaEmit)="selectCategoria($event)" (emitByCategoria)="setByCategoria($event)"></app-categoria>

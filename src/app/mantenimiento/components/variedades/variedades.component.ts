@@ -16,9 +16,9 @@ import { MegaCategoriaService } from './services/megaCategoria.service';
 })
 export class VariedadesComponent { 
   public canasta: Canasta = CanastaInit;
-  public codCanasta: number = 0; 
-  public codMegaCategoria: number = 0;
-  public codCategoria: number = 0; 
+  public idCanasta: number = 0; 
+  public idMegaCategoria: number = 0;
+  public idCategoria: number = 0; 
 
   @ViewChild('megaCategoriaComp') megaCategoriaComp!: MegaCategoriaComponent;
   @ViewChild('canastaComp') canastaComp!: CanastaComponent;
@@ -33,31 +33,31 @@ export class VariedadesComponent {
 
   }
 
-  setCodCanasta(canasta:Canasta){
-    this.codCanasta=canasta.codigo;
-    this.megaCategoriaComp.megaCategoriaForm.setCodCanasta(canasta);
+  setIdCanasta(canasta:Canasta){
+    this.idCanasta=canasta.id;
+    this.megaCategoriaComp.megaCategoriaForm.setIdCanasta(canasta);
     this.megaCategoriaComp.megaCategoriaList.changeList(canasta);
   }
 
-  setCodCanastaMegaCategoria($event:number[]){
-    this.codCanasta=$event[0];
-    this.codMegaCategoria=$event[1];
+  setIdCanastaMegaCategoria($event:number[]){
+    this.idCanasta=$event[0];
+    this.idMegaCategoria=$event[1];
     this.categoriaComp.get($event[0],$event[1]);
-    this.categoriaComp.categoriaForm.setCodCanastaCodMegaCategoria($event[0],$event[1]);
+    this.categoriaComp.categoriaForm.setIdCanastaIdMegaCategoria($event[0],$event[1]);
   }
 
   setByCategoria($event:number[]){
-    this.codCanasta=$event[0];
-    this.codMegaCategoria=$event[1];
-    this.codCategoria=$event[2];
+    this.idCanasta=$event[0];
+    this.idMegaCategoria=$event[1];
+    this.idCategoria=$event[2];
     this.skuComp.get($event[0],$event[1],$event[2]);
     this.skuComp.skuForm.setByCategoria($event[0],$event[1],$event[2]);
   }
 
   selectCategoria(categoria : Categoria){
-    this.canastaService.postCodigo(categoria.codCanasta).subscribe(resp =>{
+    this.canastaService.postId(categoria.idCanasta).subscribe(resp =>{
       this.canastaComp.editModel(resp);
-      this.megaCategoriaService.postCodigo(categoria.codMegaCategoria).subscribe(resp => {
+      this.megaCategoriaService.postId(categoria.idMegaCategoria).subscribe(resp => {
         this.megaCategoriaComp.editModel(resp)
       })
     })

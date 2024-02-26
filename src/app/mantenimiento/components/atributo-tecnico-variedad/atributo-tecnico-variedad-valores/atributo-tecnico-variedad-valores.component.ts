@@ -1,21 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AtributoTecnicoVariedad, AtributoTecnicoVariedadInit } from '../../../interface/atributoTecnicoVariedad';
 import { AtributoTecnicoVariedadService } from '../../../service/atributoTecnicoVariedad';
 import { AtributoTecnicoVariedadValorService } from '../../../service/atributoTecnicoVariedadValor';
 import { AtributoTecnicoVariedadValor, AtributoTecnicoVariedadValorInit } from '../../../interface/atributoTecnicoVariedadValor';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../../../shared/services/alert.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-atributo-tecnico-variedad-valores',
   templateUrl: './atributo-tecnico-variedad-valores.component.html'
 })
-export class AtributoTecnicoVariedadValoresComponent implements OnInit {
+export class AtributoTecnicoVariedadValoresComponent implements OnInit, OnChanges {
   @Input()
   modelAtributoTecnicoVariedad: AtributoTecnicoVariedad = AtributoTecnicoVariedadInit
+  showLoading: boolean = false;
 
-  models!: FormGroup;
-  idAtributoTecnicoVariedad:number=0;
+  models: FormGroup = this.fb.group({
+    modelos: this.fb.array([]),
+  });;
+
+  idAtributoTecnicoVariedad: number = 0;
 
   constructor(
     private service: AtributoTecnicoVariedadValorService,
@@ -26,35 +31,44 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.cargaModels();
-
+    this.loadModels();
   }
 
-  cargaModels(idAtributoTecnicoVariedad: number) {
-    this.idAtributoTecnicoVariedad = idAtributoTecnicoVariedad;
-    this.models = this.fb.group({
-      modelos: this.fb.array([]),
-    });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['modelAtributoTecnicoVariedad'] && !changes['modelAtributoTecnicoVariedad'].firstChange) {
+      this.loadModels();
+    }
+  }
 
-    if (idAtributoTecnicoVariedad != 0) {
-      this.service.postIdAtributoTecnicoVariedad(idAtributoTecnicoVariedad).subscribe(x => {
-
-        x.forEach(y => {
+  loadModels(): void {
+    this.showLoading = true;
+    (this.models.get('modelos') as FormArray).clear();
+    if (this.modelAtributoTecnicoVariedad.id !== 0) {
+      this.service.postIdAtributoTecnicoVariedad(this.modelAtributoTecnicoVariedad.id).subscribe(models => {
+        models.forEach(model => {
           const nuevoModelo = this.fb.group({
-            id: [y.id],
-            idAtributoTecnicoVariedad: [y.idAtributoTecnicoVariedad],
-            valor: [y.valor, Validators.required],
-            comentario: [y.comentario],
-            alias1: [y.alias1],
-            idConvenio: [y.idConvenio],
-            estado: [y.estado]
+            id: [model.id],
+            idAtributoTecnicoVariedad: [model.idAtributoTecnicoVariedad],
+            valor: [model.valor, Validators.required],
+            comentario: [model.comentario],
+            alias1: [model.alias1],
+            idConvenio: [model.idConvenio],
+            estado: [model.estado]
           });
-
           this.modelosArray.push(nuevoModelo);
+        });
 
-        })
+        if(models.length==0){
+          this.add();
+        }
+
+        this.showLoading = false;
       });
     }
+  }
+
+  get getModel() {
+    return this.modelAtributoTecnicoVariedad;
   }
 
   get modelosArray() {
@@ -87,17 +101,38 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit {
     this.modelosArray.push(nuevoModelo);
   }
 
-  save(num: number) {
-    this.alert.showAlertConfirm('Aviso', '¿Desea agregar?', 'warning', () => {
-      const modelo = this.modelosArray.controls[num].getRawValue();
+  async save(num: number): Promise<void> {
+    const modelo = this.modelosArray.at(num).value;
+    this.showLoading = true;
 
-      this.service.add(modelo).subscribe(x => {
-        this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
-        this.cargaModels(this.idAtributoTecnicoVariedad);
-      });
-    });
-
+    try {
+      await lastValueFrom(this.service.add(modelo));
+      this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
+      this.loadModels();
+      this.showLoading = false;
+    } catch (error) {
+      this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+      this.showLoading = false;
+    }
   }
 
+  async delete(num: number) {
+    this.alert.showAlertConfirm('Advertencia', '¿Está seguro de eliminar?', 'warning', async () => {
+      const modelo = this.modelosArray.at(num).value;
+      this.showLoading = true;
+
+      try {
+        await lastValueFrom(this.service.delete(modelo));
+        this.alert.showAlert('Mensaje', 'Eliminado correctamente', 'success');
+        this.loadModels();
+        this.showLoading = false;
+      } catch (error) {
+        this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+        this.showLoading = false;
+      }
+    })
+
+
+  }
 
 }

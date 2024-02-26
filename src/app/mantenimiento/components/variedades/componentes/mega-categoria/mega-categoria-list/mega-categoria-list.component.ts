@@ -23,7 +23,7 @@ export class MegaCategoriaListComponent {
   }
 
   changeList(canasta:Canasta){
-    this.service.getCodigoCanasta(canasta.codigo).subscribe(resp=>{
+    this.service.getIdCanasta(canasta.id).subscribe(resp=>{
       this.models = resp.data;
     })
   }
@@ -33,7 +33,7 @@ export class MegaCategoriaListComponent {
     this.service.delete(model).subscribe(() => {
       this.showLoading = false;
       this.alert.showAlert('¡Éxito!', 'Se eliminó correctamente', 'success');
-      this.updateModelsEmit.emit(model.codCanasta)
+      this.updateModelsEmit.emit(model.idCanasta)
     });
   }
 }

@@ -36,17 +36,17 @@ export class CategoriaComponent {
     //this.get(); 
   }
 
-  get(codCanasta:number, codMegaCategoria:number): void {
+  get(idCanasta:number, idMegaCategoria:number): void {
     this.showLoading = true
-    this.service.getCodigoCanastaMegaCategoria(codCanasta,codMegaCategoria).subscribe(response => { 
+    this.service.getIdCanastaMegaCategoria(idCanasta,idMegaCategoria).subscribe(response => { 
       this.showLoading = false; this.models = response.data;
     });
-  }
+  } 
 
   editModel(model: Categoria) {
     this.modelEdit = model;
     this.categoriaForm.setModel(model);
-    this.emitByCategoria.emit([model.codCanasta,model.codMegaCategoria,model.codigo])
+    this.emitByCategoria.emit([model.idCanasta,model.idMegaCategoria,model.id])
   }
 
   selectCategoria(categoria : Categoria){

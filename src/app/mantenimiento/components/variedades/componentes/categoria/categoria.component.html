@@ -5,7 +5,7 @@
     <h6 class="mb-3 text-center">INFORMACION DE LA CATEGORIA</h6>
     <hr>
     <app-categoria-form #categoriaForm (selectCategoriaEmit)="selectCategoria($event)" (editEmit)="editModel($event)"
-      (updateModelsEmit)="get(modelEdit.codCanasta,modelEdit.codMegaCategoria)"
+      (updateModelsEmit)="get(modelEdit.idCanasta,modelEdit.idMegaCategoria)"
       [model]="modelEdit"></app-categoria-form>
   </div>
 
@@ -15,37 +15,37 @@
         (click)="mostrarContenido('categorias')">Categorías registradas</button>
       <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'atributos'"
         (click)="mostrarContenido('atributos')">Atributos técnicos</button>
-      <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'canales'" (click)="mostrarContenido('canales')">Canales
+      <!-- <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'canales'" (click)="mostrarContenido('canales')">Canales
         de Venta</button>
       <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'exhibidores'"
         (click)="mostrarContenido('exhibidores')">Exhibidores</button>
       <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'subproductos'"
-        (click)="mostrarContenido('subproductos')">Subproductos</button>
+        (click)="mostrarContenido('subproductos')">Subproductos</button> -->
     </div>
   </div>
 
 </div>
 <hr>
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-12">
 
     <div *ngIf="contenidoVisible === 'categorias'">
       <h6 class="mb-3 text-center">CATEGORIAS REGISTRADAS</h6>
       <hr>
-      <app-categoria-list [models]="models" (updateModelsEmit)="get(modelEdit.codCanasta,modelEdit.codMegaCategoria)"
+      <app-categoria-list [models]="models" (updateModelsEmit)="get(modelEdit.idCanasta,modelEdit.idMegaCategoria)"
         (editEmit)="editModel($event)"></app-categoria-list>
     </div>
     <div *ngIf="contenidoVisible === 'atributos'">
-      <app-categoria-atributos [codCategoria]="modelEdit.codigo" #categoriaAtributos ></app-categoria-atributos>
+      <app-categoria-atributos [modelCategoria]="modelEdit" #categoriaAtributos ></app-categoria-atributos>
     </div>
-    <div *ngIf="contenidoVisible === 'canales'">
+    <!-- <div *ngIf="contenidoVisible === 'canales'">
       <app-categoria-canal-venta></app-categoria-canal-venta>
     </div>
     <div *ngIf="contenidoVisible === 'exhibidores'">
       <app-categoria-exhibidores></app-categoria-exhibidores>
     </div>
     <div *ngIf="contenidoVisible === 'subproductos'">Contenido de Subproductos</div>
-
+ -->
 
 
 

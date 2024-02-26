@@ -34,9 +34,9 @@ export class AtributoTecnicoVariedadComponent implements OnInit{
 
   selectEdit(model:AtributoTecnicoVariedad){
     this.model = model;   
-    this.botonActivo=='registrados' && this.atributoTecnicoVariedadFormComp.selectEdit(model);
-    this.botonActivo=='valores' && this.atributoTecnicoVariedadValoresComp.cargaModels(this.getModel.id);
-
+    // this.botonActivo=='registrados' && this.atributoTecnicoVariedadFormComp.selectEdit(model);
+    // this.botonActivo=='valores' && this.atributoTecnicoVariedadValoresComp.cargaModels(this.getModel.id);
+   
   }
 
   mostrarContenido(contenido: string): void {

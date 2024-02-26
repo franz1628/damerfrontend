@@ -28,7 +28,7 @@ export class CategoriaListComponent {
   }
 
   changeList(canasta:Canasta, megaCategoria: MegaCategoria){
-    this.service.getCodigoCanastaMegaCategoria(canasta.codigo,megaCategoria.codigo).subscribe(resp=>{
+    this.service.getIdCanastaMegaCategoria(canasta.id,megaCategoria.id).subscribe(resp=>{
       this.models = resp.data;
     })
   }

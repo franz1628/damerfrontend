@@ -27,8 +27,8 @@ export class CategoriaAtributoTecnicoService {
     return this.http.post<CategoriaAtributoTecnico>(this.apiUrl, model);
   }
 
-  postCodCategoria(codCategoria: number): Observable<CategoriaAtributoTecnico[]> {
-    return this.http.post<CategoriaAtributoTecnico[]>(`${this.apiUrl}/codCategoria`, {codCategoria});
+  postIdCategoria(idCategoria: number): Observable<CategoriaAtributoTecnico[]> {
+    return this.http.post<CategoriaAtributoTecnico[]>(`${this.apiUrl}/idCategoria`, {idCategoria});
   }
 
   update(id: number, model: CategoriaAtributoTecnico): Observable<CategoriaAtributoTecnico> {

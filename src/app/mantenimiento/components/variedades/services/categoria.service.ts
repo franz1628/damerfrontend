@@ -19,9 +19,9 @@ export class CategoriaService {
 
 
 
-  getCodigoCanastaMegaCategoria(codCanasta: number, codMegaCategoria: number): Observable<Response> {
+  getIdCanastaMegaCategoria(idCanasta: number, idMegaCategoria: number): Observable<Response> {
     return this.http.post<Response>(`${this.apiUrl}/canasta/megaCategoria`,{
-      codCanasta,codMegaCategoria
+      idCanasta,idMegaCategoria
     });
   }
 
@@ -29,8 +29,8 @@ export class CategoriaService {
     return this.http.post<Categoria>(this.apiUrl, model);
   }
 
-  postCodigo(codigo: number): Observable<Categoria> {
-    return this.http.post<Categoria>(`${this.apiUrl}/codigo`, {codigo});
+  postId(id: number): Observable<Categoria> {
+    return this.http.post<Categoria>(`${this.apiUrl}/id`, {id});
   }
 
   postDescripcion(descripcion: string): Observable<Categoria[]> {

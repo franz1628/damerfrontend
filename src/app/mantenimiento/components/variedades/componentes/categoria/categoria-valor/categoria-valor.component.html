@@ -1,28 +1,57 @@
-<h6>VALORES DEL ATRIBUTO TECNICO</h6>
-<table class="table table-sm table-bordered">
-    <thead class="table-success">
-        <tr>
-            <td colspan="2">Valor de atributo tecnico</td>
-            <td colspan="2">Status del registro</td>
-        </tr>
-        <tr>
-            <td>Valor</td>
-            <td>Comentario</td>
-            <td>Status</td>
-            <td>Fecha</td>
-            <td></td>
-        </tr>
-    </thead>
-
-    <tbody>
-        @for (model of models; track $index) {
-            <tr>
-                <td>{{model.CategoriaAtributoTecnico.codAtributoTecnicoVariedad}}</td>
-                <td>{{model.CategoriaAtributoTecnico.comentario}}</td>
-                <td>{{model.estado}}</td>
-                <td>{{model.fechaRegistro}}</td>
-                <td><button class="btn btn-sm btn-info">Editar</button><button class="btn btn-sm btn-danger">Eliminar</button></td>
-            </tr>
-        }
-    </tbody>
-</table>
+<form [formGroup]="models">
+    <div formArrayName="modelos">
+        <table class="table text-center table-sm">
+            <thead class="table-success fs-6">
+                <tr>
+                    <th>Item</th>
+                    <th>Valor </th>
+                    <th>Comentario</th>
+                    <th>Acciones</th>
+                </tr>
+  
+            </thead>
+            <tbody>
+                @if (modelosArray.controls.length!=0) {
+                  @for (model of modelosArray.controls; track $index) {
+                    <tr [formGroupName]="$index" (click)="selectAtributo($index)">
+                      <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
+                      <td> 
+                        <select class="form-select form-select-sm" formControlName="idAtributoTecnicoVariedadValor">
+                            <option value="">SELECCIONAR</option>
+                            @for (atributo of atributoTecnicoVariedadValors; track $index) {
+                                <option value={{atributo.id}}>{{atributo.valor}}</option>
+                            }
+                        </select>
+                     
+                      </td>
+                      <td> <input class="form-control form-control-sm" formControlName="comentario"> </td>
+                      <td>
+                          <div class="btn-group">
+  
+                              @if(model.get('id')?.value!=0){
+                              <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i
+                                      class="bi bi-pencil"></i></button>
+                              <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i class="bi bi-trash-fill"></i></button>
+                              @if(modelosArray.controls.length==$index+1){
+                              <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
+                                      class="bi bi-plus-lg"></i></button>
+                              }
+                              }@else{
+                              <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
+                                      class="bi bi-save2"></i></button>
+                              }
+                          </div>
+  
+  
+  
+                      </td>
+                  </tr>
+                  }
+                   
+                }
+  
+            </tbody>
+        </table>
+    </div>
+  
+  </form>

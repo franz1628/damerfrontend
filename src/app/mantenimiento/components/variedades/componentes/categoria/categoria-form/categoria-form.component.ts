@@ -30,9 +30,8 @@ export class CategoriaFormComponent {
 
   public myForm: FormGroup = this.fb.group({
     id: [0, Validators.required],
-    codigo: [0, Validators.required],
-    codCanasta: [0, Validators.required],
-    codMegaCategoria: [0, Validators.required],
+    idCanasta: [0, Validators.required],
+    idMegaCategoria: [0, Validators.required],
     descripcion: ['', Validators.required],
     descripcionResumida: [''],
     tip: [''],
@@ -58,8 +57,8 @@ export class CategoriaFormComponent {
 
   ngOnInit() {
     this.showLoading = true
-    this.myForm.get('codCanasta')?.disable();
-    this.myForm.get('codMegaCategoria')?.disable();
+    this.myForm.get('idCanasta')?.disable();
+    this.myForm.get('idMegaCategoria')?.disable();
   }
 
   get currentModel() {
@@ -93,29 +92,27 @@ export class CategoriaFormComponent {
     }
   }
 
-  setCodCanastaCodMegaCategoria(codCanasta: number,codMegaCategoria:number) {
-    this.myForm.patchValue({ codCanasta: codCanasta, codMegaCategoria : codMegaCategoria });
+  setIdCanastaIdMegaCategoria(idCanasta: number,idMegaCategoria:number) {
+    this.myForm.patchValue({ idCanasta: idCanasta, idMegaCategoria : idMegaCategoria });
   }
 
   setModel(model: Categoria) {
-    this.myForm.patchValue(model);
+    this.myForm.patchValue(model); 
   }
-
+  
   nuevo() {
-    const codCanasta = this.currentModel.codCanasta;
-    const codMegaCategoria = this.currentModel.codMegaCategoria;
-    console.log(codCanasta);
-    console.log(codMegaCategoria);
-    
+    const idCanasta = this.currentModel.idCanasta;
+    const idMegaCategoria = this.currentModel.idMegaCategoria;
+ 
     this.myForm.patchValue(CategoriaInit);
-    this.myForm.patchValue({codCanasta:codCanasta,codMegaCategoria:codMegaCategoria});
+    this.myForm.patchValue({idCanasta:idCanasta,idMegaCategoria:idMegaCategoria});
     this.myForm.clearValidators()
   }
 
-  buscar(){
-    const codigo = this.myForm.get('codigo')?.value;
+  buscar(){ 
+    const id = this.myForm.get('id')?.value;
 
-    this.service.postCodigo(codigo).subscribe(resp => {
+    this.service.postId(id).subscribe(resp => {
       this.myForm.patchValue(resp);
       this.selectCategoriaEmit.emit(resp);
     })
@@ -123,11 +120,11 @@ export class CategoriaFormComponent {
   }
 
   elegirCategoriaBusqueda(categoria: Categoria) {
-    this.myForm.patchValue({codigo:categoria.codigo});
+    this.myForm.patchValue({id:categoria.id});
     this.buscar();
     this.editEmit.emit(categoria)
 
-  }
+  }   
 
   cambioDescripcion(event:Event){
     const e = event.target as HTMLInputElement;

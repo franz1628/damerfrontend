@@ -30,9 +30,9 @@ export class SkuComponent {
     //this.get(); 
   }
 
-  get(codCanasta:number, codMegaCategoria:number, codCategoria:number): void {
+  get(idCanasta:number, idMegaCategoria:number, idCategoria:number): void {
     this.showLoading = true
-    this.service.getByCategoria(codCanasta,codMegaCategoria,codCategoria).subscribe(response => { 
+    this.service.getByCategoria(idCanasta,idMegaCategoria,idCategoria).subscribe(response => { 
       this.showLoading = false; this.models = response.data;
     });
   }

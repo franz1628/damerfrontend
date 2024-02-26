@@ -31,15 +31,14 @@ export class ClienteAtributoFuncionalFormComponent {
 
   public model = this.fb.group({
     id:[0],
-    codCliente: [0,Validators.required],
-    codCategoria: [0,Validators.required],
-    codigo: [0,Validators.required],
+    idCliente: [0,Validators.required],
+    idCategoria: [0,Validators.required],
     descripcion: ['',Validators.required],
     descripcionResumida: ['',Validators.required],
     tip: ['',Validators.required],
     idIndiceAtributo: [0,Validators.required],
-    codTipoUnidadMedida: [0,Validators.required],
-    codUnidadMedida: [0,Validators.required],
+    idTipoUnidadMedida: [0,Validators.required],
+    idUnidadMedida: [0,Validators.required],
     alias1: ['',Validators.required],
     alias2: ['',Validators.required],
     alias3: ['',Validators.required]
@@ -59,7 +58,7 @@ export class ClienteAtributoFuncionalFormComponent {
   }
 
   ngOnInit(): void {
-    this.model.patchValue({codCliente:this.cliente.codigo,codCategoria:this.categoria.codigo});
+    this.model.patchValue({idCliente:this.cliente.id,idCategoria:this.categoria.id});
 
     this.serviceCategoria.get().subscribe(x=>{
       this.atributoFuncionalVariedads = x.data;
@@ -94,7 +93,7 @@ export class ClienteAtributoFuncionalFormComponent {
   reset(){
     
     this.model.patchValue(AtributoFuncionalVariedadInit);
-    this.model.patchValue({codCliente:this.cliente.codigo,codCategoria:this.categoria.codigo});
+    this.model.patchValue({idCliente:this.cliente.id,idCategoria:this.categoria.id});
     //this.resetModelEmit.emit();
   }
 

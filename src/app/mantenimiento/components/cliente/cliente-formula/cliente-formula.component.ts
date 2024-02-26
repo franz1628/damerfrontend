@@ -38,7 +38,7 @@ export class ClienteFormulaComponent implements OnInit {
   } 
 
   cargaAtributosValores(categoria:Categoria):void{
-    this.service.postCodCategoria(categoria.codigo).subscribe(x=>{
+    this.service.postIdCategoria(categoria.id).subscribe(x=>{
       this.categoriaAtributoTecnicos = x;
     });
  

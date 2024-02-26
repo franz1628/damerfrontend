@@ -1,8 +1,7 @@
 export interface Categoria {
     id: number,
-    codigo: number,
-    codCanasta: number,
-    codMegaCategoria: number,
+    idCanasta: number,
+    idMegaCategoria: number,
     descripcion: string,
     descripcionResumida: string,
     tip: string,
@@ -14,9 +13,8 @@ export interface Categoria {
 
 export const CategoriaInit: Categoria = {
     id: 0,
-    codigo: 0,
-    codCanasta: 0,
-    codMegaCategoria: 0,
+    idCanasta: 0,
+    idMegaCategoria: 0,
     descripcion: '',
     descripcionResumida: '',
     tip: '',

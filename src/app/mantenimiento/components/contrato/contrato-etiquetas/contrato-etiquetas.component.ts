@@ -169,7 +169,7 @@ export class ContratoEtiquetasComponent implements OnInit {
 
     });
 
-    this.serviceAtributoFuncionalVariedad.getCodClienteCodCategoria(idCliente, idCategoria).subscribe((x) => {
+    this.serviceAtributoFuncionalVariedad.getIdClienteIdCategoria(idCliente, idCategoria).subscribe((x) => {
 
       this.atributoFuncionalVariedads = x.data;
       this.contratoForm.atributoFuncionalVariedads = [];

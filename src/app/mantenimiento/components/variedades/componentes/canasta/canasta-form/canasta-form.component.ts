@@ -16,7 +16,6 @@ export class CanastaFormComponent {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   public myForm: FormGroup = this.fb.group({
     id: [0, Validators.required],
-    codigo: [0, Validators.required],
     descripcion: ['', Validators.required],
     descripcionResumida: [''],
     tip: [''],

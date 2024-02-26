@@ -4,7 +4,7 @@
   <div class="col-md-6">
     <h6 class="mb-3 text-center">INFORMACION DEL SKU</h6>
     <hr>
-    <app-sku-form #skuForm (updateModelsEmit)="get(modelEdit.codCanasta,modelEdit.codMegaCateogoria,modelEdit.codCategoria)" [model]="modelEdit"></app-sku-form>
+    <app-sku-form #skuForm (updateModelsEmit)="get(modelEdit.idCanasta,modelEdit.idMegaCateogoria,modelEdit.idCategoria)" [model]="modelEdit"></app-sku-form>
   </div>
   <div class="col-md-6">
     <div class="col-md-6">
@@ -32,7 +32,7 @@
     <div *ngIf="contenidoVisible === 'skus'">
       <h6 class="mb-3 text-center">SKUS REGISTRADAS</h6>
       <hr>
-      <app-sku-list [models]="models" (updateModelsEmit)="get(modelEdit.codCanasta,modelEdit.codMegaCateogoria,modelEdit.codCategoria)" (editEmit)="editModel($event)"></app-sku-list>
+      <app-sku-list [models]="models" (updateModelsEmit)="get(modelEdit.idCanasta,modelEdit.idMegaCateogoria,modelEdit.idCategoria)" (editEmit)="editModel($event)"></app-sku-list>
     </div>
     <div *ngIf="contenidoVisible === 'atributos'">
       <app-sku-atributos></app-sku-atributos>

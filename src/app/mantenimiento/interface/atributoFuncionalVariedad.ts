@@ -3,9 +3,8 @@ import { Cliente, ClienteInit } from "./cliente";
 
 export interface AtributoFuncionalVariedad {
     id: number,
-    codCliente: number,
-    codCategoria: number,
-    codigo:number,
+    idCliente: number,
+    idCategoria: number,
     descripcion: string,
     descripcionResumida: string,
     tip: string,
@@ -23,9 +22,8 @@ export interface AtributoFuncionalVariedad {
 }
 export const AtributoFuncionalVariedadInit: AtributoFuncionalVariedad = {
     id: 0,
-    codCliente: 0,
-    codCategoria: 0,
-    codigo:0,
+    idCliente: 0,
+    idCategoria: 0,
     descripcion: '',
     descripcionResumida: '',
     tip: '',

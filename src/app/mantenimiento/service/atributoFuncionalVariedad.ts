@@ -27,12 +27,8 @@ export class AtributoFuncionalVariedadService {
     return this.http.get<Response>(`${this.apiUrl}/${id}`);
   }
 
-  getCodigo(codigo: number): Observable<Response> {
-    return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
-  }
-
-  getCodClienteCodCategoria(codCliente: number, codCategoria:number): Observable<Response> {
-    return this.http.get<Response>(`${this.apiUrl}/codCliente/${codCliente}/${codCategoria}`);
+  getIdClienteIdCategoria(idCliente: number, idCategoria:number): Observable<Response> {
+    return this.http.get<Response>(`${this.apiUrl}/idCliente/${idCliente}/${idCategoria}`);
   }
 
   postIdClienteIdCategoria(idCliente: number, idCategoria:number): Observable<ResponseAtributoFuncionalVariedad> {

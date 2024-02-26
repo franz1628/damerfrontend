@@ -1,6 +1,5 @@
 export interface Canasta {
     id: number,
-    codigo: number,
     descripcion: string,
     descripcionResumida: string,
     tip: string,
@@ -16,7 +15,6 @@ export interface Canasta {
 
 export const CanastaInit: Canasta = {
     id: 0,
-    codigo: 0,
     descripcion: '',
     descripcionResumida: '',
     tip: '',

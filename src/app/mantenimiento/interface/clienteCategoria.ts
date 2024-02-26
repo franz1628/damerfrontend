@@ -3,8 +3,8 @@ import { Cliente, ClienteInit } from "./cliente";
 
 export interface ClienteCategoria {
     id: number,
-    codCliente: number,
-    codCategoria: number,
+    idCliente: number,
+    idCategoria: number,
     nombreAgrupacion: string,
     fechaRegistro: Date,
     Cliente: Cliente,
@@ -13,8 +13,8 @@ export interface ClienteCategoria {
 }
 export const ClienteCategoriaInit: ClienteCategoria = {
     id: 0,
-    codCliente: 0,
-    codCategoria: 0,
+    idCliente: 0,
+    idCategoria: 0,
     nombreAgrupacion: '',
     fechaRegistro: new Date(),
     Cliente: ClienteInit,

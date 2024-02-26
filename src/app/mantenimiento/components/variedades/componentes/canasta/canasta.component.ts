@@ -22,7 +22,7 @@ export class CanastaComponent {
   @ViewChild('canastaForm')
   canastaForm!: CanastaFormComponent;
 
-  @Output() emitCodCanasta:EventEmitter<Canasta> = new EventEmitter();
+  @Output() emitIdCanasta:EventEmitter<Canasta> = new EventEmitter();
   
 
   constructor(public service: CanastaService, public alert: AlertService) {
@@ -39,6 +39,6 @@ export class CanastaComponent {
 
   editModel(model: Canasta) {
     this.canastaForm.setModel(model)
-    this.emitCodCanasta.emit(model)
+    this.emitIdCanasta.emit(model)
   }
 }

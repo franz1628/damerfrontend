@@ -19,8 +19,8 @@
                         [attr.data-bs-target]="'#collapseOne'+$index" aria-expanded="true" aria-controls="collapseOne">
                     </div>
                 </div>
-                <div class="col-md-3 border bg-success-subtle">{{grupo[0].Cliente.codigo +
-                    ''+grupo[0].Categoria.codigo}}</div>
+                <div class="col-md-3 border bg-success-subtle">{{grupo[0].Cliente.id +
+                    ''+grupo[0].Categoria.id}}</div>
                 <div class="col-md-4 border bg-success-subtle">{{grupo[0].Cliente.razonSocial}}</div>
                 <div class="col-md-4 border bg-success-subtle">{{grupo[0].Categoria.descripcion}}</div>
                 <div id="collapseOne{{$index}}" class="accordion-collapse collapse">

@@ -22,8 +22,7 @@ export class MegaCategoriaFormComponent {
 
   public myForm: FormGroup = this.fb.group({
     id: [0, Validators.required],
-    codigo: [0, Validators.required],
-    codCanasta: [0, Validators.required],
+    idCanasta: [0, Validators.required],
     descripcion: ['', Validators.required],
     descripcionResumida: [''],
     tip: [''],
@@ -48,7 +47,7 @@ export class MegaCategoriaFormComponent {
 
   ngOnInit() {
     this.showLoading = true
-    this.myForm.get('codCanasta')?.disable();
+    this.myForm.get('idCanasta')?.disable();
   }
 
   get currentModel() {
@@ -64,7 +63,7 @@ export class MegaCategoriaFormComponent {
     if (!this.currentModel.id) {
       this.service.add(this.currentModel).subscribe(() => {
         this.showLoading = false;
-        this.updateModelsEmit.emit(this.currentModel.codCanasta);
+        this.updateModelsEmit.emit(this.currentModel.idCanasta);
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
         this.myForm.patchValue(MegaCategoriaInit);
         this.myForm.clearValidators();
@@ -73,7 +72,7 @@ export class MegaCategoriaFormComponent {
     } else {
       this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
         this.showLoading = false;
-        this.updateModelsEmit.emit(this.currentModel.codCanasta);
+        this.updateModelsEmit.emit(this.currentModel.idCanasta);
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
       });
     }
@@ -83,8 +82,8 @@ export class MegaCategoriaFormComponent {
     this.myForm.patchValue(model);
   }
 
-  setCodCanasta(canasta: Canasta) {
-    this.myForm.patchValue({ codCanasta: canasta.codigo });
+  setIdCanasta(canasta: Canasta) {
+    this.myForm.patchValue({ idCanasta: canasta.id });
   }
 
   nuevo() {

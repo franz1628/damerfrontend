@@ -1,7 +1,6 @@
 export interface MegaCategoria {
     id: number,
-    codigo: number,
-    codCanasta: number,
+    idCanasta: number,
     descripcion: string,
     descripcionResumida: string,
     tip: string,
@@ -13,8 +12,7 @@ export interface MegaCategoria {
 
 export const MegaCategoriaInit: MegaCategoria = {
     id: 0,
-    codigo: 0,
-    codCanasta:0,
+    idCanasta:0,
     descripcion: '',
     descripcionResumida: '',
     tip: '',

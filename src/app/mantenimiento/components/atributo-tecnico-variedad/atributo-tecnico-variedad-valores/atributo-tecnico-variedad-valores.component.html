@@ -3,49 +3,57 @@
         <table class="table text-center table-sm">
             <thead class="table-success fs-6">
                 <tr>
+                    <th>Item</th>
                     <th>Valor </th>
                     <th>Comentarios </th>
                     <th>Alias </th>
                     <th>Convenio </th>
-                    <th>Status</th>
-                    <th>Fecha</th>
                     <th>Acciones</th>
                 </tr>
 
             </thead>
             <tbody>
-                <tr *ngFor="let model of modelosArray.controls; let i = index" [formGroupName]="i">
-
-                    <td> <input class="form-control form-control-sm" formControlName="valor"> </td>
-                    <td> <input class="form-control form-control-sm" formControlName="comentario"> </td>
-                    <td> <input class="form-control form-control-sm" formControlName="alias1"> </td>
-                    <td>{{model.get('idConvenio')?.value}}</td>
-                    <td>{{model.get('estado')?.value}}</td>
-                    <td>{{model.get('fechaRegistro')?.value}}</td>
-                    <td>
-                        <div class="btn-group">
-
-                            @if(model.get('id')?.value!=0){
-                            <button class="btn btn-sm btn-info btn-sm" (click)="editModel(i)"><i
-                                    class="bi bi-pencil"></i></button>
-                            <button class="btn btn-sm btn-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
-                            @if(modelosArray.controls.length==i+1){
-                            <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
-                                    class="bi bi-plus-lg"></i></button>
-                            }
-                            }@else{
-                            <button class="btn btn-sm btn-success btn-sm" (click)="save(i)"><i
-                                    class="bi bi-save2"></i></button>
-                            }
-                        </div>
-
-
-
-                    </td>
-                </tr>
+                @if (modelosArray.controls.length!=0) {
+                    <tr *ngFor="let model of modelosArray.controls; let i = index" [formGroupName]="i">
+                        <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
+                        <td> <input class="form-control form-control-sm" formControlName="valor"> </td>
+                        <td> <input class="form-control form-control-sm" formControlName="comentario"> </td>
+                        <td> <input class="form-control form-control-sm" formControlName="alias1"> </td>
+                        <td>
+                            <select class="form-select form-select-sm" formControlName="idConvenio">
+                                <option value="">SELECCIONAR</option>
+                                <option value="1">SI</option>
+                                <option value="0">NO</option>
+                            </select>
+                        
+                        </td>
+                        <td>
+                            <div class="btn-group">
+    
+                                @if(model.get('id')?.value!=0){
+                                <button class="btn btn-sm btn-info btn-sm" (click)="editModel(i)"><i
+                                        class="bi bi-pencil"></i></button>
+                                <button class="btn btn-sm btn-danger btn-sm" (click)="delete(i)"><i class="bi bi-trash-fill"></i></button>
+                                @if(modelosArray.controls.length==i+1){
+                                <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
+                                        class="bi bi-plus-lg"></i></button>
+                                }
+                                }@else{
+                                <button class="btn btn-sm btn-success btn-sm" (click)="save(i)"><i
+                                        class="bi bi-save2"></i></button>
+                                }
+                            </div>
+    
+    
+    
+                        </td>
+                    </tr>
+                }
 
             </tbody>
         </table>
     </div>
 
 </form>
+
+<app-black-loading [show]="showLoading"></app-black-loading>

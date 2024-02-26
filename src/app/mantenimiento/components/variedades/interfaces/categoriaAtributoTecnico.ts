@@ -2,8 +2,8 @@ import { AtributoTecnicoVariedad, AtributoTecnicoVariedadInit } from "../../../i
 
 export interface CategoriaAtributoTecnico {
     id:number,
-    codCategoria : number ,
-    codAtributoTecnicoVariedad:number,
+    idCategoria : number ,
+    idAtributoTecnicoVariedad:number,
 	comentario : string ,
 	idTipoUnidadMedida : number ,
 	numOrdenSku : string ,
@@ -15,8 +15,8 @@ export interface CategoriaAtributoTecnico {
 
 export const CategoriaAtributoTecnicoInit: CategoriaAtributoTecnico = {
     id: 0,
-    codCategoria: 0,
-    codAtributoTecnicoVariedad: 0,
+    idCategoria: 0,
+    idAtributoTecnicoVariedad: 0,
     comentario: "",
     idTipoUnidadMedida: 0,
     numOrdenSku: "",

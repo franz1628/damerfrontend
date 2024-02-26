@@ -21,16 +21,16 @@ export class MegaCategoriaService {
     return this.http.get<MegaCategoria>(`${this.apiUrl}/${id}`).pipe(catchError(error=>of(undefined)));
   }
 
-  getCodigoCanasta(codigo: number): Observable<Response> {
-    return this.http.get<Response>(`${this.apiUrl}/canasta/${codigo}`);
+  getIdCanasta(id: number): Observable<Response> {
+    return this.http.get<Response>(`${this.apiUrl}/canasta/${id}`);
   }
 
   add(model: MegaCategoria): Observable<MegaCategoria> {
     return this.http.post<MegaCategoria>(this.apiUrl, model);
   }
 
-  postCodigo(codigo: number): Observable<MegaCategoria> {
-    return this.http.post<MegaCategoria>(`${this.apiUrl}/codigo`, {codigo});
+  postId(id: number): Observable<MegaCategoria> {
+    return this.http.post<MegaCategoria>(`${this.apiUrl}/id`, {id});
   }
 
   update(id: number, model: MegaCategoria): Observable<MegaCategoria> {

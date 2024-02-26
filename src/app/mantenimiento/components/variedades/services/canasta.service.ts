@@ -27,8 +27,8 @@ export class CanastaService {
     return this.http.post<Canasta>(this.apiUrl, model);
   }
 
-  postCodigo(codigo: number): Observable<Canasta> {
-    return this.http.post<Canasta>(`${this.apiUrl}/codigo`, {codigo});
+  postId(id: number): Observable<Canasta> {
+    return this.http.post<Canasta>(`${this.apiUrl}/id`, {id});
   }
 
   update(id: number, model: Canasta): Observable<Canasta> {

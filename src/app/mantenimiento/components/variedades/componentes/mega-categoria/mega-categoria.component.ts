@@ -38,15 +38,15 @@ export class MegaCategoriaComponent {
     //this.get();
   }
  
-  get(codigo:number): void {
+  get(id:number): void {
     this.showLoading = true
-    this.service.getCodigoCanasta(codigo).subscribe(response => { this.showLoading = false; this.models = response.data });
+    this.service.getIdCanasta(id).subscribe(response => { this.showLoading = false; this.models = response.data });
   }
 
   editModel(model: MegaCategoria) {
     this.megaCategoriaForm.setModel(model)
     
-    this.emitCanastaMegaCategoria.emit([model.codCanasta,model.codigo]);
+    this.emitCanastaMegaCategoria.emit([model.idCanasta,model.id]);
   }
 
  

@@ -35,9 +35,9 @@ export class ClienteAtributoFuncionalListComponent implements OnInit{
   }
 
   actualizarList(){
-    if(this.cliente.codigo!=0 && this.categoria.codigo!=0){
+    if(this.cliente.id!=0 && this.categoria.id!=0){
       this.loading=true;
-      this.service.getCodClienteCodCategoria(this.cliente.codigo,this.categoria.codigo).subscribe(resp => {
+      this.service.getIdClienteIdCategoria(this.cliente.id,this.categoria.id).subscribe(resp => {
         console.log(resp.data);
         
         this.models = resp.data;

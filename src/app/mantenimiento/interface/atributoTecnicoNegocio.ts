@@ -1,7 +1,6 @@
 export interface AtributoTecnicoNegocio {
     id: number,
     idPais: number,
-    codigo: number,
     descripcion: string,
     descripcionResumida: string,
     tip: string,
@@ -17,7 +16,6 @@ export interface AtributoTecnicoNegocio {
 export const AtributoTecnicoNegocioInit: AtributoTecnicoNegocio = {
     id: 0,
     idPais: 0,
-    codigo: 0,
     descripcion: '',
     descripcionResumida: '',
     tip: '',

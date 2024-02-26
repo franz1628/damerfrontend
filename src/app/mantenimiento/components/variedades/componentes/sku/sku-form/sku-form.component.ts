@@ -22,10 +22,9 @@ export class SkuFormComponent {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   public myForm: FormGroup = this.fb.group({
     id: [0, Validators.required],
-    codigo: [0, Validators.required],
-    codCanasta: [0, Validators.required],
-    codMegaCategoria: [0, Validators.required],
-    codCategoria: [0, Validators.required],
+    idCanasta: [0, Validators.required],
+    idMegaCategoria: [0, Validators.required],
+    idCategoria: [0, Validators.required],
     descripcion: ['', Validators.required],
     descripcionResumida: [''],
     tip: [''],
@@ -54,9 +53,9 @@ export class SkuFormComponent {
 
   ngOnInit() {
     this.showLoading = true
-    this.myForm.get('codCanasta')?.disable();
-    this.myForm.get('codMegaCategoria')?.disable();
-    this.myForm.get('codCategoria')?.disable();
+    this.myForm.get('idCanasta')?.disable();
+    this.myForm.get('idMegaCategoria')?.disable();
+    this.myForm.get('idCategoria')?.disable();
   }
 
   get currentModel() {
@@ -87,8 +86,8 @@ export class SkuFormComponent {
     }
   }
 
-  setByCategoria(codCanasta: number,codMegaCategoria:number,codCategoria:number) {
-    this.myForm.patchValue({ codCanasta: codCanasta, codMegaCategoria : codMegaCategoria, codCategoria:codCategoria });
+  setByCategoria(idCanasta: number,idMegaCategoria:number,idCategoria:number) {
+    this.myForm.patchValue({ idCanasta: idCanasta, idMegaCategoria : idMegaCategoria, idCategoria:idCategoria });
   }
 
   setModel(model: Sku) {

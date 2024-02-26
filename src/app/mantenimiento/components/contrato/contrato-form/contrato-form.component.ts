@@ -221,7 +221,7 @@ export class ContratoFormComponent implements OnInit {
   changeCategoria(event: Event) {
     this.showLoading = true;
     const a = event.target as HTMLInputElement
-    this.serviceCategoria.postCodigo(parseInt(a.value)).subscribe(x => {
+    this.serviceCategoria.postId(parseInt(a.value)).subscribe(x => {
       this.categoria = x || CategoriaInit;
       this.model.patchValue({idCategoria : this.categoria.id,idCliente:this.cliente.id})
 
