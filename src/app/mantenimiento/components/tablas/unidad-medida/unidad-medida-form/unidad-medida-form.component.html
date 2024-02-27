@@ -2,17 +2,7 @@
     <div class="col">
         <form (ngSubmit)="submit()" autocomplete="off" [formGroup]="myForm">
 
-            <div class="mb-3 row">
-                <label for="codigo" class="col-md-4 col-form-label-sm">Codigo</label>
-                <div class="col-sm-8">
-                    <input type="number" class="form-control form-control-sm" placeholder="codigo" name="codigo"
-                        formControlName="codigo" id="codigo" />
-                </div>
-                <span *ngIf="isValidField('codigo')" class="form-text text-danger">
-                    {{ getFieldError('codigo') }}
-                </span>
-            </div>
-            
+ 
             <div class="mb-3 row">
                 <label for="descripcion" class="col-md-4 col-form-label-sm">Descripcion</label>
                 <div class="col-sm-8">
@@ -47,6 +37,21 @@
             </div>
 
             <div class="mb-3 row">
+                <label for="idTipoUnidadMedida" class="col-md-4 col-form-label-sm"  >Tipo Unidad Medida</label>
+                <div class="col-sm-8">
+                    <select class="form-select form-select-sm" formControlName="idTipoUnidadMedida">
+                        <option value="0">SELECCIONAR</option>
+                        @for (tipoUnidadMedida of tipoUnidadMedidas; track $index) {
+                            <option value={{tipoUnidadMedida.id}}>{{tipoUnidadMedida.descripcion}}</option>
+                        }
+                    </select>
+                </div>
+                <span *ngIf="isValidField('idTipoUnidadMedida')" class="form-text text-danger">
+                    {{ getFieldError('idTipoUnidadMedida') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
                 <label for="unidadMetrica" class="col-md-4 col-form-label-sm">unidadMetrica</label>
                 <div class="col-sm-8">
                     <select class="form-select form-select-sm" name="unidadMetrica" id="unidadMetrica" formControlName="unidadMetrica">
@@ -77,3 +82,5 @@
         </form>
     </div>
 </div>
+
+<app-black-loading [show]="showLoading"></app-black-loading>

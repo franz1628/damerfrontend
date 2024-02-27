@@ -19,8 +19,8 @@ export class CategoriaUnidadVentaService {
 
   constructor(private http: HttpClient) {}
 
-  get(): Observable<Response> {
-    return this.http.get<Response>(this.apiUrl);
+  get(): Observable<ResponseCategoriaUnidadVenta> {
+    return this.http.get<ResponseCategoriaUnidadVenta>(this.apiUrl);
   }
 
   getId(id: number): Observable<Response> {

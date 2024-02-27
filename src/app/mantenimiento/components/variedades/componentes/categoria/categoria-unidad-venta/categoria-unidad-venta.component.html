@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-        <h6 class="mb-3 text-center">ATRIBUTOS TECNICOS</h6>
+        <h6 class="mb-3 text-center">UNIDAD DE VENTA</h6>
 
         <form [formGroup]="models">
             <div formArrayName="modelos">
@@ -8,11 +8,9 @@
                     <thead class="table-success fs-6">
                         <tr>
                             <th>Item</th>
-                            <th>Atributo </th>
-                            <th>Comentarios </th>
                             <th>Tipo Medida </th>
-                            <th>Orden </th>
-                            <th>Verificado</th>
+                            <th>Unidad Medida </th>
+                            <th>Unidad Venta </th>
                             <th>Acciones</th>
                         </tr>
           
@@ -20,29 +18,35 @@
                     <tbody>
                         @if (modelosArray.controls.length!=0) {
                           @for (model of modelosArray.controls; track $index) {
-                            <tr [formGroupName]="$index" (click)="selectAtributo($index)">
+                            <tr [formGroupName]="$index">
                               <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
                               <td>
-                                <select class="form-select form-select-sm" formControlName="idAtributoTecnicoVariedad">
+                                <select class="form-select form-select-sm" formControlName="idTipoUnidadMedida">
                                     <option value="0">SELECCIONAR</option>
-                                    @for (atributo of atributoTecnicoVariedads; track $index) {
-                                        <option value={{atributo.id}}>{{atributo.descripcion}}</option>
+                                    @for (tipo of tipoUnidadMedidas; track $index) {
+                                        <option value={{tipo.id}}>{{tipo.descripcion}}</option>
                                     }
                                 </select>
                               </td>
-                             
-                              <td> <input class="form-control form-control-sm" formControlName="comentario"> </td>
-                              <td> <input class="form-control form-control-sm" formControlName="idTipoUnidadMedida"> </td>
-                              <td> <input class="form-control form-control-sm" formControlName="numOrdenSku"> </td>
-                    
-                              <td>
-                                  <select class="form-select form-select-sm" formControlName="indVerificado">
-                                      <option value="">SELECCIONAR</option>
-                                      <option value="1">SI</option>
-                                      <option value="0">NO</option>
-                                  </select>
                               
+                              <td>
+                                <select class="form-select form-select-sm" formControlName="idUnidadMedida">
+                                    <option value="0">SELECCIONAR</option>
+                                    @for (unidad of unidadMedidas; track $index) {
+                                        <option value={{unidad.id}}>{{unidad.descripcion}}</option>
+                                    }
+                                </select>
                               </td>
+
+                              <td>
+                                <select class="form-select form-select-sm" formControlName="idUnidadVenta">
+                                    <option value="0">SELECCIONAR</option>
+                                    @for (unidad of unidadVentas; track $index) {
+                                        <option value={{unidad.id}}>{{unidad.descripcion}}</option>
+                                    }
+                                </select>
+                              </td>
+                    
                               <td>
                                   <div class="btn-group">
           
@@ -76,8 +80,6 @@
     </div>
     <div class="col-md-1"></div>
     <div class="col-md-5">
-        <h6 class="mb-3 text-center">VALORES</h6>
-        <app-categoria-valor [categoriaAtributoTecnico]="this.categoriaAtributoTecnico"></app-categoria-valor>
     </div>
 </div>
 

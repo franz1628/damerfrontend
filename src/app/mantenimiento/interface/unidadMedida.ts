@@ -2,26 +2,26 @@ import { TipoUnidadMedida, TipoUnidadMedidaInit } from "./tipoUnidadMedida";
 
 export interface UnidadMedida {
     id: number,
-    codigo: number,
-    codTipoUnidadMedida:TipoUnidadMedida,
+    idTipoUnidadMedida:number,
     descripcion: string,
     descripcionResumida: string,
     tip: string,
     unidadMetrica: number,
     factorConversion: string,
     fechaRegistro: Date,
-    estado: number
+    estado: number,
+    TipoUnidadMedida:TipoUnidadMedida
 }
 export const UnidadMedidaInit: UnidadMedida = {
     id: 0,
-    codigo: 0,
-    codTipoUnidadMedida:TipoUnidadMedidaInit,
+    idTipoUnidadMedida:0,
     descripcion: '',
     descripcionResumida: '',
     tip: '',
     unidadMetrica: 0,
     factorConversion: '',
     fechaRegistro: new Date(),
-    estado: 1
+    estado: 1,
+    TipoUnidadMedida:TipoUnidadMedidaInit
 
 };

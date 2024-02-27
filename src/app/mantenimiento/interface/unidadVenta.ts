@@ -1,9 +1,10 @@
 export interface UnidadVenta {
     id: number,
-    codigo: number,
     descripcion: string,
     descripcionResumida: string,
     tip: string,
+    idTipoUnidadMedida:number,
+    idUnidadMedida:number,
     formaUso: number,
     alias1: string,
     alias2: string,
@@ -14,10 +15,11 @@ export interface UnidadVenta {
 }
 export const UnidadVentaInit: UnidadVenta = {
     id: 0,
-    codigo: 0,
     descripcion: '',
     descripcionResumida: '',
     tip: '',
+    idTipoUnidadMedida:0,
+    idUnidadMedida:0,
     formaUso: 0,
     alias1: '',
     alias2: '',

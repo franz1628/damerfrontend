@@ -39,6 +39,7 @@ import { TipoInformeOrdenFormComponent } from './tipo-informe-orden/tipo-informe
 import { UrbanizacionComponent } from './ubigeo/components/urbanizacion/urbanizacion.component';
 import { UrbanizacionListComponent } from './ubigeo/components/urbanizacion/urbanizacion-list/urbanizacion-list.component';
 import { UrbanizacionFormComponent } from './ubigeo/components/urbanizacion/urbanizacion-form/urbanizacion-form.component';
+import { UnidadVentaComponent } from './unidad-venta/unidad-venta.component';
 
 
 
@@ -78,7 +79,8 @@ import { UrbanizacionFormComponent } from './ubigeo/components/urbanizacion/urba
     TipoInformeOrdenFormComponent,
     UrbanizacionComponent,
     UrbanizacionListComponent,
-    UrbanizacionFormComponent
+    UrbanizacionFormComponent,
+    UnidadVentaComponent
   ],  
     imports: [
         CommonModule,

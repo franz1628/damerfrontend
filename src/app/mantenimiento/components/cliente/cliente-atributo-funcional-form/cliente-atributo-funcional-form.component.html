@@ -93,7 +93,7 @@
                     <select class="form-select form-select-sm" id="codUnidadMedida" name="codUnidadMedida" formControlName="codUnidadMedida">
                         <option value="0">Seleccionar</option>
                         @for (unidadMedida of unidadMedidas; track $index) {
-                            <option value="{{unidadMedida.codigo}}">{{unidadMedida.descripcion}}</option>
+                            <option value="{{unidadMedida.id}}">{{unidadMedida.descripcion}}</option>
                         }
                     </select>
                 </div>

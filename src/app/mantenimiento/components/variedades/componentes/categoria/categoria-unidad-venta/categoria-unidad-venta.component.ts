@@ -1,38 +1,42 @@
-import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Categoria, CategoriaInit } from '../../../interfaces/categoria.interface';
-import { CategoriaService } from '../../../services/categoria.service';
-import { CategoriaAtributoTecnicoService } from '../../../services/categoriaAtributoTecnico.service';
-import { CategoriaAtributoTecnico, CategoriaAtributoTecnicoInit } from '../../../interfaces/categoriaAtributoTecnico';
-import { CategoriaAtributosListComponent } from './categoria-atributos-list/categoria-atributos-list.component';
-import { CategoriaAtributosFormComponent } from './categoria-atributos-form/categoria-atributos-form.component';
-import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { CategoriaUnidadVentaService } from '../../../../../service/categoriaUnidadVenta';
 import { AlertService } from '../../../../../../shared/services/alert.service';
-import { Observable, forkJoin, lastValueFrom } from 'rxjs';
-import { AtributoTecnicoVariedadService } from '../../../../../service/atributoTecnicoVariedad';
-import { AtributoTecnicoVariedad } from '../../../../../interface/atributoTecnicoVariedad';
+import { forkJoin, lastValueFrom } from 'rxjs';
+import { TipoUnidadMedidaService } from '../../../../../service/tipoUnidadMedida';
+import { UnidadMedidaService } from '../../../../../service/unidadMedida';
+import { TipoUnidadMedida } from '../../../../../interface/tipoUnidadMedida';
+import { UnidadMedida } from '../../../../../interface/unidadMedida';
+import { UnidadVenta } from '../../../../../interface/unidadVenta';
+import { UnidadVentaService } from '../../../../../service/unidadVenta';
 
 @Component({
-  selector: 'app-categoria-atributos',
-  templateUrl: './categoria-atributos.component.html'
+  selector: 'app-categoria-unidad-venta',
+  templateUrl: './categoria-unidad-venta.component.html'
 })
-export class CategoriaAtributosComponent implements OnInit{
+export class CategoriaUnidadVentaComponent {
 
   @Input()
   modelCategoria: Categoria = CategoriaInit
   showLoading: boolean = false;
   idCategoriaAtributoTecnico=0;
-  categoriaAtributoTecnico:CategoriaAtributoTecnico=CategoriaAtributoTecnicoInit;
-  atributoTecnicoVariedads:AtributoTecnicoVariedad[] = [];
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
   });;
 
+  tipoUnidadMedidas : TipoUnidadMedida[] = [];
+  unidadMedidas : UnidadMedida[] = [];
+  unidadVentas:UnidadVenta[] = [];
+
   idAtributoTecnicoVariedad: number = 0;
 
   constructor(
-    private service: CategoriaAtributoTecnicoService,
-    private serviceAtributoTecnicoVariedadService : AtributoTecnicoVariedadService,
+    private service: CategoriaUnidadVentaService,
+    private serviceTipoUnidadMedida:TipoUnidadMedidaService,
+    private serviceUnidadMedida:UnidadMedidaService,
+    private serviceUnidadVenta:UnidadVentaService,
     private fb: FormBuilder,
     private alert: AlertService
   ) {
@@ -56,23 +60,25 @@ export class CategoriaAtributosComponent implements OnInit{
     forkJoin( 
       {
         service  : this.service.postIdCategoria(this.modelCategoria.id),
-        serviceAtributoTecnicoVariedadService : this.serviceAtributoTecnicoVariedadService.get()
+        serviceTipoUnidadMedida : this.serviceTipoUnidadMedida.get(),
+        serviceUnidadMedida :this.serviceUnidadMedida.get(),
+        serviceUnidadVenta : this.serviceUnidadVenta.get()
       }
       ).subscribe({
         next:value => {
-          this.atributoTecnicoVariedads = value.serviceAtributoTecnicoVariedadService.data
+          this.tipoUnidadMedidas = value.serviceTipoUnidadMedida.data
+          this.unidadMedidas = value.serviceUnidadMedida.data
+          this.unidadVentas = value.serviceUnidadVenta.data
 
-          const models = value.service
+          const models = value.service.data;
+
           models.forEach(model => {
             const nuevoModelo = this.fb.group({
               id: [model.id],
               idCategoria: [model.idCategoria],
-              idAtributoTecnicoVariedad: [model.idAtributoTecnicoVariedad], 
-              comentario: [model.comentario],
               idTipoUnidadMedida: [model.idTipoUnidadMedida],
-              numOrdenSku: [model.numOrdenSku],
-              indVerificado: [model.indVerificado],
-              estado: [model.estado]
+              idUnidadMedida: [model.idUnidadMedida],
+              idUnidadVenta:[model.idUnidadVenta]
             });
   
             this.modelosArray.push(nuevoModelo);
@@ -86,12 +92,6 @@ export class CategoriaAtributosComponent implements OnInit{
         }
       })
 
-
-    if (this.modelCategoria.id !== 0) {
-      this.service.postIdCategoria(this.modelCategoria.id).subscribe(models => {
-        
-      });
-    }
   }
 
 
@@ -116,22 +116,14 @@ export class CategoriaAtributosComponent implements OnInit{
 
   }
 
-  selectAtributo(index: number) {
-    this.categoriaAtributoTecnico = (this.models.get('modelos') as FormArray).at(index).value;
-
-    
-  }
 
   add() {
     const nuevoModelo = this.fb.group({
       id: [0],
       idCategoria: [this.modelCategoria.id],
-      idAtributoTecnicoVariedad: [0],
-      comentario: [''],
       idTipoUnidadMedida: [0],
-      numOrdenSku: [0],
-      indVerificado: [0],
-      estado: [1]
+      idUnidadMedida: [0],
+      idUnidadVenta:[0]
     });
 
     this.modelosArray.push(nuevoModelo);
@@ -171,5 +163,4 @@ export class CategoriaAtributosComponent implements OnInit{
 
   }
  
-
 }
