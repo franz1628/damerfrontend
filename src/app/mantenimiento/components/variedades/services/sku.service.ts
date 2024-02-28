@@ -28,6 +28,14 @@ export class SkuService {
     });
   }
 
+  postId(id: number): Observable<Sku> {
+    return this.http.post<Sku>(`${this.apiUrl}/id`, {id});
+  }
+
+  postDescripcion(descripcion: string): Observable<Sku[]> {
+    return this.http.post<Sku[]>(`${this.apiUrl}/descripcion`, {descripcion});
+  }
+
   add(model: Sku): Observable<Sku> {
     return this.http.post<Sku>(this.apiUrl, model);
   }

@@ -10,7 +10,7 @@
     </li>
     
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="sku-tab" [disabled]="!idCategoria" data-bs-toggle="tab" data-bs-target="#sku" type="button" role="tab" aria-controls="sku" aria-selected="false">SKU</button>
+        <button class="nav-link" id="sku-tab"  data-bs-toggle="tab" data-bs-target="#sku" type="button" role="tab" aria-controls="sku" aria-selected="false">SKU</button>
       </li>
   </ul>
   <div class="tab-content" id="myTabContent">
@@ -27,6 +27,6 @@
        
     </div>
     <div class="tab-pane " id="sku" role="tabpanel" aria-labelledby="sku" tabindex="0">
-       <app-sku  #skuComp></app-sku>
+       <app-sku [idCanasta]="idCanasta" [idMegaCategoria]="idMegaCategoria" [idCategoria]="idCategoria"  #skuComp></app-sku>
     </div>
   </div>

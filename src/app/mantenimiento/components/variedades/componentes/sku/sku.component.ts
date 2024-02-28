@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidFormService } from '../../../../../shared/services/validForm.service';
 import { AlertService } from '../../../../../shared/services/alert.service';
@@ -11,6 +11,11 @@ import { SkuService } from '../../services/sku.service';
   templateUrl: './sku.component.html',
 })
 export class SkuComponent {
+  @Input() idCanasta:number=0;
+  @Input() idMegaCategoria:number=0;
+  @Input() idCategoria:number=0;
+  @Input() idSku:number=0;
+
   public modal: boolean = false
   public models: Sku[] = [];
   public showLoading: boolean = false;
@@ -20,20 +25,23 @@ export class SkuComponent {
 
   public modelEdit: Sku = SkuInit;
 
-  @ViewChild('skuForm')
+  @ViewChild('skuForm') 
   skuForm!: SkuFormComponent;
 
   constructor(public service: SkuService, public alert: AlertService) {
   }
 
   ngOnInit(): void {
-    //this.get(); 
+
   }
 
   get(idCanasta:number, idMegaCategoria:number, idCategoria:number): void {
     this.showLoading = true
     this.service.getByCategoria(idCanasta,idMegaCategoria,idCategoria).subscribe(response => { 
-      this.showLoading = false; this.models = response.data;
+      console.log(response.data);
+      
+      this.showLoading = false; 
+      this.models = response.data;
     });
   }
 

@@ -74,6 +74,8 @@ export class ClienteAtributoFuncionalComponent {
           models.forEach(model => {
             const nuevoModelo = this.fb.group({
               id: [model.id],
+              idCategoria:[this.modelCategoria.id],
+              idCliente:[this.modelCliente.id],
               descripcion: [model.descripcion],
               descripcionResumida: [model.descripcionResumida],
               tip: [model.tip],
@@ -124,6 +126,8 @@ export class ClienteAtributoFuncionalComponent {
   add() {
     const nuevoModelo = this.fb.group({
       id: [0],
+      idCliente:[this.modelCliente.id],
+      idCategoria:[this.modelCategoria.id],
       descripcion: [''],
       descripcionResumida: [''],
       tip: [''],

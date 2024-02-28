@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { Canasta, CanastaInit } from './interfaces/canasta.interface';
 import { MegaCategoriaFormComponent } from './componentes/mega-categoria/mega-categoria-form/mega-categoria-form.component';
 import { CanastaComponent } from './componentes/canasta/canasta.component';
@@ -14,11 +14,12 @@ import { MegaCategoriaService } from './services/megaCategoria.service';
   selector: 'app-variedades',
   templateUrl: './variedades.component.html' 
 })
-export class VariedadesComponent { 
-  public canasta: Canasta = CanastaInit;
-  public idCanasta: number = 0; 
-  public idMegaCategoria: number = 0;
-  public idCategoria: number = 0; 
+export class VariedadesComponent{ 
+  canasta: Canasta = CanastaInit;
+  idCanasta: number = 0; 
+  idMegaCategoria: number = 0;
+  idCategoria: number = 0; 
+  idSku: number = 0; 
 
   @ViewChild('megaCategoriaComp') megaCategoriaComp!: MegaCategoriaComponent;
   @ViewChild('canastaComp') canastaComp!: CanastaComponent;
@@ -32,6 +33,8 @@ export class VariedadesComponent {
   ){
 
   }
+
+ 
 
   setIdCanasta(canasta:Canasta){
     this.idCanasta=canasta.id;

@@ -141,11 +141,6 @@ export class CategoriaFormComponent {
       });
 
     }
-
-
-
-    
-    
   } 
   
 

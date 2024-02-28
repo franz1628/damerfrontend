@@ -1,7 +1,7 @@
 export interface Sku {
     id: number,
     idCanasta: number,
-    idMegaCateogoria: number,
+    idMegaCategoria: number,
     idCategoria: number,
     descripcion: string,
     descripcionResumida: string,
@@ -15,7 +15,7 @@ export interface Sku {
 export const SkuInit: Sku = {
     id: 0,
     idCanasta: 0,
-    idMegaCateogoria: 0,
+    idMegaCategoria: 0,
     idCategoria: 0,
     descripcion: '',
     descripcionResumida: '',

@@ -20,6 +20,10 @@ export class SkuFormComponent {
   public model: Sku = SkuInit;
   public showLoading: boolean = false;
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
+  public descripcionSku : string = '';
+  public modalBusquedaDescripcion : boolean = false;
+  public skusBusqueda:Sku[] = [];
+
   public myForm: FormGroup = this.fb.group({
     id: [0, Validators.required],
     idCanasta: [0, Validators.required],
@@ -98,6 +102,40 @@ export class SkuFormComponent {
     this.myForm.patchValue(SkuInit);
     this.myForm.clearValidators()
   }
+
+  buscar(){ 
+    const id = this.myForm.get('id')?.value;
+
+    this.service.postId(id).subscribe(resp => {
+      this.myForm.patchValue(resp);
+     // this.selectCategoriaEmit.emit(resp);
+    })
+    
+  }
+
+  elegirSkuBusqueda(sku: Sku) {
+    this.myForm.patchValue({id:sku.id});
+    this.buscar();
+    //this.editEmit.emit(sku)
+
+  }   
+
+  cambioDescripcion(event:Event){
+    const e = event.target as HTMLInputElement;
+    this.descripcionSku = e.value;
+    
+  }
+
+  buscarDescripcion() {
+
+    if(this.descripcionSku!=''){
+      this.modalBusquedaDescripcion = true;
+      this.service.postDescripcion(this.descripcionSku).subscribe(x=>{
+        this.skusBusqueda = x;
+      });
+
+    }
+  } 
 
   isValidField(field: string): boolean | null {
     return this.validForm.isValidField(field, this.myForm);
