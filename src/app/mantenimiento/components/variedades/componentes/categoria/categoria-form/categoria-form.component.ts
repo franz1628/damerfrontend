@@ -71,7 +71,7 @@ export class CategoriaFormComponent {
       return;
     }
 
-    console.log(this.currentModel); return
+    return
     
 
     if (!this.currentModel.id) {

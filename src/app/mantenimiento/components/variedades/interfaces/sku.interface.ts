@@ -1,3 +1,7 @@
+import { Canasta, CanastaInit } from "./canasta.interface";
+import { Categoria, CategoriaInit } from "./categoria.interface";
+import { MegaCategoria, MegaCategoriaInit } from "./megaCategoria.interface";
+
 export interface Sku {
     id: number,
     idCanasta: number,
@@ -10,6 +14,9 @@ export interface Sku {
     alias2: string,
     alias3: string,
     estado: number,
+    Canasta:Canasta,
+    MegaCategoria:MegaCategoria,
+    Categoria:Categoria
 }
 
 export const SkuInit: Sku = {
@@ -24,4 +31,7 @@ export const SkuInit: Sku = {
     alias2: '',
     alias3: '',
     estado: 1,
+    Canasta:CanastaInit,
+    MegaCategoria:MegaCategoriaInit,
+    Categoria:CategoriaInit
 };

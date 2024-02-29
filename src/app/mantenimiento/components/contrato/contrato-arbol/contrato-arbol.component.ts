@@ -52,11 +52,11 @@ export class ContratoArbolComponent implements OnInit {
     private serviceTipoEstudio:TipoEstudioService,
     private serviceAtributoFuncionalVariedad:AtributoFuncionalVariedadService
   ) {
-    console.log('bb');
+   
   }
 
   ngOnInit(): void {
-    console.log('aa');
+   
     
     this.model = this.fb.group({
       atributoFuncionalVariedads: this.fb.array

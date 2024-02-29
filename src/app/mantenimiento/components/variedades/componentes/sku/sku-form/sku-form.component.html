@@ -28,10 +28,7 @@
                     <label for="idCanasta" class="col-md-5 col-form-label-sm">Canasta</label>
                     <div class="col-sm-7">
                         <select class="form-select form-select-sm" name="idCanasta" formControlName="idCanasta" id="idCanasta">
-                            <option value="0">SELECCIONAR</option>
-                            @for (canasta of listCanasta; track $index) {
-                                <option value="{{canasta.id}}">{{canasta.descripcion}}</option>
-                            }
+                            <option value={{model.idCanasta}}>{{model.Canasta.descripcion}}</option>
                         </select>
                     </div>
                     <span *ngIf="isValidField('idCanasta')" class="form-text text-danger">
@@ -43,10 +40,7 @@
                     <label for="idMegaCategoria" class="col-md-5 col-form-label-sm">Mega categoría</label>
                     <div class="col-sm-7">
                         <select class="form-select form-select-sm" name="idMegaCategoria" formControlName="idMegaCategoria" id="idMegaCategoria">
-                            <option value="0">SELECCIONAR</option>
-                            @for (megaCategoria of listMegaCategoria; track $index) {
-                                <option value="{{megaCategoria.id}}">{{megaCategoria.descripcion}}</option>
-                            }
+                            <option value={{model.idMegaCategoria}}>{{model.MegaCategoria.descripcion}}</option>
                         </select>
                     </div>
                     <span *ngIf="isValidField('idMegaCategoria')" class="form-text text-danger">
@@ -58,10 +52,7 @@
                     <label for="idCategoria" class="col-md-5 col-form-label-sm">Categoría</label>
                     <div class="col-sm-7">
                         <select class="form-select form-select-sm" name="idCategoria" formControlName="idCategoria" id="idCategoria">
-                            <option value="0">SELECCIONAR</option>
-                            @for (categoria of listCategoria; track $index) {
-                                <option value="{{categoria.id}}">{{categoria.descripcion}}</option>
-                            }
+                            <option value={{model.idCategoria}}>{{model.Categoria.descripcion}}</option>
                         </select>
                     </div>
                     <span *ngIf="isValidField('idCategoria')" class="form-text text-danger">

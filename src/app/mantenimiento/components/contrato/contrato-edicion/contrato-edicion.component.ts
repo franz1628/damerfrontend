@@ -217,7 +217,7 @@ export class ContratoEdicionComponent implements OnInit {
   
     
     if(contratoForm.zonas.length==0){
-      console.log('franz');
+     
       
       this.servicieContratoDetalle.getIdContrato(contrato.id).subscribe(x => {
         this.serviceClienteZona.postIdCliente(contrato.idCliente).subscribe(y => {
@@ -347,7 +347,7 @@ export class ContratoEdicionComponent implements OnInit {
   
       })
     }else{
-      console.log(contratoForm);
+     
       
       this.zonas = contratoForm.zonas;
       this.canals = contratoForm.canals;

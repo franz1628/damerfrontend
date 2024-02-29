@@ -123,8 +123,7 @@ export class ContratoListComponent implements OnInit{
       idEstadoContrato:this.modelEstadoContrato.get('idEstadoContrato')?.value,
       motivo : this.modelEstadoContrato.get('motivo')?.value
     } 
-    console.log(ContratoInit);
-    console.log(this.contrato);
+
     
     this.serviceContrato.updateEstado(this.contrato.id,{idEstadoContrato:this.modelEstadoContrato.get('idEstadoContrato')?.value}).subscribe(x=>{
       this.serviceContratoHistorial.add(contratoHistorial).subscribe(x=>{

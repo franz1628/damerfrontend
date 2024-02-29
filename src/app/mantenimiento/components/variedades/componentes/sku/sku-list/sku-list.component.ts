@@ -28,9 +28,9 @@ export class SkuListComponent {
   }
 
   changeList(canasta:Canasta, megaCategoria: MegaCategoria,sku:Sku){
-    this.service.getByCategoria(canasta.id,megaCategoria.id,sku.id).subscribe(resp=>{
+   /* this.service.getByCategoria(canasta.id,megaCategoria.id,sku.id).subscribe(resp=>{
       this.models = resp.data;
-    })
+    })*/
   }
 
   delete(model: Sku) {

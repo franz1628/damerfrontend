@@ -122,7 +122,7 @@ export class ClienteAtributoFuncionalFormComponent {
     const codTipoUnidadMedida = (e.target as HTMLInputElement).value;
 
     this.serviceUnidadMedida.postCodTipoUnidadMedida(parseInt(codTipoUnidadMedida)).subscribe(x=>{
-      console.log(x);
+     
       
       this.unidadMedidas = x.data
     })

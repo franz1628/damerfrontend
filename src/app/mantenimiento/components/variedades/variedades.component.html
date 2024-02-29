@@ -27,6 +27,6 @@
        
     </div>
     <div class="tab-pane " id="sku" role="tabpanel" aria-labelledby="sku" tabindex="0">
-       <app-sku [idCanasta]="idCanasta" [idMegaCategoria]="idMegaCategoria" [idCategoria]="idCategoria"  #skuComp></app-sku>
+       <app-sku [idCanasta]="idCanasta" [idMegaCategoria]="idMegaCategoria" [idCategoria]="idCategoria" (SkuEmit)="editSku($event)"  #skuComp></app-sku>
     </div>
   </div>

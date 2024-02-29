@@ -51,7 +51,7 @@ export class ClienteFormulaComponent implements OnInit {
     //Listando valores de la categoria atributotecnico
     this.serviceValor.postIdCategoriaAtributoTecnico(parseInt(valor.value)).subscribe(x=>{
       this.categoriaAtributoTecnicoValors = x;
-      console.log(x);
+      
       
     });
     

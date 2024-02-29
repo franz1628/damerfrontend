@@ -9,10 +9,13 @@
                         <tr>
                             <th>Item</th>
                             <th>Atributo </th>
-                            <th>Comentarios </th>
+                            <th>Valor </th>
                             <th>Tipo Medida </th>
-                            <th>Orden </th>
-                            <th>Verificado</th>
+                            <th>Unidad Medida </th>
+                            <th>Comentario </th>
+                            <th>Alias 1 </th>
+                            <th>Alias 2 </th>
+                            <th>Alias 3</th>
                             <th>Acciones</th>
                         </tr>
           
@@ -21,15 +24,12 @@
                         @if (modelosArray.controls.length!=0) {
                           @for (model of modelosArray.controls; track $index) {
                             <tr [formGroupName]="$index" >
-                              <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
+                              <td> <label class="mt-2">{{model.get('idAtributoTecnicoVariedad')?.value}}</label>  </td>
                               <td>
-                                <select class="form-select form-select-sm" formControlName="idAtributoTecnicoVariedad">
-                                    <option value="0">SELECCIONAR</option>
-                                    @for (atributo of categoriaAtributoTecnicos; track $index) {
-                                        <option value={{atributo.idAtributoTecnicoVariedad}}>{{atributo.AtributoTecnicoVariedad.descripcion}}</option>
-                                    }
-                                </select>
+                                {{getAtributos(model.get('idAtributoTecnicoVariedad')?.value)}}
                               </td>
+
+                              <td>Valor</td>
 
                               <td>
                                 <select class="form-select form-select-sm" formControlName="idTipoUnidadMedida">
@@ -39,6 +39,7 @@
                                     }
                                 </select>
                               </td>
+                           
 
                               <td>
                                 <select class="form-select form-select-sm" formControlName="idUnidadMedida">

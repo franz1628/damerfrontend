@@ -58,8 +58,8 @@ export class SkuAtributosComponent {
   loadModels(): void {
     this.showLoading = true;
     (this.models.get('modelos') as FormArray).clear();
+ 
     console.log(this.modelSku);
-    
     forkJoin( 
       {
         service  : this.service.postIdSku(this.modelSku.id),
@@ -69,6 +69,9 @@ export class SkuAtributosComponent {
       }
       ).subscribe({
         next:value => {
+          
+          console.log(value);
+          
           this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico
           this.tipoUnidadMedidas = value.serviceTipoUnidadMedida.data
           this.unidadMedidas = value.serviceUnidadMedida.data
@@ -109,6 +112,10 @@ export class SkuAtributosComponent {
 
   get modelosArray() {
     return this.models.get('modelos') as FormArray;
+  }
+
+  getAtributos(idAtributoTecnicoVariedad:number){
+    return this.categoriaAtributoTecnicos.filter(x=>x.idAtributoTecnicoVariedad == idAtributoTecnicoVariedad)[0].AtributoTecnicoVariedad.descripcion
   }
 
   editModel(num: number) {

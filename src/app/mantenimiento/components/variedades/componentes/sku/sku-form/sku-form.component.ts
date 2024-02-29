@@ -20,6 +20,9 @@ export class SkuFormComponent {
   public model: Sku = SkuInit;
   public showLoading: boolean = false;
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
+  @Output() editEmit: EventEmitter<Sku> = new EventEmitter();
+
+
   public descripcionSku : string = '';
   public modalBusquedaDescripcion : boolean = false;
   public skusBusqueda:Sku[] = [];
@@ -116,9 +119,10 @@ export class SkuFormComponent {
   elegirSkuBusqueda(sku: Sku) {
     this.myForm.patchValue({id:sku.id});
     this.buscar();
-    //this.editEmit.emit(sku)
-
-  }   
+    this.editEmit.emit(sku)
+    this.model = sku;
+    
+  }    
 
   cambioDescripcion(event:Event){
     const e = event.target as HTMLInputElement;

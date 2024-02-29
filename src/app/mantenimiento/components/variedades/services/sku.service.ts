@@ -22,9 +22,9 @@ export class SkuService {
     return this.http.get<Sku>(`${this.apiUrl}/${id}`).pipe(catchError(error=>of(undefined)));
   }
 
-  getByCategoria(idCanasta: number, idMegaCategoria: number,idCategoria:number): Observable<Response> {
+  getByCategoria(idCategoria:number): Observable<Response> {
     return this.http.post<Response>(`${this.apiUrl}/byCategoria`,{
-      idCanasta,idMegaCategoria,idCategoria
+      idCategoria
     });
   }
 
