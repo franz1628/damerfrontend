@@ -35,6 +35,7 @@ export class AtributoFuncionalVariedadService {
     return this.http.post<ResponseAtributoFuncionalVariedad>(`${this.apiUrl}/idClienteidCategoria/`,{idCliente,idCategoria});
   }
 
+
   add(model: AtributoFuncionalVariedad): Observable<AtributoFuncionalVariedad> {
     return this.http.post<AtributoFuncionalVariedad>(this.apiUrl, model);
   }

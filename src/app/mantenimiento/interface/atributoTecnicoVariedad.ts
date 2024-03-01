@@ -1,3 +1,5 @@
+import { AtributoTecnicoVariedadValor } from "./atributoTecnicoVariedadValor";
+
 export interface AtributoTecnicoVariedad {
     id: number,
     idPais: number,
@@ -12,7 +14,8 @@ export interface AtributoTecnicoVariedad {
     alias2: string,
     alias3: string,
     estado: number,
-    fechaRegistro: Date
+    fechaRegistro: Date,
+    AtributoTecnicoVariedadValor:AtributoTecnicoVariedadValor[]
 
 }
 export const AtributoTecnicoVariedadInit: AtributoTecnicoVariedad = {
@@ -29,5 +32,6 @@ export const AtributoTecnicoVariedadInit: AtributoTecnicoVariedad = {
     alias2: '',
     alias3: '',
     estado: 1,
-    fechaRegistro: new Date()
+    fechaRegistro: new Date(),
+    AtributoTecnicoVariedadValor:[]
 };

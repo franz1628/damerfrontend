@@ -16,13 +16,12 @@ import { ClienteCanalListComponent } from './cliente-canal-list/cliente-canal-li
 import { ClienteCanalFormComponent } from './cliente-canal-form/cliente-canal-form.component';
 import { ClienteZonaListComponent } from './cliente-zona-list/cliente-zona-list.component';
 import { ClienteZonaFormComponent } from './cliente-zona-form/cliente-zona-form.component';
-import { ClienteAtributoFuncionalListComponent } from './cliente-atributo-funcional-list/cliente-atributo-funcional-list.component';
-import { ClienteAtributoFuncionalFormComponent } from './cliente-atributo-funcional-form/cliente-atributo-funcional-form.component';
 import { ClienteFormulaComponent } from './cliente-formula/cliente-formula.component';
 import { ClienteAtributoFuncionalComponent } from './cliente-atributo-funcional/cliente-atributo-funcional.component';
+import { ClienteAtributoValorComponent } from './cliente-atributo-valor/cliente-atributo-valor.component';
 
 @NgModule({
-  declarations: [ClienteComponent, ClienteFormComponent, ClienteListComponent, ClienteDireccionFormComponent, ClienteDireccionListComponent, ClienteContactoListComponent, ClienteContactoFormComponent, ClienteCategoriaListComponent, ClienteCategoriaFormComponent, ClienteCanalListComponent, ClienteCanalFormComponent, ClienteZonaListComponent, ClienteZonaFormComponent, ClienteAtributoFuncionalListComponent, ClienteAtributoFuncionalFormComponent, ClienteFormulaComponent, ClienteAtributoFuncionalComponent],
+  declarations: [ClienteComponent, ClienteFormComponent, ClienteListComponent, ClienteDireccionFormComponent, ClienteDireccionListComponent, ClienteContactoListComponent, ClienteContactoFormComponent, ClienteCategoriaListComponent, ClienteCategoriaFormComponent, ClienteCanalListComponent, ClienteCanalFormComponent, ClienteZonaListComponent, ClienteZonaFormComponent, ClienteFormulaComponent, ClienteAtributoFuncionalComponent, ClienteAtributoValorComponent],
   imports: [
 
     CommonModule,

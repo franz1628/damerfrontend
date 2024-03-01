@@ -19,8 +19,6 @@ import { ClienteCanalListComponent } from './cliente-canal-list/cliente-canal-li
 import { ClienteZonaListComponent } from './cliente-zona-list/cliente-zona-list.component';
 import { Categoria, CategoriaInit } from '../variedades/interfaces/categoria.interface';
 import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../interface/atributoFuncionalVariedad';
-import { ClienteAtributoFuncionalFormComponent } from './cliente-atributo-funcional-form/cliente-atributo-funcional-form.component';
-import { ClienteAtributoFuncionalListComponent } from './cliente-atributo-funcional-list/cliente-atributo-funcional-list.component';
 import { ClienteFormulaComponent } from './cliente-formula/cliente-formula.component';
 import { AlertService } from '../../../shared/services/alert.service';
 
@@ -28,7 +26,7 @@ import { AlertService } from '../../../shared/services/alert.service';
   selector: 'app-cliente',
   templateUrl: './cliente.component.html'
 })
-export class ClienteComponent {
+export class ClienteComponent { 
   model : Cliente = ClienteInit;
   modelCategoria : Categoria = CategoriaInit;
   atributoFuncionalVariedad : AtributoFuncionalVariedad = AtributoFuncionalVariedadInit;
@@ -52,9 +50,6 @@ export class ClienteComponent {
   @ViewChild('clienteCategoriaListComp')
   clienteCategoriaListComp!: ClienteCategoriaListComponent;
 
-  @ViewChild('clienteAtributoFuncionalListComp')
-  clienteAtributoFuncionalListComp!: ClienteAtributoFuncionalListComponent;
-
   @ViewChild('clienteCanalListComp')
   clienteCanalListComp!: ClienteCanalListComponent;
 
@@ -72,9 +67,6 @@ export class ClienteComponent {
 
   @ViewChild('clienteCategoriaFormComp')
   clienteCategoriaFormComp!: ClienteCategoriaFormComponent;
-
-  @ViewChild('clienteAtributoFuncionalFormComp')
-  clienteAtributoFuncionalFormComp!: ClienteAtributoFuncionalFormComponent;
 
   @ViewChild('clienteCanalFormComp')
   clienteCanalFormComp!: ClienteCanalFormComponent;
@@ -107,10 +99,6 @@ export class ClienteComponent {
 
   actualizarCategoriaList(){
     this.clienteCategoriaListComp.actualizarList();
-  }
-
-  actualizarAtributoList(){
-    this.clienteAtributoFuncionalListComp.actualizarList();
   }
 
   actualizarCanalList(){
@@ -146,7 +134,6 @@ export class ClienteComponent {
   }
 
   selectAtributoEdit(model:AtributoFuncionalVariedad){
-    this.clienteAtributoFuncionalFormComp.selectEdit(model); 
     this.clienteFormulaComp.cargaAtributosValores(model.Categoria);
     this.atributoFuncionalVariedad = model;
   }

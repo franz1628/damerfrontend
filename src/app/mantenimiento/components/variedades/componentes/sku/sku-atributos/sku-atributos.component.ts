@@ -59,7 +59,7 @@ export class SkuAtributosComponent {
     this.showLoading = true;
     (this.models.get('modelos') as FormArray).clear();
  
-    console.log(this.modelSku);
+   
     forkJoin( 
       {
         service  : this.service.postIdSku(this.modelSku.id),
@@ -69,26 +69,35 @@ export class SkuAtributosComponent {
       }
       ).subscribe({
         next:value => {
-          
-          console.log(value);
+
+         
+
+
           
           this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico
           this.tipoUnidadMedidas = value.serviceTipoUnidadMedida.data
           this.unidadMedidas = value.serviceUnidadMedida.data
 
+          const atributosValorGuardados = value.service.data;
+
           const models = value.serviceCategoriaAtributoTecnico
+
+
           models.forEach(model => {
+
+            const atributoVariedad = atributosValorGuardados.find(x=>x.idAtributoTecnicoVariedad == model.idAtributoTecnicoVariedad);
+
             const nuevoModelo = this.fb.group({
-              id: [0],
+              id: [atributoVariedad?.id||0],
               idSku:[this.modelSku.id],
               idAtributoTecnicoVariedad:[model.idAtributoTecnicoVariedad],
-              valor:[0],
-              comentario:[''],
+              idAtributoTecnicoVariedadValor:[atributoVariedad?.idAtributoTecnicoVariedadValor||0],
+              comentario:[atributoVariedad?.comentario||''],
               idTipoUnidadMedida:[model.idTipoUnidadMedida],
-              idUnidadMedida:[0],
-              alias1:[''],
-              alias2:[''],
-              alias3:[''],
+              idUnidadMedida:[atributoVariedad?.idUnidadMedida||0],
+              alias1:[atributoVariedad?.alias1||''],
+              alias2:[atributoVariedad?.alias2||''],
+              alias3:[atributoVariedad?.alias3||''],
             });
   
             this.modelosArray.push(nuevoModelo);
@@ -118,6 +127,11 @@ export class SkuAtributosComponent {
     return this.categoriaAtributoTecnicos.filter(x=>x.idAtributoTecnicoVariedad == idAtributoTecnicoVariedad)[0].AtributoTecnicoVariedad.descripcion
   }
 
+  getAtributosValor(idAtributoTecnicoVariedad:number){
+    const atr:AtributoTecnicoVariedad =  this.categoriaAtributoTecnicos.filter(x=>x.idAtributoTecnicoVariedad == idAtributoTecnicoVariedad)[0].AtributoTecnicoVariedad;
+    return atr.AtributoTecnicoVariedadValor
+  }
+
   editModel(num: number) {
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
       const modelo = this.modelosArray.controls[num].getRawValue();
@@ -135,7 +149,7 @@ export class SkuAtributosComponent {
       id: [0],
       idSku:[this.modelSku.id],
       idAtributoTecnicoVariedad:[''],
-      valor:[0],
+      idAtributoTecnicoVariedadValor:[0],
       comentario:[''],
       idTipoUnidadMedida:[''],
       idUnidadMedida:[0],

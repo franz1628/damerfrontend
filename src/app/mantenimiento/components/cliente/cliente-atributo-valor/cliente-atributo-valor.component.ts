@@ -1,46 +1,32 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
-import { Cliente, ClienteInit } from '../../../interface/cliente';
+import { CategoriaAtributoTecnico, CategoriaAtributoTecnicoInit } from '../../variedades/interfaces/categoriaAtributoTecnico';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AlertService } from '../../../../shared/services/alert.service';
+import { CategoriaAtributoTecnicoValorService } from '../../variedades/services/categoriaAtributoTecnicoValor.service';
 import { forkJoin, lastValueFrom } from 'rxjs';
 import { AtributoFuncionalVariedad } from '../../../interface/atributoFuncionalVariedad';
-import { TipoUnidadMedidaService } from '../../../service/tipoUnidadMedida';
-import { UnidadMedidaService } from '../../../service/unidadMedida';
-import { AlertService } from '../../../../shared/services/alert.service';
 import { AtributoFuncionalVariedadService } from '../../../service/atributoFuncionalVariedad';
-import { TipoUnidadMedida } from '../../../interface/tipoUnidadMedida';
-import { UnidadMedida } from '../../../interface/unidadMedida';
-import { Categoria, CategoriaInit } from '../../variedades/interfaces/categoria.interface';
-import { CategoriaAtributoTecnicoInit } from '../../variedades/interfaces/categoriaAtributoTecnico';
+import { AtributoFuncionalVariedadValorService } from '../../../service/atributoFuncionalVariedadValor';
 
 @Component({
-  selector: 'app-cliente-atributo-funcional',
-  templateUrl: './cliente-atributo-funcional.component.html',
+  selector: 'app-cliente-atributo-valor',
+  templateUrl: './cliente-atributo-valor.component.html'
 })
-export class ClienteAtributoFuncionalComponent {
+export class ClienteAtributoValorComponent {
 
   @Input()
-  modelCliente: Cliente = ClienteInit
-  @Input()
-  modelCategoria: Categoria = CategoriaInit
-
-  categoriaAtributoTecnico = CategoriaAtributoTecnicoInit;
-
+  categoriaAtributoTecnico: CategoriaAtributoTecnico = CategoriaAtributoTecnicoInit
+ 
   showLoading: boolean = false;
-  idCategoriaAtributoTecnico=0;
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
   });;
 
-  tipoUnidadMedidas : TipoUnidadMedida[] = [];
-  unidadMedidas : UnidadMedida[] = [];
-
   idAtributoTecnicoVariedad: number = 0;
 
   constructor(
-    private service: AtributoFuncionalVariedadService,
-    private serviceTipoUnidadMedida:TipoUnidadMedidaService,
-    private serviceUnidadMedida:UnidadMedidaService,
+    private service: AtributoFuncionalVariedadValorService,
     private fb: FormBuilder,
     private alert: AlertService
   ) {
@@ -52,7 +38,7 @@ export class ClienteAtributoFuncionalComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['modelCliente'] && !changes['modelCliente'].firstChange) {
+    if (changes['categoriaAtributoTecnico'] && !changes['categoriaAtributoTecnico'].firstChange) {
       this.loadModels();
     }
   }
@@ -63,31 +49,21 @@ export class ClienteAtributoFuncionalComponent {
 
     forkJoin( 
       {
-        service  : this.service.postIdClienteIdCategoria(this.modelCliente.id,this.modelCategoria.id),
-        serviceTipoUnidadMedida : this.serviceTipoUnidadMedida.get(),
-        serviceUnidadMedida :this.serviceUnidadMedida.get()
+        service  : this.service.postIdAtributoFuncionalVariedad(this.categoriaAtributoTecnico.id)
       }
       ).subscribe({
         next:value => {
-          this.tipoUnidadMedidas = value.serviceTipoUnidadMedida.data
-          this.unidadMedidas = value.serviceUnidadMedida.data
-
           const models = value.service.data;
 
           models.forEach(model => {
             const nuevoModelo = this.fb.group({
               id: [model.id],
-              idCategoria:[this.modelCategoria.id],
-              idCliente:[this.modelCliente.id],
               descripcion: [model.descripcion],
-              descripcionResumida: [model.descripcionResumida],
-              tip: [model.tip],
-              idIndiceAtributo: [model.idIndiceAtributo],
-              idTipoUnidadMedida: [model.idTipoUnidadMedida],
-              idUnidadMedida: [model.idUnidadMedida],
-              alias1: [model.alias1],
-              alias2: [model.alias2],
-              alias3: [model.alias3]
+              alerta: [model.alerta],
+              idTipoAtributoFuncionalVariedadValor: [model.idTipoAtributoFuncionalVariedadValor],
+              condicion: [model.condicion],
+              formula: [model.formula],
+              nSkus: [model.nSkus],
             });
   
             this.modelosArray.push(nuevoModelo);
@@ -106,7 +82,7 @@ export class ClienteAtributoFuncionalComponent {
 
 
   get getModel() {
-    return this.modelCliente;
+    return this.categoriaAtributoTecnico;
   }
 
   get modelosArray() {
@@ -116,7 +92,7 @@ export class ClienteAtributoFuncionalComponent {
   editModel(num: number) {
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
       const modelo = this.modelosArray.controls[num].getRawValue();
-      this.categoriaAtributoTecnico = modelo; 
+
       this.service.update(modelo.id, modelo).subscribe(x => {
 
         this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
@@ -129,17 +105,12 @@ export class ClienteAtributoFuncionalComponent {
   add() {
     const nuevoModelo = this.fb.group({
       id: [0],
-      idCliente:[this.modelCliente.id],
-      idCategoria:[this.modelCategoria.id],
       descripcion: [''],
-      descripcionResumida: [''],
-      tip: [''],
-      idIndiceAtributo: [0],
-      idTipoUnidadMedida: [0],
-      idUnidadMedida: [0],
-      alias1: [''],
-      alias2: [''],
-      alias3: ['']
+      alerta: [0],
+      idTipoAtributoFuncionalVariedadValor: [0],
+      condicion: [''],
+      formula: [''],
+      nSkus: [0],
     });
 
     this.modelosArray.push(nuevoModelo);
@@ -178,5 +149,4 @@ export class ClienteAtributoFuncionalComponent {
 
 
   }
-
 }

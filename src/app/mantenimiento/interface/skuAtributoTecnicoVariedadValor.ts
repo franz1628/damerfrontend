@@ -7,8 +7,8 @@ import { UnidadMedida, UnidadMedidaInit } from "./unidadMedida";
 export interface SkuAtributoTecnicoVariedadValor {
     id: number,
     idAtributoTecnicoVariedad:number,
+    idAtributoTecnicoVariedadValor:number,
     idSku:number,
-    valor:string,
     idTipoUnidadMedida: number,
     idUnidadMedida: number,
     comentario: string,
@@ -25,8 +25,8 @@ export interface SkuAtributoTecnicoVariedadValor {
 export const SkuAtributoTecnicoVariedadValorInit: SkuAtributoTecnicoVariedadValor = {
     id: 0,
     idAtributoTecnicoVariedad:0,
+    idAtributoTecnicoVariedadValor:0,
     idSku:0,
-    valor:'',
     idTipoUnidadMedida: 0,
     idUnidadMedida: 0,
     comentario: '',
