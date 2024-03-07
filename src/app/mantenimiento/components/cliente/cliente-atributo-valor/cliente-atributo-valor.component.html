@@ -20,7 +20,7 @@
             <tbody>
               @if (modelosArray.controls.length!=0) {
               @for (model of modelosArray.controls; track $index) {
-              <tr [formGroupName]="$index">
+              <tr [formGroupName]="$index" (click)="elegir(model.value,$index)" [ngClass]="{'selected-row': $index === selectIndex}">
                 <td> <label class="mt-2">{{model.get('id')?.value}}</label> </td>
                 <td>
                   <input type="text" class="form-control form-control-sm" formControlName="descripcion">

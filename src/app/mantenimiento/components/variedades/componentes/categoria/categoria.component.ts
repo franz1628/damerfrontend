@@ -33,7 +33,7 @@ export class CategoriaComponent {
   }
 
   ngOnInit(): void {
-    //this.get(); 
+    //this.get();  
   }
 
   get(idCanasta:number, idMegaCategoria:number): void {

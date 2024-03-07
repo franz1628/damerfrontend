@@ -1,0 +1,111 @@
+<form [formGroup]="models">
+    <div formArrayName="modelos">
+        <table class="table text-center table-sm">
+            <thead class="table-success fs-6">
+                <tr>
+                    <th>Item</th>
+
+                    <th>Zona </th>
+                    <th></th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @if (modelosArray.controls.length!=0) {
+                @for (model of modelosArray.controls; track $index) {
+                <tr [formGroupName]="$index" (click)="selectAtributo($index)">
+
+                    <td> {{model.get('idZona')?.value}}</td>
+                    <td>
+                        <div class="input-group mb-3">
+
+                            <input class="form-control form-control-sm" formControlName="descripcion">
+                            <button class="btn btn-sm btn-warning" (click)="agrupacionZonasDetalle = model.value"
+                                data-bs-toggle="modal" data-bs-target="#modalZona"> <i class="bi bi-search"></i>
+                            </button>
+
+
+
+                        </div>
+
+
+                    </td>
+                    <td>
+                        <div class="btn-group">
+
+                            @if(model.get('id')?.value!=0){
+                            <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i
+                                    class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i
+                                    class="bi bi-trash-fill"></i></button>
+                            @if(modelosArray.controls.length==$index+1){
+                            <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
+                                    class="bi bi-plus-lg"></i></button>
+                            }
+                            }@else{
+                            <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
+                                    class="bi bi-save2"></i></button>
+                            }
+                        </div>
+
+
+
+                    </td>
+                </tr>
+                }
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</form>
+
+
+<div class="modal fade" id="modalZona" tabindex="-1" aria-labelledby="modalZonaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalZonaLabel">Zona</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="descripcionZona">
+                    <button class="btn btn-sm btn-info" (click)="buscarZona()"> <i class="bi bi-search"></i> </button>
+                </div>
+
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (zona of resultZonas; track $index) {
+                        <tr (click)="elegirZona(zona, $index)"
+                            [ngClass]="{'selected-row': $index === selectIndexModal}">
+                            <td>{{zona.id}}</td>
+                            <td>{{zona.descripcion}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="agregarZona()">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<app-black-loading [show]="showLoading"></app-black-loading>

@@ -1,23 +1,25 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { CategoriaAtributoTecnico, CategoriaAtributoTecnicoInit } from '../../variedades/interfaces/categoriaAtributoTecnico';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { CategoriaAtributoTecnicoValorService } from '../../variedades/services/categoriaAtributoTecnicoValor.service';
 import { forkJoin, lastValueFrom } from 'rxjs';
-import { AtributoFuncionalVariedad } from '../../../interface/atributoFuncionalVariedad';
+import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../../interface/atributoFuncionalVariedad';
 import { AtributoFuncionalVariedadService } from '../../../service/atributoFuncionalVariedad';
 import { AtributoFuncionalVariedadValorService } from '../../../service/atributoFuncionalVariedadValor';
+import { AtributoFuncionalVariedadValor, AtributoFuncionalVariedadValorInit } from '../../../interface/atributoFuncionalVariedadValor';
 
 @Component({
   selector: 'app-cliente-atributo-valor',
   templateUrl: './cliente-atributo-valor.component.html'
 })
 export class ClienteAtributoValorComponent {
-
+  @Output() emitAtributoFuncionalVariedadValor:EventEmitter<AtributoFuncionalVariedadValor> = new EventEmitter()
   @Input()
-  categoriaAtributoTecnico: CategoriaAtributoTecnico = CategoriaAtributoTecnicoInit
- 
+  atributoFuncionalVariedad: AtributoFuncionalVariedad = AtributoFuncionalVariedadInit
+  selectIndex:number=-1
   showLoading: boolean = false;
+  atributoFuncionalVariedadValor:AtributoFuncionalVariedadValor = AtributoFuncionalVariedadValorInit 
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
@@ -38,7 +40,9 @@ export class ClienteAtributoValorComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['categoriaAtributoTecnico'] && !changes['categoriaAtributoTecnico'].firstChange) {
+    console.log('sdfaf');
+    
+    if (changes['atributoFuncionalVariedad'] && !changes['atributoFuncionalVariedad'].firstChange) {
       this.loadModels();
     }
   }
@@ -49,15 +53,18 @@ export class ClienteAtributoValorComponent {
 
     forkJoin( 
       {
-        service  : this.service.postIdAtributoFuncionalVariedad(this.categoriaAtributoTecnico.id)
+        service  : this.service.postIdAtributoFuncionalVariedad(this.atributoFuncionalVariedad.id)
       }
       ).subscribe({
         next:value => {
+          console.log(value);
+          
           const models = value.service.data;
 
           models.forEach(model => {
             const nuevoModelo = this.fb.group({
               id: [model.id],
+              idAtributoFuncionalVariedad: [this.atributoFuncionalVariedad.id],
               descripcion: [model.descripcion],
               alerta: [model.alerta],
               idTipoAtributoFuncionalVariedadValor: [model.idTipoAtributoFuncionalVariedadValor],
@@ -82,7 +89,7 @@ export class ClienteAtributoValorComponent {
 
 
   get getModel() {
-    return this.categoriaAtributoTecnico;
+    return this.atributoFuncionalVariedad;
   }
 
   get modelosArray() {
@@ -92,7 +99,7 @@ export class ClienteAtributoValorComponent {
   editModel(num: number) {
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
       const modelo = this.modelosArray.controls[num].getRawValue();
-
+ 
       this.service.update(modelo.id, modelo).subscribe(x => {
 
         this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
@@ -101,10 +108,19 @@ export class ClienteAtributoValorComponent {
 
   }
 
+  elegir(model:AtributoFuncionalVariedadValor,index: number) {
+    this.selectIndex=index
+    this.atributoFuncionalVariedadValor = model
+    this.emitAtributoFuncionalVariedadValor.emit(model)
+
+    
+  }
+
 
   add() {
     const nuevoModelo = this.fb.group({
       id: [0],
+      idAtributoFuncionalVariedad: [this.atributoFuncionalVariedad.id],
       descripcion: [''],
       alerta: [0],
       idTipoAtributoFuncionalVariedadValor: [0],

@@ -9,13 +9,15 @@ import { MantenimientoRoutingModule } from './mantenimiento-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MantenimientoLayoutHeaderComponent } from './pages/mantenimiento-layout-header/mantenimiento-layout-header.component';
 import { MantenimientoLayoutFooterComponent } from './pages/mantenimiento-layout-footer/mantenimiento-layout-footer.component';
+import { AgrupacionZonasComponent } from './components/agrupacion-zonas/agrupacion-zonas.component';
+
 
 
 @NgModule({
   declarations: [
     LayoutPageComponent,
     MantenimientoLayoutHeaderComponent,
-    MantenimientoLayoutFooterComponent
+    MantenimientoLayoutFooterComponent,
   ],
   imports: [
     CommonModule,

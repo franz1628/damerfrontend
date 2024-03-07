@@ -9,8 +9,9 @@ import { Cliente, ClienteInit } from '../../../interface/cliente';
   templateUrl: './cliente-categoria-list.component.html'
 })
 export class ClienteCategoriaListComponent {
-  public models:ClienteCategoria[] = [];    
-  public loading:boolean=false;
+  models:ClienteCategoria[] = [];    
+  loading:boolean=false;
+  selectIndex:number=-1
   @Output() selectEditEmit : EventEmitter<ClienteCategoria> = new EventEmitter();
   @Input() 
   cliente :Cliente = ClienteInit;
@@ -32,6 +33,11 @@ export class ClienteCategoriaListComponent {
       this.models = resp.data;
       this.loading=false;
     })
+  }
+  elegir(model:ClienteCategoria,index: number) {
+
+    this.selectIndex=index
+    this.selectEditEmit.emit(model);
   }
 
   borrar(model:ClienteCategoria){

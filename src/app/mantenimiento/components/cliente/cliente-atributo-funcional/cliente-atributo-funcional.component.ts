@@ -2,7 +2,7 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { forkJoin, lastValueFrom } from 'rxjs';
-import { AtributoFuncionalVariedad } from '../../../interface/atributoFuncionalVariedad';
+import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../../interface/atributoFuncionalVariedad';
 import { TipoUnidadMedidaService } from '../../../service/tipoUnidadMedida';
 import { UnidadMedidaService } from '../../../service/unidadMedida';
 import { AlertService } from '../../../../shared/services/alert.service';
@@ -11,8 +11,9 @@ import { TipoUnidadMedida } from '../../../interface/tipoUnidadMedida';
 import { UnidadMedida } from '../../../interface/unidadMedida';
 import { Categoria, CategoriaInit } from '../../variedades/interfaces/categoria.interface';
 import { CategoriaAtributoTecnicoInit } from '../../variedades/interfaces/categoriaAtributoTecnico';
+import { AtributoFuncionalVariedadValor, AtributoFuncionalVariedadValorInit } from '../../../interface/atributoFuncionalVariedadValor';
 
-@Component({
+@Component({ 
   selector: 'app-cliente-atributo-funcional',
   templateUrl: './cliente-atributo-funcional.component.html',
 })
@@ -23,7 +24,10 @@ export class ClienteAtributoFuncionalComponent {
   @Input()
   modelCategoria: Categoria = CategoriaInit
 
-  categoriaAtributoTecnico = CategoriaAtributoTecnicoInit;
+  atributoFuncionalVariedad = AtributoFuncionalVariedadInit;
+  atributoFuncionalVariedadValor:AtributoFuncionalVariedadValor = AtributoFuncionalVariedadValorInit 
+
+  selectIndex:number=-1
 
   showLoading: boolean = false;
   idCategoriaAtributoTecnico=0;
@@ -72,11 +76,12 @@ export class ClienteAtributoFuncionalComponent {
           this.tipoUnidadMedidas = value.serviceTipoUnidadMedida.data
           this.unidadMedidas = value.serviceUnidadMedida.data
 
-          const models = value.service.data;
-
-          models.forEach(model => {
+          const atributoFuncionales = value.service.data;
+          console.log(atributoFuncionales);
+          
+          atributoFuncionales.forEach(model => {
             const nuevoModelo = this.fb.group({
-              id: [model.id],
+              id: [model.id], 
               idCategoria:[this.modelCategoria.id],
               idCliente:[this.modelCliente.id],
               descripcion: [model.descripcion],
@@ -93,7 +98,7 @@ export class ClienteAtributoFuncionalComponent {
             this.modelosArray.push(nuevoModelo);
           });
   
-          if(models.length==0){
+          if(atributoFuncionales.length==0){
             this.add();
           }
   
@@ -113,18 +118,27 @@ export class ClienteAtributoFuncionalComponent {
     return this.models.get('modelos') as FormArray;
   }
 
-  editModel(num: number) {
+  editModel(index: number) {
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
-      const modelo = this.modelosArray.controls[num].getRawValue();
-      this.categoriaAtributoTecnico = modelo; 
+      const modelo = this.modelosArray.controls[index].getRawValue();
+      this.atributoFuncionalVariedad = modelo; 
       this.service.update(modelo.id, modelo).subscribe(x => {
 
         this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
       });
-    })
+    }) 
 
+  } 
+
+  elegir(index: number) {
+    const modelo = this.modelosArray.controls[index].getRawValue();
+    this.selectIndex=index
+    this.atributoFuncionalVariedad = modelo; 
   }
 
+  elegirAtributoFuncionalVariedadValor(atributoFuncionalVariedadValor: AtributoFuncionalVariedadValor) {
+    this.atributoFuncionalVariedadValor = atributoFuncionalVariedadValor
+  }
 
   add() {
     const nuevoModelo = this.fb.group({

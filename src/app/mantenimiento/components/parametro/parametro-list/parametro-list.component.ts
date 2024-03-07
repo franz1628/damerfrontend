@@ -28,7 +28,7 @@ export class ParametroListComponent {
     this.selectedRowIndex = index;
   }
 
-
+ 
 
   delete(model: Parametro) {
     this.showLoading = true

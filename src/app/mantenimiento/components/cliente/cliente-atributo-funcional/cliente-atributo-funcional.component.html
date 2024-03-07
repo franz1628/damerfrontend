@@ -8,6 +8,25 @@
     <button class="nav-link" id="AtributoValoresTab" data-bs-toggle="tab" data-bs-target="#AtributoValoresTab-pane"
       type="button" role="tab" aria-controls="AtributoValoresTab-pane" aria-selected="false">VALORES</button>
   </li>
+  
+  @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor!=0){
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="filtroTab" data-bs-toggle="tab" data-bs-target="#filtroTab-pane"
+        type="button" role="tab" aria-controls="filtroTab-pane" aria-selected="false">FILTRO</button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="formulaTab" data-bs-toggle="tab" data-bs-target="#formulaTab-pane"
+        type="button" role="tab" aria-controls="formulaTab-pane" aria-selected="false">FORMULA</button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="resultadosTab" data-bs-toggle="tab" data-bs-target="#resultadosTab-pane"
+        type="button" role="tab" aria-controls="resultadosTab-pane" aria-selected="false">RESULTADOS</button>
+    </li>
+  }
+
+ 
 
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -16,7 +35,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <h6 class="mb-3 text-center">UNIDAD DE VENTA</h6>
+        <h6 class="mb-3 text-center">ATRIBUTOS FUNCIONALES</h6>
 
         <form [formGroup]="models">
           <div formArrayName="modelos">
@@ -38,7 +57,7 @@
               <tbody>
                 @if (modelosArray.controls.length!=0) {
                 @for (model of modelosArray.controls; track $index) {
-                <tr [formGroupName]="$index">
+                <tr [formGroupName]="$index" (click)="elegir($index)"  [ngClass]="{'selected-row': $index === selectIndex}" >
                   <td> <label class="mt-2">{{model.get('id')?.value}}</label> </td>
                   <td>
                     <input type="text" class="form-control form-control-sm" formControlName="descripcion">
@@ -120,7 +139,21 @@
   </div>
   <div class="tab-pane fade" id="AtributoValoresTab-pane" role="tabpanel" aria-labelledby="AtributoValoresTab"
     tabindex="0">
-    <app-cliente-atributo-valor [categoriaAtributoTecnico]="categoriaAtributoTecnico"></app-cliente-atributo-valor>
+    <app-cliente-atributo-valor (emitAtributoFuncionalVariedadValor)="elegirAtributoFuncionalVariedadValor($event)" [atributoFuncionalVariedad]="atributoFuncionalVariedad"></app-cliente-atributo-valor>
+  </div>
+
+  <div class="tab-pane fade" id="filtroTab-pane" role="tabpanel" aria-labelledby="filtroTab"
+    tabindex="0">
+   ...
+  </div>
+  <div class="tab-pane fade" id="formulaTab-pane" role="tabpanel" aria-labelledby="formulaTab"
+    tabindex="0">
+   ...
+  </div>
+
+  <div class="tab-pane fade" id="resultadosTab-pane" role="tabpanel" aria-labelledby="resultadosTab"
+    tabindex="0">
+   ...
   </div>
 
 </div>

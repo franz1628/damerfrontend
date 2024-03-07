@@ -39,8 +39,27 @@
     }
 
     .selected-row td {
-      background-color: #f0ad4e !important;
+      background-color: #ddd !important;
     }
     td{
       cursor: pointer !important;
+    }
+
+
+    button.nav-link.active {
+        background: #f0ad4e !important;
+        color: white !important;
+    }
+
+    thead.table-success th{
+      background-color: #d9534f !important;
+    }
+
+    .list-group-item.active{
+      background-color: #f0ad4e !important;
+    }
+
+
+    .form-control-sm,.form-select-sm {
+      padding: .3rem 1rem !important;
     }

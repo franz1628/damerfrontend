@@ -26,8 +26,8 @@
                         <td>  <app-badge-estado [estado]="model.estado"></app-badge-estado> </td>
                         <td>{{model.fechaRegistro.toString().slice(0,10)}}</td>
                         <td>
-                            <button class="btn btn-sm btn-info" (click)="selectEdit(model)"><i class="bi bi-pencil"></i> Editar</button>
-                            <button class="btn btn-sm btn-danger" (click)="borrar(model)"><i class="bi bi-trash"></i> Suspender</button>
+                            <button class="btn btn-sm btn-info" (click)="selectEdit(model)"><i class="bi bi-pencil btn-sm"></i> </button>
+                            <button class="btn btn-sm btn-danger" (click)="borrar(model)"><i class="bi bi-trash btn-sm"></i> </button>
                         </td>
                     </tr>
                 }

@@ -5,6 +5,12 @@ import { Response } from '../../../../shared/interfaces/response.interface';
 import { Zona } from '../interfaces/zona.interface';
 import { environments } from '../../../../../environments/environments';
 
+export interface ResponseZona {
+  data: Zona[],
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +25,10 @@ export class ZonaService {
 
   getId(id: number): Observable<Zona|undefined> {
     return this.http.get<Zona>(`${this.apiUrl}/${id}`).pipe(catchError(error=>of(undefined)));
+  }
+
+  postDescripcion(descripcion: string): Observable<ResponseZona> {
+    return this.http.post<ResponseZona>(`${this.apiUrl}/descripcion`, {descripcion});
   }
 
   add(model: Zona): Observable<Zona> {
