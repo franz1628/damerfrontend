@@ -19,9 +19,10 @@ import { ClienteZonaFormComponent } from './cliente-zona-form/cliente-zona-form.
 import { ClienteFormulaComponent } from './cliente-formula/cliente-formula.component';
 import { ClienteAtributoFuncionalComponent } from './cliente-atributo-funcional/cliente-atributo-funcional.component';
 import { ClienteAtributoValorComponent } from './cliente-atributo-valor/cliente-atributo-valor.component';
+import { ClienteAtributoFormulaComponent } from './cliente-atributo-formula/cliente-atributo-formula.component';
 
 @NgModule({
-  declarations: [ClienteComponent, ClienteFormComponent, ClienteListComponent, ClienteDireccionFormComponent, ClienteDireccionListComponent, ClienteContactoListComponent, ClienteContactoFormComponent, ClienteCategoriaListComponent, ClienteCategoriaFormComponent, ClienteCanalListComponent, ClienteCanalFormComponent, ClienteZonaListComponent, ClienteZonaFormComponent, ClienteFormulaComponent, ClienteAtributoFuncionalComponent, ClienteAtributoValorComponent],
+  declarations: [ClienteComponent, ClienteFormComponent, ClienteListComponent, ClienteDireccionFormComponent, ClienteDireccionListComponent, ClienteContactoListComponent, ClienteContactoFormComponent, ClienteCategoriaListComponent, ClienteCategoriaFormComponent, ClienteCanalListComponent, ClienteCanalFormComponent, ClienteZonaListComponent, ClienteZonaFormComponent, ClienteFormulaComponent, ClienteAtributoFuncionalComponent, ClienteAtributoValorComponent, ClienteAtributoFormulaComponent],
   imports: [
 
     CommonModule,
