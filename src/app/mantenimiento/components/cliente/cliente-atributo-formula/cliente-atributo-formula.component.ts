@@ -4,6 +4,8 @@ import { CategoriaAtributoTecnicoService } from '../../variedades/services/categ
 import { CategoriaAtributoTecnico, CategoriaAtributoTecnicoInit } from '../../variedades/interfaces/categoriaAtributoTecnico';
 import { CategoriaAtributoTecnicoValor } from '../../variedades/interfaces/categoriaAtributoTecnicoValor';
 import { CategoriaAtributoTecnicoValorService } from '../../variedades/services/categoriaAtributoTecnicoValor.service';
+import { AtributoFuncionalVariedadValor, AtributoFuncionalVariedadValorInit } from '../../../interface/atributoFuncionalVariedadValor';
+import { AtributoFuncionalVariedadValorValorService } from '../../../service/atributoFuncionalVariedadValorValor';
 
 @Component({
   selector: 'app-cliente-atributo-formula',
@@ -11,16 +13,20 @@ import { CategoriaAtributoTecnicoValorService } from '../../variedades/services/
 })
 export class ClienteAtributoFormulaComponent implements OnChanges,OnInit{
 
+
   @Input() atributoFuncionalVariedad:AtributoFuncionalVariedad=AtributoFuncionalVariedadInit
+  @Input() atributoFuncionalVariedadValor:AtributoFuncionalVariedadValor=AtributoFuncionalVariedadValorInit
   categoriaAtributoTecnicos:CategoriaAtributoTecnico[] = []
   categoriaAtributoTecnicoValors:CategoriaAtributoTecnicoValor[] = []
- 
+  checkboxSeleccionados: number[] = []; 
+
 
   constructor(
     private serviceCategoriaAtributoTecnico:CategoriaAtributoTecnicoService,
-    private serviceCategoriaAtributoTecnicoValors : CategoriaAtributoTecnicoValorService
+    private serviceCategoriaAtributoTecnicoValors : CategoriaAtributoTecnicoValorService,
+    private serviceAtributoFuncionalVariedadValorValor:AtributoFuncionalVariedadValorValorService
   ){}
-
+ 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['atributoFuncionalVariedad'] && !changes['atributoFuncionalVariedad'].firstChange) {
       this.loadChanges();
@@ -31,8 +37,7 @@ export class ClienteAtributoFormulaComponent implements OnChanges,OnInit{
   } 
 
   loadChanges(): void{
-    console.log(this.atributoFuncionalVariedad);
-    
+ 
     this.serviceCategoriaAtributoTecnico.postIdCategoria(this.atributoFuncionalVariedad.idCategoria).subscribe(x=>{
       this.categoriaAtributoTecnicos = x
 
@@ -47,6 +52,29 @@ export class ClienteAtributoFormulaComponent implements OnChanges,OnInit{
       
     })
     
+  } 
+
+  enviar() {
+    this.serviceAtributoFuncionalVariedadValorValor.postEnviarAtributos(this.atributoFuncionalVariedadValor.id,this.checkboxSeleccionados).subscribe(x=>{
+      console.log(x);
+      
+    })
+  }
+
+  onCheckboxChange(value: number, event: Event) {
+    const isChecked = (event.target as HTMLInputElement).checked
+    if (isChecked) {
+      const index = this.checkboxSeleccionados.indexOf(value);
+      if (index == -1) {
+        this.checkboxSeleccionados.push(value);
+      }
+    } else {
+      const index = this.checkboxSeleccionados.indexOf(value);
+
+      if (index >= 0) {
+            this.checkboxSeleccionados.splice(index, 1);
+      }
+    }
   }
 
 }
