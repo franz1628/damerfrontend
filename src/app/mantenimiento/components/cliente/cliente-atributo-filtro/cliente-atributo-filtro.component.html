@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <form [formGroup]="models">
       <div formArrayName="modelos">
         <table class="table text-center table-sm">
@@ -8,7 +8,7 @@
               <th>Item</th>
               <th>Valor 1 </th>
 
-              <th>Condicion</th>
+              <!-- <th>Condicion</th> -->
               <th>Valor2</th>
               <th>Acciones</th>
             </tr>
@@ -22,8 +22,10 @@
 
               <td>
 
-                <select class="form-select form-select-sm" formControlName="valor1">
+                <select class="form-select form-select-sm" formControlName="valor1" (change)="eligeValor($event)">
                   <option value="0">SELECCIONAR</option>
+                  <option value="-1">SKU</option>
+                  <option value="-2">SKU PADRE</option>
                   @for (atr of categoriaAtributoTecnicos; track $index) {
                   <option value={{atr.AtributoTecnicoVariedad.id}}>{{atr.AtributoTecnicoVariedad.descripcion}}</option>
                   }
@@ -33,7 +35,7 @@
    
               </td>
 
-              <td>
+              <!-- <td>
                 <select class="form-select form-select-sm" formControlName="condicion">
                     <option value="0">SELECCIONAR</option>
                     <option value="1">&gt;</option>
@@ -43,20 +45,51 @@
                     <option value="5">=</option>
                 </select>
               
-              </td>
+              </td> -->
 
               <td>
-                <select class="form-select form-select-sm" formControlName="valor2">
-                  <option value="0">SELECCIONAR</option>
-                  @for (atr of categoriaAtributoTecnicos; track $index) {
-                  <option value={{atr.AtributoTecnicoVariedad.id}}>{{atr.AtributoTecnicoVariedad.descripcion}}</option>
-                  }
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton{{$index}}" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  Selecciona opciones
+                </button>
+                <ul class="dropdown-menu"  [attr.aria-labelledby]="'dropdownMenuButton' + $index">
+                  <li>
+                    
 
-                </select>
+                      @if(model.get('valor1')?.value>0){
+                   
+                        @for (atr of atributosTecnicoVariedadValorsEl; track $index) {
+                     
+    
+                        <div class="form-check m-1">
+                          <input class="form-check-input" type="checkbox" value={{atr.id}} id="f{{atr.id}}{{$index}}">
+                          <label class="form-check-label" for="f{{atr.id}}{{$index}}">
+                            {{atr.valor}}
+                          </label>
+                        </div>
+
+                      
+                        }
+                      }@else if(model.get('valor1')?.value==0){
+                        
+                      }@else{
+                        @for (sku of skusEl; track $index) {
+                         
+    
+                          <div class="form-check m-1">
+                            <input class="form-check-input" type="checkbox" value={{sku.id}} id="fl{{sku.id}}{{$index}}">
+                            <label class="form-check-label" for="fl{{sku.id}}{{$index}}">
+                              {{sku.id + ' - ' + sku.descripcion}}
+                            </label>
+                          </div>
+                          
+                        }
+                       
+                      }
+
+                  </li>
+                </ul>
+ 
               </td>
-
-
-
 
               <td>
                 <div class="btn-group">

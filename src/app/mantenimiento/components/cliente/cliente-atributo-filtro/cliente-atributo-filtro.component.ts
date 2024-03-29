@@ -12,6 +12,11 @@ import { CategoriaAtributoTecnico } from '../../variedades/interfaces/categoriaA
 import { AtributoFuncionalVariedadValor, AtributoFuncionalVariedadValorInit } from '../../../interface/atributoFuncionalVariedadValor';
 import { ClienteFiltroService } from '../../../service/clienteFiltro';
 import { AtributoTecnicoVariedadService } from '../../../service/atributoTecnicoVariedad';
+import { AtributoTecnicoVariedad } from '../../../interface/atributoTecnicoVariedad';
+import { AtributoTecnicoVariedadValor } from '../../../interface/atributoTecnicoVariedadValor';
+import { AtributoTecnicoVariedadValorService } from '../../../service/atributoTecnicoVariedadValor';
+import { SkuService } from '../../variedades/services/sku.service';
+import { Sku } from '../../variedades/interfaces/sku.interface';
 
 @Component({
   selector: 'app-cliente-atributo-filtro',
@@ -19,13 +24,19 @@ import { AtributoTecnicoVariedadService } from '../../../service/atributoTecnico
 })
 export class ClienteAtributoFiltroComponent {
 
+
   @Input()
   atributoFuncionalVariedadValor :AtributoFuncionalVariedadValor = AtributoFuncionalVariedadValorInit
 
   @Input() atributoFuncionalVariedad:AtributoFuncionalVariedad=AtributoFuncionalVariedadInit
   categoriaAtributoTecnicos:CategoriaAtributoTecnico[] = []
   categoriaAtributoTecnicoValors:CategoriaAtributoTecnicoValor[] = []
+
+  atributosTecnicoVariedadValorsEl:AtributoTecnicoVariedadValor[] = []
+  skusEl:Sku[] = []
+
   selectIndex:number=-1
+  selectValor:number = 0
 
   showLoading: boolean = false;
   idCategoriaAtributoTecnico=0;
@@ -40,6 +51,8 @@ export class ClienteAtributoFiltroComponent {
     private service : ClienteFiltroService,
     private serviceCategoriaAtributoTecnico:CategoriaAtributoTecnicoService,
     private serviceCategoriaAtributoTecnicoValors : CategoriaAtributoTecnicoValorService,
+    private serviceAtributoTecnicoVariedadValor: AtributoTecnicoVariedadValorService,
+    private serviceSkuService : SkuService,
     private fb: FormBuilder,
     private alert: AlertService
   ) {
@@ -89,7 +102,7 @@ export class ClienteAtributoFiltroComponent {
   
             this.modelosArray.push(nuevoModelo);
           });
-  
+   
           if(atributoFuncionales.length==0){
             this.add();
           }
@@ -110,11 +123,30 @@ export class ClienteAtributoFiltroComponent {
       condicion :[0],
       valor2 :[0],
     });
-
+ 
     this.modelosArray.push(nuevoModelo);
   }
 
+  eligeValor(e: Event) {
+    const valor = (e.target as HTMLInputElement).value
+    this.selectValor = parseInt(valor)
 
+    if(valor=="-1"){//SKU 
+      console.log(this.atributoFuncionalVariedad);
+      this.serviceSkuService.getByCategoria(this.atributoFuncionalVariedad.idCategoria).subscribe(x=>{
+        this.skusEl = x.data
+       
+         
+      })
+    }else if(valor=="-2"){//SKU PADRE
+      
+    }else{ // Atributos tecnicos
+      this.serviceAtributoTecnicoVariedadValor.postIdAtributoTecnicoVariedad(this.selectValor).subscribe(x=>{
+        this.atributosTecnicoVariedadValorsEl = x
+      })
+    }
+
+  }
 
 
   get getModel() {
@@ -140,7 +172,7 @@ export class ClienteAtributoFiltroComponent {
   elegir(index: number) {
     const modelo = this.modelosArray.controls[index].getRawValue();
     this.selectIndex=index
-    this.atributoFuncionalVariedad = modelo; 
+    //this.atributoFuncionalVariedad = modelo; 
   }
 
 
