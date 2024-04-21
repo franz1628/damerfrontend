@@ -4,6 +4,7 @@ import { Observable} from 'rxjs';
 import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
 import { ClienteFiltro } from '../interface/clienteFiltro';
+import { ResponseSku } from '../components/variedades/services/sku.service';
 
 export interface ResponseClienteFiltro {
   data: ClienteFiltro[],
@@ -36,6 +37,14 @@ export class ClienteFiltroService {
 
   postIdAtributoFuncionalVariedadValor(idAtributoFuncionalVariedadValor: number): Observable<ResponseClienteFiltro> {
     return this.http.post<ResponseClienteFiltro>(`${this.apiUrl}/idAtributoFuncionalVariedadValor`, {idAtributoFuncionalVariedadValor});
+  }
+
+  postCargaResultados(idAtributoFuncionalVariedadValor: number): Observable<ResponseClienteFiltro> {
+    return this.http.post<ResponseClienteFiltro>(`${this.apiUrl}/cargaResultados`, {idAtributoFuncionalVariedadValor});
+  }
+ 
+  postResultados(idAtributoFuncionalVariedadValor: number): Observable<ResponseSku> {
+    return this.http.post<ResponseSku>(`${this.apiUrl}/postResultados`, {idAtributoFuncionalVariedadValor});
   }
 
   update(id: number, model: ClienteFiltro): Observable<Response> {

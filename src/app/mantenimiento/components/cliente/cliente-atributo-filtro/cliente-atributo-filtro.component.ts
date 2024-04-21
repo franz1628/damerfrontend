@@ -24,7 +24,6 @@ import { Sku } from '../../variedades/interfaces/sku.interface';
 })
 export class ClienteAtributoFiltroComponent {
 
-
   @Input()
   atributoFuncionalVariedadValor :AtributoFuncionalVariedadValor = AtributoFuncionalVariedadValorInit
 
@@ -32,8 +31,9 @@ export class ClienteAtributoFiltroComponent {
   categoriaAtributoTecnicos:CategoriaAtributoTecnico[] = []
   categoriaAtributoTecnicoValors:CategoriaAtributoTecnicoValor[] = []
 
-  atributosTecnicoVariedadValorsEl:AtributoTecnicoVariedadValor[] = []
-  skusEl:Sku[] = []
+  atributosTecnicoVariedadValorsEl:AtributoTecnicoVariedadValor[][] = []
+  skusEl:Sku[][] = []
+  condicion:boolean[] = []
 
   selectIndex:number=-1
   selectValor:number = 0
@@ -82,25 +82,45 @@ export class ClienteAtributoFiltroComponent {
     forkJoin( 
       {
         service  : this.service.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id),
-        serviceCategoriaAtributoTecnico: this.serviceCategoriaAtributoTecnico.postIdCategoria(this.atributoFuncionalVariedad.idCategoria)
-
+        serviceCategoriaAtributoTecnico: this.serviceCategoriaAtributoTecnico.postIdCategoria(this.atributoFuncionalVariedad.idCategoria),
+        serviceSkuService:this.serviceSkuService.getByCategoria(this.atributoFuncionalVariedad.idCategoria),
+        serviceAtributoTecnicoVariedadValor:this.serviceAtributoTecnicoVariedadValor.postIdAtributoTecnicoVariedad(this.selectValor)
       }
       ).subscribe({
         next:value => {
           this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico
 
           const atributoFuncionales = value.service.data;
+         
           
-          atributoFuncionales.forEach(model => {
+          atributoFuncionales.forEach((model,ind) => {
+            if(model.idAtributoTecnicoVariedad!=0){
+              this.atributosTecnicoVariedadValorsEl[ind] = value.serviceAtributoTecnicoVariedadValor
+            }else{
+              this.skusEl[ind] = value.serviceSkuService.data
+            }
+
+            if(model.idCondicion==0){
+              this.condicion[ind] = false
+            }else{
+              this.condicion[ind] = true
+            }
+            
             const nuevoModelo = this.fb.group({
               id: [model.id], 
               idAtributoFuncionalVariedadValor: [model.idAtributoFuncionalVariedadValor],
-              valor1 :[model.valor1],
-              condicion :[model.condicion],
-              valor2 :[model.valor2],
+              valor2 : [model.valor2],
+              idClienteTipoValor: [model.idClienteTipoValor], 
+              idAtributoTecnicoVariedad: [model.idAtributoTecnicoVariedad], 
+              idCondicion: [model.idCondicion],
+              valorCondicion:[model.valorCondicion]
             });
   
             this.modelosArray.push(nuevoModelo);
+
+
+            //agregando combos
+            //Carga resultados
           });
    
           if(atributoFuncionales.length==0){
@@ -119,33 +139,47 @@ export class ClienteAtributoFiltroComponent {
     const nuevoModelo = this.fb.group({
       id: [0],
       idAtributoFuncionalVariedadValor: [this.atributoFuncionalVariedadValor.id],
-      valor1 :[0],
-      condicion :[0],
-      valor2 :[0],
+      valor2 : [''],
+      idClienteTipoValor: [0], 
+      idAtributoTecnicoVariedad: [0], 
+      idCondicion: [0],
+      valorCondicion: ['']
     });
  
     this.modelosArray.push(nuevoModelo);
   }
 
-  eligeValor(e: Event) {
+  eligeVariable(e: Event,ind:number) {
     const valor = (e.target as HTMLInputElement).value
     this.selectValor = parseInt(valor)
+    this.atributosTecnicoVariedadValorsEl[ind] = []
 
-    if(valor=="-1"){//SKU 
-      console.log(this.atributoFuncionalVariedad);
+    if(valor=="1"){//SKU 
       this.serviceSkuService.getByCategoria(this.atributoFuncionalVariedad.idCategoria).subscribe(x=>{
-        this.skusEl = x.data
-       
-         
-      })
-    }else if(valor=="-2"){//SKU PADRE
+        this.skusEl[ind] = x.data
+      }) 
+    }else if(valor=="2"){//SKU PADRE
       
-    }else{ // Atributos tecnicos
-      this.serviceAtributoTecnicoVariedadValor.postIdAtributoTecnicoVariedad(this.selectValor).subscribe(x=>{
-        this.atributosTecnicoVariedadValorsEl = x
-      })
     }
 
+  }
+
+  eligeAtributo(e: Event,ind:number) {
+    const valor = (e.target as HTMLInputElement).value
+    this.selectValor = parseInt(valor)
+    this.skusEl[ind] = []
+
+    this.serviceAtributoTecnicoVariedadValor.postIdAtributoTecnicoVariedad(this.selectValor).subscribe(x=>{
+      this.atributosTecnicoVariedadValorsEl[ind] = x
+    })
+  }
+
+  cambiarCondicion(e: Event,ind:number) {
+    const valor = (e.target as HTMLInputElement).value
+    
+    if(valor!="0"){
+
+    }
   }
 
 
@@ -160,7 +194,7 @@ export class ClienteAtributoFiltroComponent {
   editModel(index: number) {
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
       const modelo = this.modelosArray.controls[index].getRawValue();
-      this.atributoFuncionalVariedad = modelo; 
+      //this.atributoFuncionalVariedad = modelo; 
       this.service.update(modelo.id, modelo).subscribe(x => {
 
         this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
@@ -175,9 +209,63 @@ export class ClienteAtributoFiltroComponent {
     //this.atributoFuncionalVariedad = modelo; 
   }
 
+  clickAtributo(fila: number,atributo: number,e:Event) {
+    const checked = (e.target as HTMLInputElement).checked
+    let atributos = ''
+    if(this.modelosArray.at(fila).get('valor2')?.value){
+      atributos = this.modelosArray.at(fila).get('valor2')?.value
+    }
+
+    const arrayAtributos = atributos?atributos.split(','):[];
+
+    if(arrayAtributos.indexOf(atributo.toString())!=-1){
+      const indice = arrayAtributos.indexOf(atributo.toString())
+      arrayAtributos.splice(indice,1)
+
+    }else{
+      arrayAtributos.push(atributo.toString());
+    }
+
+    const nuevoValor = arrayAtributos.join(',');
+
+    this.modelosArray.at(fila).value.valor2 = nuevoValor
+  }
+    
+  clickVariable(fila: number,atributo: number,e:Event) {
+    const checked = (e.target as HTMLInputElement).checked
+    let atributos = ''
+   
+    
+    if(this.modelosArray.at(fila).get('valor2')?.value!=''){
+      atributos = this.modelosArray.at(fila).get('valor2')?.value
+    }
+    
+    
+    let arrayAtributos = atributos!=''?atributos.split(','):[];
+ 
+   
+    
+
+    if(arrayAtributos.indexOf(atributo.toString())!=-1){
+      const indice = arrayAtributos.indexOf(atributo.toString())
+      arrayAtributos.splice(indice,1)
+
+    }else{
+      arrayAtributos.push(atributo.toString());
+    }
+   
+   
+    const nuevoValor = arrayAtributos.join(',');
+
+    this.modelosArray.at(fila).patchValue({'valor2':nuevoValor})
+    
+    
+  }
 
   async save(num: number): Promise<void> {
     const modelo = this.modelosArray.at(num).value;
+   
+
     this.showLoading = true;
 
     try {

@@ -323,8 +323,6 @@ export class ContratoArbolComponent implements OnInit {
 
   guardar() {
 
-    console.log(this.contratoForm);return;
-    
 
     const contratoDetalle: ContratoDetalle[] = [];
 

@@ -6,10 +6,19 @@ import { Response } from '../../../../shared/interfaces/response.interface';
 import { Categoria } from '../interfaces/categoria.interface';
 import { Sku } from '../interfaces/sku.interface';
 
+export interface ResponseSku {
+
+  data: Sku[],
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class SkuService {
+
+  
   private apiUrl = environments.baseUrl+'api/sku'; 
 
   constructor(private http: HttpClient) {}

@@ -1,65 +1,81 @@
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.table-sm> :not(caption)>*>* {
+  padding: 0.25rem 0.25rem;
+  font-size: 11px;
+}
+
+.table-sm .form-control-sm {
+ 
+  font-size: 11px !important;
+}
+
+.table-sm .btn-sm {
+  padding: 0.1rem 0.2rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.input-group span {
+  display: flex;
+  align-items: center;
+  padding: .2rem .5rem;
+  /* Ajusta el padding para hacerlo más pequeño */
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  /* Ajusta el tamaño del texto */
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: .2rem;
+  /* Ajusta el radio del borde para que se vea más compacto */
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  /* 14px */
+  line-height: 1.5;
+}
+
+.input-group-text {
+  background: white !important;
+  border-bottom: 1px solid #c6bebe !important;
+}
+
+.selected-row td {
+  background-color: #ddd !important;
+}
+
+td {
+  cursor: pointer !important;
+}
 
 
-    footer {
-      background-color: #343a40;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
+button.nav-link.active {
+  background: #f0ad4e !important;
+  color: white !important;
+}
 
-    .table-sm > :not(caption) > * > * {
-        padding: 0.25rem 0.25rem;
-      }
+thead.table-success th {
+  background-color: #d9534f !important;
+}
 
-      .input-group span {
-        display: flex;
-        align-items: center;
-        padding: .2rem .5rem; /* Ajusta el padding para hacerlo más pequeño */
-        margin-bottom: 0;
-        font-size: 0.8rem; /* Ajusta el tamaño del texto */
-        font-weight: 400;
-        line-height: 1.5;
-        color: #495057;
-        text-align: center;
-        white-space: nowrap;
-        background-color: #e9ecef;
-        border: 1px solid #ced4da;
-        border-radius: .2rem; /* Ajusta el radio del borde para que se vea más compacto */
-      }
-
-      .btn-sm {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.875rem; /* 14px */
-        line-height: 1.5;
-    }
-
-    .input-group-text {
-      background: white !important;
-      border-bottom: 1px solid #c6bebe !important;
-    }
-
-    .selected-row td {
-      background-color: #ddd !important;
-    }
-    td{
-      cursor: pointer !important;
-    }
+.list-group-item.active {
+  background-color: #f0ad4e !important;
+}
 
 
-    button.nav-link.active {
-        background: #f0ad4e !important;
-        color: white !important;
-    }
-
-    thead.table-success th{
-      background-color: #d9534f !important;
-    }
-
-    .list-group-item.active{
-      background-color: #f0ad4e !important;
-    }
-
-
-    .form-control-sm,.form-select-sm {
-      padding: .3rem 1rem !important;
-    }
+.form-control-sm,
+.form-select-sm {
+  padding: .3rem 1rem !important;
+}

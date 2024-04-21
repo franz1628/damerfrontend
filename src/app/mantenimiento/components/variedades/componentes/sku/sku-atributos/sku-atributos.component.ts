@@ -13,6 +13,8 @@ import { SkuAtributoTecnicoVariedadValorService } from '../../../../../service/s
 import { AtributoTecnicoVariedad } from '../../../../../interface/atributoTecnicoVariedad';
 import { CategoriaAtributoTecnicoService } from '../../../services/categoriaAtributoTecnico.service';
 import { CategoriaAtributoTecnico } from '../../../interfaces/categoriaAtributoTecnico';
+import { CategoriaAtributoTecnicoValor } from '../../../interfaces/categoriaAtributoTecnicoValor';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sku-atributos',
@@ -75,6 +77,9 @@ export class SkuAtributosComponent {
 
           
           this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico
+
+          console.log(this.categoriaAtributoTecnicos);
+          
           this.tipoUnidadMedidas = value.serviceTipoUnidadMedida.data
           this.unidadMedidas = value.serviceUnidadMedida.data
 
@@ -124,12 +129,18 @@ export class SkuAtributosComponent {
   }
 
   getAtributos(idAtributoTecnicoVariedad:number){
-    return this.categoriaAtributoTecnicos.filter(x=>x.idAtributoTecnicoVariedad == idAtributoTecnicoVariedad)[0].AtributoTecnicoVariedad.descripcion
+    const atri = this.categoriaAtributoTecnicos?.filter(x=>x.idAtributoTecnicoVariedad == idAtributoTecnicoVariedad);
+
+    
+    if(atri.length!=0) 
+      return atri[0].AtributoTecnicoVariedad.descripcion
+    else return []
+ //   return this.categoriaAtributoTecnicos?.filter(x=>x.idAtributoTecnicoVariedad == idAtributoTecnicoVariedad)[0].AtributoTecnicoVariedad.descripcion
   }
 
-  getAtributosValor(idAtributoTecnicoVariedad:number){
-    const atr:AtributoTecnicoVariedad =  this.categoriaAtributoTecnicos.filter(x=>x.idAtributoTecnicoVariedad == idAtributoTecnicoVariedad)[0].AtributoTecnicoVariedad;
-    return atr.AtributoTecnicoVariedadValor
+  getAtributosValor(idAtributoTecnicoVariedad:number):CategoriaAtributoTecnicoValor[]{
+    const atr =  this.categoriaAtributoTecnicos.filter(x=>x.idAtributoTecnicoVariedad == idAtributoTecnicoVariedad)[0].CategoriaAtributoTecnicoValor || [];
+    return atr;
   }
 
   editModel(num: number) {
@@ -143,7 +154,7 @@ export class SkuAtributosComponent {
     })
 
   }
-
+ 
   add() {
     const nuevoModelo = this.fb.group({
       id: [0],
@@ -163,6 +174,12 @@ export class SkuAtributosComponent {
 
   async save(num: number): Promise<void> {
     const modelo = this.modelosArray.at(num).value;
+
+    if(modelo.idSku==0){
+      this.alert.showAlert('Advertencia','Debe escoger un SKU','warning');
+      return;
+    }
+    
     this.showLoading = true;
 
     try {
@@ -179,6 +196,13 @@ export class SkuAtributosComponent {
   async delete(num: number) {
     this.alert.showAlertConfirm('Advertencia', '¿Está seguro de eliminar?', 'warning', async () => {
       const modelo = this.modelosArray.at(num).value;
+
+      if(modelo.idSku==0){
+        this.alert.showAlert('Advertencia','Debe escoger un SKU','warning');
+        return;
+      }
+    
+      
       this.showLoading = true;
 
       try {

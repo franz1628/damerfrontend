@@ -1,18 +1,39 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AlertService } from '../../../../../../shared/services/alert.service';
 import { SkuService } from '../../../services/sku.service';
 import { Sku } from '../../../interfaces/sku.interface';
 import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
 import { Canasta } from '../../../interfaces/canasta.interface';
+import { CategoriaService } from '../../../services/categoria.service';
 
 @Component({
   selector: 'app-sku-list',
   templateUrl: './sku-list.component.html'
 })
-export class SkuListComponent {
+export class SkuListComponent implements OnChanges{
   public showLoading: boolean = false;
-  constructor(public alert: AlertService, public service: SkuService) {
+  @Input() idCategoria=0
+
+  constructor(
+    private alert: AlertService, 
+    private service: SkuService,
+    private serviceCategoria : CategoriaService
+    ) {
     
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    
+    if(changes["idCategoria"]){
+      this.load()    
+    }
+  }
+
+  load(){
+    this.service.getByCategoria(this.idCategoria).subscribe(resp=>{
+      this.models = resp.data;
+    })
   }
 
   @Input()

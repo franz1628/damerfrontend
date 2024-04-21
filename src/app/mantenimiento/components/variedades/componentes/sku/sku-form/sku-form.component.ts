@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Sku, SkuInit } from '../../../interfaces/sku.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Canasta } from '../../../interfaces/canasta.interface';
-import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
-import { Categoria } from '../../../interfaces/categoria.interface';
+import { Canasta, CanastaInit } from '../../../interfaces/canasta.interface';
+import { MegaCategoria, MegaCategoriaInit } from '../../../interfaces/megaCategoria.interface';
+import { Categoria, CategoriaInit } from '../../../interfaces/categoria.interface';
 import { AlertService } from '../../../../../../shared/services/alert.service';
 import { ValidFormService } from '../../../../../../shared/services/validForm.service';
 import { CategoriaService } from '../../../services/categoria.service';
@@ -15,9 +15,10 @@ import { MegaCategoriaService } from '../../../services/megaCategoria.service';
   selector: 'app-sku-form',
   templateUrl: './sku-form.component.html'
 })
-export class SkuFormComponent {
-  @Input()
-  public model: Sku = SkuInit;
+export class SkuFormComponent implements OnChanges{
+  @Input() model: Sku = SkuInit;
+  @Input() idCategoria:number=0
+
   public showLoading: boolean = false;
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   @Output() editEmit: EventEmitter<Sku> = new EventEmitter();
@@ -53,16 +54,19 @@ export class SkuFormComponent {
     private megaCategoriaService: MegaCategoriaService,
     private categoriaService: CategoriaService,
     ) {
-      this.canastaService.get().subscribe(resp => { this.listCanasta = resp.data });
+      /*this.canastaService.get().subscribe(resp => { this.listCanasta = resp.data });
       this.megaCategoriaService.get().subscribe(resp => { this.listMegaCategoria = resp.data });
-      this.categoriaService.get().subscribe(resp => { this.listCategoria = resp.data });
+      this.categoriaService.get().subscribe(resp => { this.listCategoria = resp.data });*/
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes["idCategoria"]){
+
+    }
   }
 
   ngOnInit() {
     this.showLoading = true
-    this.myForm.get('idCanasta')?.disable();
-    this.myForm.get('idMegaCategoria')?.disable();
-    this.myForm.get('idCategoria')?.disable();
+
   }
 
   get currentModel() {
@@ -80,9 +84,9 @@ export class SkuFormComponent {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
-        this.myForm.patchValue(SkuInit);
+        this.myForm.patchValue({id:0,descripcion:'',descripcionResumida:'',tip:''});
         this.myForm.clearValidators();
-        this.myForm.reset();
+  
       });
     } else {
       this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
@@ -94,10 +98,21 @@ export class SkuFormComponent {
   }
 
   setByCategoria(idCanasta: number,idMegaCategoria:number,idCategoria:number) {
+   
+    this.canastaService.postId(idCanasta).subscribe(x=>{this.model.Canasta = x||CanastaInit; this.model.idCanasta=idCanasta})
+    this.megaCategoriaService.postId(idMegaCategoria).subscribe(x=>{this.model.MegaCategoria = x||MegaCategoriaInit; this.model.idMegaCategoria = idMegaCategoria})
+    this.categoriaService.postId(idCategoria).subscribe(x=>{this.model.Categoria = x || CategoriaInit; this.model.idCategoria = idCategoria})
+
+    
+    
     this.myForm.patchValue({ idCanasta: idCanasta, idMegaCategoria : idMegaCategoria, idCategoria:idCategoria });
+
+
   }
 
   setModel(model: Sku) {
+
+    
     this.myForm.patchValue(model);
   }
 

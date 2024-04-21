@@ -1,4 +1,5 @@
 import { AtributoTecnicoVariedad, AtributoTecnicoVariedadInit } from "../../../interface/atributoTecnicoVariedad";
+import { CategoriaAtributoTecnicoValor } from "./categoriaAtributoTecnicoValor";
 
 export interface CategoriaAtributoTecnico {
     id:number,
@@ -11,6 +12,7 @@ export interface CategoriaAtributoTecnico {
     estado: number,
     fechaRegistro: Date,
     AtributoTecnicoVariedad:AtributoTecnicoVariedad
+    CategoriaAtributoTecnicoValor:CategoriaAtributoTecnicoValor[]
 }
 
 export const CategoriaAtributoTecnicoInit: CategoriaAtributoTecnico = {
@@ -24,4 +26,5 @@ export const CategoriaAtributoTecnicoInit: CategoriaAtributoTecnico = {
     estado: 1,
     fechaRegistro: new Date(),
     AtributoTecnicoVariedad: AtributoTecnicoVariedadInit,
+    CategoriaAtributoTecnicoValor:[]
 };

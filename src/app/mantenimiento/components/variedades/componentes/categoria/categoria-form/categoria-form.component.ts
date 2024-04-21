@@ -57,8 +57,7 @@ export class CategoriaFormComponent {
 
   ngOnInit() {
     this.showLoading = true
-    this.myForm.get('idCanasta')?.disable();
-    this.myForm.get('idMegaCategoria')?.disable();
+   
   }
 
   get currentModel() {
@@ -71,7 +70,7 @@ export class CategoriaFormComponent {
       return;
     }
 
-    return
+ 
     
 
     if (!this.currentModel.id) {
@@ -120,7 +119,7 @@ export class CategoriaFormComponent {
   }
 
   elegirCategoriaBusqueda(categoria: Categoria) {
-    this.myForm.patchValue({id:categoria.id});
+    this.myForm.patchValue({id:categoria.id,idMegacategoria:categoria.idMegaCategoria});
     this.buscar();
     this.editEmit.emit(categoria)
 

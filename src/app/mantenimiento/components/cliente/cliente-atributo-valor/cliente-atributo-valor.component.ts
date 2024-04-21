@@ -40,7 +40,7 @@ export class ClienteAtributoValorComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('sdfaf');
+   
     
     if (changes['atributoFuncionalVariedad'] && !changes['atributoFuncionalVariedad'].firstChange) {
       this.loadModels();
@@ -57,8 +57,7 @@ export class ClienteAtributoValorComponent {
       }
       ).subscribe({
         next:value => {
-          console.log(value);
-          
+         
           const models = value.service.data;
 
           models.forEach(model => {

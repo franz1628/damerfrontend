@@ -54,7 +54,7 @@ export class VariedadesComponent{
     this.idCanasta=$event[0];
     this.idMegaCategoria=$event[1];
     this.idCategoria=$event[2];
-    //this.skuComp.get($event[0],$event[1],$event[2]); 
+    this.skuComp.get($event[0]); 
     this.skuComp.skuForm.setByCategoria($event[0],$event[1],$event[2]);
   }
 
@@ -69,7 +69,7 @@ export class VariedadesComponent{
   }
 
   editSku(sku:Sku){
-    console.log(sku);
+
     
     this.idCanasta=sku.idCanasta
     this.idMegaCategoria=sku.idMegaCategoria

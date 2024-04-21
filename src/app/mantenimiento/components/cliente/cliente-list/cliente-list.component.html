@@ -18,7 +18,7 @@
             <tbody>
                 
                 @for (model of models; track $index) {
-                    <tr>
+                    <tr (click)="elegir($index,model)" [ngClass]="{'selected-row': $index === selectIndex}">
                         <td>{{$index+1}}</td>
                         <td>{{model.razonSocial}}</td>
                         <td>{{model.razonSocialAbreviada}}</td>

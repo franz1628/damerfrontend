@@ -33,7 +33,7 @@
                                 <select class="form-select form-select-sm" formControlName="idAtributoTecnicoVariedadValor">
                                     <option value="0">SELECCIONAR</option>
                                     @for (valor of getAtributosValor(model.get('idAtributoTecnicoVariedad')?.value); track $index) {
-                                        <option value={{valor.id}}>{{valor.valor}}</option>
+                                        <option value={{valor.idAtributoTecnicoVariedadValor}}>{{valor.AtributoTecnicoVariedadValor.valor}}</option> 
                                     }
                                 </select>
 

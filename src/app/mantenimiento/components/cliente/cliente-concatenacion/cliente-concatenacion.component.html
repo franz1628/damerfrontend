@@ -1,0 +1,62 @@
+<div class="row mt-4" >
+    <div class="col-md-2">
+        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropValor1"
+        data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            Seleccionar
+        </button>
+
+        <ul class="dropdown-menu" [attr.aria-labelledby]="'dropValor1'">
+            <li>
+
+                <div class="form-check m-1">
+                    <input class="form-check-input" type="checkbox" value="1" id="sku">
+                    <label class="form-check-label" for="sku" >
+                        SKU
+                    </label>
+                </div>
+
+                <div class="form-check m-1">
+                    <input class="form-check-input" type="checkbox" value="2" id="skupadre">
+                    <label class="form-check-label" for="skupadre">
+                        SKUPADRE
+                    </label>
+                </div>
+
+            </li>
+          </ul>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropValor2"
+      data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          Seleccionar
+      </button>
+        <ul class="dropdown-menu" [attr.aria-labelledby]="'dropValor2'">
+            <li>
+
+
+             
+              @for (atr of categoriaAtributoTecnicos; track atr.id) {
+              <div class="form-check m-1">
+                <input class="form-check-input"  type="checkbox"
+                  value={{atr.AtributoTecnicoVariedad.id}} id="f{{atr.AtributoTecnicoVariedad.id}}">
+                <label class="form-check-label" for="f{{atr.AtributoTecnicoVariedad.id}}">
+                  {{atr.AtributoTecnicoVariedad.descripcion}}
+                </label>
+              </div>
+
+
+              }
+              
+
+            </li>
+          </ul>
+    </div>
+
+    <div class="col-md-2">
+      <input type="text" class="form-control form-control-sm" placeholder="separador">
+    </div>
+
+    <div class="col-md-2">
+      <button class="btn btn-success btn-sm"><i class="bi bi-box-arrow-down"></i> Guardar</button>
+    </div>
+</div>

@@ -3,7 +3,7 @@
         <select class="form-select form-select-sm" (change)="changeAtributo($event)">
             <option value="0">SELECCIONAR</option>
             @for (atr of categoriaAtributoTecnicos; track $index) {
-            <option value={{atr.id}}>{{atr.AtributoTecnicoVariedad.descripcion}}</option>
+            <option [selected]="idAtributoTecnicoVariedad==atr.AtributoTecnicoVariedad.id?'selected':''" value={{atr.AtributoTecnicoVariedad.id}}>{{atr.AtributoTecnicoVariedad.descripcion}}</option>
             }
         </select>
     </div>
@@ -18,7 +18,9 @@
         <div class="form-check">
             <input class="form-check-input" type="checkbox" 
                        [value]="atr.idAtributoTecnicoVariedadValor" 
-                       (change)="onCheckboxChange(atr.idAtributoTecnicoVariedadValor, $event)">
+                       (change)="onCheckboxChange(atr.idAtributoTecnicoVariedadValor, $event)"
+                       [checked]="checkboxSeleccionados.indexOf(atr.idAtributoTecnicoVariedadValor)!=-1?true:false"
+                       >
                 <label class="form-check-label">
                     {{ atr.AtributoTecnicoVariedadValor.valor }}
                 </label>

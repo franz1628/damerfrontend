@@ -77,7 +77,7 @@ export class ClienteAtributoFuncionalComponent {
           this.unidadMedidas = value.serviceUnidadMedida.data
 
           const atributoFuncionales = value.service.data;
-          console.log(atributoFuncionales);
+ 
           
           atributoFuncionales.forEach(model => {
             const nuevoModelo = this.fb.group({
@@ -116,6 +116,10 @@ export class ClienteAtributoFuncionalComponent {
 
   get modelosArray() {
     return this.models.get('modelos') as FormArray;
+  }
+
+  verResultados(){
+    
   }
 
   editModel(index: number) {

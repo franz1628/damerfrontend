@@ -1,0 +1,24 @@
+<div class="row mt-4">
+    <div class="col-md-12">
+
+            <table class="table table-sm table-bordered">
+                <thead class="table-success">
+                  <tr>
+                    <th>Codigo Sku</th>
+                    <th>Descripción</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                    @for (sku of skus; track $index) {
+                        <tr>
+                          <td>{{sku.id}}</td>
+                          <td>{{sku.descripcion}}</td>
+                          
+                        </tr>
+                    }
+                </tbody>
+              </table>
+        
+    </div>
+</div>

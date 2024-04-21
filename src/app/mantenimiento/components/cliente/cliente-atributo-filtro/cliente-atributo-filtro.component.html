@@ -5,105 +5,114 @@
         <table class="table text-center table-sm">
           <thead class="table-success fs-6">
             <tr>
-              <th>Item</th>
-              <th>Valor 1 </th>
-
-              <!-- <th>Condicion</th> -->
-              <th>Valor2</th>
+              <th>Id</th>
+              <th>Atributo </th>
+              <th>Variable </th>
+              <th>Condicion</th>
+              <th>Valor</th>
               <th>Acciones</th>
             </tr>
 
           </thead>
           <tbody>
             @if (modelosArray.controls.length!=0) {
-            @for (model of modelosArray.controls; track $index) {
-            <tr [formGroupName]="$index" (click)="elegir($index)" [ngClass]="{'selected-row': $index === selectIndex}">
+            @for (model of modelosArray.controls; track idx;let idx = $index) {
+            <tr [formGroupName]="idx" (click)="elegir(idx)" [ngClass]="{'selected-row': idx === selectIndex}">
               <td> <label class="mt-2">{{model.get('id')?.value}}</label> </td>
+              <td>
+                <select class="form-select form-select-sm" (change)="eligeVariable($event,idx)"
+                  formControlName="idClienteTipoValor">
+                  <option value="0">SELECCIONAR</option>
+                  <option value="1">SKU</option>
+                  <option value="2">SKU PADRE</option>
+
+                </select>
+              </td>
+
 
               <td>
-
-                <select class="form-select form-select-sm" formControlName="valor1" (change)="eligeValor($event)">
+                <select class="form-select form-select-sm" (change)="eligeAtributo($event,idx)"
+                  formControlName="idAtributoTecnicoVariedad">
                   <option value="0">SELECCIONAR</option>
-                  <option value="-1">SKU</option>
-                  <option value="-2">SKU PADRE</option>
                   @for (atr of categoriaAtributoTecnicos; track $index) {
                   <option value={{atr.AtributoTecnicoVariedad.id}}>{{atr.AtributoTecnicoVariedad.descripcion}}</option>
                   }
 
                 </select>
 
-   
+
+              </td>
+              <td>
+                <select class="form-select form-select-sm" formControlName="idCondicion" (change)="cambiarCondicion($event,idx)">
+                  <option value="0">SELECCIONAR</option>
+                  <option value="1">Contiene</option>
+                  <option value="2">Contiene Inicio</option>
+                  <option value="3">Contiene Fin</option>
+
+                </select>
+
               </td>
 
-              <!-- <td>
-                <select class="form-select form-select-sm" formControlName="condicion">
-                    <option value="0">SELECCIONAR</option>
-                    <option value="1">&gt;</option>
-                    <option value="2">&lt;</option>
-                    <option value="3">&le;</option>
-                    <option value="4">&ge;</option>
-                    <option value="5">=</option>
-                </select>
-              
-              </td> -->
 
               <td>
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton{{$index}}" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                  Selecciona opciones
-                </button>
-                <ul class="dropdown-menu"  [attr.aria-labelledby]="'dropdownMenuButton' + $index">
-                  <li>
-                    
 
-                      @if(model.get('valor1')?.value>0){
-                   
-                        @for (atr of atributosTecnicoVariedadValorsEl; track $index) {
-                     
-    
-                        <div class="form-check m-1">
-                          <input class="form-check-input" type="checkbox" value={{atr.id}} id="f{{atr.id}}{{$index}}">
-                          <label class="form-check-label" for="f{{atr.id}}{{$index}}">
-                            {{atr.valor}}
-                          </label>
-                        </div>
+                @if(modelosArray.at(idx).get('idCondicion')?.value==0){
 
-                      
-                        }
-                      }@else if(model.get('valor1')?.value==0){
-                        
-                      }@else{
-                        @for (sku of skusEl; track $index) {
-                         
-    
-                          <div class="form-check m-1">
-                            <input class="form-check-input" type="checkbox" value={{sku.id}} id="fl{{sku.id}}{{$index}}">
-                            <label class="form-check-label" for="fl{{sku.id}}{{$index}}">
-                              {{sku.id + ' - ' + sku.descripcion}}
-                            </label>
-                          </div>
-                          
-                        }
-                       
+                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropValor{{idx}}"
+                    data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                    Seleccionar
+                  </button>
+                  <ul class="dropdown-menu" [attr.aria-labelledby]="'dropValor' + idx">
+                    <li>
+  
+  
+                      @if(modelosArray.at(idx).get('idAtributoTecnicoVariedad')?.value==0){
+                      @for (sku of skusEl[idx]; track sku.id) {
+  
+  
+                      <div class="form-check m-1">
+                        <input class="form-check-input" [checked]="modelosArray.at(idx).get('valor2')?.value.split(',').indexOf(sku.id.toString())==-1?false:true" (click)="clickVariable(idx,sku.id,$event)"type="checkbox" value={{sku.id}} id="fl{{sku.id}}{{idx}}">
+                        <label class="form-check-label" for="fl{{sku.id}}{{idx}}">
+                          {{sku.id + ' - ' + sku.descripcion}}
+                        </label>
+                      </div>
+  
                       }
+                      }@else {
+                      @for (atr of atributosTecnicoVariedadValorsEl[idx]; track atr.id) {
+                      <div class="form-check m-1">
+                        <input class="form-check-input" [checked]="modelosArray.at(idx).get('valor2')?.value.split(',').indexOf(atr.id.toString())==-1?false:true"(click)="clickVariable(idx,atr.id,$event)" type="checkbox"
+                          value={{atr.id}} id="f{{atr.id}}{{idx}}">
+                        <label class="form-check-label" for="f{{atr.id}}{{idx}}">
+                          {{atr.valor}}
+                        </label>
+                      </div>
+  
+  
+                      }
+                      }
+  
+                    </li>
+                  </ul>
+                }@else {
+                  <input type="text" class="form-control form-control-sm" formControlName="valorCondicion">
+                } 
 
-                  </li>
-                </ul>
- 
               </td>
 
               <td>
                 <div class="btn-group">
 
                   @if(model.get('id')?.value!=0){
-                  <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i
+                  <button class="btn btn-sm btn-info btn-sm" (click)="editModel(idx)"><i
                       class="bi bi-pencil"></i></button>
-                  <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i
+                  <button class="btn btn-sm btn-danger btn-sm" (click)="delete(idx)"><i
                       class="bi bi-trash-fill"></i></button>
-                  @if(modelosArray.controls.length==$index+1){
+                  @if(modelosArray.controls.length==idx+1){
                   <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i class="bi bi-plus-lg"></i></button>
                   }
                   }@else{
-                  <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
+                  <button class="btn btn-sm btn-success btn-sm" (click)="save(idx)"><i
                       class="bi bi-save2"></i></button>
                   }
                 </div>

@@ -21,9 +21,12 @@ import { ClienteAtributoFuncionalComponent } from './cliente-atributo-funcional/
 import { ClienteAtributoValorComponent } from './cliente-atributo-valor/cliente-atributo-valor.component';
 import { ClienteAtributoFormulaComponent } from './cliente-atributo-formula/cliente-atributo-formula.component';
 import { ClienteAtributoFiltroComponent } from './cliente-atributo-filtro/cliente-atributo-filtro.component';
+import { ClienteConcatenacionComponent } from './cliente-concatenacion/cliente-concatenacion.component';
+import { ClienteResultadosComponent } from './cliente-resultados/cliente-resultados.component';
+import { ClienteResultadosFiltroComponent } from './cliente-resultados-filtro/cliente-resultados-filtro.component';
 
 @NgModule({
-  declarations: [ClienteComponent, ClienteFormComponent, ClienteListComponent, ClienteDireccionFormComponent, ClienteDireccionListComponent, ClienteContactoListComponent, ClienteContactoFormComponent, ClienteCategoriaListComponent, ClienteCategoriaFormComponent, ClienteCanalListComponent, ClienteCanalFormComponent, ClienteZonaListComponent, ClienteZonaFormComponent, ClienteFormulaComponent, ClienteAtributoFuncionalComponent, ClienteAtributoValorComponent, ClienteAtributoFormulaComponent, ClienteAtributoFiltroComponent],
+  declarations: [ClienteComponent, ClienteFormComponent, ClienteListComponent, ClienteDireccionFormComponent, ClienteDireccionListComponent, ClienteContactoListComponent, ClienteContactoFormComponent, ClienteCategoriaListComponent, ClienteCategoriaFormComponent, ClienteCanalListComponent, ClienteCanalFormComponent, ClienteZonaListComponent, ClienteZonaFormComponent, ClienteFormulaComponent, ClienteAtributoFuncionalComponent, ClienteAtributoValorComponent, ClienteAtributoFormulaComponent, ClienteAtributoFiltroComponent, ClienteConcatenacionComponent, ClienteResultadosComponent, ClienteResultadosFiltroComponent],
   imports: [
 
     CommonModule,

@@ -11,6 +11,9 @@ export class ClienteListComponent {
   public models:Cliente[] = [];    
   public loading:boolean=false;
   @Output() selectEditEmit : EventEmitter<Cliente> = new EventEmitter();
+
+  selectIndex:number=-1
+
  
   constructor(public service : ClienteService, private alert:AlertService){ }
 
@@ -36,5 +39,11 @@ export class ClienteListComponent {
         this.actualizarList();
       })
     })
+  }
+
+  elegir(index: number,model:Cliente) {
+    this.selectIndex=index
+    this.selectEditEmit.emit(model)
+
   }
 }
