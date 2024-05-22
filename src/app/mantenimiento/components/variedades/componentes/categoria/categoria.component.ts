@@ -49,6 +49,10 @@ export class CategoriaComponent {
     this.emitByCategoria.emit([model.idCanasta,model.idMegaCategoria,model.id])
   }
 
+  eligeModel(model: Categoria) {
+    this.emitByCategoria.emit([model.idCanasta,model.idMegaCategoria,model.id])
+  }
+
   selectCategoria(categoria : Categoria){
     this.selectCategoriaEmit.emit(categoria);
   }

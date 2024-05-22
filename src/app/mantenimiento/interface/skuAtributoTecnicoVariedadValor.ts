@@ -1,5 +1,7 @@
 import { Categoria, CategoriaInit } from "../components/variedades/interfaces/categoria.interface";
 import { Sku, SkuInit } from "../components/variedades/interfaces/sku.interface";
+import { AtributoTecnicoVariedad, AtributoTecnicoVariedadInit } from "./atributoTecnicoVariedad";
+import { AtributoTecnicoVariedadValor, AtributoTecnicoVariedadValorInit } from "./atributoTecnicoVariedadValor";
 import { Cliente, ClienteInit } from "./cliente";
 import { TipoUnidadMedida, TipoUnidadMedidaInit } from "./tipoUnidadMedida";
 import { UnidadMedida, UnidadMedidaInit } from "./unidadMedida";
@@ -19,7 +21,9 @@ export interface SkuAtributoTecnicoVariedadValor {
     fechaRegistro: Date,
     Sku: Sku,
     TipoUnidadMedida:TipoUnidadMedida,
-    UnidadMedida:UnidadMedida
+    UnidadMedida:UnidadMedida,
+    AtributoTecnicoVariedad:AtributoTecnicoVariedad,
+    AtributoTecnicoVariedadValor:AtributoTecnicoVariedadValor
 
 }
 export const SkuAtributoTecnicoVariedadValorInit: SkuAtributoTecnicoVariedadValor = {
@@ -37,5 +41,7 @@ export const SkuAtributoTecnicoVariedadValorInit: SkuAtributoTecnicoVariedadValo
     fechaRegistro: new Date(),
     Sku: SkuInit,
     TipoUnidadMedida:TipoUnidadMedidaInit,
-    UnidadMedida:UnidadMedidaInit
+    UnidadMedida:UnidadMedidaInit,
+    AtributoTecnicoVariedad:AtributoTecnicoVariedadInit,
+    AtributoTecnicoVariedadValor:AtributoTecnicoVariedadValorInit
 };

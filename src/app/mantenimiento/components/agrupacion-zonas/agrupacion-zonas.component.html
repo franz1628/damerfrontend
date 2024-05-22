@@ -18,7 +18,7 @@
                     <th>Tipo 2</th>
                     <th>Tipo 3</th>
                     <th>Alias 1</th>
-                    <th></th>
+                    <th>Acción</th>
                 </tr>
   
             </thead>
@@ -59,8 +59,8 @@
                       
             
                       
-                      <td>
-                          <div class="btn-group">
+                      <td class="text-start">
+                          <div class="btn-group ">
   
                               @if(model.get('id')?.value!=0){
                               <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i

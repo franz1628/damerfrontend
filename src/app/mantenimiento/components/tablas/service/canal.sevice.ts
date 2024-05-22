@@ -5,6 +5,13 @@ import { Response } from '../../../../shared/interfaces/response.interface';
 import { Canal } from '../interfaces/canal.interface';
 import { environments } from '../../../../../environments/environments';
 
+export interface ResponseCanal {
+  data: Canal[],
+  state: number,
+  message: string
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +30,10 @@ export class CanalService {
 
   add(model: Canal): Observable<Canal> {
     return this.http.post<Canal>(this.apiUrl, model);
+  }
+
+  postDescripcion(descripcion: string): Observable<ResponseCanal> {
+    return this.http.post<ResponseCanal>(`${this.apiUrl}/descripcion`, {descripcion});
   }
 
   update(id: number, model: Canal): Observable<Canal> {

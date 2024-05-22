@@ -21,16 +21,19 @@ import { Categoria, CategoriaInit } from '../variedades/interfaces/categoria.int
 import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../interface/atributoFuncionalVariedad';
 import { ClienteFormulaComponent } from './cliente-formula/cliente-formula.component';
 import { AlertService } from '../../../shared/services/alert.service';
+import { ClienteAgrupacionCategoria, ClienteAgrupacionCategoriaInit } from '../../interface/clienteAgrupacionCategoria';
 
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html'
 })
-export class ClienteComponent { 
+export class ClienteComponent {
+
   model : Cliente = ClienteInit;
   modelCategoria : Categoria = CategoriaInit;
   atributoFuncionalVariedad : AtributoFuncionalVariedad = AtributoFuncionalVariedadInit;
   showModalFormula: boolean = false;
+  clienteAgrupacionCategoria = ClienteAgrupacionCategoriaInit
 
   constructor(
     private alert: AlertService
@@ -98,7 +101,7 @@ export class ClienteComponent {
   }
 
   actualizarCategoriaList(){
-    this.clienteCategoriaListComp.actualizarList();
+    //this.clienteCategoriaListComp.actualizarList();
   }
 
   actualizarCanalList(){
@@ -127,15 +130,19 @@ export class ClienteComponent {
     this.clienteContactoFormComp.selectEdit(model);
   }
 
-  selectCategoriaEdit(model:ClienteCategoria){
-    this.clienteCategoriaFormComp.selectEdit(model); 
-    this.modelCategoria = model.Categoria;
-    
+  get getClienteAgrupacionCategoria (){
+    return this.clienteAgrupacionCategoria
+  }
+
+  selectCategoriaEdit(model:ClienteAgrupacionCategoria){
+   // this.clienteCategoriaFormComp.selectEdit(model); 
+   // this.modelCategoria = model.Categoria;
+    this.clienteAgrupacionCategoria = model
   }
 
   selectAtributoEdit(model:AtributoFuncionalVariedad){
-    this.clienteFormulaComp.cargaAtributosValores(model.Categoria);
-    this.atributoFuncionalVariedad = model;
+    // this.clienteFormulaComp.cargaAtributosValores(model.Categoria);
+    // this.atributoFuncionalVariedad = model;
   }
 
   selectCanalEdit(model:ClienteCanal){

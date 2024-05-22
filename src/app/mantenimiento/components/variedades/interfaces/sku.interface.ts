@@ -1,6 +1,8 @@
+import { SkuAtributoTecnicoVariedadValor } from "../../../interface/skuAtributoTecnicoVariedadValor";
 import { Canasta, CanastaInit } from "./canasta.interface";
 import { Categoria, CategoriaInit } from "./categoria.interface";
 import { MegaCategoria, MegaCategoriaInit } from "./megaCategoria.interface";
+import { SkuHijos } from "./skuHijos.interface";
 
 export interface Sku {
     id: number,
@@ -8,6 +10,7 @@ export interface Sku {
     idMegaCategoria: number,
     idCategoria: number,
     descripcion: string,
+    tipoSku: number,
     descripcionResumida: string,
     tip: string,
     alias1: string,
@@ -16,7 +19,9 @@ export interface Sku {
     estado: number,
     Canasta:Canasta,
     MegaCategoria:MegaCategoria,
-    Categoria:Categoria
+    Categoria:Categoria,
+    SkuAtributoTecnicoVariedadValor:SkuAtributoTecnicoVariedadValor[]
+    SkuHijos:SkuHijos[]
 }
 
 export const SkuInit: Sku = {
@@ -25,6 +30,7 @@ export const SkuInit: Sku = {
     idMegaCategoria: 0,
     idCategoria: 0,
     descripcion: '',
+    tipoSku: 1,
     descripcionResumida: '',
     tip: '',
     alias1: '',
@@ -33,5 +39,7 @@ export const SkuInit: Sku = {
     estado: 1,
     Canasta:CanastaInit,
     MegaCategoria:MegaCategoriaInit,
-    Categoria:CategoriaInit
+    Categoria:CategoriaInit,
+    SkuAtributoTecnicoVariedadValor : [],
+    SkuHijos:[]
 };

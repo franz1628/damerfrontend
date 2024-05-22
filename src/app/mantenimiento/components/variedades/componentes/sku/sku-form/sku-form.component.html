@@ -9,8 +9,8 @@
                     <div class="col-sm-7">
                         <div class="input-group input-group-sm">
                             <input type="text" (keydown.enter)="buscar()" class="form-control form-control-sm col-3"
-                                placeholder="id" name="id" formControlName="id"  id="id" />
- 
+                                placeholder="id" name="id" formControlName="id" id="id" />
+
                             <input type="text" class="form-control form-control-sm" placeholder="Descripción"
                                 name="descripcionCategoria" id="descripcionCategoria"
                                 (input)="cambioDescripcion($event)" />
@@ -21,13 +21,14 @@
 
 
                     </div>
-                 
+
                 </div>
 
                 <div class="mb-3 row">
                     <label for="idCanasta" class="col-md-5 col-form-label-sm">Canasta</label>
                     <div class="col-sm-7">
-                        <select class="form-select form-select-sm" name="idCanasta" formControlName="idCanasta" id="idCanasta">
+                        <select class="form-select form-select-sm" name="idCanasta" formControlName="idCanasta"
+                            id="idCanasta">
                             <option value={{model.idCanasta}}>{{model.Canasta.descripcion}}</option>
                         </select>
                     </div>
@@ -39,7 +40,8 @@
                 <div class="mb-3 row">
                     <label for="idMegaCategoria" class="col-md-5 col-form-label-sm">Mega categoría</label>
                     <div class="col-sm-7">
-                        <select class="form-select form-select-sm" name="idMegaCategoria" formControlName="idMegaCategoria" id="idMegaCategoria">
+                        <select class="form-select form-select-sm" name="idMegaCategoria"
+                            formControlName="idMegaCategoria" id="idMegaCategoria">
                             <option value={{model.idMegaCategoria}}>{{model.MegaCategoria.descripcion}}</option>
                         </select>
                     </div>
@@ -51,7 +53,8 @@
                 <div class="mb-3 row">
                     <label for="idCategoria" class="col-md-5 col-form-label-sm">Categoría</label>
                     <div class="col-sm-7">
-                        <select class="form-select form-select-sm" name="idCategoria" formControlName="idCategoria" id="idCategoria">
+                        <select class="form-select form-select-sm" name="idCategoria" formControlName="idCategoria"
+                            id="idCategoria">
                             <option value={{model.idCategoria}}>{{model.Categoria.descripcion}}</option>
                         </select>
                     </div>
@@ -59,53 +62,197 @@
                         {{ getFieldError('idCategoria') }}
                     </span>
                 </div>
-        
+
                 <div class="mb-3 row">
                     <label for="descripcion" class="col-md-5 col-form-label-sm">Descripción</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control form-control-sm" placeholder="descripcion" name="descripcion"
-                            formControlName="descripcion" id="descripcion"/>
+                        <input type="text" class="form-control form-control-sm" placeholder="descripcion"
+                            name="descripcion" formControlName="descripcion" id="descripcion" />
                     </div>
                     <span *ngIf="isValidField('descripcion')" class="form-text text-danger">
                         {{ getFieldError('descripcion') }}
                     </span>
                 </div>
-        
-                <div class="mb-3 row">
+
+                <!-- <div class="mb-3 row">
                     <label for="descripcionResumida" class="col-md-5 col-form-label-sm">Descripción Resumida</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control form-control-sm" placeholder="descripcionResumida" name="descripcionResumida"
-                            formControlName="descripcionResumida" id="descripcionResumida"/>
+                        <input type="text" class="form-control form-control-sm" placeholder="descripcionResumida"
+                            name="descripcionResumida" formControlName="descripcionResumida" id="descripcionResumida" />
                     </div>
                     <span *ngIf="isValidField('descripcionResumida')" class="form-text text-danger">
                         {{ getFieldError('descripcionResumida') }}
                     </span>
                 </div>
-        
+
                 <div class="mb-3 row">
                     <label for="tip" class="col-md-5 col-form-label-sm">Tip</label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control form-control-sm" placeholder="tip" name="tip"
-                            formControlName="tip" id="tip"/>
+                            formControlName="tip" id="tip" />
                     </div>
                     <span *ngIf="isValidField('tip')" class="form-text text-danger">
                         {{ getFieldError('tip') }}
                     </span>
-                </div>
-        
+                </div> -->
 
-            
-        
-        
+
+
+
+
             </div>
-            
+
             <div class="col-6 ">
                 <div class="mb-3 row">
+                    <label for="tipoSku" class="col-md-5 col-form-label-sm">Tipo SKU</label>
+                    <div class="col-sm-7">
+                        <select class="form-select form-select-sm " formControlName="tipoSku"
+                            (change)="eligeTipoSku($event)" id="tipoSku">
+                            <option value="1">Regular</option>
+                            <option value="2">Pack</option>
+                            <option value="3">Combo</option>
+                        </select>
+
+
+                    </div>
+                    <span *ngIf="isValidField('tipoSku')" class="form-text text-danger">
+                        {{ getFieldError('tipoSku') }}
+                    </span>
+                </div>
+
+                @if(myForm.get('tipoSku')?.value==3){
+
+                <div class="mb-3 row">
+                    <label for="id" class="col-md-5 col-form-label-sm">Categoria</label>
+                    <div class="col-sm-7">
+                        <select class="form-select form-select-sm" (change)="eligeCategoriaCombo($event)" >
+                            <option value="">Seleccionar</option>
+                            @for (categoria of categorias; track $index) {
+                                <option value={{categoria.id}}>{{categoria.descripcion}}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="id" class="col-md-5 col-form-label-sm">Sku a buscar</label>
+                    <div class="col-sm-7">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control form-control-sm" placeholder="Descripción"
+                                name="descripcionSkuCombo" id="descripcionSkuCombo"
+                                (input)="cambioDescripcionCombo($event)" />
+
+                            <button type="button" class="btn btn-sm btn-info btn-sm"
+                                (click)="buscarDescripcionCombo()"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="mb-3 row">
+                    <div class="col-sm-12">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Sku</th>
+                                    <th>Descripción</th>
+                                    <th>Categoria</th>
+                                    <th>Porcentaje</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @for (sku of skuCombos; track $index) {
+                                <tr>
+                                    <td>{{sku.id}}</td>
+                                    <td>{{sku.descripcionResumida}}</td>
+                                    <td>{{sku.Categoria.descripcion}}</td>
+                                    <td>
+                                        <input type="text" size="6" maxlength="3"
+                                            (input)="inputPorcentaje($event,$index)" [value]="porcentajes[$index]">
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger" (click)="borrarSkuCombo($index)"><i
+                                                class="bi bi-x-lg"></i></button>
+                                    </td>
+                                </tr>
+                                }@empty {
+                                <tr>
+                                    <td colspan="3">No tiene sku...</td>
+                                </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+                }
+
+                @if(myForm.get('tipoSku')?.value==2){
+                <div class="mb-3 row">
+                    <label for="id" class="col-md-5 col-form-label-sm">Sku a buscar...</label>
+                    <div class="col-sm-7">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control form-control-sm" placeholder="Descripción"
+                                name="descripcionCategoriaPack" id="descripcionCategoriaPack"
+                                (input)="cambioDescripcionPack($event)" />
+
+                            <button type="button" class="btn btn-sm btn-info btn-sm"
+                                (click)="buscarDescripcionPack()"><i class="bi bi-search"></i></button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="mb-3 row">
+                    <div class="col-sm-12">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Sku</th>
+                                    <th>Descripción</th>
+                                    <th>Cantidad</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @if(skuPack.id==0){
+                                <tr>
+                                    <td colspan="4">Falta elegir un SKU...</td>
+                                </tr>
+                                }@else {
+                                <tr>
+                                    <td>{{skuPack.id}}</td>
+                                    <td>{{skuPack.descripcionResumida}}</td>
+                                    <td> <input type="number" size="3" maxlength="4" (input)="cantidadSku($event)"
+                                            [value]="cantidadPack"> </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger" (click)="borrarSkuPack()"><i
+                                                class="bi bi-x-lg"></i></button>
+                                    </td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                }
+
+                <!-- <div class="mb-3 row">
                     <label for="alias1" class="col-md-5 col-form-label-sm">Alias 1</label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control form-control-sm" placeholder="alias1" name="alias1"
-                            formControlName="alias1" id="alias1"/>
-                      
+                            formControlName="alias1" id="alias1" />
+
                     </div>
                     <span *ngIf="isValidField('alias1')" class="form-text text-danger">
                         {{ getFieldError('alias1') }}
@@ -115,8 +262,8 @@
                     <label for="alias2" class="col-md-5 col-form-label-sm">Alias 2</label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control form-control-sm" placeholder="alias2" name="alias2"
-                        formControlName="alias2" id="alias2"/>
-                      
+                            formControlName="alias2" id="alias2" />
+
                     </div>
                     <span *ngIf="isValidField('alias2')" class="form-text text-danger">
                         {{ getFieldError('alias2') }}
@@ -126,28 +273,30 @@
                     <label for="alias3" class="col-md-5 col-form-label-sm">Alias 3</label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control form-control-sm" placeholder="alias3" name="alias3"
-                            formControlName="alias3" id="alias3"/>
-                      
+                            formControlName="alias3" id="alias3" />
+
                     </div>
                     <span *ngIf="isValidField('alias3')" class="form-text text-danger">
                         {{ getFieldError('alias3') }}
                     </span>
+                </div> -->
+
+
+                <div class="input-group mt-3">
+                    <button class="btn btn-sm btn-success btn-sm text-white " type="text" (click)="submit()"
+                        *ngIf="!currentModel.id">
+                        <i class="bi bi-box-arrow-down"></i> Guardar
+                    </button>
+                    <button class="btn btn-sm btn-warning btn-sm text-white " (click)="nuevo()" type="button"
+                        *ngIf="currentModel.id">
+                        <i class="bi bi-plus-lg"></i> Nuevo
+                    </button>
+                    <button class="btn btn-sm btn-info btn-sm text-white " type="text" (click)="submit()"
+                        *ngIf="currentModel.id">
+                        <i class="bi bi-pencil"></i> Guardar
+                    </button>
+
                 </div>
-
-                
-            <div class="input-group mt-3">
-                <button class="btn btn-sm btn-success btn-sm text-white " type="text" (click)="submit()"  *ngIf="!currentModel.id">
-                    <i class="bi bi-box-arrow-down"></i> Guardar
-                </button>
-                <button class="btn btn-sm btn-warning btn-sm text-white " (click)="nuevo()" type="button"
-                    *ngIf="currentModel.id">
-                    <i class="bi bi-plus-lg"></i> Nuevo
-                </button>
-                <button class="btn btn-sm btn-info btn-sm text-white " type="text" (click)="submit()"  *ngIf="currentModel.id">
-                    <i class="bi bi-pencil"></i> Guardar
-                </button>
-
-            </div>
             </div>
         </div>
     </form>
@@ -156,33 +305,111 @@
 
 
 @if(modalBusquedaDescripcion){
-    <div class="modal" tabindex="-1" style="display: block;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Busqueda Categoría</h5>
-                    <button type="button" class="btn-close" (click)="modalBusquedaDescripcion=!modalBusquedaDescripcion"></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-sm table-bordered">
-                        @if(skusBusqueda.length>0){
-
-                            @for (sku of skusBusqueda; track $index) {
-                                <tr>
-                                    <td> <button type="button" class="btn btn-sm btn-info" (click)="elegirSkuBusqueda(sku)"><i class="bi bi-arrow-left"></i></button></td> 
-                                    <td>{{sku.id}}</td>
-                                    <td>{{sku.descripcion}}</td>
-                               
-                                </tr>
-                            }
-                        }@else{
-                            <tr><td>No se encontraron Resultados...</td></tr>
-                        }
-                    </table>
-                   
-                </div>
-            
+<div class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Busqueda Sku</h5>
+                <button type="button" class="btn-close"
+                    (click)="modalBusquedaDescripcion=!modalBusquedaDescripcion"></button>
             </div>
+            <div class="modal-body">
+                <table class="table table-sm table-bordered">
+                    @if(skusBusqueda.length>0){
+
+                    @for (sku of skusBusqueda; track $index) {
+                    <tr>
+                        <td> <button type="button" class="btn btn-sm btn-info" (click)="elegirSkuBusqueda(sku)"><i
+                                    class="bi bi-arrow-left"></i></button></td>
+                        <td>{{sku.id}}</td>
+                        <td>{{sku.descripcion}}</td>
+
+                    </tr>
+                    }
+                    }@else{
+                    <tr>
+                        <td>No se encontraron Resultados...</td>
+                    </tr>
+                    }
+                </table>
+
+            </div>
+
         </div>
     </div>
+</div>
+}
+
+
+
+@if(modalBusquedaDescripcionCombo){
+<div class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Busqueda Sku</h5>
+                <button type="button" class="btn-close"
+                    (click)="modalBusquedaDescripcionCombo=!modalBusquedaDescripcionCombo"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-sm table-bordered">
+                    @if(skusBusquedaCombo.length>0){
+
+                    @for (sku of skusBusquedaCombo; track $index) {
+                    <tr>
+                        <td> <button type="button" class="btn btn-sm btn-info" (click)="elegirSkuBusquedaCombo(sku)"><i
+                                    class="bi bi-arrow-left"></i></button></td>
+                        <td>{{sku.id}}</td>
+                        <td>{{sku.descripcion}}</td>
+
+                    </tr>
+                    }
+                    }@else{
+                    <tr>
+                        <td>No se encontraron Resultados...</td>
+                    </tr>
+                    }
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+}
+
+@if(modalBusquedaDescripcionPack){
+<div class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Busqueda Sku</h5>
+                <button type="button" class="btn-close"
+                    (click)="modalBusquedaDescripcionPack=!modalBusquedaDescripcionPack"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-sm table-bordered">
+                    @if(skusBusquedaPack.length>0){
+
+                    @for (sku of skusBusquedaPack; track $index) {
+                    <tr>
+                        <td> <button type="button" class="btn btn-sm btn-info" (click)="elegirSkuBusquedaPack(sku)"><i
+                                    class="bi bi-arrow-left"></i></button></td>
+                        <td>{{sku.id}}</td>
+                        <td>{{sku.descripcion}}</td>
+
+                    </tr>
+                    }
+                    }@else{
+                    <tr>
+                        <td>No se encontraron Resultados...</td>
+                    </tr>
+                    }
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 }

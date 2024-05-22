@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidFormService } from '../../../../shared/services/validForm.service';
 import { ClienteCategoriaService } from '../../../service/clienteCategoria';
 import { RegexService } from '../../../../shared/services/regex.service';
 import { ClienteCategoria, ClienteCategoriaInit } from '../../../interface/clienteCategoria';
-import { catchError, throwError } from 'rxjs';
+import { catchError, forkJoin, lastValueFrom, throwError } from 'rxjs';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { Categoria } from '../../variedades/interfaces/categoria.interface';
 import { CategoriaService } from '../../variedades/services/categoria.service';
@@ -15,89 +15,147 @@ import { CategoriaService } from '../../variedades/services/categoria.service';
   templateUrl: './cliente-categoria-form.component.html' 
 })
 export class ClienteCategoriaFormComponent {
-  @Output() actualizarListEmit: EventEmitter<null> = new EventEmitter();
-  @Input() 
-  cliente :Cliente = ClienteInit; 
-  categorias:Categoria[] = [];
+ 
+  @Input()
+  cliente: Cliente = ClienteInit
 
-  public model = this.fb.group({
-    id:[0],
-    idCliente: [0,Validators.required],
-    idCategoria: [0,Validators.required],
-    nombreAgrupacion: ['',Validators.required],
-  })
+  selectIndex: number = -1
+  categorias : Categoria[] = []
+  
+
+
+  showLoading: boolean = false;
+
+  clienteCategorias: ClienteCategoria[] = [];
+
+  models: FormGroup = this.fb.group({
+    modelos: this.fb.array([]),
+  });
 
   constructor(
-    private fb: FormBuilder,
-    private validForm: ValidFormService,
     private service: ClienteCategoriaService,
-    private serviceCategoria : CategoriaService,
-    private regexService : RegexService,
-    private alert : AlertService,
-  ) {
-
-  }
+    private serviceCategoria: CategoriaService,
+    private fb: FormBuilder,
+    private alert: AlertService
+  ) { }
 
   ngOnInit(): void {
-    this.model.patchValue({idCliente:this.cliente.id});
-
+    this.loadModels();
     this.serviceCategoria.get().subscribe(x=>{
-      this.categorias = x.data;
+      this.categorias =x.data
+      
     })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['cliente'] && !changes['cliente'].firstChange) {
+      this.loadModels();
+    }
+  }
+
+  loadModels(): void {
+    this.showLoading = true;
+    (this.models.get('modelos') as FormArray).clear();
+
+    forkJoin(
+      {
+        service: this.service.postIdCliente(this.cliente.id),
+      }
+    ).subscribe({
+      next: value => {
+        this.clienteCategorias = value.service.data
+
+        console.log(this.clienteCategorias);
+        
+
+        this.clienteCategorias.forEach(model => {
+          const nuevoModelo = this.fb.group({
+            id: [model.id],
+            idCategoria: [model.idCategoria],
+            idCliente: [model.idCliente],
+          });
+
+          this.modelosArray.push(nuevoModelo);
+        });
+
+        if (this.clienteCategorias.length == 0) {
+          this.add();
+        }
+
+        this.showLoading = false;
+      }
+    })
+
   }
 
   get getModel() {
-    return this.model.value as ClienteCategoria
+    return this.cliente;
   }
 
-  actualizarList() {
-    this.actualizarListEmit.emit();
+  get modelosArray() {
+    return this.models.get('modelos') as FormArray;
   }
 
-  agregar() {
-    if (this.model.invalid) {
-      this.model.markAllAsTouched();
-      return;
-    }
+  editModel(index: number) {
+    this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
+      const modelo = this.modelosArray.controls[index].getRawValue();
+      //this.atributoFuncionalVariedad = modelo;
+      this.service.update(modelo.id, modelo).subscribe(x => {
 
-    this.service.add(this.getModel).subscribe(resp => {
-      this.model.reset();
-      this.actualizarList();
+        this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
+      });
     })
 
   }
 
-  reset(){
-    this.model.patchValue(ClienteInit);
-    //this.resetModelEmit.emit();
+  elegir(index: number) {
+    const modelo = this.modelosArray.controls[index].getRawValue();
+    this.selectIndex = index
   }
 
-  editar(){
-    this.service.update(this.getModel.id,this.getModel).pipe(
-      catchError(error => {
-        this.alert.showAlert('Mensaje',error.error.message,'warning');
-        return throwError(()=>error);
-      })
-    ).subscribe(x=>{
-        this.alert.showAlert('Mensaje',x.message,'success');
-        this.actualizarList();
-        this.reset();
+
+  add() {
+    const nuevoModelo = this.fb.group({
+      id: [0],
+      idCliente: [this.cliente.id],
+      idCategoria: [0],
+
     });
-  } 
 
-  selectEdit(model: ClienteCategoria) {
-    this.model.patchValue(model);
-  } 
-
-  nuevo() {
-    this.model.patchValue(ClienteCategoriaInit);
+    this.modelosArray.push(nuevoModelo);
   }
 
-  isValidField(field: string): boolean | null {
-    return this.validForm.isValidField(field, this.model);
+  async save(num: number): Promise<void> {
+    const modelo = this.modelosArray.at(num).value;
+    this.showLoading = true;
+
+    try {
+      await lastValueFrom(this.service.add(modelo));
+      this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
+      this.loadModels();
+      this.showLoading = false;
+    } catch (error) {
+      this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+      this.showLoading = false;
+    }
   }
 
-  getFieldError(field: string): string | null {
-    return this.validForm.getFieldError(field, this.model);
+  async delete(num: number) {
+    this.alert.showAlertConfirm('Advertencia', '¿Está seguro de eliminar?', 'warning', async () => {
+      const modelo = this.modelosArray.at(num).value;
+      this.showLoading = true;
+
+      try {
+        await lastValueFrom(this.service.delete(modelo));
+        this.alert.showAlert('Mensaje', 'Eliminado correctamente', 'success');
+        this.loadModels();
+        this.showLoading = false;
+      } catch (error) {
+        this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+        this.showLoading = false;
+      }
+    })
+
+
   }
 }

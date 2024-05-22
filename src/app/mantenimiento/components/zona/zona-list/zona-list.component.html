@@ -23,23 +23,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let model of models">
-                    <td>{{model.id}}</td>
-                    <td>{{model.codigo}}</td>
-                    <td>{{model.idTipoZona}}</td>
-                    <td>{{model.descripcion}}</td>
-                    <td>{{model.numeroOrden}}</td>
-                    <td>{{model.alias1}}</td>
-                    <td>{{model.alias2}}</td>
-                    <td>{{model.alias3}}</td>
-
-                    <td>
-                        <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i
-                                class="bi bi-trash"></i></button>
-                        <button class="btn btn-sm btn-info btn-sm" type="button" (click)="editModel(model)"><i
-                                class="bi bi-pencil"></i></button>
-                    </td>
-                </tr>
+                @for (model of models; track $index) {
+                    <tr (click)="elegir(model,$index)"  [ngClass]="{'selected-row': $index === selectIndex}">
+                        <td>{{model.id}}</td>
+                        <td>{{model.codigo}}</td>
+                        <td>{{model.idTipoZona}}</td>
+                        <td>{{model.descripcion}}</td>
+                        <td>{{model.numeroOrden}}</td>
+                        <td>{{model.alias1}}</td>
+                        <td>{{model.alias2}}</td>
+                        <td>{{model.alias3}}</td>
+    
+                        <td>
+                            <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i
+                                    class="bi bi-trash"></i></button>
+                            <button class="btn btn-sm btn-info btn-sm" type="button" (click)="editModel(model)"><i
+                                    class="bi bi-pencil"></i></button>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
         }

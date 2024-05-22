@@ -59,7 +59,19 @@ const routes: Routes = [
       }, {
         path: 'agrupacionZonas',
         loadChildren: () => import('./components/agrupacion-zonas/agrupacion-zonas.module').then(m => m.AgrupacionZonasModule)
-      }, 
+      }, {
+        path: 'agrupacionCanales',
+        loadChildren: () => import('./components/agrupacion-canals/agrupacion-canals.module').then(m => m.AgrupacionCanalsModule)
+      }, {
+        path: 'muestraIdeal',
+        loadChildren: () => import('./components/muestra-ideal/muestra-ideal.module').then(m => m.MuestraIdealModule)
+      }, {
+        path: 'universoNegocios',
+        loadChildren: () => import('./components/universo-negocios/universo-negocios.module').then(m => m.UniversoNegociosModule)
+      }, {
+        path: 'factorPenetracion',
+        loadChildren: () => import('./components/factor-penetracion/factor-penetracion.module').then(m => m.FactorPenetracionModule)
+      },
       {
         path: '404',
         component: Error404PageComponent,

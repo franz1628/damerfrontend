@@ -44,32 +44,32 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
 
   loadChanges(): void {
 
-    this.serviceCategoriaAtributoTecnico.postIdCategoria(this.atributoFuncionalVariedad.idCategoria).subscribe(x => {
-      this.categoriaAtributoTecnicos = x
+    // this.serviceCategoriaAtributoTecnico.postIdCategoria(this.atributoFuncionalVariedad.idCategoria).subscribe(x => {
+    //   this.categoriaAtributoTecnicos = x
 
-      this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
+    //   this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
 
-        const clienteFormulas: ClienteFormula = y.data
-        const valors = clienteFormulas.idAtributoTecnicoVariedadValors.split(',');
-        this.checkboxSeleccionados = []
-        this.idAtributoTecnicoVariedad = clienteFormulas.idAtributoTecnicoVariedad;
+    //     const clienteFormulas: ClienteFormula = y.data
+    //     const valors = clienteFormulas.idAtributoTecnicoVariedadValors.split(',');
+    //     this.checkboxSeleccionados = []
+    //     this.idAtributoTecnicoVariedad = clienteFormulas.idAtributoTecnicoVariedad;
 
-        this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idAtributoTecnicoVariedad).subscribe(x => {
-          this.categoriaAtributoTecnicoValors = x
+    //     this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idAtributoTecnicoVariedad).subscribe(x => {
+    //       this.categoriaAtributoTecnicoValors = x
 
-        })
+    //     })
 
-        for (let i = 0; i < valors.length; i++) {
-          const element = valors[i];
+    //     for (let i = 0; i < valors.length; i++) {
+    //       const element = valors[i];
 
-          this.checkboxSeleccionados.push(parseInt(element));
-        }
-
-
+    //       this.checkboxSeleccionados.push(parseInt(element));
+    //     }
 
 
-      })
-    })
+
+
+    //   })
+    // })
 
   }
 

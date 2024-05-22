@@ -1,58 +1,78 @@
+<div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="models">
+        <div formArrayName="modelos">
+          <table class="table text-center table-sm">
+            <thead class="table-success fs-6">
+              <tr>
+                <th>Id</th>
+                <th>Categoria </th>
+              
+                <!-- <th>Indice</th>
+                <th>Tipo Medida</th>
+                <th>Unidad Medida</th>
+                <th>Alias 1</th> -->
+                <th>Acciones</th>
+              </tr>
 
-
-<form [formGroup]="model" autocomplete="off">
-    <div class="row">
-        <div class="col-12">
-
-            <div class="mb-3 row">
-                <label for="codCliente" class="col-md-4 col-form-label-sm">Codigo Cliente</label>
-                <div class="col-sm-8">
-
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">{{cliente.codigo}}</span>
-                        <span class="input-group-text">{{cliente.razonSocial}}</span>
-                      </div>
-                </div>
-             
-            </div>
-
-            <div class="mb-3 row">
-                <label for="idCategoria" class="col-md-4 col-form-label-sm">Codigo Categoria</label>
-                <div class="col-sm-8">
-                    <select class="form-select form-select-sm" name="idCategoria" id="idCategoria" formControlName="idCategoria">
-                        <option value="0">SELECCIONAR</option>
+            </thead>
+            <tbody>
+              @if (modelosArray.controls.length!=0) {
+              @for (model of modelosArray.controls; track $index) {
+              <tr [formGroupName]="$index" (click)="elegir($index)"  [ngClass]="{'selected-row': $index === selectIndex}" >
+                <td> <label class="mt-2">{{model.get('id')?.value}}</label> </td>
+                <td>
+                    <select class="form-select form-select-sm" formControlName="idCategoria">
+                        <option value="">SELECCIONAR</option>
                         @for (categoria of categorias; track $index) {
                             <option value={{categoria.id}}>{{categoria.descripcion}}</option>
                         }
                     </select>
+               
+                </td>
+     
+                <td>
+                  <div class="btn-group">
 
-                </div>
-                <span *ngIf="isValidField('idCategoria')" class="form-text text-danger">
-                    {{ getFieldError('idCategoria') }}
-                </span>
-            </div>
+                    @if(model.get('id')?.value!=0){
+                    <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i
+                        class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i
+                        class="bi bi-trash-fill"></i></button>
+                    @if(modelosArray.controls.length==$index+1){
+                    <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
+                        class="bi bi-plus-lg"></i></button>
+                    }
+                    }@else{
+                    <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
+                        class="bi bi-save2"></i></button>
+                    }
+                  </div>
 
-            <div class="mb-3 row">
-                <label for="nombreAgrupacion" class="col-md-4 col-form-label-sm">Agrupación</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" name="nombreAgrupacion" id="nombreAgrupacion" formControlName="nombreAgrupacion">
 
-                </div>
-                <span *ngIf="isValidField('nombreAgrupacion')" class="form-text text-danger">
-                    {{ getFieldError('nombreAgrupacion') }}
-                </span>
-            </div>
 
-            @if(!getModel.id){
-                <button class="btn btn-sm btn-success" (click)="agregar()"><i class="bi bi-box-arrow-down"></i> Guardar</button>
-            }@else{
-                <button class="btn btn-sm btn-info" (click)="editar()"><i class="bi bi-pencil"></i> Editar</button>
-                <button class="btn btn-sm btn-warning" (click)="nuevo()"><i class="bi bi-plus"></i> Nuevo</button>
-            }
+                </td>
+              </tr>
+              }
 
-            <!-- <app-add-tipo-cambio [model]="getModel" (actualizarList)="actualizarList()"></app-add-tipo-cambio> -->
+              }
+
+            </tbody>
+          </table>
         </div>
+
+      </form>
     </div>
-
-
-</form>
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <app-black-loading [show]="showLoading"></app-black-loading>

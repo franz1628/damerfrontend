@@ -5,10 +5,100 @@
     <app-zona-form #zonaForm (updateModelsEmit)="get()" [model]="modelEdit"></app-zona-form>
   </div>
   <div class="col-md-8">
-    <app-zona-list [models]="models" (updateModelsEmit)="get()" (editEmit)="editModel($event)"></app-zona-list>
+    <app-zona-list [models]="models" (eligeModelEmit)="eligeModel($event)" (updateModelsEmit)="get()" (editEmit)="editModel($event)"></app-zona-list>
   </div>
 </div>
 
-
 <br>
 
+@if(model.id!=0){
+  <div class="row">
+    <div class="col-md-12">
+      <h6>Distritos</h6>
+  
+      <div class="row">
+        <div class="col-md-2">
+          <div class="mb-3">
+            <label for="idDepartamento" class="form-label">Departamento</label>
+            <select class="form-select form-select-sm" (change)="eligeDepartamento($event)">
+              <option value="0">SELECCIONAR</option>
+              @for (departamento of departamentos; track $index) {
+                  <option value={{departamento.id}}>{{departamento.descripcion}}</option>
+              }
+          </select>
+  
+          </div>
+          
+        </div>
+        <div class="col-md-2">
+          <div class="mb-3">
+            <label for="idProvincia" class="form-label">Provincia</label>
+            <select class="form-select form-select-sm" (change)="eligeProvincia($event)">
+              <option value="0">SELECCIONAR</option>
+              @for (provincia of getProvincias; track $index) {
+                  <option value={{provincia.id}}>{{provincia.descripcion}}</option>
+              }
+          </select>
+  
+  
+          </div>
+          
+        </div>
+        <div class="col-md-2">
+          <div class="mb-3">
+            <label for="idDistrito" class="form-label">Distrito</label>
+            <select class="form-select form-select-sm" (change)="eligeDistrito($event)">
+              <option value="0">SELECCIONAR</option>
+              @for (distrito of getDistritos; track $index) {
+                  <option value={{distrito.id}}>{{distrito.descripcion}}</option>
+              }
+              
+          </select>
+          </div>
+          
+        </div>
+        <div class="col-md-2">
+          <div class="mt-4">
+            <button type="button" class="btn btn-sm btn-success" (click)="agregarDistrito()">Agregar</button>
+          </div>
+          
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6">
+          <table class="table table-sm table-bordered  ">
+      
+            <thead class="table-success">
+              <tr>
+                <th>Departamento</th>
+                <th>Provincia</th>
+                <th>Distrito</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+      
+            <tbody>
+              @for (distrito of distritosZonas; track $index) {
+                <tr>
+                  <td>{{distrito.Provincia.Departamento.descripcion}}</td>
+                  <td>{{distrito.Provincia.descripcion}}</td>
+                  <td>{{distrito.descripcion}}</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-danger" (click)="eliminarDistritoZona(distrito,model)"><i class="bi bi-trash"></i></button>
+                  </td>
+                </tr>
+              }@empty {
+                <tr>
+                  No se encontraron distritos...
+                </tr>
+              }
+            </tbody>
+            
+          </table>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+}

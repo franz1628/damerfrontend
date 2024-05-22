@@ -37,6 +37,13 @@ export class SkuService {
     });
   }
 
+  getByCategoriaAll(idCategoria:number): Observable<Response> {
+    return this.http.post<Response>(`${this.apiUrl}/byCategoriaAll`,{
+      idCategoria
+    });
+  }
+
+
   postId(id: number): Observable<Sku> {
     return this.http.post<Sku>(`${this.apiUrl}/id`, {id});
   }
@@ -45,9 +52,13 @@ export class SkuService {
     return this.http.post<Sku[]>(`${this.apiUrl}/descripcion`, {descripcion});
   }
 
+  postDescripcionCategoria(descripcion: string,idCategoria:string): Observable<Sku[]> {
+    return this.http.post<Sku[]>(`${this.apiUrl}/postDescripcionCategoria`, {descripcion,idCategoria});
+  }
+
   add(model: Sku): Observable<Sku> {
     return this.http.post<Sku>(this.apiUrl, model);
-  }
+  } 
 
   update(id: number, model: Sku): Observable<Sku> {
     return this.http.put<Sku>(`${this.apiUrl}/${id}`, model);

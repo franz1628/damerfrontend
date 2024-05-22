@@ -8,17 +8,25 @@ import { Canasta } from '../../../interfaces/canasta.interface';
   templateUrl: './canasta-list.component.html'
 })
 export class CanastaListComponent {
+
   public showLoading: boolean = false;
+  selectIndex: number=-1;
   constructor(public alert: AlertService, public service: CanastaService) { }
 
   @Input()
   public models: Canasta[] = []
 
   @Output() editEmit: EventEmitter<Canasta> = new EventEmitter()
+  @Output() eligeModelEmit: EventEmitter<Canasta> = new EventEmitter()
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
 
   editModel(model: Canasta) {
     this.editEmit.emit(model)
+  }
+
+  eligeModel(model: Canasta,index:number) {
+    this.eligeModelEmit.emit(model)
+    this.selectIndex=index
   }
 
   delete(model: Canasta) {

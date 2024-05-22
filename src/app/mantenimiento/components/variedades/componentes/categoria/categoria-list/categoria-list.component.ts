@@ -11,6 +11,7 @@ import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
 })
 export class CategoriaListComponent {
   public showLoading: boolean = false;
+  selectIndex: number=-1;
   constructor(public alert: AlertService, public service: CategoriaService) {
     
   }
@@ -19,6 +20,7 @@ export class CategoriaListComponent {
   public models: Categoria[] = []
 
   @Output() editEmit: EventEmitter<Categoria> = new EventEmitter()
+  @Output() eligeModelEmit: EventEmitter<Categoria> = new EventEmitter()
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
 
   
@@ -27,7 +29,13 @@ export class CategoriaListComponent {
     this.editEmit.emit(model)
   }
 
+  eligeModel(model: Categoria,index:number) {
+    this.eligeModelEmit.emit(model)
+    this.selectIndex=index
+  }
+
   changeList(canasta:Canasta, megaCategoria: MegaCategoria){
+    this.selectIndex=-1
     this.service.getIdCanastaMegaCategoria(canasta.id,megaCategoria.id).subscribe(resp=>{
       this.models = resp.data;
     })

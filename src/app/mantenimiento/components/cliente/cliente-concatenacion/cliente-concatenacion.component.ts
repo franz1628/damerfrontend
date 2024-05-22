@@ -7,6 +7,8 @@ import { SkuService } from '../../variedades/services/sku.service';
 import { AtributoTecnicoVariedadValorService } from '../../../service/atributoTecnicoVariedadValor';
 import { CategoriaAtributoTecnicoService } from '../../variedades/services/categoriaAtributoTecnico.service';
 import { CategoriaAtributoTecnico } from '../../variedades/interfaces/categoriaAtributoTecnico';
+import { AlertService } from '../../../../shared/services/alert.service';
+import { ClienteConcatenacionService } from '../../../service/clienteConcatenacion';
 
 @Component({
   selector: 'app-cliente-concatenacion',
@@ -17,9 +19,15 @@ export class ClienteConcatenacionComponent implements OnInit{
   @Input() atributoFuncionalVariedadValor:AtributoFuncionalVariedadValor=AtributoFuncionalVariedadValorInit
   categoriaAtributoTecnicos:CategoriaAtributoTecnico[] = []
 
+  idAtributoTecnicoVariedads:string = ''
+  variables:string=''
+  separador: string='';
+
 
   constructor(    
-    private serviceCategoriaAtributoTecnico : CategoriaAtributoTecnicoService
+    private serviceCategoriaAtributoTecnico : CategoriaAtributoTecnicoService,
+    private alert: AlertService,
+    private serviceClienteConcatenacion:ClienteConcatenacionService
     ){
 
   }
@@ -28,11 +36,11 @@ export class ClienteConcatenacionComponent implements OnInit{
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['atributoFuncionalVariedadValor'] && !changes['atributoFuncionalVariedadValor'].firstChange) {
+    if (changes['atributoFuncionalVariedadValor']) {
       this.loadModels();
     }
 
-    if (changes['atributoFuncionalVariedad'] && !changes['atributoFuncionalVariedad'].firstChange) {
+    if (changes['atributoFuncionalVariedad']) {
       this.loadModels();
     }
   }
@@ -40,11 +48,74 @@ export class ClienteConcatenacionComponent implements OnInit{
 
   loadModels(): void { 
 
+
     
-    this.serviceCategoriaAtributoTecnico.postIdCategoria(this.atributoFuncionalVariedad.idCategoria).subscribe(x=>{
-   
-      this.categoriaAtributoTecnicos = x
-    })
+    // this.serviceCategoriaAtributoTecnico.postIdCategoria(this.atributoFuncionalVariedad.idCategoria).subscribe(x=>{
+    //   this.categoriaAtributoTecnicos = x
+
+    //   this.serviceClienteConcatenacion.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y=>{
+    
+        
+    //     this.idAtributoTecnicoVariedads = y.data.idAtributoTecnicoVariedads;
+    //     this.variables = y.data.variables
+    //     this.separador = y.data.separador
+        
+    //   });
+    // })
+  } 
+
+  get getAtributos(){
+    return this.idAtributoTecnicoVariedads.split(',')
+  }
+
+  get getVariables(){
+    return this.variables.split(',')
+  }
+
+  guardar(){
+    if(this.idAtributoTecnicoVariedads=='' && this.variables==''){
+      this.alert.showAlert('Advertencia','Debe seleccionar al menos un atributo , variable','warning');
+      return
+    }
+
+    console.log(this.separador);
+    
+    this.serviceClienteConcatenacion.guardarConcatenacion(this.atributoFuncionalVariedadValor.id,this.idAtributoTecnicoVariedads,this.variables,this.separador).subscribe(x=>{
+
+    }); 
+
+  }
+
+  clickAtributo(atributo: number,e:Event) {
+    const checked = (e.target as HTMLInputElement).checked;
+
+    let arrayAtributos:string[] = this.idAtributoTecnicoVariedads!=''?this.idAtributoTecnicoVariedads.split(','):[];
+ 
+    if(checked){
+      arrayAtributos.push(atributo.toString())
+    }else{
+      arrayAtributos = arrayAtributos.filter(item => item !== atributo.toString());
+    }
+
+    this.idAtributoTecnicoVariedads = arrayAtributos.join(',');
+  
+ 
+  }
+    
+  clickVariable(atributo: number,e:Event) {
+    const checked = (e.target as HTMLInputElement).checked;
+
+    let arrayVariables:string[] = this.variables!=''?this.variables.split(','):[];
+
+    if(checked){
+      arrayVariables.push(atributo.toString())
+    }else{
+      arrayVariables = arrayVariables.filter(item => item !== atributo.toString());
+    }
+
+    this.variables = arrayVariables.join(',');
+    
+    
   }
  
 }

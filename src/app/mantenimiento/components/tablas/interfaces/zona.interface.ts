@@ -19,5 +19,5 @@ export const ZonaInit: Zona = {
     alias1: "",
     alias2: "",
     alias3: "",
-    estado: 1
+    estado: 1,
   };

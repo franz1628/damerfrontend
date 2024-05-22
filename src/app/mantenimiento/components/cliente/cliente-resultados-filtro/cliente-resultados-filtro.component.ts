@@ -9,7 +9,7 @@ import { SkuAtributoTecnicoVariedadValorService } from '../../../service/skuAtri
   selector: 'app-cliente-resultados-filtro',
   templateUrl: './cliente-resultados-filtro.component.html'
 })
-export class ClienteResultadosFiltroComponent implements OnInit,OnChanges{
+export class ClienteResultadosFiltroComponent implements OnInit, OnChanges {
   @Input() atributoFuncionalVariedad: AtributoFuncionalVariedad = AtributoFuncionalVariedadInit
   @Input() atributoFuncionalVariedadValor: AtributoFuncionalVariedadValor = AtributoFuncionalVariedadValorInit
   skus: Sku[] = []
@@ -17,7 +17,7 @@ export class ClienteResultadosFiltroComponent implements OnInit,OnChanges{
   constructor(
     private serviceClienteFiltro: ClienteFiltroService,
     private serviceSkuAtributoTecnicoVariedadValor: SkuAtributoTecnicoVariedadValorService
-  ){
+  ) {
 
   }
 
@@ -27,34 +27,26 @@ export class ClienteResultadosFiltroComponent implements OnInit,OnChanges{
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
-    
-    
+
+
     if (changes['atributoFuncionalVariedadValor'] || changes['atributoFuncionalVariedad']) {
       this.loadModels();
     }
+ 
 
-   
   }
 
   loadModels() {
-    console.log(this.atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor );
-    
+
     if (this.atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor == 3) {
       this.serviceClienteFiltro.postResultados(this.atributoFuncionalVariedadValor.id).subscribe(x => {
-        console.log('ff');
-        
-        
+
         const arrayskus = x.data
         this.skus = []
         arrayskus.map(y => {
           this.skus.push(y)
-          
-         
         })
 
-        console.log(this.skus);
-        
-        
       })
     }
   }

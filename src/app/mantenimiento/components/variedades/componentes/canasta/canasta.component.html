@@ -9,7 +9,7 @@
   <div class="col-md-6">
     <h6 class="mb-3 text-center">CANASTAS REGISTRADAS</h6>
     <hr>
-    <app-canasta-list [models]="models" (updateModelsEmit)="get()" (editEmit)="editModel($event)"></app-canasta-list>
+    <app-canasta-list [models]="models" (eligeModelEmit)="eligeModelCanasta($event)" (updateModelsEmit)="get()" (editEmit)="editModel($event)"></app-canasta-list>
   </div>
 </div>
 

@@ -11,6 +11,12 @@ export interface ResponseClienteConcatenacion {
   message: string
 }
 
+export interface ResponseClienteConcatenacionOne {
+  data: ClienteConcatenacion,
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,8 +40,17 @@ export class ClienteConcatenacionService {
     return this.http.post<ClienteConcatenacion>(this.apiUrl, model);
   }
 
-  postIdAtributoFuncionalVariedadValor(idAtributoFuncionalVariedadValor: number): Observable<ResponseClienteConcatenacion> {
-    return this.http.post<ResponseClienteConcatenacion>(`${this.apiUrl}/idAtributoFuncionalVariedadValor`, {idAtributoFuncionalVariedadValor});
+  guardarConcatenacion(idAtributoFuncionalVariedadValor: number,idAtributoTecnicoVariedads:string,variables:string,separador:string): Observable<Response> {
+    return this.http.post<Response>(`${this.apiUrl}/guardarConcatenacion`, {
+      idAtributoFuncionalVariedadValor,
+      idAtributoTecnicoVariedads,
+      variables,
+      separador
+    });
+  }
+
+  postIdAtributoFuncionalVariedadValor(idAtributoFuncionalVariedadValor: number): Observable<ResponseClienteConcatenacionOne> {
+    return this.http.post<ResponseClienteConcatenacionOne>(`${this.apiUrl}/idAtributoFuncionalVariedadValor`, {idAtributoFuncionalVariedadValor});
   }
 
   postCargaResultados(idAtributoFuncionalVariedadValor: number): Observable<ResponseClienteConcatenacion> {

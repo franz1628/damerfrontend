@@ -49,5 +49,8 @@ export class MegaCategoriaComponent {
     this.emitCanastaMegaCategoria.emit([model.idCanasta,model.id]);
   }
 
+  eligeModel(model: MegaCategoria) {
+    this.emitCanastaMegaCategoria.emit([model.idCanasta,model.id]);
+  }
  
 }

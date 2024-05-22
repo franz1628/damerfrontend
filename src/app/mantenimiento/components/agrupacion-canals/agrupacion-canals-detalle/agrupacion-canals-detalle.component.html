@@ -1,0 +1,97 @@
+<form [formGroup]="models">
+    <div formArrayName="modelos">
+        <table class="table text-center table-sm">
+            <thead class="table-success fs-6">
+                <tr>
+                    <th>Item</th>
+
+                    <th>Canal </th>
+                    <th></th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @if (modelosArray.controls.length!=0) {
+                @for (model of modelosArray.controls; track $index) {
+                <tr [formGroupName]="$index" (click)="selectAtributo($index)">
+
+                    <td> {{model.get('idCanal')?.value}}</td>
+                    <td>
+                        <div class="input-group mb-3">
+
+                            <input class="form-control form-control-sm" formControlName="descripcion">
+                            <button class="btn btn-sm btn-warning" (click)="agrupacionCanalsDetalle = model.value"
+                                data-bs-toggle="modal" data-bs-target="#modalCanal"> <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            @if(model.get('id')?.value!=0){
+                            <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i
+                                    class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i
+                                    class="bi bi-trash-fill"></i></button>
+                            @if(modelosArray.controls.length==$index+1){
+                            <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
+                                    class="bi bi-plus-lg"></i></button>
+                            }
+                            }@else{
+                            <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
+                                    class="bi bi-save2"></i></button>
+                            }
+                        </div>
+                    </td>
+                </tr>
+                }
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</form>
+
+
+<div class="modal fade" id="modalCanal" tabindex="-1" aria-labelledby="modalCanalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalCanalLabel">Canal</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="descripcionCanal">
+                    <button class="btn btn-sm btn-info" (click)="buscarCanal()"> <i class="bi bi-search"></i> </button>
+                </div>
+
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (canal of resultCanals; track $index) {
+                        <tr (click)="elegirCanal(canal, $index)"
+                            [ngClass]="{'selected-row': $index === selectIndexModal}">
+                            <td>{{canal.id}}</td>
+                            <td>{{canal.descripcion}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="agregarCanal()">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-black-loading [show]="showLoading"></app-black-loading>
+

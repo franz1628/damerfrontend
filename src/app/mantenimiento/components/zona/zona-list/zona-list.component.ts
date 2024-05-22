@@ -8,17 +8,25 @@ import { Zona } from '../../tablas/interfaces/zona.interface';
   templateUrl: './zona-list.component.html'
 })
 export class ZonaListComponent {
-  public showLoading: boolean = false;
+  showLoading: boolean = false;
+  selectIndex:number=-1
+
   constructor(public alert: AlertService, public service: ZonaService) { }
 
   @Input()
-  public models: Zona[] = []
+  models: Zona[] = []
 
   @Output() editEmit: EventEmitter<Zona> = new EventEmitter()
+  @Output() eligeModelEmit: EventEmitter<Zona> = new EventEmitter()
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
 
   editModel(model: Zona) {
     this.editEmit.emit(model)
+  }
+
+  elegir(model: Zona,index: number) {
+    this.selectIndex=index
+    this.eligeModelEmit.emit(model)
   }
 
   delete(model: Zona) {

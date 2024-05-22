@@ -12,6 +12,7 @@ import { MegaCategoriaFormComponent } from '../mega-categoria/mega-categoria-for
   templateUrl: './canasta.component.html'
 })
 export class CanastaComponent {
+
   public modal: boolean = false
   public models: Canasta[] = [];
   public showLoading: boolean = false;
@@ -34,11 +35,16 @@ export class CanastaComponent {
 
   get(): void {
     this.showLoading = true
-    this.service.get().subscribe(response => { this.showLoading = false; this.models = response.data });
+    this.service.get().subscribe(response => { this.showLoading = false; this.models = response.data;console.log(this.models);
+     });
   }
 
   editModel(model: Canasta) {
     this.canastaForm.setModel(model)
     this.emitIdCanasta.emit(model)
+  }
+
+  eligeModelCanasta(canasta: Canasta) {
+    this.emitIdCanasta.emit(canasta)
   }
 }

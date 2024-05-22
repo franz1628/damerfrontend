@@ -10,19 +10,27 @@ import { Canasta } from '../../../interfaces/canasta.interface';
 })
 export class MegaCategoriaListComponent {
   public showLoading: boolean = false;
+  selectIndex: number=-1;
   constructor(public alert: AlertService, public service: MegaCategoriaService) { }
 
   @Input()
   public models: MegaCategoria[] = []
 
   @Output() editEmit: EventEmitter<MegaCategoria> = new EventEmitter()
+  @Output() eligeModelEmit: EventEmitter<MegaCategoria> = new EventEmitter()
   @Output() updateModelsEmit: EventEmitter<number> = new EventEmitter();
 
   editModel(model: MegaCategoria) {
     this.editEmit.emit(model)
   }
 
+  eligeModel(model: MegaCategoria,index:number) {
+    this.eligeModelEmit.emit(model)
+    this.selectIndex=index
+  }
+
   changeList(canasta:Canasta){
+    this.selectIndex=-1
     this.service.getIdCanasta(canasta.id).subscribe(resp=>{
       this.models = resp.data;
     })

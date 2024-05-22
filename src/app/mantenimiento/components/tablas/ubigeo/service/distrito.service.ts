@@ -5,11 +5,27 @@ import { Response } from '../../../../../shared/interfaces/response.interface';
 import { Provincia } from '../interface/provincia.interface';
 import { Distrito } from '../interface/distrito.interface';
 import { environments } from '../../../../../../environments/environments';
+import { Zona } from '../../interfaces/zona.interface';
+
+export interface ResponseDistritoOne {
+  data: Distrito,
+  state: number,
+  message: string
+}
+
+export interface ResponseDistrito {
+  data: Distrito[],
+  state: number,
+  message: string
+}
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DistritoService {
+
   private apiUrl = environments.baseUrl+'api/distrito'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
@@ -18,12 +34,16 @@ export class DistritoService {
     return this.http.get<Response>(this.apiUrl);
   }
 
-  getId(id: number): Observable<Distrito|undefined> {
-    return this.http.get<Distrito>(`${this.apiUrl}/${id}`).pipe(catchError(error=>of(undefined)));
+  getId(id: number): Observable<ResponseDistritoOne> {
+    return this.http.get<ResponseDistritoOne>(`${this.apiUrl}/${id}`);
   }
 
   add(model: Distrito): Observable<Distrito> {
     return this.http.post<Distrito>(this.apiUrl, model);
+  }
+
+  postByZona(zona: Zona): Observable<ResponseDistrito> {
+    return this.http.post<ResponseDistrito>(`${this.apiUrl}/postByZona`, {zona});
   }
 
   update(id: number, model: Distrito): Observable<Distrito> {

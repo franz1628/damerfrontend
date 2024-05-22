@@ -38,15 +38,16 @@ export class ClienteResultadosComponent {
     console.log('eret');
     
     if (this.atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor == 2) {
+     
       this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
         const clienteFormulas: ClienteFormula = y.data
-        this.serviceSkuAtributoTecnicoVariedadValor.postResultados(clienteFormulas.idAtributoTecnicoVariedadValors).subscribe(x => {
-          const arrayskus = x.data
-          this.skus = []
-          arrayskus.map(y => {
-            this.skus.push(y.Sku)
-          })
-        })
+        // this.serviceSkuAtributoTecnicoVariedadValor.postResultados(clienteFormulas.idAtributoTecnicoVariedadValors,this.atributoFuncionalVariedad.idCategoria).subscribe(x => {
+        //   const arrayskus = x.data
+        //   this.skus = []
+        //   arrayskus.map(y => {
+        //     this.skus.push(y.Sku)
+        //   })
+        // })
       })
     }
 

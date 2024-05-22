@@ -89,17 +89,17 @@
     <div class="tab-pane " id="categoria" role="tabpanel" aria-labelledby="categoria-tab" tabindex="0">
         <div class="row mt-4">
             <div class="col-6">
-                <h6 class="mb-3 text-center">CATEGORIAS DE CLIENTE</h6>
+                <h6 class="mb-3 text-center">LISTADO CATEGORIAS CLIENTE</h6>
                 <hr>
                 <app-cliente-categoria-form [cliente]="model" #clienteCategoriaFormComp
                     (actualizarListEmit)="actualizarCategoriaList()"></app-cliente-categoria-form>
             </div>
 
             <div class="col-6">
-                <h6 class="mb-3 text-center">CATEGORIAS REGISTRADOS</h6>
+                <h6 class="mb-3 text-center">AGRUPACION CATEGORIAS</h6>
                 <hr>
-                <app-cliente-categoria-list [cliente]="model" #clienteCategoriaListComp
-                    (selectEditEmit)="selectCategoriaEdit($event)"></app-cliente-categoria-list>
+                <app-cliente-categoria-list [cliente]="model" #clienteCategoriaListComp (selectClienteAgrupacionCategoria)="selectCategoriaEdit($event)"
+                    ></app-cliente-categoria-list>
             </div>
 
 
@@ -109,7 +109,7 @@
             <div class="col-12">
 
                 <app-cliente-atributo-funcional [modelCliente]="getModel"
-                [modelCategoria]="getModelCategoria"></app-cliente-atributo-funcional>
+                [clienteAgrupacionCategoria]="getClienteAgrupacionCategoria" [modelCategoria]="getModelCategoria"></app-cliente-atributo-funcional>
 
 
             </div>

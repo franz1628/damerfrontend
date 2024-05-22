@@ -89,9 +89,12 @@
                         <div class="col-sm-9">
                             <select class="form-select form-select-sm" formControlName="idCanal">
                                 <option value="0">SELECCIONAR</option>
-                                <option *ngFor="let canal of listCanal" [value]="canal.codigo">
-                                    {{canal.descripcion}}
-                                </option>
+                                @for (canal of listCanal; track $index) {
+
+                                    <option value={{canal.id}}>
+                                        {{canal.descripcion}}
+                                    </option>
+                                }
                             </select>
 
                         </div>

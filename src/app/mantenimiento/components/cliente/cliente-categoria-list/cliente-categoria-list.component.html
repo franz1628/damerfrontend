@@ -1,41 +1,126 @@
-@if (loading) {
-    <app-div-cargando></app-div-cargando> 
-}@else {
-    @if(models.length>0){
-        <table class="table table-sm table-bordered">
-            <thead class="table-success">
-                <tr>
-                    <th>#</th>
-                    <th>Categoria</th>
-                    <th>Agrupación</th>
+<div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="models">
+            <div formArrayName="modelos">
+                <table class="table text-center table-sm table-bordered">
+                    <thead class="table-success fs-6">
+                        <tr>
+                            <th>Id</th>
 
-                    <th>Fecha</th>
-                   <th>Accion</th> 
-                </tr>
-            </thead>
-        
-            <tbody>
-                
-                @for (model of models; track $index) {
-                    <tr (click)="elegir(model,$index)"  [ngClass]="{'selected-row': $index === selectIndex}">
-                        <td>{{$index+1}}</td>
-                        <td>{{model.Categoria.descripcion}}</td>
-                        <td>{{model.nombreAgrupacion}}</td>
-                       
-                        <td>{{model.fechaRegistro.toString().slice(0,10)}}</td>
+                            <th>Categorias</th>
 
-                        <td>
-                            <button class="btn btn-sm btn-info" (click)="selectEdit(model)"><i class="bi bi-pencil"></i> </button>
-                            <button class="btn btn-sm btn-danger" (click)="borrar(model)"><i class="bi bi-trash"></i> </button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                            <th>Acciones</th>
+                        </tr>
 
-        
-    }@else {
-        <span>No se encontraron resultados</span>
-    }
-}
+                    </thead>
+                    <tbody>
+                        @if (modelosArray.controls.length!=0) {
+                        @for (model of modelosArray.controls; track $index) {
+                        <tr [formGroupName]="$index" (click)="elegir($index)"
+                            [ngClass]="{'selected-row': $index === selectIndex}">
+                            <td> <label class="mt-2">{{model.get('id')?.value}}</label> </td>
 
+                            <td>
+                                {{model.get('categorias')?.value}}
+                            </td>
+
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"
+                                    data-bs-toggle="modal" data-bs-target="#modalEditAgrupacion"><i
+                                        class="bi bi-pencil"></i></button>
+                                    @if(model.get('id')?.value!=0){
+                                      
+                                        <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i
+                                                class="bi bi-trash-fill"></i></button>
+                                        @if(modelosArray.controls.length==$index+1){
+                                        <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
+                                                class="bi bi-plus-lg"></i></button>
+                                        }
+                                    }@else{
+                                    <!-- <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
+                                            class="bi bi-save2"></i></button> -->
+                                    }
+                                </div>
+
+
+
+                            </td>
+                        </tr>
+                        }
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+        </form>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalEditAgrupacion" tabindex="-1" aria-labelledby="modalEditAgrupacionLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalEditAgrupacionLabel">Agrupacion de Categoria</h1>
+                <button type="button" id="modalAgrupaciones" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <select class="form-select" id="modalCategoriaAgrupacion" (change)="comboEligeCategoriaAgrupacion($event)"
+                                aria-label="Example select with button addon">
+                                <option selected>Seleccinar</option>
+                                @for (categoria of categoriasAgrupacionTotal; track $index) {
+                                <option value={{categoria.id}}>{{categoria.descripcion}}</option>
+                                }
+                            </select>
+                            <button class="btn btn-primary" type="button" (click)="agregarCategoriaAgrupacion()"> <i class="bi bi-plus-lg"></i> Agregar</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-sm mt-4 table-bordered">
+                    <thead>
+                        <tr class="table-success">
+                            <th>Id</th>
+                            <th>Categoria</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (categoria of categoriasAgrupacion ; track $index) {
+                            <tr>
+                                <td>{{categoria.id}}</td>
+                                <td>{{categoria.descripcion}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger"> <i class="bi bi-trash"></i> </button>
+                                </td>
+                            </tr>
+                        }@empty {
+                            <tr>
+                                No hay categorias agregadas...
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" #botonCerrarModalAgrupacion data-bs-dismiss="modal" id="cerrarModalAgrupacion">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="guardarCategoriaAgrupacion()"> <i class="bi bi-save"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<app-black-loading [show]="showLoading"></app-black-loading>

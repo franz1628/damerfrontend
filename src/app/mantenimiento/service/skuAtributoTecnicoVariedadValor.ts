@@ -32,8 +32,8 @@ export class SkuAtributoTecnicoVariedadValorService {
   }
 
 
-  postResultados(idAtributoTecnicoVariedadValors: string): Observable<ResponseSkuAtributoTecnicoVariedadValor> {
-    return this.http.post<ResponseSkuAtributoTecnicoVariedadValor>(`${this.apiUrl}/postResultados`, {idAtributoTecnicoVariedadValors});
+  postResultados(idAtributoTecnicoVariedadValors: string, idCategoria:number): Observable<ResponseSkuAtributoTecnicoVariedadValor> {
+    return this.http.post<ResponseSkuAtributoTecnicoVariedadValor>(`${this.apiUrl}/postResultados`, {idAtributoTecnicoVariedadValors,idCategoria});
   }
 
   add(model: SkuAtributoTecnicoVariedadValor): Observable<SkuAtributoTecnicoVariedadValor> {

@@ -82,13 +82,13 @@ export class ClienteAtributoFiltroComponent {
     forkJoin( 
       {
         service  : this.service.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id),
-        serviceCategoriaAtributoTecnico: this.serviceCategoriaAtributoTecnico.postIdCategoria(this.atributoFuncionalVariedad.idCategoria),
-        serviceSkuService:this.serviceSkuService.getByCategoria(this.atributoFuncionalVariedad.idCategoria),
+        // serviceCategoriaAtributoTecnico: this.serviceCategoriaAtributoTecnico.postIdCategoria(this.atributoFuncionalVariedad.idCategoria),
+        // serviceSkuService:this.serviceSkuService.getByCategoria(this.atributoFuncionalVariedad.idCategoria),
         serviceAtributoTecnicoVariedadValor:this.serviceAtributoTecnicoVariedadValor.postIdAtributoTecnicoVariedad(this.selectValor)
       }
       ).subscribe({
         next:value => {
-          this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico
+          // this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico
 
           const atributoFuncionales = value.service.data;
          
@@ -97,7 +97,7 @@ export class ClienteAtributoFiltroComponent {
             if(model.idAtributoTecnicoVariedad!=0){
               this.atributosTecnicoVariedadValorsEl[ind] = value.serviceAtributoTecnicoVariedadValor
             }else{
-              this.skusEl[ind] = value.serviceSkuService.data
+              // this.skusEl[ind] = value.serviceSkuService.data
             }
 
             if(model.idCondicion==0){
@@ -155,9 +155,9 @@ export class ClienteAtributoFiltroComponent {
     this.atributosTecnicoVariedadValorsEl[ind] = []
 
     if(valor=="1"){//SKU 
-      this.serviceSkuService.getByCategoria(this.atributoFuncionalVariedad.idCategoria).subscribe(x=>{
-        this.skusEl[ind] = x.data
-      }) 
+      // this.serviceSkuService.getByCategoria(this.atributoFuncionalVariedad.idCategoria).subscribe(x=>{
+      //   this.skusEl[ind] = x.data
+      // }) 
     }else if(valor=="2"){//SKU PADRE
       
     }

@@ -1,12 +1,11 @@
 import { Categoria, CategoriaInit } from "../components/variedades/interfaces/categoria.interface";
 import { Cliente, ClienteInit } from "./cliente";
+import { ClienteAgrupacionCategoria, ClienteAgrupacionCategoriaInit } from "./clienteAgrupacionCategoria";
 import { TipoUnidadMedida, TipoUnidadMedidaInit } from "./tipoUnidadMedida";
 import { UnidadMedida, UnidadMedidaInit } from "./unidadMedida";
 
 export interface AtributoFuncionalVariedad {
     id: number,
-    idCliente: number,
-    idCategoria: number,
     descripcion: string,
     descripcionResumida: string,
     tip: string,
@@ -16,17 +15,14 @@ export interface AtributoFuncionalVariedad {
     alias1: string,
     alias2: string,
     alias3: string,
+    ClienteAgrupacionCategoria:ClienteAgrupacionCategoria
     fechaRegistro: Date,
-    Cliente: Cliente,
-    Categoria: Categoria,
     TipoUnidadMedida:TipoUnidadMedida,
     UnidadMedida:UnidadMedida
 
 }
 export const AtributoFuncionalVariedadInit: AtributoFuncionalVariedad = {
     id: 0,
-    idCliente: 0,
-    idCategoria: 0,
     descripcion: '',
     descripcionResumida: '',
     tip: '',
@@ -37,8 +33,7 @@ export const AtributoFuncionalVariedadInit: AtributoFuncionalVariedad = {
     alias2: '',
     alias3: '',
     fechaRegistro: new Date(),
-    Cliente: ClienteInit,
-    Categoria: CategoriaInit,
+    ClienteAgrupacionCategoria:ClienteAgrupacionCategoriaInit,
     TipoUnidadMedida:TipoUnidadMedidaInit,
     UnidadMedida:UnidadMedidaInit
 };
