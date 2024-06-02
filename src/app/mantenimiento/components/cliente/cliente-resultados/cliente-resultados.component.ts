@@ -29,32 +29,36 @@ export class ClienteResultadosComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    
     if (changes['atributoFuncionalVariedadValor'] || changes['atributoFuncionalVariedad']) {
       this.loadModels();
     }
   }
 
   loadModels() {
-    console.log('eret');
+   
     
     if (this.atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor == 2) {
      
       this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
         const clienteFormulas: ClienteFormula = y.data
-        // this.serviceSkuAtributoTecnicoVariedadValor.postResultados(clienteFormulas.idAtributoTecnicoVariedadValors,this.atributoFuncionalVariedad.idCategoria).subscribe(x => {
-        //   const arrayskus = x.data
-        //   this.skus = []
-        //   arrayskus.map(y => {
-        //     this.skus.push(y.Sku)
-        //   })
-        // })
+        this.serviceSkuAtributoTecnicoVariedadValor.postResultados(clienteFormulas.idAtributoTecnicoVariedadValors,this.atributoFuncionalVariedad.idClienteAgrupacionCategoria).subscribe(x => {
+          console.log(x);
+          
+          const arrayskus = x.data
+          this.skus = []
+          arrayskus.map(y => {
+            this.skus.push(y.Sku)
+          })
+        })
       })
     }
 
-    // if (this.atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor == 3) {
-    //   this.serviceClienteFiltro.postResultados(this.atributoFuncionalVariedadValor.id).subscribe(y => {
-    //   })
-    // }
+    if (this.atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor == 3) {
+      this.serviceClienteFiltro.postResultados(this.atributoFuncionalVariedadValor.id).subscribe(y => {
+      })
+    }
   }
 
 }

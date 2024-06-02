@@ -10,6 +10,7 @@ import { AtributoTecnicoVariedadValoresComponent } from './atributo-tecnico-vari
   templateUrl: './atributo-tecnico-variedad.component.html'
 })
 export class AtributoTecnicoVariedadComponent implements OnInit{
+
   contenidoVisible: string = '';
   botonActivo: string = 'registrados';
   model : AtributoTecnicoVariedad = AtributoTecnicoVariedadInit;
@@ -37,6 +38,10 @@ export class AtributoTecnicoVariedadComponent implements OnInit{
     // this.botonActivo=='registrados' && this.atributoTecnicoVariedadFormComp.selectEdit(model);
     // this.botonActivo=='valores' && this.atributoTecnicoVariedadValoresComp.cargaModels(this.getModel.id);
    
+  }
+
+  modelElegido(model: AtributoTecnicoVariedad) {
+    this.model = model
   }
 
   mostrarContenido(contenido: string): void {

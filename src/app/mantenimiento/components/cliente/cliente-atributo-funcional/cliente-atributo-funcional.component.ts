@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { forkJoin, lastValueFrom } from 'rxjs';
@@ -28,11 +28,11 @@ import { ClienteAgrupacionCategoriaInit } from '../../../interface/clienteAgrupa
   selector: 'app-cliente-atributo-funcional',
   templateUrl: './cliente-atributo-funcional.component.html',
 })
-export class ClienteAtributoFuncionalComponent {
+export class ClienteAtributoFuncionalComponent implements OnChanges{
 
   @Input() modelCliente: Cliente = ClienteInit
   @Input() modelCategoria: Categoria = CategoriaInit
-  @Input() clienteAgrupacionCategoria = ClienteAgrupacionCategoriaInit
+  @Input() idClienteAgrupacionCategoria = 0
 
   skus: Sku[] = [];
 
@@ -77,8 +77,10 @@ export class ClienteAtributoFuncionalComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['clienteAgrupacionCategoria']) {
-      console.log('franz');
+    
+    
+    if (changes['idClienteAgrupacionCategoria']) {
+ 
       
       this.loadModels();
     }
@@ -90,24 +92,27 @@ export class ClienteAtributoFuncionalComponent {
 
     forkJoin(
       {
-        service: this.service.postIdClienteIdCategoria(this.modelCliente.id, this.modelCategoria.id),
+        service: this.service.postIdClienteAgrupacionCategoria(this.modelCliente.id, this.idClienteAgrupacionCategoria),
         serviceTipoUnidadMedida: this.serviceTipoUnidadMedida.get(),
         serviceUnidadMedida: this.serviceUnidadMedida.get(),
-        serviceCategoriaAtributoTecnico: this.serviceCategoriaAtributoTecnico.postIdCategoria(this.modelCategoria.id)
+        serviceCategoriaAtributoTecnico: this.serviceCategoriaAtributoTecnico.postIdAgrupacionCategoria(this.idClienteAgrupacionCategoria)
       }
     ).subscribe({
       next: value => {
         this.tipoUnidadMedidas = value.serviceTipoUnidadMedida.data
         this.unidadMedidas = value.serviceUnidadMedida.data
-        this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico
+        this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico.data
 
         const atributoFuncionales = value.service.data;
 
+        console.log(atributoFuncionales);
+        
 
         atributoFuncionales.forEach(model => {
           const nuevoModelo = this.fb.group({
             id: [model.id],
             idCategoria: [this.modelCategoria.id],
+            idClienteAgrupacionCategoria: [this.idClienteAgrupacionCategoria],
             idCliente: [this.modelCliente.id],
             descripcion: [model.descripcion],
             descripcionResumida: [model.descripcionResumida],
@@ -144,7 +149,7 @@ export class ClienteAtributoFuncionalComponent {
   verResultados() {
     forkJoin(
       {
-        serviceSku: this.serviceSku.getByCategoriaAll(this.modelCategoria.id),
+        serviceSku: this.serviceSku.getByCategoriaAll(this.atributoFuncionalVariedad.id),
         serviceAtributoFuncionalVariedadValor: this.serviceAtributoFuncionalVariedadValor.postIdAtributoFuncionalVariedad(this.atributoFuncionalVariedad.id),
 
       }
@@ -239,7 +244,7 @@ export class ClienteAtributoFuncionalComponent {
                   this.skusElegidos.push(miString)
                 }
                 
-                console.log(this.skusElegidos);
+               
                 
               })
              
@@ -290,6 +295,7 @@ export class ClienteAtributoFuncionalComponent {
       id: [0],
       idCliente: [this.modelCliente.id],
       idCategoria: [this.modelCategoria.id],
+      idClienteAgrupacionCategoria: [this.idClienteAgrupacionCategoria],
       descripcion: [''],
       descripcionResumida: [''],
       tip: [''],

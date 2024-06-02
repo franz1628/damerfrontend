@@ -1,39 +1,29 @@
 <table class="table table-sm table-bordered">
-    <thead class="text-center">
-        <tr>
-            <td colspan="12">UNIDAD DE VENTA DEL SKU (FACTORES DE CONVERSION)</td>
-        </tr>
-        <tr>
-            <td rowspan="2">Nº item</td>
-            <td colspan="2">Unidad de venta</td>
-            <td rowspan="2">Por def.</td>
-            <td colspan="3">Factor de conversion de unidad de venta</td>
-            <td colspan="2">Status del registro</td>
+    <thead class="table-success">
 
-        </tr>
-        <tr>
-            <td>Cod.</td>
-            <td>Descripcion</td>
-            <td>Tipo</td>
-            <td>Unidad</td>
-            <td>Factor</td>
-            <td>Status</td>
-            <td>Fecha</td>
+        <tr class="">
+            <th>Cod.</th>
+         
+            <th>Tipo</th>
+            <th>Unidad</th>
+            <th>Factor</th>
+       
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-
-
-        </tr>
+        @for (skuAtributoTecnicoVariedadValor of skuAtributoTecnicoVariedadValors; track $index) {
+            @if (skuAtributoTecnicoVariedadValor.idTipoUnidadMedida!=0) {
+                <tr>
+                    <td>{{skuAtributoTecnicoVariedadValor.id}}</td>
+                    <td>{{skuAtributoTecnicoVariedadValor.TipoUnidadMedida.descripcion}}</td>
+                    <td>{{skuAtributoTecnicoVariedadValor.UnidadMedida.descripcion}}</td>
+                    <td>{{skuAtributoTecnicoVariedadValor.valor}}</td>
+                </tr>
+            }
+        }@empty {
+            <tr>
+                No se encontraron valores...
+            </tr>
+        }
     </tbody>
 </table>

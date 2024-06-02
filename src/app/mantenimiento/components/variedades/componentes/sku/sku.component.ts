@@ -53,7 +53,7 @@ export class SkuComponent implements OnChanges{
   editModel(model: Sku) {
    
     this.idSku = model.id
-    this.skuForm.setModel(model)
+    this.skuForm.elegirSku(model)
     this.SkuEmit.emit(model);
     this.modelEdit = model;
   }

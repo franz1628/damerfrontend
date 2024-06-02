@@ -9,7 +9,7 @@
                     <tr>
                         <th>Codigo</th>
                         <th>Descripcion</th>
-                        <th>DescripcionResu</th>
+                        <!-- <th>DescripcionResu</th> -->
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -19,7 +19,7 @@
                         <tr (click)="eligeModel(model,$index)"  [ngClass]="{'selected-row': $index === selectIndex}">
                             <td>{{model.id}}</td>
                             <td>{{model.descripcion}}</td>
-                            <td>{{model.descripcionResumida}}</td>
+                            <!-- <td>{{model.descripcionResumida}}</td> -->
                             <td>
                                 <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i
                                         class="bi bi-trash"></i></button>

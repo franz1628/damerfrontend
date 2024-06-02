@@ -114,8 +114,6 @@ export class SkuFormComponent implements OnChanges {
       return;
     }
 
-    console.log(this.currentModel);
-
     const descripcion = this.myForm.get('descripcion')?.value;
     this.myForm.patchValue({ 'descripcionResumida': descripcion.slice(0, 50), 'tip': descripcion.slice(0, 20) })
 
@@ -298,6 +296,26 @@ export class SkuFormComponent implements OnChanges {
     //this.myForm.get('tipoSku')?.disabled 
     this.elementRef.nativeElement.querySelector('#tipoSku').disabled=true
 
+  }
+
+  elegirSku(sku:Sku){
+    console.log(sku);
+    
+    this.myForm.patchValue(sku);
+    this.model = sku;
+
+    if(sku.tipoSku==3){
+      for (let i = 0; i < sku.SkuHijos.length; i++) {
+        this.skuCombos.push(sku.SkuHijos[i].Sku);
+        this.porcentajes.push(sku.SkuHijos[i].porcentaje.toString())
+      }
+    }else if(sku.tipoSku==2){
+      this.skuPack = sku.SkuHijos[0].Sku;
+      this.cantidadPack = sku.SkuHijos[0].cantidad
+    }
+
+    //this.myForm.get('tipoSku')?.disabled 
+    this.elementRef.nativeElement.querySelector('#tipoSku').disabled=true
   }
 
   elegirSkuBusquedaCombo(sku: Sku) {

@@ -26,8 +26,6 @@ export class ClienteResultadosFiltroComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-
 
     if (changes['atributoFuncionalVariedadValor'] || changes['atributoFuncionalVariedad']) {
       this.loadModels();

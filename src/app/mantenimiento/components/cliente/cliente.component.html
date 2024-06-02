@@ -104,12 +104,12 @@
 
 
         </div>
-        @if(getModelCategoria.id!=0){
+        @if(clienteAgrupacionCategoria.id!=0){
         <div class="row mt-4">
             <div class="col-12">
 
                 <app-cliente-atributo-funcional [modelCliente]="getModel"
-                [clienteAgrupacionCategoria]="getClienteAgrupacionCategoria" [modelCategoria]="getModelCategoria"></app-cliente-atributo-funcional>
+                [idClienteAgrupacionCategoria]="clienteAgrupacionCategoria.id" [modelCategoria]="getModelCategoria"></app-cliente-atributo-funcional>
 
 
             </div>

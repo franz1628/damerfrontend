@@ -1,0 +1,51 @@
+<style>
+    .login-container {
+  width: 300px;
+  margin: 100px auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+}
+
+.login-container form div {
+  margin-bottom: 15px;
+}
+
+.login-container form div label {
+  display: block;
+}
+
+.login-container form div input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.login-container .error {
+  color: red;
+  margin-top: 10px;
+}
+
+</style>
+
+<div class="login-container">
+    <img width="200px" src="http://damer2.b3peru.com/assets/img/logo.png" alt="damer" class="mb-3">
+    <form (ngSubmit)="login()"  [formGroup]="myForm">
+      <div>
+        <label for="username">Email:</label>
+        <input type="text" id="username" formControlName="username">
+      </div>
+      <div>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" formControlName="password">
+      </div>
+      <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+      <button type="submit" class="btn btn-primary"><i class="bi bi-lock-fill"></i> Entrar</button>
+    </form>
+  </div>
+  

@@ -10,6 +10,8 @@ import { AlertService } from '../../../../../../shared/services/alert.service';
 import { Observable, forkJoin, lastValueFrom } from 'rxjs';
 import { AtributoTecnicoVariedadService } from '../../../../../service/atributoTecnicoVariedad';
 import { AtributoTecnicoVariedad } from '../../../../../interface/atributoTecnicoVariedad';
+import { TipoUnidadMedidaService } from '../../../../../service/tipoUnidadMedida';
+import { TipoUnidadMedida } from '../../../../../interface/tipoUnidadMedida';
 
 @Component({
   selector: 'app-categoria-atributos',
@@ -23,6 +25,7 @@ export class CategoriaAtributosComponent implements OnInit{
   idCategoriaAtributoTecnico=0;
   categoriaAtributoTecnico:CategoriaAtributoTecnico=CategoriaAtributoTecnicoInit;
   atributoTecnicoVariedads:AtributoTecnicoVariedad[] = [];
+  tipoUnidadMedidas:TipoUnidadMedida[] = []
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
@@ -33,6 +36,7 @@ export class CategoriaAtributosComponent implements OnInit{
   constructor(
     private service: CategoriaAtributoTecnicoService,
     private serviceAtributoTecnicoVariedadService : AtributoTecnicoVariedadService,
+    private serviceTipoUnidadMedida:TipoUnidadMedidaService,
     private fb: FormBuilder,
     private alert: AlertService
   ) {
@@ -40,6 +44,9 @@ export class CategoriaAtributosComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.serviceTipoUnidadMedida.get().subscribe(x=>{
+      this.tipoUnidadMedidas = x.data
+    })
     this.loadModels();
   }
 
@@ -47,7 +54,7 @@ export class CategoriaAtributosComponent implements OnInit{
     if (changes['modelCategoria'] && !changes['modelCategoria'].firstChange) {
       this.loadModels();
     }
-  }
+  } 
 
   loadModels(): void {
     this.showLoading = true;
@@ -62,12 +69,15 @@ export class CategoriaAtributosComponent implements OnInit{
         next:value => {
           this.atributoTecnicoVariedads = value.serviceAtributoTecnicoVariedadService.data
 
-          const models = value.service
+          const models = value.service.data
+          console.log(models);
+          
           models.forEach(model => {
             const nuevoModelo = this.fb.group({
               id: [model.id],
               idCategoria: [model.idCategoria],
               idAtributoTecnicoVariedad: [model.idAtributoTecnicoVariedad], 
+              AtributoTecnicoVariedad: [model.AtributoTecnicoVariedad], 
               comentario: [model.comentario],
               idTipoUnidadMedida: [model.idTipoUnidadMedida],
               numOrdenSku: [model.numOrdenSku],

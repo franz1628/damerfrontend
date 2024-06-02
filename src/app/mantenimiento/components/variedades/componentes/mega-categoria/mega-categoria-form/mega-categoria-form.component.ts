@@ -83,7 +83,11 @@ export class MegaCategoriaFormComponent {
   }
 
   setIdCanasta(canasta: Canasta) {
-    this.myForm.patchValue({ idCanasta: canasta.id });
+    this.canastaService.get().subscribe(resp => {
+      this.listCanasta = resp.data
+      this.myForm.patchValue({ idCanasta: canasta.id });
+    });
+   
   }
 
   nuevo() {

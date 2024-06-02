@@ -15,6 +15,7 @@ export interface AtributoFuncionalVariedad {
     alias1: string,
     alias2: string,
     alias3: string,
+    idClienteAgrupacionCategoria:number,
     ClienteAgrupacionCategoria:ClienteAgrupacionCategoria
     fechaRegistro: Date,
     TipoUnidadMedida:TipoUnidadMedida,
@@ -32,6 +33,7 @@ export const AtributoFuncionalVariedadInit: AtributoFuncionalVariedad = {
     alias1: '',
     alias2: '',
     alias3: '',
+    idClienteAgrupacionCategoria:0,
     fechaRegistro: new Date(),
     ClienteAgrupacionCategoria:ClienteAgrupacionCategoriaInit,
     TipoUnidadMedida:TipoUnidadMedidaInit,

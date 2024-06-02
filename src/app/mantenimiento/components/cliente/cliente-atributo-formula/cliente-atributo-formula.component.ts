@@ -34,7 +34,7 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['atributoFuncionalVariedad'] && !changes['atributoFuncionalVariedad'].firstChange) {
+    if (changes['atributoFuncionalVariedad']) {
       this.loadChanges();
     }
   }
@@ -44,32 +44,33 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
 
   loadChanges(): void {
 
-    // this.serviceCategoriaAtributoTecnico.postIdCategoria(this.atributoFuncionalVariedad.idCategoria).subscribe(x => {
-    //   this.categoriaAtributoTecnicos = x
+    this.serviceCategoriaAtributoTecnico.postIdAgrupacionCategoria(this.atributoFuncionalVariedad.idClienteAgrupacionCategoria).subscribe(x => {
+      this.categoriaAtributoTecnicos = x.data
 
-    //   this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
+      this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
+        console.log(y);
+        
+        const clienteFormulas: ClienteFormula = y.data
+        const valors = clienteFormulas?.idAtributoTecnicoVariedadValors?.split(',')||[];
+        this.checkboxSeleccionados = []
+        this.idAtributoTecnicoVariedad = clienteFormulas.idAtributoTecnicoVariedad;
 
-    //     const clienteFormulas: ClienteFormula = y.data
-    //     const valors = clienteFormulas.idAtributoTecnicoVariedadValors.split(',');
-    //     this.checkboxSeleccionados = []
-    //     this.idAtributoTecnicoVariedad = clienteFormulas.idAtributoTecnicoVariedad;
+        this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idAtributoTecnicoVariedad).subscribe(x => {
+          this.categoriaAtributoTecnicoValors = x
 
-    //     this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idAtributoTecnicoVariedad).subscribe(x => {
-    //       this.categoriaAtributoTecnicoValors = x
+        })
 
-    //     })
+        for (let i = 0; i < valors.length; i++) {
+          const element = valors[i];
 
-    //     for (let i = 0; i < valors.length; i++) {
-    //       const element = valors[i];
-
-    //       this.checkboxSeleccionados.push(parseInt(element));
-    //     }
+          this.checkboxSeleccionados.push(parseInt(element));
+        }
 
 
 
 
-    //   })
-    // })
+      })
+    })
 
   }
 

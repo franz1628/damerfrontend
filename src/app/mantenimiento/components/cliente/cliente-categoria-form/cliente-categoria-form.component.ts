@@ -65,7 +65,7 @@ export class ClienteCategoriaFormComponent {
       next: value => {
         this.clienteCategorias = value.service.data
 
-        console.log(this.clienteCategorias);
+        
         
 
         this.clienteCategorias.forEach(model => {

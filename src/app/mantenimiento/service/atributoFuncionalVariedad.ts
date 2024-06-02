@@ -34,6 +34,9 @@ export class AtributoFuncionalVariedadService {
   postIdClienteIdCategoria(idCliente: number, idCategoria:number): Observable<ResponseAtributoFuncionalVariedad> {
     return this.http.post<ResponseAtributoFuncionalVariedad>(`${this.apiUrl}/idClienteidCategoria/`,{idCliente,idCategoria});
   }
+  postIdClienteAgrupacionCategoria(idCliente: number, idClienteAgrupacionCategoria:number): Observable<ResponseAtributoFuncionalVariedad> {
+    return this.http.post<ResponseAtributoFuncionalVariedad>(`${this.apiUrl}/idClienteAgrupacionCategoria/`,{idCliente,idClienteAgrupacionCategoria});
+  }
 
 
   add(model: AtributoFuncionalVariedad): Observable<AtributoFuncionalVariedad> {

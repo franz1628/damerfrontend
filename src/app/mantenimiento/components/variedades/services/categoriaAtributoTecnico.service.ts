@@ -6,6 +6,13 @@ import { Response } from '../../../../shared/interfaces/response.interface';
 import { Categoria } from '../interfaces/categoria.interface';
 import { CategoriaAtributoTecnico } from '../interfaces/categoriaAtributoTecnico';
 
+export interface ResponseCategoriaAtributoTecnico {
+
+  data: CategoriaAtributoTecnico[],
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,8 +34,12 @@ export class CategoriaAtributoTecnicoService {
     return this.http.post<CategoriaAtributoTecnico>(this.apiUrl, model);
   }
 
-  postIdCategoria(idCategoria: number): Observable<CategoriaAtributoTecnico[]> {
-    return this.http.post<CategoriaAtributoTecnico[]>(`${this.apiUrl}/idCategoria`, {idCategoria});
+  postIdCategoria(idCategoria: number): Observable<ResponseCategoriaAtributoTecnico> {
+    return this.http.post<ResponseCategoriaAtributoTecnico>(`${this.apiUrl}/idCategoria`, {idCategoria});
+  }
+
+  postIdAgrupacionCategoria(idAgrupacionCategoria: number): Observable<ResponseCategoriaAtributoTecnico> {
+    return this.http.post<ResponseCategoriaAtributoTecnico>(`${this.apiUrl}/idCategoria`, {idAgrupacionCategoria});
   }
 
   update(id: number, model: CategoriaAtributoTecnico): Observable<CategoriaAtributoTecnico> {

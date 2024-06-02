@@ -39,7 +39,7 @@ export class ClienteFormulaComponent implements OnInit {
 
   cargaAtributosValores(categoria:Categoria):void{
     this.service.postIdCategoria(categoria.id).subscribe(x=>{
-      this.categoriaAtributoTecnicos = x;
+      this.categoriaAtributoTecnicos = x.data;
     });
  
 

@@ -35,7 +35,7 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit, OnChange
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['modelAtributoTecnicoVariedad'] && !changes['modelAtributoTecnicoVariedad'].firstChange) {
+    if (changes['modelAtributoTecnicoVariedad']) {
       this.loadModels();
     }
   }

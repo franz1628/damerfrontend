@@ -19,7 +19,7 @@ export class ParametroFormComponent {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   public myForm: FormGroup = this.fb.group({
     id: [0],
-    descripcion: ['',Validators.required],
+    descripcion: ['', Validators.required],
     descripcionResumida: [''],
     tip: [''],
     idClasificadoReferencia: [0],
@@ -30,31 +30,31 @@ export class ParametroFormComponent {
     alias1: [''],
     alias2: [''],
     alias3: ['']
- 
+
   })
 
-  public clasificadoReferencias : ClasificadoReferencia[] = [];
-  
+  public clasificadoReferencias: ClasificadoReferencia[] = [];
+
   constructor(
-    private alert: AlertService, 
-    private fb: FormBuilder, 
-    private validForm: ValidFormService, 
+    private alert: AlertService,
+    private fb: FormBuilder,
+    private validForm: ValidFormService,
     private service: ParametroService,
-    private serviceClasificadoReferencia:ClasificadoReferenciaService
-    ) {
+    private serviceClasificadoReferencia: ClasificadoReferenciaService
+  ) {
 
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.showLoading = true;
-    this.serviceClasificadoReferencia.get().subscribe(x=>{
+    this.serviceClasificadoReferencia.get().subscribe(x => {
       this.clasificadoReferencias = x.data;
     })
 
   }
-  
+
   get currentModel() {
-    
+
     return this.myForm.value as Parametro;
   }
 
@@ -63,8 +63,12 @@ export class ParametroFormComponent {
       this.myForm.markAllAsTouched();
       return;
     }
+    this.myForm.patchValue({
+      descripcionResumida: this.myForm.get('descripcion')?.value,
+      tip: this.myForm.get('descripcion')?.value,
+    }) 
 
-    if(!this.currentModel.id){
+    if (!this.currentModel.id) {
       this.service.add(this.currentModel).subscribe(() => {
         this.showLoading = false;
         this.updateModelsEmit.emit();
@@ -73,8 +77,8 @@ export class ParametroFormComponent {
         this.myForm.clearValidators()
         this.myForm.reset()
       });
-    }else{
-      this.service.update(this.currentModel.id,this.currentModel).subscribe(() => {
+    } else {
+      this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');

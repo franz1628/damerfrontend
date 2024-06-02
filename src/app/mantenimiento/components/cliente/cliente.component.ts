@@ -138,6 +138,8 @@ export class ClienteComponent {
    // this.clienteCategoriaFormComp.selectEdit(model); 
    // this.modelCategoria = model.Categoria;
     this.clienteAgrupacionCategoria = model
+   
+    
   }
 
   selectAtributoEdit(model:AtributoFuncionalVariedad){

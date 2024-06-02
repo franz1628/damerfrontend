@@ -78,7 +78,7 @@ export class ClienteConcatenacionComponent implements OnInit{
       return
     }
 
-    console.log(this.separador);
+   
     
     this.serviceClienteConcatenacion.guardarConcatenacion(this.atributoFuncionalVariedadValor.id,this.idAtributoTecnicoVariedads,this.variables,this.separador).subscribe(x=>{
 

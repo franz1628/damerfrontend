@@ -9,10 +9,10 @@
                         <tr>
                             <th>Item</th>
                             <th>Atributo </th>
-                            <th>Comentarios </th>
-                            <th>Tipo Medida </th>
-                            <th>Orden </th>
-                            <th>Verificado</th>
+                            <!-- <th>Comentarios </th> -->
+                            <th>Tipo Unidad Medida </th>
+                            <!-- <th>Orden </th>
+                            <th>Verificado</th> -->
                             <th>Acciones</th>
                         </tr>
           
@@ -31,9 +31,22 @@
                                 </select>
                               </td>
                              
-                              <td> <input class="form-control form-control-sm" formControlName="comentario"> </td>
-                              <td> <input class="form-control form-control-sm" formControlName="idTipoUnidadMedida"> </td>
-                              <td> <input class="form-control form-control-sm" formControlName="numOrdenSku"> </td>
+                              <!-- <td> <input class="form-control form-control-sm" formControlName="comentario"> </td> -->
+                              <td>
+                                @if(model.get('AtributoTecnicoVariedad')?.value.solicitarUnidad==1){
+                                    <select class="form-select form-select-sm" formControlName="idTipoUnidadMedida">
+                                        <option value="">SELECCIONAR</option>
+                                        @for (tipoUnidadMedida of tipoUnidadMedidas; track $index) {
+                                            <option value={{tipoUnidadMedida.id}}>{{tipoUnidadMedida.descripcion}}</option>
+                                        }
+                                    </select>
+                                }
+                               
+                                <!-- {{}}
+                                 <input class="form-control form-control-sm" formControlName="idTipoUnidadMedida">
+                                 -->
+                                </td>
+                              <!-- <td> <input class="form-control form-control-sm" formControlName="numOrdenSku"> </td>
                     
                               <td>
                                   <select class="form-select form-select-sm" formControlName="indVerificado">
@@ -42,7 +55,7 @@
                                       <option value="0">NO</option>
                                   </select>
                               
-                              </td>
+                              </td> -->
                               <td>
                                   <div class="btn-group">
           

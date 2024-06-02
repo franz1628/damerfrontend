@@ -3,12 +3,13 @@
 
     <h6 class="mb-3 text-center">ATRIBUTOS TECNICOS REGISTRADOS</h6>
     <hr>
-    <app-atributo-tecnico-variedad-list #atributoTecnicoVariedadListComp
-      (selectEditEmit)="selectEdit($event)"></app-atributo-tecnico-variedad-list>
-
+    <!-- <app-atributo-tecnico-variedad-list #atributoTecnicoVariedadListComp
+      (selectEditEmit)="selectEdit($event)"></app-atributo-tecnico-variedad-list> -->
+      <app-atributo-tecnico-variedad-form #atributoTecnicoVariedadFormComp  (modelElegidoEmit)="modelElegido($event)"
+      (actualizarListEmit)="actualizarList()"></app-atributo-tecnico-variedad-form>
 
   </div>
-  <div class="col-md-2">
+  <!-- <div class="col-md-2">
     <div class="list-group mt-3">
       <button type="button" class="list-group-item list-group-item-action active"
         [class.active]="botonActivo === 'registrados'" (click)="mostrarContenido('registrados')">Nuevo Atributo</button>
@@ -19,19 +20,15 @@
       }
 
 
-
+      
     </div>
-  </div>
-  <div class="col-md-4">
+  </div> -->
+  <div class="col-md-6">
 
-    @if(contenidoVisible === 'registrados'){
-    <h6 class="mb-3 text-center">INFORMACION DEL ATRIBUTO VARIEDAD</h6>
-    <hr>
+ 
+    
 
-    <app-atributo-tecnico-variedad-form #atributoTecnicoVariedadFormComp
-      (actualizarListEmit)="actualizarList()"></app-atributo-tecnico-variedad-form>
-
-    }@else if (contenidoVisible === 'valores' && getModel.id != 0) {
+   @if ( getModel.id != 0) {
     <app-atributo-tecnico-variedad-valores #atributoTecnicoVariedadValoresComp
       [modelAtributoTecnicoVariedad]="getModel"></app-atributo-tecnico-variedad-valores>
     }

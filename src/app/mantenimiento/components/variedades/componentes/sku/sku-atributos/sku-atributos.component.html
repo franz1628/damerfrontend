@@ -18,83 +18,100 @@
                             <th>Alias 3</th>
                             <th>Acciones</th>
                         </tr>
-          
+
                     </thead>
                     <tbody>
                         @if (modelosArray.controls.length!=0) {
-                          @for (model of modelosArray.controls; track $index) {
-                            <tr [formGroupName]="$index" >
-                              <td> <label class="mt-2">{{model.get('idAtributoTecnicoVariedad')?.value}}</label>  </td>
-                              <td>
+                        @for (model of modelosArray.controls; track $index) {
+                        <tr [formGroupName]="$index">
+                            <td> <label class="mt-2">{{model.get('id')?.value}}</label> </td>
+                            <td>
                                 {{getAtributos(model.get('idAtributoTecnicoVariedad')?.value)}}
-                              </td>
+                            </td>
 
-                              <td>
-                                <select class="form-select form-select-sm" formControlName="idAtributoTecnicoVariedadValor">
+                            <td>
+                                @if(model.get('idTipoUnidadMedida')?.value!=0){
+                                <input type="text" class="form form-control form-control-sm" formControlName="valor">
+                                }@else{
+                                <select class="form-select form-select-sm"
+                                    formControlName="idAtributoTecnicoVariedadValor">
                                     <option value="0">SELECCIONAR</option>
-                                    @for (valor of getAtributosValor(model.get('idAtributoTecnicoVariedad')?.value); track $index) {
-                                        <option value={{valor.idAtributoTecnicoVariedadValor}}>{{valor.AtributoTecnicoVariedadValor.valor}}</option> 
+                                    @for (valor of getAtributosValor(model.get('idAtributoTecnicoVariedad')?.value);
+                                    track $index) {
+                                    <option value={{valor.idAtributoTecnicoVariedadValor}}>
+                                        {{valor.AtributoTecnicoVariedadValor.valor}}</option>
                                     }
                                 </select>
+                                }
 
-                              </td>
 
-                              <td>
+
+                            </td>
+
+                            <td>
+                                @if(model.get('solicitarUnidad')?.value!=0){
+
                                 <select class="form-select form-select-sm" formControlName="idTipoUnidadMedida">
                                     <option value="0">SELECCIONAR</option>
                                     @for (tipo of tipoUnidadMedidas; track $index) {
-                                        <option value={{tipo.id}}>{{tipo.descripcion}}</option>
+                                    <option value={{tipo.id}}>{{tipo.descripcion}}</option>
                                     }
                                 </select>
-                              </td>
-                           
+                                }
+                            </td>
 
-                              <td>
+
+                            <td>
+                                @if(model.get('solicitarUnidad')?.value!=0){
+
                                 <select class="form-select form-select-sm" formControlName="idUnidadMedida">
                                     <option value="0">SELECCIONAR</option>
                                     @for (unidad of unidadMedidas; track $index) {
-                                        <option value={{unidad.id}}>{{unidad.descripcion}}</option>
+                                    <option value={{unidad.id}}>{{unidad.descripcion}}</option>
                                     }
                                 </select>
-                              </td>
-                             
-                              <td> <input class="form-control form-control-sm" formControlName="comentario"> </td>
-                              <td> <input class="form-control form-control-sm" formControlName="alias1"> </td>
-                              <td> <input class="form-control form-control-sm" formControlName="alias2"> </td>
-                              <td> <input class="form-control form-control-sm" formControlName="alias3"> </td>
-                            
-                              <td>
-                                  <div class="btn-group">
-          
-                                      @if(model.get('id')?.value!=0){
-                                      <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i
-                                              class="bi bi-pencil"></i></button>
-                                      <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i class="bi bi-trash-fill"></i></button>
-                                      @if(modelosArray.controls.length==$index+1){
-                                      <!-- <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
+
+                                }
+                            </td>
+
+                            <td> <input class="form-control form-control-sm" formControlName="comentario"> </td>
+                            <td> <input class="form-control form-control-sm" formControlName="alias1"> </td>
+                            <td> <input class="form-control form-control-sm" formControlName="alias2"> </td>
+                            <td> <input class="form-control form-control-sm" formControlName="alias3"> </td>
+
+                            <td>
+                                <div class="btn-group">
+
+                                    @if(model.get('id')?.value!=0){
+                                    <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i
+                                            class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i
+                                            class="bi bi-trash-fill"></i></button>
+                                    @if(modelosArray.controls.length==$index+1){
+                                    <!-- <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
                                               class="bi bi-plus-lg"></i></button> -->
-                                      }
-                                      }@else{
-                                      <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
-                                              class="bi bi-save2"></i></button>
-                                      }
-                                  </div>
-          
-          
-          
-                              </td>
-                          </tr>
-                          }
-                           
+                                    }
+                                    }@else{
+                                    <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
+                                            class="bi bi-save2"></i></button>
+                                    }
+                                </div>
+
+
+
+                            </td>
+                        </tr>
                         }
-          
+
+                        }
+
                     </tbody>
                 </table>
             </div>
-          
-          </form>
+
+        </form>
     </div>
-   
+
 </div>
 
 

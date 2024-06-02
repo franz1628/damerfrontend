@@ -5,6 +5,13 @@ import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
 import { AtributoTecnicoVariedad } from '../interface/atributoTecnicoVariedad';
 
+
+export interface ResponseAtributoTecnicoVariedad {
+  data: AtributoTecnicoVariedad[],
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,8 +20,8 @@ export class AtributoTecnicoVariedadService {
 
   constructor(private http: HttpClient) {}
 
-  get(): Observable<Response> {
-    return this.http.get<Response>(this.apiUrl);
+  get(): Observable<ResponseAtributoTecnicoVariedad> {
+    return this.http.get<ResponseAtributoTecnicoVariedad>(this.apiUrl);
   }
 
   getId(id: number): Observable<Response> {

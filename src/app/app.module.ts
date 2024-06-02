@@ -8,11 +8,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MantenimientoModule } from './mantenimiento/mantenimiento.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { LoginFormComponent } from './login/login-form/login-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    LoginFormComponent
   ],
   imports: [
     CommonModule,

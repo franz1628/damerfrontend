@@ -14,9 +14,10 @@
         @if(idSku!=0){
           <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'atributos'"
             (click)="mostrarContenido('atributos')">Atributos técnicos</button>
+          <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'unidadesVenta'"
+            (click)="mostrarContenido('unidadesVenta')">Unidades de venta</button> 
         }
-        <!-- <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'unidadesVenta'"
-          (click)="mostrarContenido('unidadesVenta')">Unidades de venta</button> -->
+        <!-- -->
 
       </div>
     </div>
@@ -33,7 +34,7 @@
     @if(contenidoVisible === 'atributos'){
       <app-sku-atributos [modelSku]="modelEdit"></app-sku-atributos>
     }@else if (contenidoVisible === 'unidadesVenta') {
-      <app-sku-unidades-venta></app-sku-unidades-venta>
+      <app-sku-unidades-venta [modelSku]="modelEdit"></app-sku-unidades-venta>
     }@else {
       <h6 class="mb-3 text-center">SKUS REGISTRADAS</h6>
       <hr>

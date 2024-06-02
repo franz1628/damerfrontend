@@ -1,101 +1,144 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ValidFormService } from '../../../../shared/services/validForm.service';
-import { AtributoTecnicoVariedadService } from '../../../service/atributoTecnicoVariedad';
-import { RegexService } from '../../../../shared/services/regex.service';
-import { AtributoTecnicoVariedad, AtributoTecnicoVariedadInit } from '../../../interface/atributoTecnicoVariedad';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { AlertService } from '../../../../shared/services/alert.service';
+import { AtributoTecnicoVariedad, AtributoTecnicoVariedadInit } from '../../../interface/atributoTecnicoVariedad';
+import { AtributoTecnicoVariedadService } from '../../../service/atributoTecnicoVariedad';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { forkJoin, lastValueFrom } from 'rxjs';
  
 @Component({ 
   selector: 'app-atributo-tecnico-variedad-form',
   templateUrl: './atributo-tecnico-variedad-form.component.html'
 })
 export class AtributoTecnicoVariedadFormComponent {
-  showLoading:boolean=false;
+ 
+  @Input()
+  modelAtributoTecnicoVariedad: AtributoTecnicoVariedad = AtributoTecnicoVariedadInit
+  showLoading: boolean = false;
 
-  public model = this.fb.group({
-    id: [0],
-    idPais: [0],
-    descripcion: [''],
-    descripcionResumida: [''], 
-    tip: [''],
-    posiblesValores: [0],
-    solicitarUnidad: [0],
-    variosValores: [0],
-    idInputClasificado: [0],
-    alias1: [''],
-    alias2: [''],
-    alias3: [''],
-  })
+  @Output() modelElegidoEmit:EventEmitter<AtributoTecnicoVariedad> = new EventEmitter();
 
-  @Output() actualizarListEmit: EventEmitter<null> = new EventEmitter();
+  atributoTecnicoVariedad:AtributoTecnicoVariedad = AtributoTecnicoVariedadInit;
 
-
+  models: FormGroup = this.fb.group({
+    modelos: this.fb.array([]),
+  });;
 
   constructor(
-    private fb: FormBuilder,
-    private validForm: ValidFormService,
     private service: AtributoTecnicoVariedadService,
-    private regexService : RegexService,
-    private alert:AlertService,
-
+    private fb: FormBuilder,
+    private alert: AlertService
   ) {
 
   }
 
   ngOnInit(): void {
-
+    this.loadModels(); 
   }
 
-  get getModel() {
-    return this.model.value as AtributoTecnicoVariedad
-  }
-
-
-  actualizarList() {
-    this.actualizarListEmit.emit();
-  }
-
-
-
-  submit() {
-    if (this.model.invalid) {
-      this.model.markAllAsTouched();
-      return;
-    }
-
-    if(!this.getModel.id){
-      this.service.add(this.getModel).subscribe(() => {
-        this.showLoading = false;
-        this.actualizarListEmit.emit();
-        this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
-        this.model.patchValue(AtributoTecnicoVariedadInit);
-        this.model.clearValidators()
-        this.model.reset()
-      });
-    }else{
-      this.service.update(this.getModel.id,this.getModel).subscribe(() => {
-        this.showLoading = false;
-        this.actualizarListEmit.emit();
-        this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
-        this.model.reset()
-      });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['model']) {
+      this.loadModels();
     }
   }
 
-  selectEdit(model: AtributoTecnicoVariedad) {
-    this.model.patchValue(model);
+  loadModels(): void {
+    this.showLoading = true;
+    (this.models.get('modelos') as FormArray).clear();
+
+    forkJoin( 
+      {
+        service  : this.service.get(),
+      }
+      ).subscribe({
+        next:value => {
+
+          const models = value.service.data;
+         
+
+          models.forEach((model,index) => {
+            const nuevoModelo = this.fb.group({
+              id: [model.id],
+              descripcion:[model.descripcion],
+              solicitarUnidad:[model.solicitarUnidad],
+            });
+  
+            this.modelosArray.push(nuevoModelo);
+            
+          });
+  
+          if(models.length==0){
+            this.add();
+          }
+  
+          this.showLoading = false;
+        }
+      })
   }
 
-  nuevo() {
-    this.model.patchValue(AtributoTecnicoVariedadInit);
+  get modelosArray() {
+    return this.models.get('modelos') as FormArray;
   }
 
-  isValidField(field: string): boolean | null {
-    return this.validForm.isValidField(field, this.model);
+  editModel(num: number) {
+    this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
+      const modelo = this.modelosArray.controls[num].getRawValue();
+
+      this.service.update(modelo.id, modelo).subscribe(x => {
+
+        this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
+      });
+    })
+
   }
 
-  getFieldError(field: string): string | null {
-    return this.validForm.getFieldError(field, this.model);
+  selectAtributo(index: number) {
+    this.atributoTecnicoVariedad = (this.models.get('modelos') as FormArray).at(index).value;
+
+    this.modelElegidoEmit.emit(this.atributoTecnicoVariedad)
   }
+
+  add() {
+    const nuevoModelo = this.fb.group({
+        id: [0],
+        descripcion:[''],
+        solicitarUnidad:[0],
+    });
+
+    this.modelosArray.push(nuevoModelo);
+  }
+
+  async save(num: number): Promise<void> {
+    const modelo = this.modelosArray.at(num).value;
+    this.showLoading = true;
+
+    try {
+      await lastValueFrom(this.service.add(modelo));
+      this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
+      this.loadModels();
+      this.showLoading = false;
+    } catch (error) {
+      this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+      this.showLoading = false;
+    }
+  }
+
+  async delete(num: number) {
+    this.alert.showAlertConfirm('Advertencia', '¿Está seguro de eliminar?', 'warning', async () => {
+      const modelo = this.modelosArray.at(num).value;
+      this.showLoading = true;
+
+      try {
+        await lastValueFrom(this.service.delete(modelo));
+        this.alert.showAlert('Mensaje', 'Eliminado correctamente', 'success');
+        this.loadModels();
+        this.showLoading = false;
+      } catch (error) {
+        this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+        this.showLoading = false;
+      }
+    })
+
+
+  }
+
 }
