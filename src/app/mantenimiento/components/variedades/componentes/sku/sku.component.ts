@@ -34,8 +34,6 @@ export class SkuComponent implements OnChanges{
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    console.log(this.idCategoria);
-    
     if (changes['idCategoria'] || changes['idCategoria']) {
       this.get(this.idCategoria);
  

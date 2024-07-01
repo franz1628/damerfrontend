@@ -1,11 +1,11 @@
 
 <div class="row mt-4">
-  <div class="col-md-6">
+  <div class="col-md-9">
     <h6 class="mb-3 text-center">INFORMACION DEL SKU</h6>
     <hr>
     <app-sku-form #skuForm [idCategoria]="idCategoria" (updateModelsEmit)="get(modelEdit.idCategoria)" [model]="modelEdit" (editEmit)="editModel($event)" ></app-sku-form>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-3">
     <div class="col-md-6">
       <div class="list-group mt-3">
         <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'skus'"

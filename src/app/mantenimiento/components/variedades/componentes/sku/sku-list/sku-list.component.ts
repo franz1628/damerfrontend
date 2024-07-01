@@ -11,8 +11,13 @@ import { CategoriaService } from '../../../services/categoria.service';
   templateUrl: './sku-list.component.html'
 })
 export class SkuListComponent implements OnChanges{
+
+
   public showLoading: boolean = false;
   @Input() idCategoria=0
+  selectIndex: number=-1;
+
+
 
   constructor(
     private alert: AlertService, 
@@ -21,10 +26,17 @@ export class SkuListComponent implements OnChanges{
     ) {
     
   }
+  searchText = '';
+
+  filteredModels() {
+    return this.models.filter(model => 
+      model.id.toString().includes(this.searchText) ||
+      model.descripcion.toLowerCase().includes(this.searchText.toLowerCase()) 
+    );
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    
+
     if(changes["idCategoria"]){
       this.load()    
     }
@@ -48,6 +60,11 @@ export class SkuListComponent implements OnChanges{
     this.editEmit.emit(model)
   }
 
+  eligeModel(model: Sku,index: number) {
+    this.editEmit.emit(model)
+    this.selectIndex=index
+  }
+
   changeList(canasta:Canasta, megaCategoria: MegaCategoria,sku:Sku){
    /* this.service.getByCategoria(canasta.id,megaCategoria.id,sku.id).subscribe(resp=>{
       this.models = resp.data;
@@ -55,11 +72,26 @@ export class SkuListComponent implements OnChanges{
   }
 
   delete(model: Sku) {
-    this.showLoading = true
-    this.service.delete(model).subscribe(() => {
-      this.showLoading = false;
-      this.alert.showAlert('¡Éxito!', 'Se eliminó correctamente', 'success');
-      this.updateModelsEmit.emit()
-    });
+
+    this.alert.showAlertConfirm('Advertencia','¿Desea Eliminar?','warning', () => {
+      this.showLoading = true
+      this.service.delete(model).subscribe(() => {
+        this.showLoading = false;
+        this.alert.showAlert('¡Éxito!', 'Se eliminó correctamente', 'success');
+        this.updateModelsEmit.emit()
+      });
+    })
   }
+
+  suspender(model: Sku) {
+    this.alert.showAlertConfirm('Advertencia', '¿Desea Suspender?','warning', () => {
+      this.showLoading = true
+      this.service.suspender(model).subscribe(() => {
+        this.showLoading = false;
+        this.alert.showAlert('¡Éxito!', 'Se suspendió correctamente', 'success');
+        this.updateModelsEmit.emit()
+      });
+    })
+  }
+
 }

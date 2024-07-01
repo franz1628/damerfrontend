@@ -15,7 +15,8 @@ import { Sku } from './interfaces/sku.interface';
   selector: 'app-variedades',
   templateUrl: './variedades.component.html' 
 })
-export class VariedadesComponent{ 
+export class VariedadesComponent{
+ 
   canasta: Canasta = CanastaInit;
   idCanasta: number = 0; 
   idMegaCategoria: number = 0;
@@ -43,14 +44,24 @@ export class VariedadesComponent{
     this.megaCategoriaComp.megaCategoriaList.changeList(canasta);
   }
 
+  changeCanasta($event: number) {
+    this.idCanasta = $event;
+    this.canastaService.postId(this.idCanasta).subscribe(x=>{
+      this.setIdCanasta(x||CanastaInit)
+    })
+  }
+
+
   setIdCanastaMegaCategoria($event:number[]){
     this.idCanasta=$event[0];
     this.idMegaCategoria=$event[1];
-    this.categoriaComp.get($event[0],$event[1]);
+    this.categoriaComp.get($event[1]);
     this.categoriaComp.categoriaForm.setIdCanastaIdMegaCategoria($event[0],$event[1]);
   }
 
   setByCategoria($event:number[]){
+    console.log($event);
+    
     this.idCanasta=$event[0];
     this.idMegaCategoria=$event[1];
     this.idCategoria=$event[2];

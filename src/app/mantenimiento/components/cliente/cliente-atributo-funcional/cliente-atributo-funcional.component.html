@@ -20,7 +20,7 @@
   
         <div class="row">
           <div class="col-md-12">
-            <h6 class="mb-3 text-center">ATRIBUTOS FUNCIONALES</h6>
+            <h6 class="mb-3 mt-3 text-center">ATRIBUTOS FUNCIONALES</h6>
   
             <form [formGroup]="models">
               <div formArrayName="modelos">
@@ -198,6 +198,7 @@
                       <th>Resultado</th>
                       <th>Sku</th>
                       <th>Descripcion</th>
+                      <th>Categoria</th>
                       @for(cat of categoriaAtributoTecnicos;track $index){
                         <th>{{cat.AtributoTecnicoVariedad.descripcion}}</th>
                       }
@@ -219,13 +220,14 @@
                         </td>
                         <td>{{sku.id}}</td>
                         <td>{{sku.descripcion}}</td>
+                        <td>{{sku.Categoria.descripcion}}</td>
 
                         @for(cat of categoriaAtributoTecnicos;track $index){
                           
                           <th>
                             @for (atri of sku.SkuAtributoTecnicoVariedadValor; track $index) {
                               @if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad){
-                                {{atri.AtributoTecnicoVariedadValor?.valor}}
+                                {{atri.AtributoTecnicoVariedadValor.valor}}
                                 
                               }
                             }

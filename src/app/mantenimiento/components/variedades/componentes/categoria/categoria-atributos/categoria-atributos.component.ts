@@ -70,8 +70,7 @@ export class CategoriaAtributosComponent implements OnInit{
           this.atributoTecnicoVariedads = value.serviceAtributoTecnicoVariedadService.data
 
           const models = value.service.data
-          console.log(models);
-          
+
           models.forEach(model => {
             const nuevoModelo = this.fb.group({
               id: [model.id],

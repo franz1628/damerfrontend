@@ -7,6 +7,8 @@
                         <tr>
                             <th>Id</th>
 
+                            <th>Nombre</th>
+                            <th>Tipo</th>
                             <th>Categorias</th>
 
                             <th>Acciones</th>
@@ -19,23 +21,35 @@
                         <tr [formGroupName]="$index" (click)="elegir($index)"
                             [ngClass]="{'selected-row': $index === selectIndex}">
                             <td> <label class="mt-2">{{model.get('id')?.value}}</label> </td>
-
+                            <td>
+                                {{model.get('nombre')?.value==''?model.get('categorias')?.value:model.get('nombre')?.value}}
+                            </td>
+                            <td>
+                                {{model.get('categorias')?.value.includes(',')?'COMPUESTA':'SIMPLE'}}
+                            </td>
                             <td>
                                 {{model.get('categorias')?.value}}
                             </td>
 
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"
+                                    <!-- <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"
                                     data-bs-toggle="modal" data-bs-target="#modalEditAgrupacion"><i
-                                        class="bi bi-pencil"></i></button>
+                                        class="bi bi-pencil"></i></button> -->
+
+                                       
+                                        <img class="iconEdit" src="assets/editar.png"  (click)="editModel($index)" data-bs-toggle="modal" data-bs-target="#modalEditAgrupacion">
                                     @if(model.get('id')?.value!=0){
                                       
-                                        <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i
-                                                class="bi bi-trash-fill"></i></button>
+                                        <!-- <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i
+                                                class="bi bi-trash-fill"></i></button> -->
+                                                <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete($index)">
+
                                         @if(modelosArray.controls.length==$index+1){
-                                        <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
-                                                class="bi bi-plus-lg"></i></button>
+                                        <!-- <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
+                                                class="bi bi-plus-lg"></i></button> -->
+
+                                                <img class="iconNuevo" src="assets/nuevo.png"  (click)="add()">
                                         }
                                     }@else{
                                     <!-- <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
@@ -72,7 +86,17 @@
                 <button type="button" id="modalAgrupaciones" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="nombreAgrupacionCategoria" placeholder="Nombre Agrupacion">
+
+                          </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
                     <div class="col-md-12">
                         <div class="input-group">
                             <select class="form-select" id="modalCategoriaAgrupacion" (change)="comboEligeCategoriaAgrupacion($event)"

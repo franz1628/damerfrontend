@@ -14,6 +14,7 @@ import { MegaCategoriaListComponent } from './mega-categoria-list/mega-categoria
   templateUrl: './mega-categoria.component.html'
 })
 export class MegaCategoriaComponent {
+
   public modal: boolean = false
   public models: MegaCategoria[] = [];
   public showLoading: boolean = false;
@@ -30,6 +31,7 @@ export class MegaCategoriaComponent {
   megaCategoriaList!: MegaCategoriaListComponent;
 
   @Output() emitCanastaMegaCategoria:EventEmitter<number[]> = new EventEmitter();
+  @Output() changeCanastaEmit:EventEmitter<number> = new EventEmitter();
 
   constructor(public service: MegaCategoriaService, public alert: AlertService) {
   }
@@ -52,5 +54,9 @@ export class MegaCategoriaComponent {
   eligeModel(model: MegaCategoria) {
     this.emitCanastaMegaCategoria.emit([model.idCanasta,model.id]);
   }
- 
+  
+  changeCanasta($event: number) {
+    this.changeCanastaEmit.emit($event);
+  }
+
 }

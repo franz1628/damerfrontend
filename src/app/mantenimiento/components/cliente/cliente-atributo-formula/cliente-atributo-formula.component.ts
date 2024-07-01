@@ -23,6 +23,7 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
   categoriaAtributoTecnicoValors: CategoriaAtributoTecnicoValor[] = []
   checkboxSeleccionados: number[] = [];
   idAtributoTecnicoVariedad: number = 0
+  idCategoriaAtributoTecnico:number=0
 
 
   constructor(
@@ -48,14 +49,18 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
       this.categoriaAtributoTecnicos = x.data
 
       this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
-        console.log(y);
-        
+   
         const clienteFormulas: ClienteFormula = y.data
-        const valors = clienteFormulas?.idAtributoTecnicoVariedadValors?.split(',')||[];
+        let valors:string[] = []
+        if(clienteFormulas!=null){
+          valors = clienteFormulas.idAtributoTecnicoVariedadValors?.split(',')||[];
+        }else{
+          valors = []
+        }
         this.checkboxSeleccionados = []
-        this.idAtributoTecnicoVariedad = clienteFormulas.idAtributoTecnicoVariedad;
+        this.idAtributoTecnicoVariedad = clienteFormulas?.idAtributoTecnicoVariedad;
 
-        this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idAtributoTecnicoVariedad).subscribe(x => {
+        this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idCategoriaAtributoTecnico).subscribe(x => {
           this.categoriaAtributoTecnicoValors = x
 
         })
@@ -76,7 +81,8 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
 
   changeAtributo(e: Event) {
     const idCategoriaAtributoTecnico = +(e.target as HTMLInputElement).value
-    this.idAtributoTecnicoVariedad = idCategoriaAtributoTecnico
+   // this.idAtributoTecnicoVariedad = idCategoriaAtributoTecnico
+    this.idCategoriaAtributoTecnico = idCategoriaAtributoTecnico;
     this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(idCategoriaAtributoTecnico).subscribe(x => {
       this.checkboxSeleccionados = []
       this.categoriaAtributoTecnicoValors = x

@@ -85,8 +85,6 @@ export class SkuAtributosComponent {
 
             const atributoVariedad = atributosValorGuardados.find(x=>x.idCategoriaAtributoTecnico == model.id);
 
-            console.log(atributoVariedad);
-            
             const nuevoModelo = this.fb.group({
               id: [atributoVariedad?.id||0],
               idSku:[this.modelSku.id],
@@ -172,28 +170,55 @@ export class SkuAtributosComponent {
     this.modelosArray.push(nuevoModelo);
   }
 
+  async guardarTodo(){
+    const modelos = this.modelosArray;
+    this.showLoading = true;
+
+    for (let i = 0; i < modelos.length; i++) {
+      const modelo = modelos.at(i).value;
+
+      if(modelo.id == 0){ // guardando los atributos que faltan guardar
+        if(modelo.idSku==0){
+          this.alert.showAlert('Advertencia','Debe escoger un SKU','warning');
+          this.showLoading = false;
+          return;
+        }
+        await lastValueFrom(this.service.add(modelo));
+      }else{// editando atributos
+        await lastValueFrom(this.service.update(modelo.id, modelo))
+        
+      }
+      
+    }
+    this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
+   
+    this.loadModels();
+    this.showLoading = false;
+  }
+
   async save(num: number): Promise<void> {
     const modelo = this.modelosArray.at(num).value;
-
-
-    
 
     if(modelo.idSku==0){
       this.alert.showAlert('Advertencia','Debe escoger un SKU','warning');
       return;
     }
-    
-    this.showLoading = true;
 
-    try {
-      await lastValueFrom(this.service.add(modelo));
-      this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
-      this.loadModels();
-      this.showLoading = false;
-    } catch (error) {
-      this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
-      this.showLoading = false;
-    }
+    this.alert.showAlertConfirm('Advertencia', '¿Está seguro de eliminar?', 'warning',async ()=>{
+      this.showLoading = true;
+
+      try {
+        await lastValueFrom(this.service.add(modelo));
+        this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
+        this.loadModels();
+        this.showLoading = false;
+      } catch (error) {
+        this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+        this.showLoading = false;
+      }
+    })
+    
+   
   }
 
   async delete(num: number) {

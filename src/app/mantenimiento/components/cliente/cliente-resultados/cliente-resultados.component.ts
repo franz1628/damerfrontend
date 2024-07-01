@@ -3,7 +3,7 @@ import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../
 import { AtributoFuncionalVariedadValor, AtributoFuncionalVariedadValorInit } from '../../../interface/atributoFuncionalVariedadValor';
 import { ClienteFormulaService } from '../../../service/clienteFormula';
 import { SkuAtributoTecnicoVariedadValorService } from '../../../service/skuAtributoTecnicoVariedadValor';
-import { ClienteFormula } from '../../../interface/clienteFormula';
+import { ClienteFormula, ClienteFormulaInit } from '../../../interface/clienteFormula';
 import { Sku } from '../../variedades/interfaces/sku.interface';
 import { ClienteFiltroService } from '../../../service/clienteFiltro';
 
@@ -29,8 +29,7 @@ export class ClienteResultadosComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    
+
     if (changes['atributoFuncionalVariedadValor'] || changes['atributoFuncionalVariedad']) {
       this.loadModels();
     }
@@ -42,10 +41,12 @@ export class ClienteResultadosComponent {
     if (this.atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor == 2) {
      
       this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
-        const clienteFormulas: ClienteFormula = y.data
+        let clienteFormulas: ClienteFormula = y.data
+
+        clienteFormulas = clienteFormulas==null?ClienteFormulaInit:clienteFormulas;
+
         this.serviceSkuAtributoTecnicoVariedadValor.postResultados(clienteFormulas.idAtributoTecnicoVariedadValors,this.atributoFuncionalVariedad.idClienteAgrupacionCategoria).subscribe(x => {
-          console.log(x);
-          
+
           const arrayskus = x.data
           this.skus = []
           arrayskus.map(y => {

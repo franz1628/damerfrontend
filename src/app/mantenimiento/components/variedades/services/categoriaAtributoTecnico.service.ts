@@ -35,11 +35,11 @@ export class CategoriaAtributoTecnicoService {
   }
 
   postIdCategoria(idCategoria: number): Observable<ResponseCategoriaAtributoTecnico> {
-    return this.http.post<ResponseCategoriaAtributoTecnico>(`${this.apiUrl}/idCategoria`, {idCategoria});
+    return this.http.post<ResponseCategoriaAtributoTecnico>(`${this.apiUrl}/byIdCategoria`, {idCategoria});
   }
 
-  postIdAgrupacionCategoria(idAgrupacionCategoria: number): Observable<ResponseCategoriaAtributoTecnico> {
-    return this.http.post<ResponseCategoriaAtributoTecnico>(`${this.apiUrl}/idCategoria`, {idAgrupacionCategoria});
+  postIdAgrupacionCategoria(idClienteAgrupacionCategoria: number): Observable<ResponseCategoriaAtributoTecnico> {
+    return this.http.post<ResponseCategoriaAtributoTecnico>(`${this.apiUrl}/idCategoria`, {idClienteAgrupacionCategoria});
   }
 
   update(id: number, model: CategoriaAtributoTecnico): Observable<CategoriaAtributoTecnico> {

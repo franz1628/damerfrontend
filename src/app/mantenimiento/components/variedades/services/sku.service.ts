@@ -13,6 +13,13 @@ export interface ResponseSku {
   message: string
 }
 
+export interface ResponseSkuOne {
+
+  data: Sku,
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,9 +44,9 @@ export class SkuService {
     });
   }
 
-  getByCategoriaAll(idCategoria:number): Observable<Response> {
+  getByCategoriaAll(idClienteAgrupacionCategoria:number): Observable<Response> {
     return this.http.post<Response>(`${this.apiUrl}/byCategoriaAll`,{
-      idCategoria
+      idClienteAgrupacionCategoria
     });
   }
 
@@ -56,8 +63,8 @@ export class SkuService {
     return this.http.post<Sku[]>(`${this.apiUrl}/postDescripcionCategoria`, {descripcion,idCategoria});
   }
 
-  add(model: Sku): Observable<Sku> {
-    return this.http.post<Sku>(this.apiUrl, model);
+  add(model: Sku): Observable<ResponseSkuOne> {
+    return this.http.post<ResponseSkuOne>(this.apiUrl, model);
   } 
 
   update(id: number, model: Sku): Observable<Sku> {
@@ -66,5 +73,9 @@ export class SkuService {
 
   delete(model: Sku): Observable<Sku> {
     return this.http.delete<Sku>(`${this.apiUrl}/${model.id}`);
+  }
+
+  suspender(model: Sku): Observable<Sku> {
+    return this.http.post<Sku>(`${this.apiUrl}/suspender`,{model});
   }
 }

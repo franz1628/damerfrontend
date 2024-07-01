@@ -15,8 +15,8 @@
                             <th>Comentario </th>
                             <th>Alias 1 </th>
                             <th>Alias 2 </th>
-                            <th>Alias 3</th>
-                            <th>Acciones</th>
+                            <th>Modificación</th>
+                            <th><button class="btn btn-sm btn-primary" (click)="guardarTodo()"><i class="bi bi-box-arrow-down"></i> Guardar Atributos</button> </th>
                         </tr>
 
                     </thead>
@@ -30,7 +30,7 @@
                             </td>
 
                             <td>
-                                @if(model.get('idTipoUnidadMedida')?.value!=0){
+                                @if(getAtributosValor(model.get('idAtributoTecnicoVariedad')?.value).length==0){
                                 <input type="text" class="form form-control form-control-sm" formControlName="valor">
                                 }@else{
                                 <select class="form-select form-select-sm"
@@ -83,17 +83,24 @@
                                 <div class="btn-group">
 
                                     @if(model.get('id')?.value!=0){
-                                    <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i
+                                    <!-- <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i
                                             class="bi bi-pencil"></i></button>
                                     <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i
-                                            class="bi bi-trash-fill"></i></button>
+                                            class="bi bi-trash-fill"></i></button> -->
+
+
+                                        <img class="iconEdit" src="assets/editar.png" (click)="editModel($index)">
+
+                                        <img class="iconEliminar" src="assets/eliminar.png" (click)="delete($index)">
+
+
                                     @if(modelosArray.controls.length==$index+1){
-                                    <!-- <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
-                                              class="bi bi-plus-lg"></i></button> -->
+                                    
                                     }
                                     }@else{
-                                    <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
-                                            class="bi bi-save2"></i></button>
+                                        <img class="iconGuardar" src="assets/guardar.png" (click)="save($index)">
+
+                                    
                                     }
                                 </div>
 

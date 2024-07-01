@@ -36,9 +36,9 @@ export class CategoriaComponent {
     //this.get();  
   }
 
-  get(idCanasta:number, idMegaCategoria:number): void {
+  get(idMegaCategoria:number): void {
     this.showLoading = true
-    this.service.getIdCanastaMegaCategoria(idCanasta,idMegaCategoria).subscribe(response => { 
+    this.service.getIdCanastaMegaCategoria(idMegaCategoria).subscribe(response => { 
       this.showLoading = false; this.models = response.data;
     });
   } 
@@ -50,6 +50,8 @@ export class CategoriaComponent {
   }
 
   eligeModel(model: Categoria) {
+    console.log('Categoria : ',model);
+    
     this.emitByCategoria.emit([model.idCanasta,model.idMegaCategoria,model.id])
   }
 

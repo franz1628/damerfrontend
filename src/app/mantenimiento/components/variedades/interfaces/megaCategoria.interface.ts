@@ -1,3 +1,5 @@
+import { Canasta, CanastaInit } from "./canasta.interface";
+
 export interface MegaCategoria {
     id: number,
     idCanasta: number,
@@ -8,6 +10,7 @@ export interface MegaCategoria {
     alias2: string,
     alias3: string,
     estado: number,
+    Canasta:Canasta
 }
 
 export const MegaCategoriaInit: MegaCategoria = {
@@ -20,4 +23,5 @@ export const MegaCategoriaInit: MegaCategoria = {
     alias2: '',
     alias3: '',
     estado: 1,
+    Canasta:CanastaInit
 };

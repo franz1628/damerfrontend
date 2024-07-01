@@ -15,35 +15,38 @@ import { CategoriaService } from '../../variedades/services/categoria.service';
   selector: 'app-cliente-categoria-list',
   templateUrl: './cliente-categoria-list.component.html'
 })
-export class ClienteCategoriaListComponent implements OnChanges{
+export class ClienteCategoriaListComponent implements OnChanges {
 
 
- 
+
   @Input() cliente: Cliente = ClienteInit
-  @Output() selectClienteAgrupacionCategoria:EventEmitter<ClienteAgrupacionCategoria> = new EventEmitter()
+  @Output() selectClienteAgrupacionCategoria: EventEmitter<ClienteAgrupacionCategoria> = new EventEmitter()
 
   @ViewChild('botonCerrarModalAgrupacion') botonCerrarModalAgrupacion!: ElementRef
 
   selectIndex: number = -1
-  categorias : Categoria[] = []
+  categorias: Categoria[] = []
 
   showLoading: boolean = false;
 
   clienteCategorias: ClienteAgrupacionCategoria[] = [];
-  categoriasAgrupacionTotal : Categoria[]=[]
-  categoriasAgrupacion : Categoria[]=[]
+  categoriasAgrupacionTotal: Categoria[] = []
+  categoriasAgrupacion: Categoria[] = []
 
-  categoriaElegidaAgrupacion:Categoria=CategoriaInit
-  idClienteAgrupacionCategoria:number=0
+  categoriaElegidaAgrupacion: Categoria = CategoriaInit
+  idClienteAgrupacionCategoria: number = 0
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
   });
 
+  nombreAgrupacionCategoria: string = '';
+
   constructor(
     private service: ClienteAgrupacionCategoriaService,
     private serviceAgrupacionCategoriaCategoria: AgrupacionCategoriaCategoriaService,
-    private serviceCategoria : CategoriaService,
+    private serviceCategoria: CategoriaService,
+    private serviceClienteCategoria: ClienteCategoriaService,
     private fb: FormBuilder,
     private alert: AlertService,
   ) { }
@@ -53,7 +56,9 @@ export class ClienteCategoriaListComponent implements OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['idClienteCategoria']) {
+    if (changes['cliente']) {
+
+
       this.loadModels();
     }
   }
@@ -65,22 +70,32 @@ export class ClienteCategoriaListComponent implements OnChanges{
     forkJoin(
       {
         service: this.service.postIdCliente(this.cliente.id),
-        serviceCategoria: this.serviceCategoria.get()
+        serviceCategoria: this.serviceClienteCategoria.postIdCliente(this.cliente.id)
       }
     ).subscribe({
       next: value => {
         this.clienteCategorias = value.service.data
-        this.categoriasAgrupacionTotal = value.serviceCategoria.data
+        const clienteCategorias = value.serviceCategoria.data
+        this.categoriasAgrupacionTotal = [];
+        for (let i = 0; i < clienteCategorias.length; i++) {
+          this.categoriasAgrupacionTotal.push(clienteCategorias[i].Categoria);
+          //const element = clienteCategorias[i];
+
+        }
+        this.categoriasAgrupacionTotal = [...new Set(this.categoriasAgrupacionTotal)];
+
+        // this.categoriasAgrupacionTotal = value.serviceCategoria.data
 
         this.clienteCategorias.forEach(model => {
-          let categorias:string[] = []
-          model.AgrupacionCategoriaCategoria.map(t=> categorias.push(t.Categoria.descripcion))
+          let categorias: string[] = []
+          model.AgrupacionCategoriaCategoria.map(t => categorias.push(t.Categoria.descripcion))
 
           const s_categorias = categorias.join(' , ')
 
           const nuevoModelo = this.fb.group({
             id: [model.id],
-            categorias:[s_categorias]
+            nombre: [model.nombre],
+            categorias: [s_categorias]
           });
 
           this.modelosArray.push(nuevoModelo);
@@ -104,24 +119,34 @@ export class ClienteCategoriaListComponent implements OnChanges{
     return this.models.get('modelos') as FormArray;
   }
 
-  /*editModel(clienteAgrupacion: ClienteAgrupacionCategoria) {
-    console.log(clienteAgrupacion);
-    
-  
-
-  }*/
 
   editModel(index: number) {
+    this.serviceClienteCategoria.postIdCliente(this.cliente.id).subscribe(x => {
+      const clienteCategorias = x.data
+      this.categoriasAgrupacionTotal = [];
+
+      for (let i = 0; i < clienteCategorias.length; i++) {
+        this.categoriasAgrupacionTotal.push(clienteCategorias[i].Categoria);
+      }
+      this.categoriasAgrupacionTotal = [...new Set(this.categoriasAgrupacionTotal)];
+    })
+
+
+
     const valor = this.modelosArray.at(index)
     this.idClienteAgrupacionCategoria = valor.value.id
 
     this.categoriasAgrupacion = []
+    this.nombreAgrupacionCategoria = valor.value.nombre
 
-    this.clienteCategorias[index].AgrupacionCategoriaCategoria.map(x=>{
+
+    this.clienteCategorias[index]?.AgrupacionCategoriaCategoria.map(x => {
       this.categoriasAgrupacion.push(x.Categoria)
     })
 
-    
+    this.categoriasAgrupacion = [...new Set(this.categoriasAgrupacion)];
+
+
   }
 
   elegir(index: number) {
@@ -129,58 +154,59 @@ export class ClienteCategoriaListComponent implements OnChanges{
     this.selectIndex = index
     this.selectClienteAgrupacionCategoria.emit(this.clienteCategorias[index])
   }
-  
-  comboEligeCategoriaAgrupacion(e:Event):void{
+
+  comboEligeCategoriaAgrupacion(e: Event): void {
     const idCategoria = (e.target as HTMLInputElement).value
-    
-    const categoria = this.categoriasAgrupacionTotal.filter(x=>x.id == parseInt(idCategoria));
+
+    const categoria = this.categoriasAgrupacionTotal.filter(x => x.id == parseInt(idCategoria));
 
     this.categoriaElegidaAgrupacion = categoria[0]
   }
 
-  agregarCategoriaAgrupacion():void{
-    if(this.categoriaElegidaAgrupacion.id==0){
-      this.alert.showAlert('Mensaje','Debe escoger una categoria','warning')
-    }else{
+  agregarCategoriaAgrupacion(): void {
+    if (this.categoriaElegidaAgrupacion.id == 0) {
+      this.alert.showAlert('Mensaje', 'Debe escoger una categoria', 'warning')
+    } else {
       this.categoriasAgrupacion.push(this.categoriaElegidaAgrupacion)
-      
+
 
     }
   }
 
-  guardarCategoriaAgrupacion():void{
-    if(this.categoriasAgrupacion.length==0){
-      this.alert.showAlert('Mensaje','Debe ingresar al menos una caegoria','warning')
+  guardarCategoriaAgrupacion(): void {
+    if (this.categoriasAgrupacion.length == 0) {
+      this.alert.showAlert('Mensaje', 'Debe ingresar al menos una caegoria', 'warning')
       return
     }
 
-    this.showLoading=true
+    this.showLoading = true
 
-    if(this.idClienteAgrupacionCategoria==0){ //Nueva Agrupacion de categoria
-      this.service.addCategoriasNuevo(this.cliente.id,this.categoriasAgrupacion).subscribe(x=>{
-        this.alert.showAlert('Mensaje','Agregado correctament','success')
+    if (this.idClienteAgrupacionCategoria == 0) { //Nueva Agrupacion de categoria
+      this.service.addCategoriasNuevo(this.cliente.id, this.categoriasAgrupacion, this.nombreAgrupacionCategoria).subscribe(x => {
+        this.alert.showAlert('Mensaje', 'Agregado correctament', 'success')
         this.botonCerrarModalAgrupacion.nativeElement.click()
         this.loadModels()
         this.showLoading = false
       })
-    }else{
-      this.service.editCategorias(this.idClienteAgrupacionCategoria,this.categoriasAgrupacion).subscribe(x=>{
-   
-        this.alert.showAlert('Mensaje','Modificado correctament','success')
+    } else {
+      this.service.editCategorias(this.idClienteAgrupacionCategoria, this.categoriasAgrupacion, this.nombreAgrupacionCategoria).subscribe(x => {
+
+        this.alert.showAlert('Mensaje', 'Modificado correctament', 'success')
         this.botonCerrarModalAgrupacion.nativeElement.click()
         this.loadModels()
         this.showLoading = false
       })
     }
 
-    
+
   }
 
 
   add() {
     const nuevoModelo = this.fb.group({
       id: [0],
-      categorias:['']
+      nombre: [''],
+      categorias: ['']
     });
 
     this.modelosArray.push(nuevoModelo);

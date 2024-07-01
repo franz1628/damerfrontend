@@ -1,40 +1,66 @@
 <div class="row">
     <div class="col-md-12">
+
+        <input type="text" [(ngModel)]="searchText" class="form-control mb-3" placeholder="Buscar...">
+
+
         @if (showLoading) {
-            <!-- <app-div-cargando></app-div-cargando> -->
+        <!-- <app-div-cargando></app-div-cargando> -->
 
         } @else {
-            <table class="table table-sm table-bordered">
-                <thead class="table-success">
-                    <tr>
-                        <th>Codigo</th>
-                        <th>Descripcion</th>
-                        <th>DescripcionResu</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (model of models; track $index) {
-                        <tr>
-                            <td>{{model.id}}</td>
-                            <td>{{model.descripcion}}</td>
-                            <td>{{model.descripcionResumida}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i
-                                        class="bi bi-trash"></i></button>
-                                <button class="btn btn-sm btn-info btn-sm" type="button" (click)="editModel(model)"><i
-                                        class="bi bi-pencil"></i></button>
-                            </td>
-                        </tr>
-                    }@empty {
-                        <tr>
-                            <td colspan="10">
-                                No se encontraron resultados...
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <table datatable class="table table-sm table-bordered row-border hover">
+            <thead class="table-success">
+                <tr>
+                    <th>Codigo</th>
+                    <th>Descripcion</th>
+                    <th>Estado</th>
+                    <th>Creación</th>
+                    <th>Medición</th>
+                    <th> Acción</th>
+                </tr>
+            </thead>
+
+            
+
+
+            <tbody>
+                @for (model of filteredModels(); track $index) {
+                <tr (click)="eligeModel(model,$index)"   [ngClass]="{'selected-row': $index === selectIndex}">
+                    <td>{{model.id}}</td>
+                    <td>{{model.descripcion}}</td>
+
+                    <td>
+                        @if(model.estado==1){
+                            <span class="badge rounded-pill text-bg-success">ACTIVO</span>
+                        }@else if(model.estado==2){
+                            <span class="badge rounded-pill text-bg-danger">SUSPENDIDO</span>
+                        }@else {
+                            <span class="badge rounded-pill text-bg-danger">ELIMINADO</span>
+                        }
+                    </td>
+                    <td>
+                        {{(model.fechaRegistro||'').toString().substring(0,10)}}
+                    </td>
+                    <td>{{model.medicion}}</td>
+                    <td>
+                        <img class="iconEdit" src="assets/editar.png" (click)="editModel(model)">
+
+                        <i class="bi bi-file-earmark-minus" (click)="suspender(model)"></i>
+
+                    
+
+                        <img class="iconEliminar" src="assets/eliminar.png" (click)="delete(model)">
+                    </td>
+                </tr>
+                }@empty {
+                <tr>
+                    <td colspan="10">
+                        No se encontraron resultados...
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
         }
 
     </div>

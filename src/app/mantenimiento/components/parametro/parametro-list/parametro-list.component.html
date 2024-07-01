@@ -3,10 +3,10 @@
     <hr>
     <div class="col-md-12">
         @if (showLoading && models.length==0) {
-            <app-div-cargando></app-div-cargando>
+        <app-div-cargando></app-div-cargando>
 
         } @else {
-        <table class="table table-sm table-bordered" >
+        <table class="table table-sm table-bordered">
             <thead class="table-success">
                 <tr>
                     <th>Codigo</th>
@@ -18,18 +18,22 @@
             </thead>
             <tbody>
                 @for (model of models; track $index) {
-                    <tr (click)="elegirModel(model, $index)"  [ngClass]="{'selected-row': $index === selectedRowIndex}"  >
-                        <td>{{model.id}}</td>
-                        <td>{{model.descripcion}}</td>
-    
-    
-                        <td>
-                            <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i
+                <tr (click)="elegirModel(model, $index)" [ngClass]="{'selected-row': $index === selectedRowIndex}">
+                    <td>{{model.id}}</td>
+                    <td>{{model.descripcion}}</td>
+
+
+                    <td>
+                        <!-- <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i
                                     class="bi bi-trash"></i></button>
                             <button class="btn btn-sm btn-info btn-sm" type="button" (click)="editModel(model)"><i
-                                    class="bi bi-pencil"></i></button>
-                        </td>
-                    </tr>
+                                    class="bi bi-pencil"></i></button> -->
+
+                        <img class="iconEdit" src="assets/editar.png" (click)="editModel(model)">
+
+                        <img class="iconEliminar" src="assets/eliminar.png" (click)="delete(model)">
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

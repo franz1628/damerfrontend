@@ -20,7 +20,7 @@
 
     </div>
     <div class="tab-pane " id="megacategoria" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-        <app-mega-categoria #megaCategoriaComp (emitCanastaMegaCategoria)="setIdCanastaMegaCategoria($event)"></app-mega-categoria>
+        <app-mega-categoria #megaCategoriaComp (emitCanastaMegaCategoria)="setIdCanastaMegaCategoria($event)" (changeCanastaEmit)="changeCanasta($event)"></app-mega-categoria>
     </div>
     <div class="tab-pane " id="categoria" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
        <app-categoria #categoriaComp (selectCategoriaEmit)="selectCategoria($event)" (emitByCategoria)="setByCategoria($event)"></app-categoria>

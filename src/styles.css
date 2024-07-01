@@ -1,3 +1,8 @@
+.iconEdit{  height: 20px;}
+.iconEliminar{  height: 20px;}
+.iconGuardar{  height: 20px;}
+.iconInicio{  height: 20px;}
+.iconNuevo{  height: 20px;}
 
 footer {
   background-color: #343a40;
@@ -63,12 +68,32 @@ td {
 
 
 button.nav-link.active {
-  background: #f0ad4e !important;
+  background: #413bc7 !important;
+  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
   color: white !important;
+  border-bottom-color: #413bc7 !important;
 }
 
+button.nav-link {
+  background: #f7f7f9!important;
+  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+  color: gray !important;
+  border-bottom-color: #413bc7 !important;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+#myTab {
+ 
+}
+
+#myTab li{
+  margin-right: 0;
+}
+ 
 thead.table-success th {
-  background-color: #d9534f !important;
+  background-color: #c50e11 !important;
+  color: white;
 }
 
 .list-group-item.active {

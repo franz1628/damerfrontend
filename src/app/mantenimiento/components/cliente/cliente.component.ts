@@ -114,6 +114,7 @@ export class ClienteComponent {
 
   selectEdit(model:Cliente){
     this.model = model; 
+    this.clienteAgrupacionCategoria = ClienteAgrupacionCategoriaInit
     
     this.clienteFormComp.selectEdit(model);
   }

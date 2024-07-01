@@ -28,7 +28,7 @@ import { ClienteAgrupacionCategoriaInit } from '../../../interface/clienteAgrupa
   selector: 'app-cliente-atributo-funcional',
   templateUrl: './cliente-atributo-funcional.component.html',
 })
-export class ClienteAtributoFuncionalComponent implements OnChanges{
+export class ClienteAtributoFuncionalComponent implements OnChanges {
 
   @Input() modelCliente: Cliente = ClienteInit
   @Input() modelCategoria: Categoria = CategoriaInit
@@ -39,8 +39,8 @@ export class ClienteAtributoFuncionalComponent implements OnChanges{
   atributoFuncionalVariedad = AtributoFuncionalVariedadInit;
   atributoFuncionalVariedadValor: AtributoFuncionalVariedadValor = AtributoFuncionalVariedadValorInit
   categoriaAtributoTecnicos: CategoriaAtributoTecnico[] = []
-  arrayAtributos:string[] = []
-  arrayVariables:string[] = []
+  arrayAtributos: string[] = []
+  arrayVariables: string[] = []
 
   selectIndex: number = -1
 
@@ -67,7 +67,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges{
     private serviceClienteFormula: ClienteFormulaService,
     private serviceSkuAtributoTecnicoVariedadValor: SkuAtributoTecnicoVariedadValorService,
     private serviceClienteFiltro: ClienteFiltroService,
-    private serviceClienteConcatenacion:ClienteConcatenacionService,
+    private serviceClienteConcatenacion: ClienteConcatenacionService,
     private fb: FormBuilder,
     private alert: AlertService
   ) { }
@@ -77,10 +77,11 @@ export class ClienteAtributoFuncionalComponent implements OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    
-    
-    if (changes['idClienteAgrupacionCategoria']) {
- 
+
+    if (
+      (changes['idClienteAgrupacionCategoria'] && !changes['idClienteAgrupacionCategoria'].isFirstChange())
+    ) {
+
       
       this.loadModels();
     }
@@ -104,9 +105,6 @@ export class ClienteAtributoFuncionalComponent implements OnChanges{
         this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico.data
 
         const atributoFuncionales = value.service.data;
-
-        console.log(atributoFuncionales);
-        
 
         atributoFuncionales.forEach(model => {
           const nuevoModelo = this.fb.group({
@@ -149,7 +147,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges{
   verResultados() {
     forkJoin(
       {
-        serviceSku: this.serviceSku.getByCategoriaAll(this.atributoFuncionalVariedad.id),
+        serviceSku: this.serviceSku.getByCategoriaAll(this.idClienteAgrupacionCategoria),
         serviceAtributoFuncionalVariedadValor: this.serviceAtributoFuncionalVariedadValor.postIdAtributoFuncionalVariedad(this.atributoFuncionalVariedad.id),
 
       }
@@ -163,14 +161,15 @@ export class ClienteAtributoFuncionalComponent implements OnChanges{
 
         for (let i = 0; i < atrisFunci.length; i++) {
           const atrivalor = atrisFunci[i];
-     
-          
+
+
           if (atrivalor.idTipoAtributoFuncionalVariedadValor == 2) {//EQUIVALENCIA
             this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(atrivalor.id).subscribe(y => {
               const clienteFormulas: ClienteFormula = y.data
-              this.serviceSkuAtributoTecnicoVariedadValor.postResultados(clienteFormulas.idAtributoTecnicoVariedadValors,this.modelCategoria.id).subscribe(x => {
+              this.serviceSkuAtributoTecnicoVariedadValor.postResultados(clienteFormulas.idAtributoTecnicoVariedadValors, this.idClienteAgrupacionCategoria).subscribe(x => {
                 const arrayskus = x.data
-               
+
+
                 arrayskus.map(y => {
                   for (let k = 0; k < this.skus.length; k++) {
                     if (this.skus[k].id == y.Sku.id) {
@@ -191,7 +190,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges{
               arrayskus.map(y => {
                 for (let k = 0; k < this.skus.length; k++) {
                   if (this.skus[k].id == y.id) {
-                    this.skusElegidos[k] =  atrivalor.descripcion
+                    this.skusElegidos[k] = atrivalor.descripcion
                   }
 
                 }
@@ -201,58 +200,58 @@ export class ClienteAtributoFuncionalComponent implements OnChanges{
           }
 
           if (atrivalor.idTipoAtributoFuncionalVariedadValor == 1) {//CONCATENACION
-    
-            
+
+
             this.serviceClienteConcatenacion.postIdAtributoFuncionalVariedadValor(atrivalor.id).subscribe(x => {
-           
-              this.arrayAtributos = x.data.idAtributoTecnicoVariedads!=''?x.data.idAtributoTecnicoVariedads.split(','):[]
-              this.arrayVariables = x.data.variables!=''?x.data.variables.split(','):[]
+
+              this.arrayAtributos = x.data.idAtributoTecnicoVariedads != '' ? x.data.idAtributoTecnicoVariedads.split(',') : []
+              this.arrayVariables = x.data.variables != '' ? x.data.variables.split(',') : []
 
               this.skusElegidos = [];
 
 
-              this.skus.map(w=>{
+              this.skus.map(w => {
                 const valores = w.SkuAtributoTecnicoVariedadValor;
                 let miString = ''
-               
+
                 for (let i = 0; i < this.arrayVariables.length; i++) {
                   const atr = this.arrayVariables[i];
-                  if("1" == atr){
-                    
-                    miString = w.descripcion
-                    
-                  }
-                  
-                }
-                
-                
-                valores.map(k=>{
+                  if ("1" == atr) {
 
-                 
-                  
+                    miString = w.descripcion
+
+                  }
+
+                }
+
+
+                valores.map(k => {
+
+
+
                   for (let i = 0; i < this.arrayAtributos.length; i++) {
                     const atr = this.arrayAtributos[i];
-                    if(k.idAtributoTecnicoVariedad.toString() == atr){
-                      
-                      
-                      miString = miString + '-' + (k.AtributoTecnicoVariedadValor?.valor || '') 
+                    if (k.idAtributoTecnicoVariedad.toString() == atr) {
+
+
+                      miString = miString + '-' + (k.AtributoTecnicoVariedadValor?.valor || '')
                     }
-                    
+
                   }
-                }) 
-                if(miString!="") {
+                })
+                if (miString != "") {
                   this.skusElegidos.push(miString)
                 }
-                
-               
-                
+
+
+
               })
-             
+
 
             })
 
-      
-            
+
+
           }
         }
 
@@ -283,7 +282,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges{
     const modelo = this.modelosArray.controls[index].getRawValue();
     this.selectIndex = index
     this.atributoFuncionalVariedad = modelo;
-    this.atributoFuncionalVariedadValor=AtributoFuncionalVariedadValorInit
+    this.atributoFuncionalVariedadValor = AtributoFuncionalVariedadValorInit
   }
 
   elegirAtributoFuncionalVariedadValor(atributoFuncionalVariedadValor: AtributoFuncionalVariedadValor) {

@@ -19,7 +19,7 @@ export class CategoriaFormComponent {
   @Input()
   public model: Categoria = CategoriaInit;
   public showLoading: boolean = false;
-  @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
+  @Output() updateModelsEmit: EventEmitter<number> = new EventEmitter();
   @Output() selectCategoriaEmit: EventEmitter<Categoria> = new EventEmitter();
   @Output() editEmit: EventEmitter<Categoria> = new EventEmitter()
 
@@ -51,13 +51,13 @@ export class CategoriaFormComponent {
     private canastaService: CanastaService,
     private megaCategoriaService: MegaCategoriaService,
     ) {
-      this.canastaService.get().subscribe(resp => { this.listCanasta = resp.data });
-      this.megaCategoriaService.get().subscribe(resp => { this.listMegaCategoria = resp.data });
+      
   }
 
   ngOnInit() {
     this.showLoading = true
-   
+    this.canastaService.get().subscribe(resp => { this.listCanasta = resp.data });
+    this.megaCategoriaService.get().subscribe(resp => { this.listMegaCategoria = resp.data });
   }
 
   get currentModel() {
@@ -76,11 +76,12 @@ export class CategoriaFormComponent {
     if (!this.currentModel.id) {
       this.service.add(this.currentModel).subscribe(() => {
         this.showLoading = false;
-        this.updateModelsEmit.emit();
+        this.updateModelsEmit.emit(+this.myForm.get('idMegaCategoria')?.value);
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
-        this.myForm.patchValue(CategoriaInit);
+        //this.myForm.patchValue(CategoriaInit);
         this.myForm.clearValidators();
-        this.myForm.reset();
+        this.myForm.patchValue({descripcion:'',alias1:''})
+       // this.myForm.reset();
       });
     } else {
       this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
@@ -92,6 +93,8 @@ export class CategoriaFormComponent {
   }
 
   setIdCanastaIdMegaCategoria(idCanasta: number,idMegaCategoria:number) {
+    this.canastaService.get().subscribe(resp => { this.listCanasta = resp.data });
+    this.megaCategoriaService.get().subscribe(resp => { this.listMegaCategoria = resp.data });
     this.myForm.patchValue({ idCanasta: idCanasta, idMegaCategoria : idMegaCategoria });
   }
 

@@ -19,9 +19,9 @@ export class CategoriaService {
 
  
 
-  getIdCanastaMegaCategoria(idCanasta: number, idMegaCategoria: number): Observable<Response> {
+  getIdCanastaMegaCategoria(idMegaCategoria: number): Observable<Response> {
     return this.http.post<Response>(`${this.apiUrl}/canasta/megaCategoria`,{
-      idCanasta,idMegaCategoria
+      idMegaCategoria
     });
   }
 

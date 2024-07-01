@@ -30,13 +30,13 @@ export class CategoriaListComponent {
   }
 
   eligeModel(model: Categoria,index:number) {
-    this.eligeModelEmit.emit(model)
+    this.editEmit.emit(model)
     this.selectIndex=index
   }
 
   changeList(canasta:Canasta, megaCategoria: MegaCategoria){
     this.selectIndex=-1
-    this.service.getIdCanastaMegaCategoria(canasta.id,megaCategoria.id).subscribe(resp=>{
+    this.service.getIdCanastaMegaCategoria(megaCategoria.id).subscribe(resp=>{
       this.models = resp.data;
     })
   }

@@ -1,38 +1,149 @@
 <style>
-      body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        p {
-            color: #666;
-            text-align: center;
-        }
-        .btn {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
+    img {
+        height: 100px;
+    }
+
+    .row .col {
+        text-align: center;
+    }
+
+    .cuerpo {
+        background: linear-gradient(to top left, #757bda, #274487);
+        height: 900px;
+    }
+
+    .cuerpo .titulo {
+        color: white;
+        font-size: 17px;
+        margin-top: 11px;
+        font-weight: bold;
+    }
 </style>
-<div class="container">
-    <h1>Bienvenido a Damer</h1>
- 
-    <a href="/" class="btn">Acerca de Damer</a>
+<div class="cuerpo">
+
+    <div class="container pt-4">
+        <div class="row pt-4">
+            <div class="col">
+                <a aria-current="parametro" routerLinkActive="parametro" routerLink="/mantenimiento/parametro">
+                    <img src="assets/iconos/parametro_color.png">
+                </a>
+                <div class="titulo">PARÁMETRO</div>
+            </div>
+            <div class="col">
+                <a aria-current="negocio" routerLinkActive="negocio" routerLink="/mantenimiento/negocio">
+                    <img src="assets/iconos/negocio_color.png">
+                </a>
+                <div class="titulo">NEGOCIO</div>
+            </div>
+            <div class="col">
+                <a aria-current="atributoTecnicoVariedad" routerLinkActive="atributoTecnicoVariedad" routerLink="/mantenimiento/atributoTecnicoVariedad">
+                    <img src="assets/iconos/atributo-variedaded_color.png">
+                </a>
+             
+                <div class="titulo">ATRIBUTO VARIEDAD</div>
+            </div>
+            <div class="col">
+                <a aria-current="atributoTecnicoNegocio" routerLinkActive="atributoTecnicoNegocio" routerLink="/mantenimiento/atributoTecnicoNegocio">
+                    <img src="assets/iconos/atributo-negocio_color.png">
+                </a>
+                
+                <div class="titulo">ATRIBUTO NEGOCIO</div>
+            </div>
+            <div class="col">
+                <a aria-current="variable" routerLinkActive="variable" routerLink="/mantenimiento/variable">
+                    <img src="assets/iconos/variable-_color.png">
+                </a>
+                <div class="titulo">VARIABLE</div>
+            </div>
+        </div>
+
+        <div class="row pt-4">
+            <div class="col">
+                <a aria-current="cliente" routerLinkActive="cliente" routerLink="/mantenimiento/cliente">
+                    <img src="assets/iconos/cliente.png">
+                </a>
+                <div class="titulo">CLIENTE</div>
+            </div>
+            <div class="col">
+                <a aria-current="zona" routerLinkActive="zona" routerLink="/mantenimiento/zona">
+                    <img src="assets/iconos/zona.png">
+                </a>
+                <div class="titulo">ZONA</div>
+            </div>
+            <div class="col">
+                <a aria-current="agrupacionZonas" routerLinkActive="agrupacionZonas" routerLink="/mantenimiento/agrupacionZonas">
+                    <img src="assets/iconos/agrupacionZonas.png">
+                </a>
+                <div class="titulo">AGRUPACION ZONAS</div>
+            </div>
+            <div class="col">
+                <a aria-current="agrupacionCanales" routerLinkActive="agrupacionCanales" routerLink="/mantenimiento/agrupacionCanales">
+                    <img src="assets/iconos/agrupacionCanales.png">
+                </a>
+                <div class="titulo">AGRUPACION CANALES</div>
+            </div>
+
+        </div>
+
+        <div class="row pt-4">
+            <div class="col">
+                <a aria-current="contrato" routerLinkActive="contrato" routerLink="/mantenimiento/contrato">
+                    <img src="assets/iconos/contrato.png">
+                </a>
+                <div class="titulo">CONTRATO</div>
+            </div>
+            <div class="col">
+                <a aria-current="medicion" routerLinkActive="medicion" routerLink="/mantenimiento/medicion">
+                    <img src="assets/iconos/medicion.png">
+                </a>
+                <div class="titulo">MEDICIÓN</div>
+            </div>
+            <div class="col">
+                <a aria-current="variedades" routerLinkActive="variedades" routerLink="/mantenimiento/variedades">
+                    <img src="assets/iconos/variedades.png">
+                </a>
+                <div class="titulo">VARIEDADES</div>
+            </div>
+            <div class="col">
+                <a aria-current="tablasVarias" routerLinkActive="tablasVarias" routerLink="/mantenimiento/tablas/pais">
+                    <img src="assets/iconos/tablasVarias.png">
+                </a>
+                <div class="titulo">TABLAS VARIAS</div>
+            </div>
+            <div class="col">
+                <a aria-current="tipoCambio" routerLinkActive="tipoCambio" routerLink="/mantenimiento/tipoCambio">
+                    <img src="assets/iconos/tipoCambio.png">
+                </a>
+                <div class="titulo">TIPO CAMBIO</div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@if(showModal){
+<div class="modal show" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Elegir Medición</h1>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 row">
+                    <select class="form-select" [(ngModel)]="medicion">
+                        <option value="">Elegir</option>
+                        <option value="2406">2406</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" (click)="guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop fade show"></div>
+}

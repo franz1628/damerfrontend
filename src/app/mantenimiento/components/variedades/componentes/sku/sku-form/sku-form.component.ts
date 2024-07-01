@@ -11,6 +11,9 @@ import { SkuService } from '../../../services/sku.service';
 import { CanastaService } from '../../../services/canasta.service';
 import { MegaCategoriaService } from '../../../services/megaCategoria.service';
 import { SkuHijosService } from '../../../services/skuHijos.service';
+import { FileUploadServiceService } from '../../../../../../shared/services/file-upload-service.service';
+import { HttpEventType } from '@angular/common/http';
+import { environments } from '../../../../../../../environments/environments';
 
 @Component({
   selector: 'app-sku-form',
@@ -26,20 +29,24 @@ export class SkuFormComponent implements OnChanges {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   @Output() editEmit: EventEmitter<Sku> = new EventEmitter();
 
-  showCombo :boolean = false
-  showPack :boolean = false
+  showCombo: boolean = false
+  showPack: boolean = false
 
+  baseUrl:string= environments.baseUrl 
 
-  nombrePack:string=''
+  file: File | null = null;
+  progress: number = 0;
 
-  skuCombos:Sku[]=[]
-  skuPack:Sku=SkuInit
-  cantidadPack:number=1
+  nombrePack: string = ''
 
-  porcentajes:string[] = []
+  skuCombos: Sku[] = []
+  skuPack: Sku = SkuInit
+  cantidadPack: number = 1
 
-  categorias:Categoria[] = []
-  idCategoriaCombo:string=''
+  porcentajes: string[] = []
+
+  categorias: Categoria[] = []
+  idCategoriaCombo: string = ''
 
   descripcionSkuCombo: string = '';
   modalBusquedaDescripcionCombo: boolean = false;
@@ -60,30 +67,34 @@ export class SkuFormComponent implements OnChanges {
     idCategoria: [0, Validators.required],
     descripcion: ['', Validators.required],
     tipoSku: [1, Validators.required],
+    refrigeracion: [0, Validators.required],
+    barras: [''],
     descripcionResumida: [''],
     tip: [''],
     alias1: [''],
     alias2: [''],
     alias3: [''],
-
-    descripcionSkuCombo:['']
+    descripcionSkuCombo: [''],
+    image : ['']
   })
 
-  public listCanasta: Canasta[] = [];
-  public listMegaCategoria: MegaCategoria[] = [];
-  public listCategoria: Categoria[] = [];
+  listCanasta: Canasta[] = [];
+  listMegaCategoria: MegaCategoria[] = [];
+  listCategoria: Categoria[] = [];
+  image:string= '';
 
   constructor(
-    public alert: AlertService,
-    public fb: FormBuilder,
-    public validForm: ValidFormService,
+    private alert: AlertService,
+    private fb: FormBuilder,
+    private validForm: ValidFormService,
     private service: SkuService,
     private canastaService: CanastaService,
     private megaCategoriaService: MegaCategoriaService,
     private categoriaService: CategoriaService,
-    private skuHijosService:SkuHijosService,
+    private skuHijosService: SkuHijosService,
     private elementRef: ElementRef,
-    
+    private fileUploadService: FileUploadServiceService
+
   ) {
     /*this.canastaService.get().subscribe(resp => { this.listCanasta = resp.data });
     this.megaCategoriaService.get().subscribe(resp => { this.listMegaCategoria = resp.data });
@@ -97,10 +108,10 @@ export class SkuFormComponent implements OnChanges {
 
   ngOnInit() {
     this.showLoading = true
-    this.categoriaService.get().subscribe(x=>{
+    this.categoriaService.get().subscribe(x => {
       this.categorias = x.data
 
-      
+
     })
   }
 
@@ -108,8 +119,21 @@ export class SkuFormComponent implements OnChanges {
     return this.myForm.value as Sku;
   }
 
+  getSrc() {
+
+    
+    if(this.model.image==''){
+      console.log(this.baseUrl+environments.imgNotFound);
+      
+      return this.baseUrl+environments.imgNotFound;
+    }else{
+      console.log(this.baseUrl+'uploads/sku/'+this.model.image);
+      return this.baseUrl+'uploads/sku/'+this.model.image;
+    }
+  }
+
   submit() {
-    if (this.myForm.invalid && this.currentModel.tipoSku==1) {
+    if (this.myForm.invalid && this.currentModel.tipoSku == 1) {
       this.myForm.markAllAsTouched();
       return;
     }
@@ -117,65 +141,145 @@ export class SkuFormComponent implements OnChanges {
     const descripcion = this.myForm.get('descripcion')?.value;
     this.myForm.patchValue({ 'descripcionResumida': descripcion.slice(0, 50), 'tip': descripcion.slice(0, 20) })
 
-    if(this.currentModel.tipoSku==1){
+    if (this.currentModel.tipoSku == 1) {
       if (!this.currentModel.id) {
-        this.service.add(this.currentModel).subscribe(() => {
+        this.currentModel.medicion = parseInt(localStorage.getItem('medicion') || '0');
+        this.service.add(this.currentModel).subscribe(e => {
+
+
+          if (this.file) {
+
+            const maxSize = 300 * 1024; // 300KB
+            const allowedTypes = ['image/png', 'image/jpeg'];
+
+            // Validar el tamaño del archivo
+            if (this.file.size > maxSize) {
+              this.alert.showAlert('Advertencia', 'El archivo es demasiado grande. El tamaño máximo permitido es 300KB.', 'warning')
+              // Aquí podrías mostrar un mensaje de error al usuario en lugar de solo registrar en la consola
+              return;
+            }
+
+            // Validar el tipo de archivo
+            if (!allowedTypes.includes(this.file.type)) {
+              this.alert.showAlert('Advertencia', 'Tipo de archivo no permitido. Solo se permiten archivos PNG y JPG.', 'warning')
+              // Aquí podrías mostrar un mensaje de error al usuario en lugar de solo registrar en la consola
+              return;
+            }
+
+
+            this.fileUploadService.uploadImageSku(this.file, { ...this.currentModel, id: e.data.id }).subscribe(
+              event => {
+                
+                switch (event.type) {
+                  case HttpEventType.UploadProgress:
+                    this.progress = Math.round(100 * (event.loaded / event.total!));
+                    break;
+                  case HttpEventType.Response:
+                    this.progress = 0;
+                    break;
+                }
+              }
+            );
+          }
+
           this.showLoading = false;
           this.updateModelsEmit.emit();
           this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
           this.myForm.patchValue({ id: 0, descripcion: '', descripcionResumida: '', tip: '' });
           this.myForm.clearValidators();
-  
+          this.limpiar();
+
         });
       } else {
+
+        if (this.file) {
+
+          const maxSize = 300 * 1024; // 300KB
+          const allowedTypes = ['image/png', 'image/jpeg'];
+
+          // Validar el tamaño del archivo
+          if (this.file.size > maxSize) {
+            this.alert.showAlert('Advertencia', 'El archivo es demasiado grande. El tamaño máximo permitido es 300KB.', 'warning')
+            // Aquí podrías mostrar un mensaje de error al usuario en lugar de solo registrar en la consola
+            return;
+          }
+
+          // Validar el tipo de archivo
+          if (!allowedTypes.includes(this.file.type)) {
+            this.alert.showAlert('Advertencia', 'Tipo de archivo no permitido. Solo se permiten archivos PNG y JPG.', 'warning')
+            // Aquí podrías mostrar un mensaje de error al usuario en lugar de solo registrar en la consola
+            return;
+          }
+
+          this.fileUploadService.uploadImageSku(this.file, { ...this.currentModel, id: this.currentModel.id}).subscribe(
+            event => {
+              switch (event.type) {
+                case HttpEventType.UploadProgress:
+                  this.progress = Math.round(100 * (event.loaded / event.total!));
+                  break;
+                case HttpEventType.Response:
+                  this.progress = 0;
+                  break;
+              }
+            }
+          );
+        }
+
+
         this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
           this.showLoading = false;
           this.updateModelsEmit.emit();
+          this.model.image = this.currentModel.image;
+
           this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+
+          this.service.getId(this.currentModel.id).subscribe(x=>{
+
+          })
         });
       }
-    }else if(this.currentModel.tipoSku==2){ // PACK
-   
-      if(this.skuPack.id==0){
-        this.alert.showAlert('Advertencia','Debe elegir un sku','warning')
+    } else if (this.currentModel.tipoSku == 2) { // PACK
+
+      if (this.skuPack.id == 0) {
+        this.alert.showAlert('Advertencia', 'Debe elegir un sku', 'warning')
         return
       }
 
       if (!this.currentModel.id) {
         this.showLoading = true
-        this.skuHijosService.postPack(this.skuPack,this.cantidadPack,this.myForm.get('descripcion')?.value,this.model).subscribe(x=>{
-          if(x.state==1){
-            this.skuPack=SkuInit
-            this.cantidadPack=1
-            this.myForm.patchValue({descripcion:''})
-            this.alert.showAlert('Mensaje',x.message,'success')
+        this.skuHijosService.postPack(this.skuPack, this.cantidadPack, this.myForm.get('descripcion')?.value, this.model).subscribe(x => {
+          if (x.state == 1) {
+            this.skuPack = SkuInit
+            this.cantidadPack = 1
+            this.myForm.patchValue({ descripcion: '' })
+            this.alert.showAlert('Mensaje', x.message, 'success')
             this.updateModelsEmit.emit();
           }
-          
+
           this.showLoading = false
-        }) 
-      }else{
-        
-        
+        })
+      } else {
+
+
         this.showLoading = true
-        this.skuHijosService.updatePack(this.skuPack,this.cantidadPack,this.myForm.get('descripcion')?.value,this.model).subscribe(x=>{
-          if(x.state==1){
-            this.skuPack=SkuInit
-            this.cantidadPack=1
-            this.myForm.patchValue({descripcion:''})
-            this.alert.showAlert('Mensaje',x.message,'success')
+        this.skuHijosService.updatePack(this.skuPack, this.cantidadPack, this.myForm.get('descripcion')?.value, this.model).subscribe(x => {
+          if (x.state == 1) {
+            this.skuPack = SkuInit
+            this.cantidadPack = 1
+            this.myForm.patchValue({ descripcion: '' })
+            this.alert.showAlert('Mensaje', x.message, 'success')
             this.updateModelsEmit.emit();
           }
-          
+
           this.showLoading = false
-        }) 
+        })
       }
-    
-      
-    }else if(this.currentModel.tipoSku==3){ //COMBOS
-      if(this.skuCombos.length==0){
-   
-        this.alert.showAlert('Advertencia','Debe elegir al menos un sku','warning')
+
+
+    } else if (this.currentModel.tipoSku == 3) { //COMBOS
+      if (this.skuCombos.length == 0) {
+
+        this.alert.showAlert('Advertencia', 'Debe elegir al menos un sku', 'warning')
         return
       }
 
@@ -184,38 +288,57 @@ export class SkuFormComponent implements OnChanges {
         sum += parseFloat(number);
       }
 
-      if(sum!=100){
-        this.alert.showAlert('Advertencia','Los porcentajes deben sumar 100','warning')
+      if (sum != 100) {
+        this.alert.showAlert('Advertencia', 'Los porcentajes deben sumar 100', 'warning')
         return
       }
 
       if (!this.currentModel.id) {
         this.showLoading = true
-        this.skuHijosService.postCombo(this.skuCombos,this.myForm.get('descripcion')?.value,this.porcentajes,this.model).subscribe(x=>{
-          if(x.state==1){
-            this.skuCombos=[]
-       
-            this.alert.showAlert('Mensaje',x.message,'success')
+        this.skuHijosService.postCombo(this.skuCombos, this.myForm.get('descripcion')?.value, this.porcentajes, this.model).subscribe(x => {
+          if (x.state == 1) {
+            this.skuCombos = []
+
+            this.alert.showAlert('Mensaje', x.message, 'success')
             this.updateModelsEmit.emit();
           }
           this.showLoading = false
         })
-      }else{
+      } else {
         this.showLoading = true
-        this.skuHijosService.updateCombo(this.skuCombos,this.myForm.get('descripcion')?.value,this.porcentajes,this.model).subscribe(x=>{
-          if(x.state==1){
-            this.skuCombos=[]
-       
-            this.alert.showAlert('Mensaje',x.message,'success')
+        this.skuHijosService.updateCombo(this.skuCombos, this.myForm.get('descripcion')?.value, this.porcentajes, this.model).subscribe(x => {
+          if (x.state == 1) {
+            this.skuCombos = []
+
+            this.alert.showAlert('Mensaje', x.message, 'success')
             this.updateModelsEmit.emit();
           }
           this.showLoading = false
         })
       }
 
-      
-      
+
+
     }
+  }
+
+  limpiar() {
+    this.myForm.patchValue({
+      descripcion:'',
+      refrigeracion:0,
+      barras:'',
+      image:''
+    }) 
+    this.model.image = ''
+  }
+
+  onImageError(event: Event) {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src = this.baseUrl+environments.imgNotFound; // Reemplaza con la ruta de tu imagen alternativa
+  }
+
+  onFileChange(event: any) {
+    this.file = event.target.files[0];
   }
 
   eligeCategoriaCombo(e: Event) {
@@ -225,16 +348,16 @@ export class SkuFormComponent implements OnChanges {
 
   eligeTipoSku(e: Event) {
     const valor = (e.target as HTMLInputElement).value;
-    
-    if(valor=="1"){ 
-      this.showCombo=false
-      this.showPack=false
-    }else if(valor=="2"){
-      this.showCombo=false
-      this.showPack=true
-    }else if(valor=="3"){
-      this.showCombo=true
-      this.showPack=false
+
+    if (valor == "1") {
+      this.showCombo = false
+      this.showPack = false
+    } else if (valor == "2") {
+      this.showCombo = false
+      this.showPack = true
+    } else if (valor == "3") {
+      this.showCombo = true
+      this.showPack = false
     }
   }
 
@@ -258,9 +381,10 @@ export class SkuFormComponent implements OnChanges {
   }
 
   nuevo() {
-    this.elementRef.nativeElement.querySelector('#tipoSku').disabled=false
+    this.elementRef.nativeElement.querySelector('#tipoSku').disabled = false
     this.myForm.patchValue(SkuInit);
     this.myForm.clearValidators()
+    this.limpiar() 
   }
 
   buscar() {
@@ -275,47 +399,45 @@ export class SkuFormComponent implements OnChanges {
 
 
 
-  
+
   elegirSkuBusqueda(sku: Sku) {
- 
+
     this.myForm.patchValue({ id: sku.id });
     this.buscar();
     this.editEmit.emit(sku)
     this.model = sku;
 
-    if(sku.tipoSku==3){
+    if (sku.tipoSku == 3) {
       for (let i = 0; i < sku.SkuHijos.length; i++) {
         this.skuCombos.push(sku.SkuHijos[i].Sku);
         this.porcentajes.push(sku.SkuHijos[i].porcentaje.toString())
       }
-    }else if(sku.tipoSku==2){
+    } else if (sku.tipoSku == 2) {
       this.skuPack = sku.SkuHijos[0].Sku;
       this.cantidadPack = sku.SkuHijos[0].cantidad
     }
 
     //this.myForm.get('tipoSku')?.disabled 
-    this.elementRef.nativeElement.querySelector('#tipoSku').disabled=true
+    this.elementRef.nativeElement.querySelector('#tipoSku').disabled = true
 
   }
 
-  elegirSku(sku:Sku){
-    console.log(sku);
-    
-    this.myForm.patchValue(sku);
+  elegirSku(sku: Sku) {
+    this.myForm.patchValue({...sku,image:''});
     this.model = sku;
 
-    if(sku.tipoSku==3){
+    if (sku.tipoSku == 3) {
       for (let i = 0; i < sku.SkuHijos.length; i++) {
         this.skuCombos.push(sku.SkuHijos[i].Sku);
         this.porcentajes.push(sku.SkuHijos[i].porcentaje.toString())
       }
-    }else if(sku.tipoSku==2){
+    } else if (sku.tipoSku == 2) {
       this.skuPack = sku.SkuHijos[0].Sku;
       this.cantidadPack = sku.SkuHijos[0].cantidad
     }
 
     //this.myForm.get('tipoSku')?.disabled 
-    this.elementRef.nativeElement.querySelector('#tipoSku').disabled=true
+    this.elementRef.nativeElement.querySelector('#tipoSku').disabled = true
   }
 
   elegirSkuBusquedaCombo(sku: Sku) {
@@ -325,12 +447,12 @@ export class SkuFormComponent implements OnChanges {
 
   elegirSkuBusquedaPack(sku: Sku) {
 
-    if(this.skuPack.id==0){
+    if (this.skuPack.id == 0) {
       this.skuPack = sku
-    }else{
-      this.alert.showAlert('Adventencia','Debe quitar el sku antes de elegir otro','warning')
+    } else {
+      this.alert.showAlert('Adventencia', 'Debe quitar el sku antes de elegir otro', 'warning')
     }
-    
+
   }
 
   cambioDescripcion(event: Event) {
@@ -352,21 +474,20 @@ export class SkuFormComponent implements OnChanges {
     if (this.descripcionSku != '') {
       this.modalBusquedaDescripcion = true;
       this.service.postDescripcion(this.descripcionSku).subscribe(x => {
-        console.log(x);
-        
+
         this.skusBusqueda = x;
       });
     }
   }
 
   buscarDescripcionCombo() {
-    if (this.descripcionSkuCombo != '' && this.idCategoriaCombo!='') {
+    if (this.descripcionSkuCombo != '' && this.idCategoriaCombo != '') {
       this.modalBusquedaDescripcionCombo = true;
-      this.service.postDescripcionCategoria(this.descripcionSkuCombo,this.idCategoriaCombo).subscribe(x => {
+      this.service.postDescripcionCategoria(this.descripcionSkuCombo, this.idCategoriaCombo).subscribe(x => {
         this.skusBusquedaCombo = x;
       });
-    } else{
-      this.alert.showAlert('Advertencia','Debe elegir categoria y combo','warning')
+    } else {
+      this.alert.showAlert('Advertencia', 'Debe elegir categoria y combo', 'warning')
     }
   }
 
@@ -376,11 +497,11 @@ export class SkuFormComponent implements OnChanges {
       this.service.postDescripcion(this.descripcionSkuPack).subscribe(x => {
         this.skusBusquedaPack = x;
       });
-    } 
+    }
   }
 
 
-  inputPorcentaje(e: Event,i: number) {
+  inputPorcentaje(e: Event, i: number) {
     const valor = (e.target as HTMLInputElement).value
 
     this.porcentajes[i] = valor;
@@ -388,13 +509,13 @@ export class SkuFormComponent implements OnChanges {
   }
 
 
-  cantidadSku(e:Event){ 
+  cantidadSku(e: Event) {
     const valor = (e.target as HTMLInputElement).value;
     this.cantidadPack = parseInt(valor);
   }
 
-  borrarSkuCombo(indice: number) { 
-    this.skuCombos = this.skuCombos.filter((x,index)=>index != indice);
+  borrarSkuCombo(indice: number) {
+    this.skuCombos = this.skuCombos.filter((x, index) => index != indice);
   }
 
   borrarSkuPack() {

@@ -34,14 +34,15 @@ export class ClienteAgrupacionCategoriaService {
     return this.http.post<ClienteAgrupacionCategoria>(this.apiUrl, model);
   }
 
-  addCategoriasNuevo(idCliente:number, categoriasAgrupacion: Categoria[]) {
-    return this.http.post<ClienteAgrupacionCategoria>(`${this.apiUrl}/addCategoriasNuevo`, {idCliente,categoriasAgrupacion});
+  addCategoriasNuevo(idCliente:number, categoriasAgrupacion: Categoria[], nombreAgrupacionCategoria:string) {
+    return this.http.post<ClienteAgrupacionCategoria>(`${this.apiUrl}/addCategoriasNuevo`, {idCliente,categoriasAgrupacion,nombreAgrupacionCategoria});
   }
 
-  editCategorias(idClienteAgrupacionCategoria: number, categoriasAgrupacion: Categoria[]) {
+  editCategorias(idClienteAgrupacionCategoria: number, categoriasAgrupacion: Categoria[],nombreAgrupacionCategoria:string) {
     return this.http.post<ClienteAgrupacionCategoria>(`${this.apiUrl}/editCategorias`, {
       categoriasAgrupacion,
-      idClienteAgrupacionCategoria
+      idClienteAgrupacionCategoria,
+      nombreAgrupacionCategoria
     });
   }
 

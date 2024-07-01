@@ -15,15 +15,12 @@ import { CategoriaService } from '../../variedades/services/categoria.service';
   templateUrl: './cliente-categoria-form.component.html' 
 })
 export class ClienteCategoriaFormComponent {
- 
   @Input()
   cliente: Cliente = ClienteInit
 
   selectIndex: number = -1
   categorias : Categoria[] = []
   
-
-
   showLoading: boolean = false;
 
   clienteCategorias: ClienteCategoria[] = [];
@@ -65,9 +62,6 @@ export class ClienteCategoriaFormComponent {
       next: value => {
         this.clienteCategorias = value.service.data
 
-        
-        
-
         this.clienteCategorias.forEach(model => {
           const nuevoModelo = this.fb.group({
             id: [model.id],
@@ -101,7 +95,6 @@ export class ClienteCategoriaFormComponent {
       const modelo = this.modelosArray.controls[index].getRawValue();
       //this.atributoFuncionalVariedad = modelo;
       this.service.update(modelo.id, modelo).subscribe(x => {
-
         this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
       });
     })
