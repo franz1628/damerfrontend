@@ -145,8 +145,6 @@ export class SkuFormComponent implements OnChanges {
       if (!this.currentModel.id) {
         this.currentModel.medicion = parseInt(localStorage.getItem('medicion') || '0');
         this.service.add(this.currentModel).subscribe(e => {
-
-
           if (this.file) {
 
             const maxSize = 300 * 1024; // 300KB
@@ -166,7 +164,6 @@ export class SkuFormComponent implements OnChanges {
               return;
             }
 
-
             this.fileUploadService.uploadImageSku(this.file, { ...this.currentModel, id: e.data.id }).subscribe(
               event => {
                 
@@ -178,16 +175,26 @@ export class SkuFormComponent implements OnChanges {
                     this.progress = 0;
                     break;
                 }
+
+                this.showLoading = false;
+                this.updateModelsEmit.emit();
+                this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
+                this.myForm.patchValue({ id: 0, descripcion: '', descripcionResumida: '', tip: '' });
+                this.myForm.clearValidators();
+                this.limpiar();
+
               }
             );
+          }else{
+            this.showLoading = false;
+            this.updateModelsEmit.emit();
+            this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
+            this.myForm.patchValue({ id: 0, descripcion: '', descripcionResumida: '', tip: '' });
+            this.myForm.clearValidators();
+            this.limpiar();
           }
 
-          this.showLoading = false;
-          this.updateModelsEmit.emit();
-          this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
-          this.myForm.patchValue({ id: 0, descripcion: '', descripcionResumida: '', tip: '' });
-          this.myForm.clearValidators();
-          this.limpiar();
+          
 
         });
       } else {
