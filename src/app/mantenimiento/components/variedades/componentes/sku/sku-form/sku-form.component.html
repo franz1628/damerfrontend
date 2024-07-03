@@ -283,8 +283,9 @@
                 </div>
             </div>
 
-            <div class="col-4">
-                <img [src]="getSrc()" class="img-fluid img-thumbnail"  alt="..."  (error)="onImageError($event)">
+            <div class="col-4" style="position: relative;">
+                <img [src]="getSrc" class="img-fluid img-thumbnail"  alt="..."  (error)="onImageError($event)">
+                <button style="position: absolute;left: 12px;" class="btn btn-sm btn-danger" (click)="deleteImage()"><i class="bi bi-x"></i></button>
             </div>
         </div>
     </form>

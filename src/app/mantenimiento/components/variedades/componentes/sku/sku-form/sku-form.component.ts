@@ -22,6 +22,7 @@ import { environments } from '../../../../../../../environments/environments';
 export class SkuFormComponent implements OnChanges {
 
 
+
   @Input() model: Sku = SkuInit;
   @Input() idCategoria: number = 0
 
@@ -119,7 +120,7 @@ export class SkuFormComponent implements OnChanges {
     return this.myForm.value as Sku;
   }
 
-  getSrc() {
+  get getSrc() {
 
     
     if(this.model.image==''){
@@ -220,30 +221,54 @@ export class SkuFormComponent implements OnChanges {
 
           this.fileUploadService.uploadImageSku(this.file, { ...this.currentModel, id: this.currentModel.id}).subscribe(
             event => {
+
+            
+
               switch (event.type) {
                 case HttpEventType.UploadProgress:
                   this.progress = Math.round(100 * (event.loaded / event.total!));
                   break;
                 case HttpEventType.Response:
-                  this.progress = 0;
-                  break;
+                    this.progress = 0;
+                    this.service.update(this.currentModel.id, this.currentModel).subscribe((x) => {
+
+                      /*this.myForm.patchValue({
+                        image : x.data.image
+                      })*/
+
+                      this.model.image = x.data.image
+                      
+                      this.showLoading = false;
+                      this.updateModelsEmit.emit();
+
+            
+                      this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+            
+                    
+                    });
+                    break;
+        
               }
             }
           );
+
+       
+        }else{
+          this.service.update(this.currentModel.id, this.currentModel).subscribe((x) => {
+            console.log('Update2');
+            this.model = x.data;
+            this.showLoading = false;
+            this.updateModelsEmit.emit();
+           // this.model.image = this.currentModel.image;
+  
+            this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+  
+          
+          });
         }
 
 
-        this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
-          this.showLoading = false;
-          this.updateModelsEmit.emit();
-          this.model.image = this.currentModel.image;
-
-          this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
-
-          this.service.getId(this.currentModel.id).subscribe(x=>{
-
-          })
-        });
+        
       }
     } else if (this.currentModel.tipoSku == 2) { // PACK
 
@@ -352,6 +377,23 @@ export class SkuFormComponent implements OnChanges {
     const valor = (e.target as HTMLInputElement).value
     this.idCategoriaCombo = valor
   }
+
+  deleteImage() {
+    if(this.model.id==0){
+      this.alert.showAlert('Advertencia','Debe elegir un SKU','warning');
+      return;
+    }
+
+    this.service.deleteImage(this.model).subscribe(x=>{
+      if(x.state==1){
+        this.model.image=''
+        this.alert.showAlert('Mensaje','Eliminado correctamente','success');
+      }else{
+        this.alert.showAlert('Advertencia','Ocurrio un error, intentelo más tarde','warning');
+      }
+    })
+  }
+
 
   eligeTipoSku(e: Event) {
     const valor = (e.target as HTMLInputElement).value;

@@ -67,12 +67,16 @@ export class SkuService {
     return this.http.post<ResponseSkuOne>(this.apiUrl, model);
   } 
 
-  update(id: number, model: Sku): Observable<Sku> {
-    return this.http.put<Sku>(`${this.apiUrl}/${id}`, model);
+  update(id: number, model: Sku): Observable<ResponseSkuOne> {
+    return this.http.put<ResponseSkuOne>(`${this.apiUrl}/${id}`, model);
   }
 
   delete(model: Sku): Observable<Sku> {
     return this.http.delete<Sku>(`${this.apiUrl}/${model.id}`);
+  }
+
+  deleteImage(model: Sku): Observable<ResponseSkuOne> {
+    return this.http.post<ResponseSkuOne>(`${this.apiUrl}/deleteImage`,model);
   }
 
   suspender(model: Sku): Observable<Sku> {
