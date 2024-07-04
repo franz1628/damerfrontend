@@ -384,13 +384,16 @@ export class SkuFormComponent implements OnChanges {
       return;
     }
 
-    this.service.deleteImage(this.model).subscribe(x=>{
-      if(x.state==1){
-        this.model.image=''
-        this.alert.showAlert('Mensaje','Eliminado correctamente','success');
-      }else{
-        this.alert.showAlert('Advertencia','Ocurrio un error, intentelo más tarde','warning');
-      }
+    this.alert.showAlertConfirm('Advertencia','¿Desea eliminar la imagen?','warning',()=>{
+
+      this.service.deleteImage(this.model).subscribe(x=>{
+        if(x.state==1){
+          this.model.image=''
+          this.alert.showAlert('Mensaje','Eliminado correctamente','success');
+        }else{
+          this.alert.showAlert('Advertencia','Ocurrio un error, intentelo más tarde','warning');
+        }
+      })
     })
   }
 
