@@ -113,6 +113,7 @@ export class NegocioFormComponent {
     this.service.postDescripcion(texto).subscribe(x => {
       if (x.data.length == 0) {
         this.alert.showAlert('Mensaje', 'No se encontraron resultados', "warning");
+        this.showLoading = false;
         return;
       }
 

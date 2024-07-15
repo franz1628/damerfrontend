@@ -8,7 +8,7 @@
                     <th>Codigo</th>
                     <th>Descripcion</th>
                     <th>Resumida</th>
-                    <!-- <th>Accion</th> -->
+                     <th>Accion</th> 
                 </tr>
             </thead>
         
@@ -20,8 +20,9 @@
                         <td>{{model.descripcion}}</td>
                         <td>{{model.descripcionResumida}}</td>
                         <td>
-                            <button class="btn btn-sm btn-info" (click)="selectEdit(model)"> <i
-                                class="bi bi-pencil"></i> </button>
+                   
+
+                                <img class="iconEdit" src="assets/editar.png"  (click)="selectEdit(model)" data-bs-toggle="modal" data-bs-target="#modalEditAgrupacion">
                         </td>
                     </tr>
                 }

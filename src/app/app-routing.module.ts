@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: '',
     component:LayoutPageComponent,
-   //  canActivate: [authGuard],
+    canActivate: [authGuard],
     children :[
       {
         path:'',
@@ -32,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'mantenimiento',
-     //canActivate: [authGuard],
+    //canActivate: [authGuard],
     loadChildren: () => import('./mantenimiento/mantenimiento.module').then(m => m.MantenimientoModule)
   },
   { path: 'login', component: LoginFormComponent },

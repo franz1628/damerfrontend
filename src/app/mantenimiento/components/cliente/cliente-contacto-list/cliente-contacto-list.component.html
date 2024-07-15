@@ -10,7 +10,7 @@
                     <th>Nombre Completo</th>
                     <th>Cargo</th>
                     <th>Correo</th>
-                    <!-- <th>Accion</th> -->
+                    <th>Acción</th>
                 </tr>
             </thead>
         
@@ -24,7 +24,8 @@
                         <td>{{model.cargo}}</td>
                         <td>{{model.correo}}</td>
                         <td>
-                            <button class="btn btn-sm btn-info" (click)="selectEdit(model)">Edit</button>
+                         
+                            <img class="iconEdit" src="assets/editar.png"  (click)="selectEdit(model)">
                         </td>
                     </tr>
                 }

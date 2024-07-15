@@ -1,40 +1,52 @@
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente" type="button"
-            role="tab" aria-controls="cliente" aria-selected="true">Cliente</button>
-    </li>
-    @if(model.id!=0){
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="direccion-tab" data-bs-toggle="tab" data-bs-target="#direccion" type="button"
-            role="tab" aria-controls="direccion" aria-selected="false">Direcciones</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="contacto-tab" data-bs-toggle="tab" data-bs-target="#contacto" type="button"
-            role="tab" aria-controls="contacto" aria-selected="false">Contactos</button>
-    </li>
+<div class="row">
+    <div class="col-9">
 
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="categoria-tab" data-bs-toggle="tab" data-bs-target="#categoria" type="button"
-            role="tab" aria-controls="categoria" aria-selected="false">Categorias</button>
-    </li>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente" type="button"
+                    role="tab" aria-controls="cliente" aria-selected="true">Cliente</button>
+            </li>
+            @if(model.id!=0){
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="direccion-tab" data-bs-toggle="tab" data-bs-target="#direccion" type="button"
+                    role="tab" aria-controls="direccion" aria-selected="false">Direcciones</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contacto-tab" data-bs-toggle="tab" data-bs-target="#contacto" type="button"
+                    role="tab" aria-controls="contacto" aria-selected="false">Contactos</button>
+            </li>
+        
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="categoria-tab" data-bs-toggle="tab" data-bs-target="#categoria" type="button"
+                    role="tab" aria-controls="categoria" aria-selected="false">Categorias</button>
+            </li>
+        
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="canal-tab" data-bs-toggle="tab" data-bs-target="#canal" type="button" role="tab"
+                    aria-controls="canal" aria-selected="false">Canales</button>
+            </li>
+        
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="zona-tab" data-bs-toggle="tab" data-bs-target="#zona" type="button" role="tab"
+                    aria-controls="zona" aria-selected="false">Zonas</button>
+            </li>
+            }
+        
+        </ul>
+    </div>
+    <div class="col-3">
+        @if(model.id>0){
+            <h4 class="fw-bold">Cliente : <span class="text-danger">{{model.razonSocial}}</span></h4> 
 
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="canal-tab" data-bs-toggle="tab" data-bs-target="#canal" type="button" role="tab"
-            aria-controls="canal" aria-selected="false">Canales</button>
-    </li>
+        }
+    </div>
+</div>
 
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="zona-tab" data-bs-toggle="tab" data-bs-target="#zona" type="button" role="tab"
-            aria-controls="zona" aria-selected="false">Zonas</button>
-    </li>
-    }
-
-</ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane  show active" id="cliente" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
         <div class="row mt-4">
             <div class="col-4">
-                <h6 class="mb-3 text-center">INFORMACION DEL TIPO DE CLIENTE</h6>
+                <h6 class="mb-3 text-center">REGISTRO-EDICIÓN DE CLIENTES</h6>
                 <hr>
                 <app-cliente-form #clienteFormComp (actualizarListEmit)="actualizarList()"
                     (resetModelEmit)="resetModel()"></app-cliente-form>
