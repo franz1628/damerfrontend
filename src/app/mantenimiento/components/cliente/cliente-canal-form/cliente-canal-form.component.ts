@@ -22,8 +22,8 @@ export class ClienteCanalFormComponent {
 
   public model = this.fb.group({
     id:[0],
-    codCliente: [0,Validators.required],
-    codCanal: [0,Validators.required],
+    idCliente: [0,Validators.required],
+    idCanal: [0,Validators.required],
     nombreAgrupacion: ['',Validators.required],
   })
 
@@ -39,7 +39,7 @@ export class ClienteCanalFormComponent {
   }
 
   ngOnInit(): void {
-    this.model.patchValue({codCliente:this.cliente.codigo});
+    this.model.patchValue({idCliente:this.cliente.id});
 
     this.serviceCanal.get().subscribe(x=>{
       this.canals = x.data;
@@ -61,14 +61,19 @@ export class ClienteCanalFormComponent {
     }
 
     this.service.add(this.getModel).subscribe(resp => {
-      this.model.reset();
+      this.reset();
       this.actualizarList();
     })
-
+ 
   }
 
   reset(){
-    this.model.patchValue(ClienteInit);
+    this.model.patchValue({
+      idCanal : 0,
+      nombreAgrupacion : ''
+    });
+
+ 
     //this.resetModelEmit.emit();
   }
 

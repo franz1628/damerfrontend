@@ -9,26 +9,25 @@
                 <div class="col-sm-8">
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text">{{cliente.codigo}}</span>
-                        <span class="input-group-text">{{cliente.razonSocial}}</span>
+                        <span class="input-group-text">{{cliente.id}}</span>
                       </div>
                 </div>
              
             </div>
 
             <div class="mb-3 row">
-                <label for="codCanal" class="col-md-4 col-form-label-sm">Codigo Canal</label>
+                <label for="idCanal" class="col-md-4 col-form-label-sm">Codigo Canal</label>
                 <div class="col-sm-8">
-                    <select name="codCanal" id="codCanal" formControlName="codCanal">
+                    <select name="idCanal" id="idCanal" formControlName="idCanal">
                         <option value="0">SELECCIONAR</option>
                         @for (canal of canals; track $index) {
-                            <option value={{canal.codigo}}>{{canal.descripcion}}</option>
+                            <option value={{canal.id}}>{{canal.descripcion}}</option>
                         }
                     </select>
 
                 </div>
-                <span *ngIf="isValidField('codCanal')" class="form-text text-danger">
-                    {{ getFieldError('codCanal') }}
+                <span *ngIf="isValidField('idCanal')" class="form-text text-danger">
+                    {{ getFieldError('idCanal') }}
                 </span>
             </div>
 

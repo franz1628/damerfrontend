@@ -52,7 +52,7 @@ export class ClienteCategoriaListComponent implements OnChanges {
   ) { }
 
   ngOnInit(): void {
-    this.loadModels();
+    //this.loadModels();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

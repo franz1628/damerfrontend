@@ -5,6 +5,14 @@ import { environments } from '../../../../../environments/environments';
 import { Response } from '../../../../shared/interfaces/response.interface';
 import { Categoria } from '../interfaces/categoria.interface';
 
+export interface ResponseCategoria {
+
+  data: Categoria[],
+  state: number,
+  message: string
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,8 +21,8 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) {}
 
-  get(): Observable<Response> {
-    return this.http.get<Response>(this.apiUrl);
+  get(): Observable<ResponseCategoria> {
+    return this.http.get<ResponseCategoria>(this.apiUrl);
   }
 
  

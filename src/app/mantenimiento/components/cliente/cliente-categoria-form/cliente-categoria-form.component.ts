@@ -37,16 +37,17 @@ export class ClienteCategoriaFormComponent {
   ) { }
 
   ngOnInit(): void {
-    this.loadModels();
-    this.serviceCategoria.get().subscribe(x=>{
-      this.categorias =x.data
+    // this.loadModels();
+    // this.serviceCategoria.get().subscribe(x=>{
+    //   this.categorias =x.data
       
-    })
+    // })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['cliente'] && !changes['cliente'].firstChange) {
+    if (changes['cliente']) {
       this.loadModels();
+
     }
   }
 
@@ -57,10 +58,12 @@ export class ClienteCategoriaFormComponent {
     forkJoin(
       {
         service: this.service.postIdCliente(this.cliente.id),
+        serviceCategoria : this.serviceCategoria.get()
       }
     ).subscribe({
       next: value => {
         this.clienteCategorias = value.service.data
+        this.categorias = value.serviceCategoria.data
 
         this.clienteCategorias.forEach(model => {
           const nuevoModelo = this.fb.group({
@@ -68,6 +71,9 @@ export class ClienteCategoriaFormComponent {
             idCategoria: [model.idCategoria],
             idCliente: [model.idCliente],
           });
+
+         
+         
 
           this.modelosArray.push(nuevoModelo);
         });
@@ -91,6 +97,14 @@ export class ClienteCategoriaFormComponent {
   }
 
   editModel(index: number) {
+    const filas:ClienteCategoria[] = this.modelosArray.value.slice(0,-1);
+    const modelo:ClienteCategoria = this.modelosArray.at(index).value;
+    
+    if(filas.find(x=>x.idCategoria == modelo.idCategoria)){
+      this.alert.showAlert("Advertencia","Esa categoria ya esta agregada","warning");
+      return
+    }
+
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
       const modelo = this.modelosArray.controls[index].getRawValue();
       //this.atributoFuncionalVariedad = modelo;
@@ -119,7 +133,14 @@ export class ClienteCategoriaFormComponent {
   }
 
   async save(num: number): Promise<void> {
-    const modelo = this.modelosArray.at(num).value;
+    const filas:ClienteCategoria[] = this.modelosArray.value.slice(0,-1);
+    const modelo:ClienteCategoria = this.modelosArray.at(num).value;
+    
+    if(filas.find(x=>x.idCategoria == modelo.idCategoria)){
+      this.alert.showAlert("Advertencia","Esa categoria ya esta agregada","warning");
+      return
+    }
+
     this.showLoading = true;
 
     try {

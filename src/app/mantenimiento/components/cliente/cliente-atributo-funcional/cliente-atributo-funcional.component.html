@@ -132,57 +132,52 @@
   </div>
   <!-- <div class="col-md-1"></div> -->
   <div class="col-md-7">
-    <ul class="nav nav-tabs" id="myTab2" role="tablist">
 
+    <div class="row">
+      <div class="col-md-9">
+        <ul class="nav nav-tabs" id="myTab2" role="tablist">
+    
+          
+       
+          @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==1){
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="concatenacion" data-bs-toggle="tab" data-bs-target="#concatenacion-pane"
+                type="button" role="tab" aria-controls="concatenacion-pane" aria-selected="false">CONCATENACION</button>
+            </li>
+          }
+    
+          @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==2){
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="formulaTab" data-bs-toggle="tab" data-bs-target="#formulaTab-pane"
+                type="button" role="tab" aria-controls="formulaTab-pane" aria-selected="false">FORMULA</button>
+            </li>
       
-   
-      @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==1){
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="concatenacion" data-bs-toggle="tab" data-bs-target="#concatenacion-pane"
-            type="button" role="tab" aria-controls="concatenacion-pane" aria-selected="false">CONCATENACION</button>
-        </li>
-      }
-
-      @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==2){
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="formulaTab" data-bs-toggle="tab" data-bs-target="#formulaTab-pane"
-            type="button" role="tab" aria-controls="formulaTab-pane" aria-selected="false">FORMULA</button>
-        </li>
-  
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="resultadosTab" data-bs-toggle="tab" data-bs-target="#resultadosTab-pane"
-            type="button" role="tab" aria-controls="resultadosTab-pane" aria-selected="false">FILTRO FORMULA</button>
-        </li>
-      }
-      @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==3){
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="filtroTab" data-bs-toggle="tab" data-bs-target="#filtroTab-pane"
-            type="button" role="tab" aria-controls="filtroTab-pane" aria-selected="false">FILTRO</button>
-        </li>
-
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="resultadosFiltroTab" data-bs-toggle="tab" data-bs-target="#resultadosFiltroTab-pane"
-            type="button" role="tab" aria-controls="resultadosFiltroTab-pane" aria-selected="false">FILTRO FILTRO</button>
-        </li>
-      }
-  
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="resultadosTotalTab" data-bs-toggle="tab" data-bs-target="#resultadosTotalTab-pane"
-            type="button" role="tab" aria-controls="resultadosTotalTab-pane" aria-selected="false">RESULTADOS</button>
-        </li>
-   
-    </ul>
-
-
-    <div class="tab-content" id="myTabContent2">
-
-   
-      <div class="tab-pane fade" id="resultadosTotalTab-pane" role="tabpanel" aria-labelledby="resultadosTotalTab"
-        tabindex="0">
-        
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="resultadosTab" data-bs-toggle="tab" data-bs-target="#resultadosTab-pane"
+                type="button" role="tab" aria-controls="resultadosTab-pane" aria-selected="false">FILTRO FORMULA</button>
+            </li>
+          }
+          @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==3){
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="filtroTab" data-bs-toggle="tab" data-bs-target="#filtroTab-pane"
+                type="button" role="tab" aria-controls="filtroTab-pane" aria-selected="false">FILTRO</button>
+            </li>
+    
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="resultadosFiltroTab" data-bs-toggle="tab" data-bs-target="#resultadosFiltroTab-pane"
+                type="button" role="tab" aria-controls="resultadosFiltroTab-pane" aria-selected="false">FILTRO FILTRO</button>
+            </li>
+          }
+      
+         
+     
+        </ul> 
+      </div>
+      <div class="col-md-3">
         <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#modalResultados">
           Ver Resultados
         </button>
+
         <div class="modal fade" id="modalResultados" tabindex="-1" aria-labelledby="modalResultadosLabel" aria-hidden="true">
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -246,6 +241,12 @@
         </div>
 
       </div>
+    </div>
+
+    <div class="tab-content" id="myTabContent2">
+
+   
+      
 
         
       
