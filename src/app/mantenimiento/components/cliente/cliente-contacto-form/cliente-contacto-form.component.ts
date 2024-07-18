@@ -5,6 +5,7 @@ import { RegexService } from '../../../../shared/services/regex.service';
 import { ClienteContactoService } from '../../../service/clienteContacto';
 import { ClienteContacto, ClienteContactoInit } from '../../../interface/clienteContacto';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
+import { TipoDireccion } from '../../variedades/interfaces/tipoDireccion';
 
 @Component({
   selector: 'app-cliente-contacto-form',
@@ -12,8 +13,7 @@ import { Cliente, ClienteInit } from '../../../interface/cliente';
 })
 export class ClienteContactoFormComponent {
   @Output() actualizarListEmit: EventEmitter<null> = new EventEmitter();
-  @Input() 
-  cliente :Cliente = ClienteInit;
+  @Input() cliente :Cliente = ClienteInit;
 
   public model = this.fb.group({
     id:[0],
@@ -34,6 +34,7 @@ export class ClienteContactoFormComponent {
 
   ngOnInit(): void {
     this.model.patchValue({codCliente:this.cliente.codigo});
+
   }
 
   get getModel() {

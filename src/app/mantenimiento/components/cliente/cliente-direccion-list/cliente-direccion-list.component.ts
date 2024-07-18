@@ -30,7 +30,7 @@ export class ClienteDireccionListComponent {
 
   actualizarList(){
     this.loading=true;
-    this.service.getCodCliente(this.getModel.codigo).subscribe(resp => {
+    this.service.getIdCliente(this.getModel.id).subscribe(resp => {
       this.models = resp.data;
       this.loading=false;
     })

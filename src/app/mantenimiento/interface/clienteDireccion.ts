@@ -2,10 +2,10 @@ import { Cliente, ClienteInit } from "./cliente";
 
 export interface ClienteDireccion {
     id:number,
-    codCliente: number,
+    idCliente: number,
     idTipoDireccion: number,
-    codDistrito: number,
-    codUrbanizacion: number,
+    idDistrito: number,
+    idUrbanizacion: number,
     codVia: number,
     numDomicilio: number,
     interior: number,
@@ -19,10 +19,10 @@ export interface ClienteDireccion {
 }
 export const ClienteDireccionInit: ClienteDireccion = {
     id:0,
-    codCliente: 0,
+    idCliente: 0,
     idTipoDireccion: 0,
-    codDistrito: 0,
-    codUrbanizacion: 0,
+    idDistrito: 0,
+    idUrbanizacion: 0,
     codVia: 0,
     numDomicilio: 0,
     interior: 0,
