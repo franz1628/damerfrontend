@@ -4,6 +4,8 @@ import { ValidFormService } from '../../../../shared/services/validForm.service'
 import { AtributoTecnicoNegocioService } from '../../../service/atributoTecnicoNegocio';
 import { RegexService } from '../../../../shared/services/regex.service';
 import { AtributoTecnicoNegocio, AtributoTecnicoNegocioInit } from '../../../interface/atributoTecnicoNegocio';
+import { catchError, throwError } from 'rxjs';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-atributo-tecnico-negocio-form',
@@ -12,9 +14,9 @@ import { AtributoTecnicoNegocio, AtributoTecnicoNegocioInit } from '../../../int
 export class AtributoTecnicoNegocioFormComponent {
   public model = this.fb.group({
     id: [0],
-    idPais: [0],
+    idPais: [1],
     codigo: [0,Validators.required],
-    descripcion: [''],
+    descripcion: ['',Validators.required],
     descripcionResumida: [''],
     tip: [''],
     posiblesValores: [0],
@@ -32,7 +34,8 @@ export class AtributoTecnicoNegocioFormComponent {
     private fb: FormBuilder,
     private validForm: ValidFormService,
     private service: AtributoTecnicoNegocioService,
-    private regexService : RegexService
+    private regexService : RegexService,
+    private alert:AlertService
   ) {
 
   }
@@ -69,6 +72,24 @@ export class AtributoTecnicoNegocioFormComponent {
   nuevo() {
     this.model.patchValue(AtributoTecnicoNegocioInit);
   }
+
+  reset(){
+    this.model.patchValue(AtributoTecnicoNegocioInit);
+    //this.resetModelEmit.emit();
+  }
+
+  editar(){
+    this.service.update(this.getModel.id,this.getModel).pipe(
+      catchError(error => {
+        this.alert.showAlert('Mensaje',error.error.message,'warning');
+        return throwError(()=>error);
+      })
+    ).subscribe(x=>{
+        this.alert.showAlert('Mensaje','Guardado correctamente','success');
+        this.actualizarList();
+        this.reset();
+    });
+  } 
 
   isValidField(field: string): boolean | null {
     return this.validForm.isValidField(field, this.model);
