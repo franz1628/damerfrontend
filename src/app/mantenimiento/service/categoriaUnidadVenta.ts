@@ -31,8 +31,8 @@ export class CategoriaUnidadVentaService {
     return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
   }
 
-  getCodCliente(codCliente: number): Observable<Response> {
-    return this.http.get<Response>(`${this.apiUrl}/codCliente/${codCliente}`);
+  getIdCliente(idCliente: number): Observable<Response> {
+    return this.http.get<Response>(`${this.apiUrl}/idCliente/${idCliente}`);
   }
 
   postIdCategoria(idCategoria: number): Observable<ResponseCategoriaUnidadVenta> {

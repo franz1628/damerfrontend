@@ -22,7 +22,6 @@ export class ClienteZonaFormComponent {
 
   public model = this.fb.group({
     id:[0],
-    codCliente: [0],
     codZona: [0],
     idZona: [0],
     idCliente: [0],

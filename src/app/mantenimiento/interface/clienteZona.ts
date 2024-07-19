@@ -4,7 +4,7 @@ import { Cliente, ClienteInit } from "./cliente";
 
 export interface ClienteZona {
     id: number,
-    codCliente: number,
+    idCliente: number,
     codZona: number,
     nombreAgrupacion: string,
     fechaRegistro: Date,
@@ -14,7 +14,7 @@ export interface ClienteZona {
 }
 export const ClienteZonaInit: ClienteZona = {
     id: 0,
-    codCliente: 0,
+    idCliente: 0,
     codZona: 0,
     nombreAgrupacion: '',
     fechaRegistro: new Date(),

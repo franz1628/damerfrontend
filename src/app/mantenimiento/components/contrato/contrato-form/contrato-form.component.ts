@@ -226,44 +226,8 @@ export class ContratoFormComponent implements OnInit {
       this.model.patchValue({idCategoria : this.categoria.id,idCliente:this.cliente.id})
 
       if (parseInt(a.value) != 0) {
-        // this.serviceAtributoFuncionalVariedad.getCodClienteCodCategoria(this.cliente.codigo, this.categoria.codigo).subscribe((x) => {
-
-        //   this.atributoFuncionalVariedads = x.data;
-
-        //   const arr = this.model.get('atributoFuncionalVariedads') as FormArray;
-        //   arr.clear()
-        //   for (let index = 0; index < x.data.length; index++) {
-        //     const control = this.fb.control(true);
-        //     arr.push(control);
-        //   }
-        // });
 
         this.contratoEtiquetas.actualizarEtiquetas(this.cliente.id,this.categoria.id)
-
-        // this.serviceClienteZona.postIdCliente(this.cliente.id).subscribe((x) => {
-        //   this.zonas = x.data;
-
-        //   const arr = this.model.get('zonas') as FormArray;
-        //   arr.clear()
-        //   for (let index = 0; index < x.data.length; index++) {
-        //     const control = this.fb.control(true);
-        //     arr.push(control);
-        //   }
-
-        // });
-
-        // this.serviceClienteCanal.postIdCliente(this.cliente.id).subscribe((x) => {
-        //   this.canals = x.data;
-
-        //   const arr = this.model.get('canals') as FormArray;
-        //   arr.clear()
-        //   for (let index = 0; index < x.data.length; index++) {
-        //     const control = this.fb.control(true);
-        //     arr.push(control);
-        //   }
-
-        // });
-
         this.serviceCategoriaUnidadVenta.postIdCategoria(this.categoria.id).subscribe(x => {
           this.categoriaUnidadVentas = x.data
 

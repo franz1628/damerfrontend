@@ -20,7 +20,7 @@ export class VariableFormComponent {
     descripcionResumida: [''],
     tip: [''],
     codAtributoTecnicoVariedad: [0],
-    codCliente: [0],
+    idCliente: [0],
     indicadorFotografia: [0],
     numFotos: [0],
     idInputClasificado: [0],

@@ -83,6 +83,7 @@ export class ClienteDireccionFormComponent {
     this.urbanizacionService.get().subscribe(response => { this.showLoading = false; this.listUrbanizacion = response.data });
     this.departamentoService.get().subscribe(response => { this.showLoading = false; this.departamentos = response.data });
     this.provinciaService.get().subscribe(response => { this.showLoading = false; this.provincias = response.data });
+
   }
 
   get getModel() {
@@ -119,7 +120,9 @@ export class ClienteDireccionFormComponent {
   }
 
   selectEdit(model: ClienteDireccion) {
-    this.model.patchValue(model);
+    this.idDepartamento = model.Distrito.Provincia.Departamento.id
+    this.idProvincia = model.Distrito.Provincia.id
+    this.model.patchValue({...model,idDepartamento : this.idDepartamento, idProvincia:this.idProvincia});
   }
 
   nuevo() {

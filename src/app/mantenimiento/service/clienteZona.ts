@@ -31,10 +31,6 @@ export class ClienteZonaService {
     return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
   }
 
-  getCodCliente(codCliente: number): Observable<Response> {
-    return this.http.get<Response>(`${this.apiUrl}/codCliente/${codCliente}`);
-  }
-
   postIdCliente(idCliente: number): Observable<ResponseClienteZona> {
     return this.http.post<ResponseClienteZona>(`${this.apiUrl}/idCliente/`, {idCliente});
   }

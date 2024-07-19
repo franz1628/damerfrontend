@@ -2,7 +2,7 @@ import { Cliente, ClienteInit } from "./cliente";
 
 export interface ClienteContacto {
     id:number,
-    codCliente: number,
+    idCliente: number,
     nombreCompleto: string,
     cargo: number,
     correo: string,
@@ -13,7 +13,7 @@ export interface ClienteContacto {
 }
 export const ClienteContactoInit: ClienteContacto = {
     id:0,
-    codCliente: 0,
+    idCliente: 0,
     nombreCompleto: '',
     cargo: 0,
     correo: '',

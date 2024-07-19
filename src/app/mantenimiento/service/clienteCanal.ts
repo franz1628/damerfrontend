@@ -31,10 +31,6 @@ export class ClienteCanalService {
     return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
   }
 
-  getCodCliente(codCliente: number): Observable<Response> {
-    return this.http.get<Response>(`${this.apiUrl}/codCliente/${codCliente}`);
-  }
-
   postIdCliente(idCliente: number): Observable<ResponseClienteCanal> {
     return this.http.post<ResponseClienteCanal>(`${this.apiUrl}/idCliente/`, {idCliente});
   }

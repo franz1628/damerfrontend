@@ -38,10 +38,10 @@
             <div class="col-2">
 
                 <div class="mb-3 row">
-                    <label for="codCliente" class="col-md-5 col-form-label-sm">Cliente</label>
+                    <label for="idCliente" class="col-md-5 col-form-label-sm">Cliente</label>
                     <div class="col-sm-7">
-                        <select class="form-select form-select-sm" name="codCliente" (change)="changeCliente($event)"
-                            id="codCliente">
+                        <select class="form-select form-select-sm" name="idCliente" (change)="changeCliente($event)"
+                            id="idCliente">
                             <option value="0">SELECCIONAR</option>
                             @for (cliente of clientes; track $index) {
                             <option value="{{cliente.id}}">{{cliente.razonSocial}}</option>

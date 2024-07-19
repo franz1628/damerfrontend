@@ -34,10 +34,6 @@ export class ClienteCategoriaService {
     return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
   }
 
-  getCodCliente(codCliente: number): Observable<Response> {
-    return this.http.get<Response>(`${this.apiUrl}/codCliente/${codCliente}`);
-  }
-
   add(model: ClienteCategoria): Observable<ClienteCategoria> {
     return this.http.post<ClienteCategoria>(this.apiUrl, model);
   }

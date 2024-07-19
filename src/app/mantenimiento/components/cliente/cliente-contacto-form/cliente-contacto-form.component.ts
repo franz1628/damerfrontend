@@ -17,7 +17,7 @@ export class ClienteContactoFormComponent {
 
   public model = this.fb.group({
     id:[0],
-    codCliente: [0,Validators.required],
+    idCliente: [0,Validators.required],
     nombreCompleto: ['',Validators.required],
     cargo: [0,Validators.required],
     correo: ['',Validators.required],
@@ -33,7 +33,7 @@ export class ClienteContactoFormComponent {
   }
 
   ngOnInit(): void {
-    this.model.patchValue({codCliente:this.cliente.codigo});
+    this.model.patchValue({idCliente:this.cliente.codigo});
 
   }
 

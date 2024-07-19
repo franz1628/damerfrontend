@@ -1,7 +1,9 @@
+import { Distrito, DistritoInit } from "../components/tablas/ubigeo/interface/distrito.interface";
+import { TipoDireccion, TipoDireccionInit } from "../components/variedades/interfaces/tipoDireccion";
 import { Cliente, ClienteInit } from "./cliente";
 
 export interface ClienteDireccion {
-    id:number,
+    id: number,
     idCliente: number,
     idTipoDireccion: number,
     idDistrito: number,
@@ -14,11 +16,13 @@ export interface ClienteDireccion {
     referencia: string,
     estado: number,
     fechaRegistro: Date,
-    Cliente:Cliente
-    
+    Cliente: Cliente,
+    TipoDireccion: TipoDireccion,
+    Distrito:Distrito,
+
 }
 export const ClienteDireccionInit: ClienteDireccion = {
-    id:0,
+    id: 0,
     idCliente: 0,
     idTipoDireccion: 0,
     idDistrito: 0,
@@ -31,5 +35,7 @@ export const ClienteDireccionInit: ClienteDireccion = {
     referencia: '',
     estado: 1,
     fechaRegistro: new Date(),
-    Cliente:ClienteInit
+    Cliente: ClienteInit,
+    TipoDireccion: TipoDireccionInit,
+    Distrito:DistritoInit
 };
