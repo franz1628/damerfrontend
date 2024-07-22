@@ -122,6 +122,7 @@ export class ClienteCategoriaFormComponent {
 
 
   add() {
+
     const nuevoModelo = this.fb.group({
       id: [0],
       idCliente: [this.cliente.id],
@@ -135,7 +136,12 @@ export class ClienteCategoriaFormComponent {
   async save(num: number): Promise<void> {
     const filas:ClienteCategoria[] = this.modelosArray.value.slice(0,-1);
     const modelo:ClienteCategoria = this.modelosArray.at(num).value;
-    
+
+    if(modelo.idCategoria==0){
+      this.alert.showAlert("Advertencia","Debe elegir una categoria","warning");
+      return
+    }
+
     if(filas.find(x=>x.idCategoria == modelo.idCategoria)){
       this.alert.showAlert("Advertencia","Esa categoria ya esta agregada","warning");
       return

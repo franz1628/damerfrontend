@@ -6,6 +6,8 @@ import { ClienteContactoService } from '../../../service/clienteContacto';
 import { ClienteContacto, ClienteContactoInit } from '../../../interface/clienteContacto';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
 import { TipoDireccion } from '../../variedades/interfaces/tipoDireccion';
+import { catchError, throwError } from 'rxjs';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-cliente-contacto-form',
@@ -19,7 +21,7 @@ export class ClienteContactoFormComponent {
     id:[0],
     idCliente: [0,Validators.required],
     nombreCompleto: ['',Validators.required],
-    cargo: [0,Validators.required],
+    cargo: ['',Validators.required],
     correo: ['',Validators.required],
   })
 
@@ -27,7 +29,8 @@ export class ClienteContactoFormComponent {
     private fb: FormBuilder,
     private validForm: ValidFormService,
     private service: ClienteContactoService,
-    private regexService : RegexService
+    private regexService : RegexService,
+    private alert : AlertService
   ) {
 
   }
@@ -57,6 +60,31 @@ export class ClienteContactoFormComponent {
     })
 
   }
+
+
+  reset(){
+    this.model.patchValue({
+      nombreCompleto:'',
+      cargo:'',
+      correo:'',
+      id:0
+    });
+   
+  }
+
+  editar(){
+    this.service.update(this.getModel.id,this.getModel).pipe(
+      catchError(error => {
+        this.alert.showAlert('Mensaje',error.error.message,'warning');
+        return throwError(()=>error);
+      })
+    ).subscribe(x=>{
+        this.alert.showAlert('Mensaje','Se modificó correctamente','success');
+        this.actualizarList();
+        this.model.clearValidators()
+        this.reset();
+    });
+  } 
 
   selectEdit(model: ClienteContacto) {
     this.model.patchValue(model);

@@ -60,9 +60,19 @@ export class ClienteCanalFormComponent {
       return;
     }
 
-    this.service.add(this.getModel).subscribe(resp => {
-      this.reset();
-      this.actualizarList();
+    this.service.postIdCliente(this.getModel.idCliente).subscribe(x=>{
+      const canales = x.data
+
+      if(canales.find(x=>x.idCanal == this.getModel.idCanal)){
+        this.alert.showAlert('Advertencia','Este canal ya fue agregado','warning')
+        return
+      }else{
+        this.service.add(this.getModel).subscribe(resp => {
+          this.reset();
+          this.actualizarList();
+        })
+      }
+
     })
  
   }

@@ -61,15 +61,32 @@ export class ClienteZonaFormComponent {
       return;
     }
 
-    this.service.add(this.getModel).subscribe(resp => {
-      this.model.reset();
-      this.actualizarList();
-    })
+    this.service.postIdCliente(this.getModel.idCliente).subscribe(x=>{
+      const zonas = x.data
 
+      if(zonas.find(y=>y.idZona == this.getModel.idZona)){
+        this.alert.showAlert('Advertencia','Esta zona ya fue agregada','warning')
+        return
+      }else{
+        this.service.add(this.getModel).subscribe(resp => {
+          this.reset();
+          this.actualizarList();
+        })
+      }
+
+    })
+ 
   }
 
+
+
   reset(){
-    this.model.patchValue(ClienteInit);
+    this.model.patchValue({
+      idZona:0,
+      nombreAgrupacion:''
+    });
+
+    this.model.clearValidators()
     //this.resetModelEmit.emit();
   }
 

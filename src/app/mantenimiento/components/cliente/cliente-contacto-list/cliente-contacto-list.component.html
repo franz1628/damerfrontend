@@ -6,7 +6,7 @@
             <thead class="table-success">
                 <tr>
                     <th>#</th>
-                    <th>Id Cliente</th>
+                    <th>Código</th>
                     <th>Nombre Completo</th>
                     <th>Cargo</th>
                     <th>Correo</th>
@@ -19,7 +19,7 @@
                 @for (model of models; track $index) {
                     <tr>
                         <td>{{$index+1}}</td>
-                        <td>{{model.idCliente}}</td>
+                        <td>{{model.id}}</td>
                         <td>{{model.nombreCompleto}}</td>
                         <td>{{model.cargo}}</td>
                         <td>{{model.correo}}</td>
