@@ -22,7 +22,7 @@ export class ClienteFormComponent {
     ruc: ['',Validators.required],
     razonSocialCorporativa: ['',Validators.required],
     codigoRubro: ['',Validators.required],
-    idCategorizacionCliente:  [0, [Validators.required,Validators.pattern(this.regexService.regexCombo)]],
+    idCategorizacionCliente:  [0],
     aniversario: [new Date(), [Validators.required,Validators.pattern(this.regexService.regexFecha)]],
     web: ['',Validators.required],
     mesCierre: [0],

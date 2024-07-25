@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AgrupacionZonasService } from '../../service/agrupacionZonas';
 import { AgrupacionZonasDetalleService } from '../../service/agrupacionZonasDetalle';
 import { AgrupacionZonas, AgrupacionZonasInit } from '../../interface/agrupacionZonas';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ValidFormService } from '../../../shared/services/validForm.service';
 import { AlertService } from '../../../shared/services/alert.service';
 import { lastValueFrom } from 'rxjs';
@@ -40,6 +40,7 @@ export class AgrupacionZonasComponent implements OnInit {
     (this.models.get('modelos') as FormArray).clear();
 
     this.service.get().subscribe(x => { 
+
       this.agrupacionZonasAll = x.data
  
       x.data.forEach(model => {
@@ -81,6 +82,11 @@ export class AgrupacionZonasComponent implements OnInit {
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
       const modelo = this.modelosArray.controls[num].getRawValue();
 
+      if(modelo.descripcion==''){
+        this.alert.showAlert('Advertencia', 'Debe llenar los campos', 'warning');
+        return
+      }
+
       this.service.update(modelo.id, modelo).subscribe(x => {
 
         this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
@@ -95,9 +101,10 @@ export class AgrupacionZonasComponent implements OnInit {
   }
 
   add() {
+
     const nuevoModelo = this.fb.group({
       id: [0],
-      descripcion: [''],
+      descripcion: ['',Validators.required],
       descripcionResumida: [''],
       tip: [''],
       idTipoAgrupacion1: [0],
@@ -113,6 +120,12 @@ export class AgrupacionZonasComponent implements OnInit {
 
   async save(num: number): Promise<void> {
     const modelo = this.modelosArray.at(num).value;
+
+    if(modelo.descripcion==''){
+      this.alert.showAlert('Advertencia', 'Debe llenar los campos', 'warning');
+      return
+    }
+
     this.showLoading = true;
 
     try {

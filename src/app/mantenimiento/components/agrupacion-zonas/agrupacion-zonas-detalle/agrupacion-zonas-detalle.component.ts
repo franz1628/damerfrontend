@@ -43,7 +43,7 @@ export class AgrupacionZonasDetalleComponent implements OnInit,OnChanges{
   } 
  
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['agrupacionZonas'] && !changes['agrupacionZonas'].firstChange) {
+    if (changes['agrupacionZonas']) {
       this.loadModels();
     }
   }
@@ -56,14 +56,14 @@ export class AgrupacionZonasDetalleComponent implements OnInit,OnChanges{
 
     this.service.postIdAgrupacionZonas(this.agrupacionZonas.id).subscribe(x => { 
       this.agrupacionZonasDetalles = x.data
- 
+      
       x.data.forEach(model => {
 
         
         const nuevoModelo = this.fb.group({
           id: [model.id], 
           idAgrupacionZonas:[model.idAgrupacionZonas],
-          idZona:[model.idZona],
+          idZona:[model.idZona || 0],
           descripcion:[model.Zona.descripcion],
         });
 
