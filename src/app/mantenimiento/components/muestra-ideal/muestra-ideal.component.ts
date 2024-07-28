@@ -120,8 +120,27 @@ export class MuestraIdealComponent {
   }
 
   editModel(num: number) {
+    const filas:MuestraIdeal[] = this.modelosArray.value;
+    const modelo:MuestraIdeal = this.modelosArray.controls[num].getRawValue();
+
+    if(modelo.idCanal==0 || modelo.idCategoria==0 ||  modelo.idDistrito==0){
+      this.alert.showAlert('Advertencia','Debe llenar todos los campos','warning');
+      return;
+    }
+
+    const exists = filas.some(fila => 
+      fila.id != modelo.id &&
+      fila.idCanal == modelo.idCanal && 
+      fila.idCategoria == modelo.idCategoria && 
+      fila.idDistrito == modelo.idDistrito
+    );
+    
+    if (exists) {
+      this.alert.showAlert('Advertencia', 'Ya existe una muestra ideal con las mismas características','warning');
+      return;
+    }
+
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
-      const modelo = this.modelosArray.controls[num].getRawValue();
 
       this.service.update(modelo.id, modelo).subscribe(x => {
 
@@ -149,7 +168,28 @@ export class MuestraIdealComponent {
   }
 
   async save(num: number): Promise<void> {
+    const filas:MuestraIdeal[] = this.modelosArray.value;
     const modelo = this.modelosArray.at(num).value;
+
+    if(modelo.idCanal==0 || modelo.idCategoria==0 ||  modelo.idDistrito==0){
+      this.alert.showAlert('Advertencia','Debe llenar todos los campos','warning');
+      return;
+    }
+    
+    const exists = filas.some(fila => 
+      fila.id != modelo.id &&
+      fila.idCanal == modelo.idCanal && 
+      fila.idCategoria == modelo.idCategoria && 
+      fila.idDistrito == modelo.idDistrito
+    );
+    
+    if (exists) {
+      this.alert.showAlert('Advertencia', 'Ya existe una muestra ideal con las mismas características','warning');
+      return;
+    }
+
+
+
     this.showLoading = true;
 
     try {

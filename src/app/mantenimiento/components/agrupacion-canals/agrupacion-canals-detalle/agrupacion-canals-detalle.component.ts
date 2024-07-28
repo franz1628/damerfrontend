@@ -55,7 +55,7 @@ export class AgrupacionCanalsDetalleComponent {
 
     this.service.postIdAgrupacionCanals(this.agrupacionCanals.id).subscribe(x => { 
       this.agrupacionCanalsDetalles = x.data
- 
+      
       x.data.forEach(model => {
 
         
@@ -63,7 +63,7 @@ export class AgrupacionCanalsDetalleComponent {
           id: [model.id], 
           idAgrupacionCanals:[model.idAgrupacionCanals],
           idCanal:[model.idCanal],
-          descripcion:[model.Canal.descripcion],
+          descripcion:[model.Canal?.descripcion||''],
         });
 
         this.modelosArray.push(nuevoModelo);
@@ -93,8 +93,13 @@ export class AgrupacionCanalsDetalleComponent {
   }
 
   editModel(num: number) {
+
+    const modelo = this.modelosArray.controls[num].getRawValue();
+    if(modelo.descripcion==''){
+      this.alert.showAlert('Advertencia','Debe terner una descripcion','warning');
+      return;
+    }
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
-      const modelo = this.modelosArray.controls[num].getRawValue();
 
       this.service.update(modelo.id, modelo).subscribe(x => {
 
@@ -135,6 +140,12 @@ export class AgrupacionCanalsDetalleComponent {
 
   async save(num: number): Promise<void> {
     const modelo = this.modelosArray.at(num).value;
+
+    if(modelo.descripcion==''){
+      this.alert.showAlert('Advertencia','Debe terner una descripcion','warning');
+      return;
+    }
+
     this.showLoading = true;
 
     try {

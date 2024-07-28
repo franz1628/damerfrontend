@@ -104,8 +104,35 @@ export class FactorPenetracionComponent {
   
 
   editModel(num: number) {
+
+    const filas:FactorPenetracion[] = this.modelosArray.value;
+    const modelo:FactorPenetracion = this.modelosArray.controls[num].getRawValue();
+
+    if(modelo.idCategoria==0 || modelo.idCanal==0 || modelo.idZona==0 ){
+      this.alert.showAlert('Advertencia','Debe llenar todos los campos','warning');
+      return;
+    }
+    
+    if (modelo.valor <= 0 || !Number.isInteger(modelo.valor)) {
+      this.alert.showAlert('Advertencia','El valor debe ser un entero positivo mayor que 0', 'warning');
+      return;
+    }
+
+    const exists = filas.some(fila => 
+      fila.id != modelo.id &&
+      fila.idCanal == modelo.idCanal && 
+      fila.idCategoria == modelo.idCategoria && 
+      fila.idZona == modelo.idZona 
+    );
+    
+    if (exists) {
+      this.alert.showAlert('Advertencia', 'Ya existe una muestra ideal con las mismas características','warning');
+      return;
+    }
+
+
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
-      const modelo = this.modelosArray.controls[num].getRawValue();
+  
 
       this.service.update(modelo.id, modelo).subscribe(x => {
 
@@ -133,7 +160,32 @@ export class FactorPenetracionComponent {
   }
 
   async save(num: number): Promise<void> {
-    const modelo = this.modelosArray.at(num).value;
+    const filas:FactorPenetracion[] = this.modelosArray.value;
+    const modelo:FactorPenetracion = this.modelosArray.controls[num].getRawValue();
+
+    if(modelo.idCategoria==0 || modelo.idCanal==0 || modelo.idZona==0 ){
+      this.alert.showAlert('Advertencia','Debe llenar todos los campos','warning');
+      return;
+    }
+    
+    if (modelo.valor <= 0 || !Number.isInteger(modelo.valor)) {
+      this.alert.showAlert('Advertencia','El valor debe ser un entero positivo mayor que 0', 'warning');
+      return;
+    }
+
+    const exists = filas.some(fila => 
+      fila.id != modelo.id &&
+      fila.idCanal == modelo.idCanal && 
+      fila.idCategoria == modelo.idCategoria && 
+      fila.idZona == modelo.idZona 
+    );
+    
+    if (exists) {
+      this.alert.showAlert('Advertencia', 'Ya existe una muestra ideal con las mismas características','warning');
+      return;
+    }
+    
+
     this.showLoading = true;
 
     try {
