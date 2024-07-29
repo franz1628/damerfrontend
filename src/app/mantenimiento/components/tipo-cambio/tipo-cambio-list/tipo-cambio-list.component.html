@@ -5,11 +5,12 @@
         <table class="table table-sm table-bordered">
             <thead class="table-success">
                 <tr>
-                    <th>#</th>
+                    <th>Id</th>
                     <th>Moneda</th>
-                    <th>Tipo Moneda</th>
+                    <th>Tipo</th>
                     <th>Valor</th>
-                    <!-- <th>Accion</th> -->
+                    <th>Fecha</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
         
@@ -17,13 +18,19 @@
                 
                 @for (model of models; track $index) {
                     <tr>
-                        <td>{{$index+1}}</td>
-                        <td>{{model.idMoneda}}</td>
-                        <td>{{model.idTipoTipoCambio}}</td>
+                        <td>{{model.id}}</td>
+                        <td>{{model.Moneda.descripcion}}</td>
+                        <td>{{model.TipoTipoCambio.descripcion}}</td>
+                        <td>{{model.fecha}}</td>
                         <td>{{model.valor}}</td>
-                        <!-- <td>
-                            <button class="btn btn-sm btn-info" (click)="selectEdit(model)">Edit</button>
-                        </td> -->
+                        <td>
+
+                            <img class="iconEdit" src="assets/editar.png" (click)="selectEdit(model)">
+
+
+                            <img class="iconEliminar" src="assets/eliminar.png" (click)="delete(model)">
+
+                        </td>
                     </tr>
                 }
             </tbody>

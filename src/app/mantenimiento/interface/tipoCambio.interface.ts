@@ -1,9 +1,14 @@
+import { Moneda, MonedaInit } from "./moneda";
+import { TipoTipoCambio, TipoTipoCambioInit } from "./tipoTipoCambio.interface";
+
 export interface TipoCambio {
     id: number,
     idMoneda: number,
     idTipoTipoCambio: number,
     valor: number,
     fecha: Date,
+    Moneda:Moneda,
+    TipoTipoCambio:TipoTipoCambio
     
 }
 export const TipoCambioInit: TipoCambio = {
@@ -12,4 +17,6 @@ export const TipoCambioInit: TipoCambio = {
     idTipoTipoCambio: 0,
     valor: 0,
     fecha: new Date(), 
+    Moneda:MonedaInit,
+    TipoTipoCambio:TipoTipoCambioInit
 };

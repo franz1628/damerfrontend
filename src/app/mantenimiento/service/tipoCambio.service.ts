@@ -7,6 +7,12 @@ import { environments } from '../../../environments/environments';
 import { Medicion } from '../interface/medicion';
 import { TipoCambio } from '../interface/tipoCambio.interface';
 
+export interface ResponseTipoCambio {
+  data: TipoCambio[],
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,7 +41,7 @@ export class TipoCambioService {
     return this.http.put<TipoCambio>(`${this.apiUrl}/${id}`, model);
   }
 
-  delete(model: TipoCambio): Observable<TipoCambio> {
-    return this.http.delete<TipoCambio>(`${this.apiUrl}/${model.id}`);
+  delete(model: TipoCambio): Observable<ResponseTipoCambio> {
+    return this.http.delete<ResponseTipoCambio>(`${this.apiUrl}/${model.id}`);
   }
 }
