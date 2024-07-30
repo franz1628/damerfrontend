@@ -19,8 +19,8 @@ export class TipoDireccionService {
 
   constructor(private http: HttpClient) {}
 
-  get(): Observable<Response> {
-    return this.http.get<Response>(this.apiUrl);
+  get(): Observable<ResponseTipoDireccion> {
+    return this.http.get<ResponseTipoDireccion>(this.apiUrl);
   }
 
   getId(id: number): Observable<Response> {
