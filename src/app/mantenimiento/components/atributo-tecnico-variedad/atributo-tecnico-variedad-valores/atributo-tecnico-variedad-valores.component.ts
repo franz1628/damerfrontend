@@ -76,6 +76,7 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit, OnChange
   }
 
   editModel(num: number) {
+
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
       const modelo = this.modelosArray.controls[num].getRawValue();
 
@@ -102,6 +103,7 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit, OnChange
   }
 
   async save(num: number): Promise<void> {
+
     const modelo = this.modelosArray.at(num).value;
     this.showLoading = true;
 

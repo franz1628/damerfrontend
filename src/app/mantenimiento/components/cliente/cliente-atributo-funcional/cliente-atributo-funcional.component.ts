@@ -267,8 +267,14 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
   }
 
   editModel(index: number) {
+    const modelo = this.modelosArray.controls[index].getRawValue();
+
+    if(modelo.descripcion==""){
+      this.alert.showAlert('Advertencia', 'Debe tener una descripción', 'warning');
+      return;
+    }
+
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
-      const modelo = this.modelosArray.controls[index].getRawValue();
       this.atributoFuncionalVariedad = modelo;
       this.service.update(modelo.id, modelo).subscribe(x => {
 
@@ -311,6 +317,12 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
 
   async save(num: number): Promise<void> {
     const modelo = this.modelosArray.at(num).value;
+
+    if(modelo.descripcion==""){
+      this.alert.showAlert('Advertencia', 'Debe tener una descripción', 'warning');
+      return;
+    }
+
     this.showLoading = true;
 
     try {

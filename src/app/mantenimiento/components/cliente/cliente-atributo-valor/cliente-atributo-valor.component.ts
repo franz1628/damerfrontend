@@ -96,6 +96,14 @@ export class ClienteAtributoValorComponent {
   }
 
   editModel(num: number) {
+    
+    const modelo = this.modelosArray.controls[num].getRawValue();
+
+    if(modelo.descripcion==""){
+      this.alert.showAlert('Advertencia', 'Debe tener una descripción', 'warning');
+      return;
+    }
+
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
       const modelo = this.modelosArray.controls[num].getRawValue();
  
@@ -132,7 +140,14 @@ export class ClienteAtributoValorComponent {
   }
 
   async save(num: number): Promise<void> {
-    const modelo = this.modelosArray.at(num).value;
+    
+    const modelo = this.modelosArray.controls[num].getRawValue();
+
+    if(modelo.descripcion==""){
+      this.alert.showAlert('Advertencia', 'Debe tener una descripción', 'warning');
+      return;
+    }
+    
     this.showLoading = true;
 
     try {

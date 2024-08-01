@@ -1,5 +1,3 @@
-
-
 <h4>Mantenimiento de Contratos</h4>
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -83,8 +81,9 @@
             <br>
             <div class="row">
                 <div class="col-md-3">
-                    <app-contrato-etiquetas (actualizarArbol)="actualizarEleccion($event)" #contratoEtiquetas></app-contrato-etiquetas>
-                
+                    <app-contrato-etiquetas (actualizarArbol)="actualizarEleccion($event)"
+                        #contratoEtiquetas></app-contrato-etiquetas>
+
                 </div>
                 <div class="col-md-5">
                     <app-contrato-arbol [contratoForm]="getModel" (guardarEmit)="guardarContrato($event)"
@@ -217,18 +216,18 @@
                                 <div class="col-12" formArrayName="meses">
                                     <div *ngFor="let month of getMeses.controls; let i = index" class="form-check">
                                         <input [formControlName]="i" type="checkbox" [id]="months[i]" [name]="months[i]"
-                                            class="form-check-input" >
+                                            class="form-check-input">
                                         <label [for]="months[i]">{{ months[i] }}</label>
                                     </div>
                                 </div>
                             </div>
 
 
-                           
 
-                           
 
-                            
+
+
+
                             <hr>
 
 

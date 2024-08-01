@@ -80,7 +80,7 @@ export class AgrupacionCanalsComponent {
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
 
       this.service.update(modelo.id, modelo).subscribe(x => {
-
+        this.loadModels();
         this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
       });
     })

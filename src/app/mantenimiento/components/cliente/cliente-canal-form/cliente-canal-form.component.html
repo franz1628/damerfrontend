@@ -43,10 +43,10 @@
             </div>
 
             @if(!getModel.id){
-                <button class="btn btn-sm btn-success" (click)="agregar()"><i class="bi bi-box-arrow-down"></i> Guardar</button>
+                <button class="btn btn-sm btn-success" (click)="agregar()"><i class="bi bi-box-arrow-down"></i> GUARDAR</button>
             }@else{
-                <button class="btn btn-sm btn-info" (click)="editar()"><i class="bi bi-pencil"></i> Editar</button>
-                <button class="btn btn-sm btn-warning" (click)="nuevo()"><i class="bi bi-plus"></i> Nuevo</button>
+                <button class="btn btn-sm btn-success" (click)="editar()"><i class="bi bi-box-arrow-down"></i> GUARDAR</button>
+                <button class="btn btn-sm btn-warning" (click)="nuevo()"><i class="bi bi-plus"></i> NUEVO</button>
             }
 
             <!-- <app-add-tipo-cambio [model]="getModel" (actualizarList)="actualizarList()"></app-add-tipo-cambio> -->

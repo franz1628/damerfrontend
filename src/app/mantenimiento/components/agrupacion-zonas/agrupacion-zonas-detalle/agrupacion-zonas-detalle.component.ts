@@ -64,7 +64,7 @@ export class AgrupacionZonasDetalleComponent implements OnInit,OnChanges{
           id: [model.id], 
           idAgrupacionZonas:[model.idAgrupacionZonas],
           idZona:[model.idZona || 0],
-          descripcion:[model.Zona.descripcion],
+          descripcion:[model.Zona?.descripcion||''],
         });
 
         this.modelosArray.push(nuevoModelo);

@@ -21,8 +21,8 @@
                         <td>{{model.id}}</td>
                         <td>{{model.Moneda.descripcion}}</td>
                         <td>{{model.TipoTipoCambio.descripcion}}</td>
-                        <td>{{model.fecha}}</td>
                         <td>{{model.valor}}</td>
+                        <td>{{ model.fecha | date:'dd/MM/yyyy' }}</td>
                         <td>
 
                             <img class="iconEdit" src="assets/editar.png" (click)="selectEdit(model)">
