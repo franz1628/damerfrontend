@@ -169,7 +169,7 @@ export class ContratoEtiquetasComponent implements OnInit {
 
     });
 
-    this.serviceAtributoFuncionalVariedad.getIdClienteIdCategoria(idCliente, idCategoria).subscribe((x) => {
+    this.serviceAtributoFuncionalVariedad.postIdClienteIdCategoria(idCliente, idCategoria).subscribe((x) => {
 
       this.atributoFuncionalVariedads = x.data;
       this.contratoForm.atributoFuncionalVariedads = [];
@@ -180,7 +180,7 @@ export class ContratoEtiquetasComponent implements OnInit {
         const control = this.fb.control(true);
         arr.push(control);
 
-        this.contratoForm.atributoFuncionalVariedads.push(x.data[index].AtributoFuncionalVariedad);
+        this.contratoForm.atributoFuncionalVariedads.push(x.data[index]);
       }
     });
   }

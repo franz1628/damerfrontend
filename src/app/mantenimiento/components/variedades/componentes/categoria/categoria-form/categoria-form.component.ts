@@ -70,9 +70,6 @@ export class CategoriaFormComponent {
       return;
     }
 
- 
-    
-
     if (!this.currentModel.id) {
       this.service.add(this.currentModel).subscribe(() => {
         this.showLoading = false;
@@ -86,7 +83,7 @@ export class CategoriaFormComponent {
     } else {
       this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
         this.showLoading = false;
-        this.updateModelsEmit.emit();
+        this.updateModelsEmit.emit(+this.myForm.get('idMegaCategoria')?.value);
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
       });
     }

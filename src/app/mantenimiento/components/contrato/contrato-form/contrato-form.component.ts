@@ -204,29 +204,32 @@ export class ContratoFormComponent implements OnInit {
     this.serviceCliente.postId(parseInt(a.value)).subscribe(x => {
 
       this.cliente = x
+      this.serviceClienteCategoria.postIdCliente(parseInt(a.value)).subscribe(y => {
+        let arr_categorias = [];
+  
+        for (let index = 0; index < y.data.length; index++) {
+          const element = y.data[index];
+          arr_categorias.push(element.Categoria)
+        }
+        this.categorias = arr_categorias;
+        this.showLoading = false;
+      })
     });
 
-    this.serviceClienteCategoria.postIdCliente(parseInt(a.value)).subscribe(x => {
-      let arr_categorias = [];
-
-      for (let index = 0; index < x.data.length; index++) {
-        const element = x.data[index];
-        arr_categorias.push(element.Categoria)
-      }
-      this.categorias = arr_categorias;
-      this.showLoading = false;
-    })
   }
 
   changeCategoria(event: Event) {
     this.showLoading = true;
     const a = event.target as HTMLInputElement
     this.serviceCategoria.postId(parseInt(a.value)).subscribe(x => {
+      console.log(x);
+      
       this.categoria = x || CategoriaInit;
       this.model.patchValue({idCategoria : this.categoria.id,idCliente:this.cliente.id})
-
+      
       if (parseInt(a.value) != 0) {
-
+        
+        
         this.contratoEtiquetas.actualizarEtiquetas(this.cliente.id,this.categoria.id)
         this.serviceCategoriaUnidadVenta.postIdCategoria(this.categoria.id).subscribe(x => {
           this.categoriaUnidadVentas = x.data

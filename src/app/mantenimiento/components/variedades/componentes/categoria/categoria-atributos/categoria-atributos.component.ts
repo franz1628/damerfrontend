@@ -26,6 +26,7 @@ export class CategoriaAtributosComponent implements OnInit{
   categoriaAtributoTecnico:CategoriaAtributoTecnico=CategoriaAtributoTecnicoInit;
   atributoTecnicoVariedads:AtributoTecnicoVariedad[] = [];
   tipoUnidadMedidas:TipoUnidadMedida[] = []
+  selectIndex:number=-1
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
@@ -114,8 +115,11 @@ export class CategoriaAtributosComponent implements OnInit{
   }
 
   editModel(num: number) {
+    const modelo = this.modelosArray.controls[num].getRawValue();
+
+    if(!this.validacionCategoriaAtributo(modelo,num)) return
+
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
-      const modelo = this.modelosArray.controls[num].getRawValue();
 
       this.service.update(modelo.id, modelo).subscribe(x => {
 
@@ -126,9 +130,8 @@ export class CategoriaAtributosComponent implements OnInit{
   }
 
   selectAtributo(index: number) {
+    this.selectIndex=index
     this.categoriaAtributoTecnico = (this.models.get('modelos') as FormArray).at(index).value;
-
-    
   }
 
   add() {
@@ -148,6 +151,9 @@ export class CategoriaAtributosComponent implements OnInit{
 
   async save(num: number): Promise<void> {
     const modelo = this.modelosArray.at(num).value;
+
+    if(!this.validacionCategoriaAtributo(modelo,num)) return
+
     this.showLoading = true;
 
     try {
@@ -159,6 +165,27 @@ export class CategoriaAtributosComponent implements OnInit{
       this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
       this.showLoading = false;
     }
+  }
+
+  validacionCategoriaAtributo(modelo:CategoriaAtributoTecnico,num:number):boolean{
+    if(modelo.idAtributoTecnicoVariedad==0) {
+      this.alert.showAlert('Advertencia', 'Debe elegir un atributo tecnico', 'warning');
+      return false
+    }
+
+    if(modelo.AtributoTecnicoVariedad.solicitarUnidad==1 && modelo.idTipoUnidadMedida==0){
+      this.alert.showAlert('Advertencia', 'Debe elegir la unidad de medida', 'warning');
+      return false
+    }
+
+    const modelos:CategoriaAtributoTecnico[] = this.modelosArray.value;
+    if(modelos.some((x,key)=>key!=num && x.idTipoUnidadMedida==modelo.idTipoUnidadMedida && x.idAtributoTecnicoVariedad == modelo.idAtributoTecnicoVariedad)){
+      this.alert.showAlert('Advertencia', 'No puede haver atributos y tipos duplicados', 'warning');
+      return false
+    } 
+
+    return true
+  
   }
 
   async delete(num: number) {

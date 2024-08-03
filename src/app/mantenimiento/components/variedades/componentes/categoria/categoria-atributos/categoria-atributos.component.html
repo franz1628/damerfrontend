@@ -20,7 +20,7 @@
                     <tbody>
                         @if (modelosArray.controls.length!=0) {
                         @for (model of modelosArray.controls; track $index) {
-                        <tr [formGroupName]="$index" (click)="selectAtributo($index)">
+                        <tr [formGroupName]="$index" (click)="selectAtributo($index)"  [ngClass]="{'selected-row': $index === selectIndex}">
                             <td> <label class="mt-2">{{model.get('id')?.value}}</label> </td>
                             <td>
                                 <select class="form-select form-select-sm" formControlName="idAtributoTecnicoVariedad">
@@ -102,8 +102,10 @@
     </div>
     <div class="col-md-1"></div>
     <div class="col-md-5">
-        <h6 class="mb-3 text-center">VALORES</h6>
-        <app-categoria-valor [categoriaAtributoTecnico]="this.categoriaAtributoTecnico"></app-categoria-valor>
+        @if(categoriaAtributoTecnico.idTipoUnidadMedida==0){
+            <h6 class="mb-3 text-center">VALORES</h6>
+            <app-categoria-valor [categoriaAtributoTecnico]="this.categoriaAtributoTecnico"></app-categoria-valor>
+        }
     </div>
 </div>
 
