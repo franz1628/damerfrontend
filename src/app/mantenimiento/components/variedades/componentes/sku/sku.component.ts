@@ -33,14 +33,20 @@ export class SkuComponent implements OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
-    if (changes['idCategoria']) {
+    console.log(changes);
+    
+    if (changes['idCategoria'].currentValue != changes['idCategoria'].previousValue) {
+      console.log('asdf');
+      
       this.get(this.idCategoria);
- 
     }
   }
 
   get(idCategoria:number): void {
+    console.log('getget');
+    console.log(idCategoria);
+    
+    
     this.showLoading = true
     this.service.getByCategoria(idCategoria).subscribe(response => { 
       this.showLoading = false; 

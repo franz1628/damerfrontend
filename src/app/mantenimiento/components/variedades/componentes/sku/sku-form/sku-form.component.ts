@@ -414,16 +414,10 @@ export class SkuFormComponent implements OnChanges {
   }
 
   setByCategoria(idCanasta: number, idMegaCategoria: number, idCategoria: number) {
-
     this.canastaService.postId(idCanasta).subscribe(x => { this.model.Canasta = x || CanastaInit; this.model.idCanasta = idCanasta })
     this.megaCategoriaService.postId(idMegaCategoria).subscribe(x => { this.model.MegaCategoria = x || MegaCategoriaInit; this.model.idMegaCategoria = idMegaCategoria })
     this.categoriaService.postId(idCategoria).subscribe(x => { this.model.Categoria = x || CategoriaInit; this.model.idCategoria = idCategoria })
-
-
-
     this.myForm.patchValue({ idCanasta: idCanasta, idMegaCategoria: idMegaCategoria, idCategoria: idCategoria });
-
-
   }
 
   setModel(model: Sku) {

@@ -43,9 +43,9 @@ export class SkuListComponent implements OnChanges{
   }
 
   load(){
-    this.service.getByCategoria(this.idCategoria).subscribe(resp=>{
+    /*this.service.getByCategoria(this.idCategoria).subscribe(resp=>{
       this.models = resp.data;
-    })
+    })*/
   }
 
   @Input()
@@ -66,9 +66,7 @@ export class SkuListComponent implements OnChanges{
   }
 
   changeList(canasta:Canasta, megaCategoria: MegaCategoria,sku:Sku){
-   /* this.service.getByCategoria(canasta.id,megaCategoria.id,sku.id).subscribe(resp=>{
-      this.models = resp.data;
-    })*/
+
   }
 
   delete(model: Sku) {

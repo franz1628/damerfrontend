@@ -65,7 +65,7 @@ export class VariedadesComponent{
     this.idCanasta=$event[0];
     this.idMegaCategoria=$event[1];
     this.idCategoria=$event[2];
-    this.skuComp.get($event[0]); 
+    this.skuComp.get($event[2]); 
     this.skuComp.skuForm.setByCategoria($event[0],$event[1],$event[2]);
   }
 

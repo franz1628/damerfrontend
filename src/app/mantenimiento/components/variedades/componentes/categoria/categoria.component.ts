@@ -44,6 +44,7 @@ export class CategoriaComponent {
   } 
 
   editModel(model: Categoria) {
+    console.log('Edit : ',model);
     this.modelEdit = model;
     this.categoriaForm.setModel(model);
     this.emitByCategoria.emit([model.idCanasta,model.idMegaCategoria,model.id])
