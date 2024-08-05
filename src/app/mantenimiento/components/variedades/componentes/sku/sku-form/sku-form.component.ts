@@ -124,11 +124,8 @@ export class SkuFormComponent implements OnChanges {
 
     
     if(this.model.image==''){
-      console.log(this.baseUrl+environments.imgNotFound);
-      
       return this.baseUrl+environments.imgNotFound;
     }else{
-      console.log(this.baseUrl+'uploads/sku/'+this.model.image);
       return this.baseUrl+'uploads/sku/'+this.model.image;
     }
   }
@@ -255,7 +252,6 @@ export class SkuFormComponent implements OnChanges {
        
         }else{
           this.service.update(this.currentModel.id, this.currentModel).subscribe((x) => {
-            console.log('Update2');
             this.model = x.data;
             this.showLoading = false;
             this.updateModelsEmit.emit();

@@ -60,8 +60,6 @@ export class VariedadesComponent{
   }
 
   setByCategoria($event:number[]){
-    console.log($event);
-    
     this.idCanasta=$event[0];
     this.idMegaCategoria=$event[1];
     this.idCategoria=$event[2];

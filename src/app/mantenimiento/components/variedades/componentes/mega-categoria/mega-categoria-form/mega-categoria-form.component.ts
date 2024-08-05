@@ -76,19 +76,12 @@ export class MegaCategoriaFormComponent implements OnInit, OnChanges{
   }
 
   submit() {
-    console.log(this.myForm);
-    
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
       return;
     }
 
-    console.log('afd');
-    
-
     if (!this.currentModel.id) {
-      console.log(this.currentModel);
-      
       this.service.add(this.currentModel).subscribe(() => {
         this.showLoading = false;
         this.updateModelsEmit.emit(this.currentModel.idCanasta);

@@ -30,7 +30,7 @@ export class FileUploadServiceService {
   
     // Log FormData content
     formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
+  
     });
   
     return this.http.post<any>(`${this.apiUrl}/uploadImage`, formData, {

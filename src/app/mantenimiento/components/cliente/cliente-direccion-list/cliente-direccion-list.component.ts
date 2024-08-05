@@ -43,8 +43,6 @@ export class ClienteDireccionListComponent implements OnChanges{
   actualizarList(){
     this.loading=true;
     this.service.getIdCliente(this.getModel.id).subscribe(resp => {
-      console.log(resp.data);
-      
       this.models = resp.data;
       this.loading=false;
     })
