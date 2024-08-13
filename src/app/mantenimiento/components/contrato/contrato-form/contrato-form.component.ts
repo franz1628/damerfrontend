@@ -89,6 +89,8 @@ export class ContratoFormComponent implements OnInit {
 
   months: string[] = [];
   showLoading: boolean = false;
+  showContrato: boolean=false;
+  showEdicion: boolean=false;
 
   constructor(
     private fb: FormBuilder,
@@ -126,10 +128,6 @@ export class ContratoFormComponent implements OnInit {
       this.frecuencias = x.data;
     });
 
-    // this.serviceTipoEstudio.get().subscribe((x) => {
-    //   this.tipoEstudios = x.data;
-    // });
-
     this.serviceVariable.get().subscribe(x => {
       this.variables = x.data;
 
@@ -142,48 +140,6 @@ export class ContratoFormComponent implements OnInit {
     })
   }
 
-  
-
-  // changeTipoEstudio(e:Event):void{
-  //   const value = (e.target as HTMLInputElement).value;
-    
-  //   this.tipoInformeOrdens = [];
-  //   (this.model.get('tipoInformeOrdens') as FormArray).clear();
-
-  //   this.serviceTipoEstudio.getId(+value).subscribe(x=>{
-  //     console.log(x.data);
-      
-  //     if(!x.data.TipoInformeOrden.length){
-  //       this.alert.showAlert('Mensaje','El tipo de estudio no tiene asignado tipos de informes','warning');
-  //       return;
-  //     }
-      
-  //     this.tipoInformeOrdens = x.data.TipoInformeOrden;
-
-  //     const arr = this.model.get('tipoInformeOrdens') as FormArray;
-  //     for (let index = 0; index < x.data.TipoInformeOrden.length; index++) {
-  //       const control = this.fb.control(true);
-  //       arr.push(control);
-  //     }
-  //   })
-    
-  // }
-
-  // get getZonas(): FormArray {
-  //   return this.model.get('zonas') as FormArray;
-  // }
-
-  // get getCanals(): FormArray {
-  //   return this.model.get('canals') as FormArray;
-  // }
-
-  // get getAtributoFuncionalVariedads(): FormArray {
-  //   return this.model.get('atributoFuncionalVariedads') as FormArray;
-  // }
-
-  // get getTipoInformeOrdens(): FormArray {
-  //   return this.model.get('tipoInformeOrdens') as FormArray;
-  // }
 
   get getCategoriaUnidadVentas(): FormArray {
     return this.model.get('categoriaUnidadVentas') as FormArray;
@@ -220,6 +176,9 @@ export class ContratoFormComponent implements OnInit {
 
   changeCategoria(event: Event) {
     this.showLoading = true;
+    this.showContrato = true;
+    this.showEdicion =false;
+
     const a = event.target as HTMLInputElement
     this.serviceCategoria.postId(parseInt(a.value)).subscribe(x => {
       this.categoria = x || CategoriaInit;
@@ -347,6 +306,9 @@ export class ContratoFormComponent implements OnInit {
   editarContrato(contrato:Contrato){
     this.cliente = contrato.Cliente
     this.categoria = contrato.Categoria
+
+    this.showContrato = false;
+    this.showEdicion =true;
 
     this.edicionComp.actualizarArbol(contrato,{...ContratoFormInit,zonas:[]});
     this.botonEdicion.nativeElement.click()

@@ -9,17 +9,20 @@
         <button class="nav-link " id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente" type="button"
             role="tab" aria-controls="cliente" aria-selected="true">Nuevo</button>
     </li>
-    @if(this.cliente.id!=0 && this.categoria.id!=0){
-    <li class="nav-item" role="presentation">
+  
+    <li [hidden]="!showContrato" class="nav-item" role="presentation">
         <button class="nav-link" id="contrato-tab" data-bs-toggle="tab" data-bs-target="#contrato" type="button"
             role="tab" aria-controls="contrato" aria-selected="false" #botonContrato>Contrato</button>
     </li>
 
-    }
-    <li [hidden]="cliente.id==0" class="nav-item {{cliente.id!=0?'active':''}}" role="presentation">
-        <button class="nav-link " id="edicion-tab" data-bs-toggle="tab" data-bs-target="#edicion" type="button"
-            role="tab" aria-controls="edicion" aria-selected="true" #botonEdicion>Edición</button>
-    </li>
+    
+
+    
+        <li [hidden]="!showEdicion" class="nav-item {{cliente.id!=0?'active':''}}" role="presentation">
+            <button class="nav-link " id="edicion-tab" data-bs-toggle="tab" data-bs-target="#edicion" type="button"
+                role="tab" aria-controls="edicion" aria-selected="true" #botonEdicion>Edición</button>
+        </li>
+    
 
 
 </ul>
