@@ -273,7 +273,7 @@ export class ContratoEdicionComponent implements OnInit {
                   this.atributoFuncionalVariedads.push(this.atributoFuncionalVariedads_M.find(x => x.id == contratoDetalleData.idAtributoFuncionalVariedad) || AtributoFuncionalVariedadInit)
                 }
               }
-  
+              
               const detalles: ContratoDetalle[][][][][] = []
               for (let index = 0; index < this.tipoEstudios.length; index++) {
                 const arr_tipoEstudios: ContratoDetalle[][][][] = []

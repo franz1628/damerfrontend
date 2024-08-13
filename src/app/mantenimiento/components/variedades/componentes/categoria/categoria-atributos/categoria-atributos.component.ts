@@ -7,7 +7,7 @@ import { CategoriaAtributosListComponent } from './categoria-atributos-list/cate
 import { CategoriaAtributosFormComponent } from './categoria-atributos-form/categoria-atributos-form.component';
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AlertService } from '../../../../../../shared/services/alert.service';
-import { Observable, forkJoin, lastValueFrom } from 'rxjs';
+import { Observable, debounceTime, forkJoin, lastValueFrom } from 'rxjs';
 import { AtributoTecnicoVariedadService } from '../../../../../service/atributoTecnicoVariedad';
 import { AtributoTecnicoVariedad } from '../../../../../interface/atributoTecnicoVariedad';
 import { TipoUnidadMedidaService } from '../../../../../service/tipoUnidadMedida';
@@ -52,7 +52,7 @@ export class CategoriaAtributosComponent implements OnInit{
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['modelCategoria'] && !changes['modelCategoria'].firstChange) {
+    if (changes['modelCategoria']) {
       this.loadModels();
     }
   } 
@@ -84,7 +84,7 @@ export class CategoriaAtributosComponent implements OnInit{
               indVerificado: [model.indVerificado],
               estado: [model.estado]
             });
-  
+            debugger
             this.modelosArray.push(nuevoModelo);
           });
   

@@ -15,6 +15,7 @@ import { ContratoDetalleService } from '../../../service/contratoDetalle';
 import { ContratoDetalle } from '../../../interface/contratoDetalle';
 import { ZonaService } from '../../tablas/service/zona.service';
 import { CanalService } from '../../tablas/service/canal.sevice';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-contrato-arbol',
@@ -50,7 +51,8 @@ export class ContratoArbolComponent implements OnInit {
     private serviceCanal:CanalService,
     private serviceTipoInformeOrden:TipoInformeOrdenService,
     private serviceTipoEstudio:TipoEstudioService,
-    private serviceAtributoFuncionalVariedad:AtributoFuncionalVariedadService
+    private serviceAtributoFuncionalVariedad:AtributoFuncionalVariedadService,
+    private alert:AlertService
   ) {
    
   }
@@ -181,9 +183,13 @@ export class ContratoArbolComponent implements OnInit {
     this.atributoFuncionalVariedads = contrato.atributoFuncionalVariedads;
     this.tipoInformeOrdens = contrato.tipoInformeOrdens;
 
+    if(this.zonas.length==0){ this.alert.showAlert('Advertencia','Debe elegir al menos una zona','warning');  return}
+    if(this.canals.length==0){ this.alert.showAlert('Advertencia','Debe elegir al menos un canal','warning');  return}
+    if(this.atributoFuncionalVariedads.length==0){ this.alert.showAlert('Advertencia','Debe elegir al menos un atributo','warning');  return}
+    if(this.tipoInformeOrdens.length==0){ this.alert.showAlert('Advertencia','Debe elegir al menos un informe','warning');  return}
 
     const detalles: ContratoDetalle[][][][][] = []
-   
+    
     for (let index = 0; index < [contrato.tipoEstudios].length; index++) {
       const arr_tipoEstudios: ContratoDetalle[][][][] = []
       if(!contrato.tipoEstudios)continue;
@@ -238,45 +244,6 @@ export class ContratoArbolComponent implements OnInit {
     }
 
     this.arr_detalles = detalles
-
-
- 
-    
-    /*for (let index = 0; index < [contrato.tipoEstudio].length; index++) {
-      const resp = contrato.tipoEstudio;
-
-      this.tipoEstudios.push(tipoEstudios[index]);
-
-    }
-
-    for (let index = 0; index < contrato.canals.length; index++) {
-      const resp = contrato.canals[index];
-
-      this.canals.push(canals[index].Canal);
-
-    }
-
-
-    for (let index = 0; index < contrato.zonas.length; index++) {
-      const resp = contrato.zonas[index];
-
-      this.zonas.push(zonas[index].Zona);
-
-    }
-
-    for (let index = 0; index < contrato.tipoInformeOrdens.length; index++) {
-      const resp = contrato.tipoInformeOrdens[index];
-
-      this.tipoInformeOrdens.push(tipoInformeOrdens[index]);
-
-    }
-
-    for (let index = 0; index < contrato.atributoFuncionalVariedads.length; index++) {
-      const resp = contrato.atributoFuncionalVariedads[index];
-
-      this.atributoFuncionalVariedads.push(atributoFuncionalVariedads[index]);
-
-    }*/
   }
 
 

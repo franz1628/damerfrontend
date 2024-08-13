@@ -44,7 +44,7 @@ import { ContratoEtiquetasComponent } from '../contrato-etiquetas/contrato-etiqu
   selector: 'app-contrato-form',
   templateUrl: './contrato-form.component.html'
 })
-
+ 
 export class ContratoFormComponent implements OnInit {
   public model = this.fb.group({
     id: [0],
@@ -345,6 +345,9 @@ export class ContratoFormComponent implements OnInit {
   }
 
   editarContrato(contrato:Contrato){
+    this.cliente = contrato.Cliente
+    this.categoria = contrato.Categoria
+
     this.edicionComp.actualizarArbol(contrato,{...ContratoFormInit,zonas:[]});
     this.botonEdicion.nativeElement.click()
   }

@@ -14,11 +14,13 @@
         <button class="nav-link" id="contrato-tab" data-bs-toggle="tab" data-bs-target="#contrato" type="button"
             role="tab" aria-controls="contrato" aria-selected="false" #botonContrato>Contrato</button>
     </li>
+
     }
-    <li class="nav-item" role="presentation">
+    <li [hidden]="cliente.id==0" class="nav-item {{cliente.id!=0?'active':''}}" role="presentation">
         <button class="nav-link " id="edicion-tab" data-bs-toggle="tab" data-bs-target="#edicion" type="button"
             role="tab" aria-controls="edicion" aria-selected="true" #botonEdicion>Edición</button>
     </li>
+
 
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -240,7 +242,7 @@
                                         <input type="checkbox" class="form-check-input" name="categoriaUnidadVentas"
                                             [formControlName]="i" id="categoriaUnidadVenta_{{ i }}">
                                         <label class="form-check-label"
-                                            for="categoriaUnidadVenta_{{ i }}">{{categoriaUnidadVentas[i].UnidadVenta.descripcion}}</label>
+                                            for="categoriaUnidadVenta_{{ i }}">{{categoriaUnidadVentas[i]?.UnidadVenta?.descripcion||''}}</label>
                                     </div>
                                 </div>
                                 <span *ngIf="isValidField('categoriaUnidadVentas')" class="form-text text-danger">
