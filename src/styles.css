@@ -21,6 +21,7 @@ footer {
   font-size: 11px !important;
 }
 
+
 .table-sm .btn-sm {
   padding: 0.1rem 0.2rem;
   font-size: 0.85rem;
@@ -104,4 +105,13 @@ thead.table-success th {
 .form-control-sm,
 .form-select-sm {
   padding: .3rem 1rem !important;
+}
+
+.accordion-button{
+  padding:7px 13px;
+  font-size: 16px;
+}
+
+.accordion-header .input-group-text{
+  padding: 7px 13px;
 }
