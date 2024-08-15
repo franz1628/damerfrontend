@@ -91,6 +91,8 @@ export class ContratoFormComponent implements OnInit {
   showLoading: boolean = false;
   showContrato: boolean=false;
   showEdicion: boolean=false;
+  valCliente: number=0;
+  valCategoria: number=0;
 
   constructor(
     private fb: FormBuilder,
@@ -304,9 +306,8 @@ export class ContratoFormComponent implements OnInit {
   }
 
   editarContrato(contrato:Contrato){
-    this.cliente = contrato.Cliente
-    this.categoria = contrato.Categoria
-
+    this.valCategoria=0;
+    this.valCliente=0;
     this.showContrato = false;
     this.showEdicion =true;
 

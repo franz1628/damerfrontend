@@ -43,7 +43,7 @@
                 <div class="mb-3 row">
                     <label for="idCliente" class="col-md-5 col-form-label-sm">Cliente</label>
                     <div class="col-sm-7">
-                        <select class="form-select form-select-sm" name="idCliente" (change)="changeCliente($event)"
+                        <select class="form-select form-select-sm" [(ngModel)]="valCliente" name="idCliente" (change)="changeCliente($event)"
                             id="idCliente">
                             <option value="0">SELECCIONAR</option>
                             @for (cliente of clientes; track $index) {
@@ -62,7 +62,7 @@
                 <div class="mb-3 row">
                     <label for="categorias" class="col-md-5 col-form-label-sm">Categorias</label>
                     <div class="col-sm-7">
-                        <select class="form-select form-select-sm" name="categorias" id="categorias"
+                        <select class="form-select form-select-sm" [(ngModel)]="valCategoria" name="categorias" id="categorias"
                             (change)="changeCategoria($event)">
                             <option value="0">SELECCIONAR</option>
                             @for (categoria of categorias; track $index) {
@@ -86,6 +86,20 @@
             <br>
             <div class="row">
                 <div class="col-md-3">
+                    @if(showContrato){
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr class="table-success">
+                                    <th>Cliente</th>
+                                    <th>Categoría</th>
+                                </tr>
+                                <tr>
+                                    <td>{{cliente.razonSocial}}</td>
+                                    <td>{{categoria.descripcion}}</td>
+                                </tr>
+                            </thead>
+                        </table>
+                    }
                     <app-contrato-etiquetas (actualizarArbol)="actualizarEleccion($event)"
                         #contratoEtiquetas></app-contrato-etiquetas>
 
