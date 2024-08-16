@@ -115,3 +115,7 @@ thead.table-success th {
 .accordion-header .input-group-text{
   padding: 7px 13px;
 }
+
+.accordion-body{
+  padding: 2px 41px;
+}
