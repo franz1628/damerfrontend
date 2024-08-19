@@ -98,7 +98,8 @@ export class SkuAtributosComponent {
               alias1:[atributoVariedad?.alias1||''],
               alias2:[atributoVariedad?.alias2||''],
               alias3:[atributoVariedad?.alias3||''],
-              valor:[atributoVariedad?.valor||''],
+              fechaModificacion:[atributoVariedad?.fechaModificacion?.toString().slice(0,19)||''],
+              valor:[atributoVariedad?.valor||''], 
             });
   
             this.modelosArray.push(nuevoModelo);
