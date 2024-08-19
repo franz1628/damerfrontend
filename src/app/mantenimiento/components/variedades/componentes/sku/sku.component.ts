@@ -33,7 +33,7 @@ export class SkuComponent implements OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['idCategoria'].currentValue != changes['idCategoria'].previousValue) {
+    if (changes['idCategoria']) {
       this.get(this.idCategoria);
     }
   }

@@ -48,7 +48,7 @@ export class CategoriaAtributosComponent implements OnInit{
     this.serviceTipoUnidadMedida.get().subscribe(x=>{
       this.tipoUnidadMedidas = x.data
     })
-    this.loadModels();
+    //this.loadModels();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -71,7 +71,8 @@ export class CategoriaAtributosComponent implements OnInit{
           this.atributoTecnicoVariedads = value.serviceAtributoTecnicoVariedadService.data
 
           const models = value.service.data
-
+          console.log(models);
+          
           models.forEach(model => {
             const nuevoModelo = this.fb.group({
               id: [model.id],
@@ -84,7 +85,6 @@ export class CategoriaAtributosComponent implements OnInit{
               indVerificado: [model.indVerificado],
               estado: [model.estado]
             });
-            debugger
             this.modelosArray.push(nuevoModelo);
           });
   
@@ -173,7 +173,7 @@ export class CategoriaAtributosComponent implements OnInit{
       return false
     }
 
-    if(modelo.AtributoTecnicoVariedad.solicitarUnidad==1 && modelo.idTipoUnidadMedida==0){
+    if(modelo.AtributoTecnicoVariedad?.solicitarUnidad==1 && modelo.idTipoUnidadMedida==0){
       this.alert.showAlert('Advertencia', 'Debe elegir la unidad de medida', 'warning');
       return false
     }

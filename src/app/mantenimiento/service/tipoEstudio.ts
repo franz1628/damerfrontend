@@ -11,6 +11,12 @@ export interface ResponseTipoEstudioOne {
   message: string
 }
 
+export interface ResponseTipoEstudio {
+  data: TipoEstudio[],
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,8 +25,8 @@ export class TipoEstudioService {
 
   constructor(private http: HttpClient) {}
 
-  get(): Observable<Response> {
-    return this.http.get<Response>(this.apiUrl);
+  get(): Observable<ResponseTipoEstudio> {
+    return this.http.get<ResponseTipoEstudio>(this.apiUrl);
   }
 
   getId(id: number): Observable<ResponseTipoEstudioOne> {
