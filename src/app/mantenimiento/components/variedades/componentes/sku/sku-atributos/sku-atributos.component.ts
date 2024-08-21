@@ -147,6 +147,7 @@ export class SkuAtributosComponent {
       this.service.update(modelo.id, modelo).subscribe(x => {
 
         this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
+        this.loadModels()
       });
     })
 
@@ -205,7 +206,7 @@ export class SkuAtributosComponent {
       return;
     }
 
-    this.alert.showAlertConfirm('Advertencia', '¿Está seguro de eliminar?', 'warning',async ()=>{
+    this.alert.showAlertConfirm('Mensaje', '¿Está seguro de guardar?', 'info',async ()=>{
       this.showLoading = true;
 
       try {
