@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { forkJoin, lastValueFrom } from 'rxjs';
+import { forkJoin, lastValueFrom, Subscription } from 'rxjs';
 import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../../interface/atributoFuncionalVariedad';
 import { TipoUnidadMedidaService } from '../../../service/tipoUnidadMedida';
 import { UnidadMedidaService } from '../../../service/unidadMedida';
@@ -56,6 +56,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
 
   idAtributoTecnicoVariedad: number = 0;
   skusElegidos: string[] = []
+  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private service: AtributoFuncionalVariedadService,
@@ -82,9 +83,13 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
       (changes['idClienteAgrupacionCategoria'] && !changes['idClienteAgrupacionCategoria'].isFirstChange())
     ) {
 
-      
+
       this.loadModels();
     }
+  }
+
+  get getSkuElegidos() {
+    return this.skusElegidos
   }
 
   loadModels(): void {
@@ -154,6 +159,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     ).subscribe({
       next: value => {
 
+
         this.skus = value.serviceSku.data
         const atrisFunci = value.serviceAtributoFuncionalVariedadValor.data
 
@@ -162,7 +168,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
         for (let i = 0; i < atrisFunci.length; i++) {
           const atrivalor = atrisFunci[i];
 
-
+          
           if (atrivalor.idTipoAtributoFuncionalVariedadValor == 2) {//EQUIVALENCIA
             this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(atrivalor.id).subscribe(y => {
               const clienteFormulas: ClienteFormula = y.data
@@ -198,19 +204,20 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
 
             })
           }
-
+          
           if (atrivalor.idTipoAtributoFuncionalVariedadValor == 1) {//CONCATENACION
 
 
             this.serviceClienteConcatenacion.postIdAtributoFuncionalVariedadValor(atrivalor.id).subscribe(x => {
 
+
               this.arrayAtributos = x.data.idAtributoTecnicoVariedads != '' ? x.data.idAtributoTecnicoVariedads.split(',') : []
               this.arrayVariables = x.data.variables != '' ? x.data.variables.split(',') : []
 
-              this.skusElegidos = [];
+              //this.skusElegidos = [];
 
 
-              this.skus.map(w => {
+              this.skus.map((w, ind) => {
                 const valores = w.SkuAtributoTecnicoVariedadValor;
                 let miString = ''
 
@@ -240,7 +247,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
                   }
                 })
                 if (miString != "") {
-                  this.skusElegidos.push(miString)
+                  this.skusElegidos[ind] = miString
                 }
 
 
@@ -269,7 +276,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
   editModel(index: number) {
     const modelo = this.modelosArray.controls[index].getRawValue();
 
-    if(modelo.descripcion==""){
+    if (modelo.descripcion == "") {
       this.alert.showAlert('Advertencia', 'Debe tener una descripción', 'warning');
       return;
     }
@@ -318,7 +325,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
   async save(num: number): Promise<void> {
     const modelo = this.modelosArray.at(num).value;
 
-    if(modelo.descripcion==""){
+    if (modelo.descripcion == "") {
       this.alert.showAlert('Advertencia', 'Debe tener una descripción', 'warning');
       return;
     }

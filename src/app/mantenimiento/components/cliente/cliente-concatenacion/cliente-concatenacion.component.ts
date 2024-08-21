@@ -50,18 +50,18 @@ export class ClienteConcatenacionComponent implements OnInit{
 
 
     
-    // this.serviceCategoriaAtributoTecnico.postIdCategoria(this.atributoFuncionalVariedad.idCategoria).subscribe(x=>{
-    //   this.categoriaAtributoTecnicos = x
+    this.serviceCategoriaAtributoTecnico.postIdAgrupacionCategoria(this.atributoFuncionalVariedad.idClienteAgrupacionCategoria).subscribe(x=>{
+      this.categoriaAtributoTecnicos = x.data
 
-    //   this.serviceClienteConcatenacion.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y=>{
+      this.serviceClienteConcatenacion.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y=>{
     
         
-    //     this.idAtributoTecnicoVariedads = y.data.idAtributoTecnicoVariedads;
-    //     this.variables = y.data.variables
-    //     this.separador = y.data.separador
+        this.idAtributoTecnicoVariedads = y.data.idAtributoTecnicoVariedads;
+        this.variables = y.data?.variables
+        this.separador = y.data?.separador
         
-    //   });
-    // })
+      });
+    })
   } 
 
   get getAtributos(){
@@ -81,7 +81,7 @@ export class ClienteConcatenacionComponent implements OnInit{
    
     
     this.serviceClienteConcatenacion.guardarConcatenacion(this.atributoFuncionalVariedadValor.id,this.idAtributoTecnicoVariedads,this.variables,this.separador).subscribe(x=>{
-
+      this.alert.showAlert('Mensaje','Guardado exitoso','success');
     }); 
 
   }

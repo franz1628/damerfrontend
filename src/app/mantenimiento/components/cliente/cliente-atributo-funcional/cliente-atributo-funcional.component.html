@@ -205,8 +205,8 @@
                     @for (sku of skus; track $index) {
                       <tr>
                         <td>
-                          @if(skusElegidos[$index]!=''){
-                            {{skusElegidos[$index]}}
+                          @if(getSkuElegidos[$index]!=''){
+                            {{getSkuElegidos[$index]}}
                             
                           }@else {
                             RESTO
@@ -222,7 +222,7 @@
                           <th>
                             @for (atri of sku.SkuAtributoTecnicoVariedadValor; track $index) {
                               @if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad){
-                                {{atri.AtributoTecnicoVariedadValor.valor}}
+                                {{atri?.AtributoTecnicoVariedadValor?.valor || ''}}
                                 
                               }
                             }
