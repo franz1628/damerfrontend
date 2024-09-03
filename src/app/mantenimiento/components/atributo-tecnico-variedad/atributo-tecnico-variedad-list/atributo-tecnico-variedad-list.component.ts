@@ -32,7 +32,7 @@ export class AtributoTecnicoVariedadListComponent {
   }
 
   delete(model:AtributoTecnicoVariedad){
-    this.alert.showAlertConfirm('Mensaje','¿Desea eliminar?','warning',()=>{
+    this.alert.showAlertConfirm('Mensaje','¿Desea eliminarr?','warning',()=>{
       this.showLoading = true;
       this.service.delete(model).subscribe(()=>{
         this.showLoading = false;

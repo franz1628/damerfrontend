@@ -132,8 +132,18 @@ export class SkuAtributosComponent {
     if(atri.length!=0) 
       return atri[0].AtributoTecnicoVariedad.descripcion
     else return []
- //   return this.categoriaAtributoTecnicos?.filter(x=>x.idAtributoTecnicoVariedad == idAtributoTecnicoVariedad)[0].AtributoTecnicoVariedad.descripcion
-  }
+ }
+
+ getAtributosTipoUnidad(idAtributoTecnicoVariedad:number){
+  const atri = this.categoriaAtributoTecnicos?.filter(x=>x.idAtributoTecnicoVariedad == idAtributoTecnicoVariedad);
+
+  
+  if(atri.length!=0) 
+    return atri[0].idTipoUnidadMedida
+  else return []
+}
+
+
 
   getAtributosValor(idAtributoTecnicoVariedad:number):CategoriaAtributoTecnicoValor[]{
     const atr =  this.categoriaAtributoTecnicos.filter(x=>x.idAtributoTecnicoVariedad == idAtributoTecnicoVariedad)[0]?.CategoriaAtributoTecnicoValor || [];

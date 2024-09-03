@@ -18,7 +18,8 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit, OnChange
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
-  });;
+  });
+  buscar: string = '';
 
   idAtributoTecnicoVariedad: number = 0;
 
@@ -31,7 +32,7 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit, OnChange
   }
 
   ngOnInit(): void {
-    this.loadModels();
+   // this.loadModels();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -41,10 +42,14 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit, OnChange
   }
 
   loadModels(): void {
+
+    console.log('avx');
+    
     this.showLoading = true;
     (this.models.get('modelos') as FormArray).clear();
     if (this.modelAtributoTecnicoVariedad.id !== 0) {
       this.service.postIdAtributoTecnicoVariedad(this.modelAtributoTecnicoVariedad.id).subscribe(models => {
+        console.log(models);
         models.forEach(model => {
           const nuevoModelo = this.fb.group({
             id: [model.id],
@@ -77,6 +82,15 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit, OnChange
 
   editModel(num: number) {
 
+    const modelo:AtributoTecnicoVariedadValor = this.modelosArray.at(num).value;
+    const modelos_all:AtributoTecnicoVariedadValor[] = this.modelosArray.value;
+
+    if(modelos_all.some((x,ind)=>x.valor == modelo.valor && num!=ind)){
+      this.alert.showAlert('Mensaje', 'No se permiten valores duplciados', 'warning');
+      return
+    }
+    
+
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
       const modelo = this.modelosArray.controls[num].getRawValue();
 
@@ -104,7 +118,15 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit, OnChange
 
   async save(num: number): Promise<void> {
 
-    const modelo = this.modelosArray.at(num).value;
+    const modelo:AtributoTecnicoVariedadValor = this.modelosArray.at(num).value;
+    const modelos_all:AtributoTecnicoVariedadValor[] = this.modelosArray.value;
+
+    if(modelos_all.some((x,ind)=>x.valor == modelo.valor && num!=ind)){
+      this.alert.showAlert('Mensaje', 'No se permiten valores duplciados', 'warning');
+      return
+    }
+
+
     this.showLoading = true;
 
     try {

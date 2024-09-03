@@ -4,12 +4,14 @@ import { AtributoTecnicoVariedad, AtributoTecnicoVariedadInit } from '../../../i
 import { AtributoTecnicoVariedadService } from '../../../service/atributoTecnicoVariedad';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { forkJoin, lastValueFrom } from 'rxjs';
+import { AtributoTecnicoVariedadValorService } from '../../../service/atributoTecnicoVariedadValor';
  
 @Component({ 
   selector: 'app-atributo-tecnico-variedad-form',
   templateUrl: './atributo-tecnico-variedad-form.component.html'
 })
 export class AtributoTecnicoVariedadFormComponent {
+
  
   @Input()
   modelAtributoTecnicoVariedad: AtributoTecnicoVariedad = AtributoTecnicoVariedadInit
@@ -21,10 +23,14 @@ export class AtributoTecnicoVariedadFormComponent {
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
-  });;
+  });
+  
+  buscar: string = '';
+
 
   constructor(
     private service: AtributoTecnicoVariedadService,
+    private serviceAtributoTecnicoVariedadValor: AtributoTecnicoVariedadValorService,
     private fb: FormBuilder,
     private alert: AlertService
   ) {
@@ -76,10 +82,22 @@ export class AtributoTecnicoVariedadFormComponent {
   }
 
   get modelosArray() {
-    return this.models.get('modelos') as FormArray;
+    const arra = this.models.get('modelos') as FormArray; // Asegúrate de especificar el tipo correcto
+
+  
+    return arra;
   }
 
   editModel(num: number) {
+
+    const modelo:AtributoTecnicoVariedad = this.modelosArray.at(num).value;
+    const modelos_all:AtributoTecnicoVariedad[] = this.modelosArray.value;
+
+    if(modelos_all.some((x,ind)=>x.descripcion == modelo.descripcion && num!=ind)){
+      this.alert.showAlert('Mensaje', 'No se permiten valores duplciados', 'warning');
+      return
+    }
+
     this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
       const modelo = this.modelosArray.controls[num].getRawValue();
 
@@ -108,7 +126,14 @@ export class AtributoTecnicoVariedadFormComponent {
   }
 
   async save(num: number): Promise<void> {
-    const modelo = this.modelosArray.at(num).value;
+    const modelo:AtributoTecnicoVariedad = this.modelosArray.at(num).value;
+    const modelos_all:AtributoTecnicoVariedad[] = this.modelosArray.value;
+
+    if(modelos_all.some((x,ind)=>x.descripcion == modelo.descripcion && num!=ind)){
+      this.alert.showAlert('Mensaje', 'No se permiten atributos duplciados', 'warning');
+      return
+    }
+
     this.showLoading = true;
 
     try {
@@ -123,20 +148,35 @@ export class AtributoTecnicoVariedadFormComponent {
   }
 
   async delete(num: number) {
-    this.alert.showAlertConfirm('Advertencia', '¿Está seguro de eliminar?', 'warning', async () => {
-      const modelo = this.modelosArray.at(num).value;
-      this.showLoading = true;
+    const modelo = this.modelosArray.at(num).value;
+   
 
-      try {
-        await lastValueFrom(this.service.delete(modelo));
-        this.alert.showAlert('Mensaje', 'Eliminado correctamente', 'success');
-        this.loadModels();
-        this.showLoading = false;
-      } catch (error) {
-        this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
-        this.showLoading = false;
+    this.serviceAtributoTecnicoVariedadValor.postIdAtributoTecnicoVariedad(modelo.id).subscribe(x=>{
+      if(x.length>0){
+        this.alert.showAlert('Advertencia','Este atributo no se puede eliminar porque tiene valores de atributo registrados','warning');
+        
+      }else{
+        this.alert.showAlertConfirm('Advertencia', '¿Está seguro de eliminar?', 'warning', async () => {
+          this.showLoading = true;
+    
+          try {
+            await lastValueFrom(this.service.delete(modelo));
+            this.alert.showAlert('Mensaje', 'Eliminado correctamente', 'success');
+            this.loadModels();
+            this.showLoading = false;
+          } catch (error) {
+            this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+            this.showLoading = false;
+          }
+        })
       }
+      
     })
+
+    
+    
+
+   
 
 
   }
