@@ -46,6 +46,8 @@ import { ContratoEtiquetasComponent } from '../contrato-etiquetas/contrato-etiqu
 })
  
 export class ContratoFormComponent implements OnInit {
+
+
   public model = this.fb.group({
     id: [0],
 
@@ -93,6 +95,8 @@ export class ContratoFormComponent implements OnInit {
   showEdicion: boolean=false;
   valCliente: number=0;
   valCategoria: number=0;
+
+  tipoMes:number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -209,8 +213,25 @@ export class ContratoFormComponent implements OnInit {
 
   }
 
+  changeTipoMes($event: Event) {
+    const valor = ($event.target as HTMLInputElement).value;
+    this.tipoMes = parseInt(valor);
+    this.generateMonths()
+  }
+
+  changeFrecuencia($event: Event) {
+    const valor = ($event.target as HTMLInputElement).value;
+    this.generateMonths()
+  }
+
+  get getTipoMes(){
+    return this.tipoMes
+  }
+
   generateMonths() {
+    
     this.months = [];
+
     let currentDate = new Date(this.model.get('fechaInicio')?.value||'');
     let arr_meses : Date[] = []
     let meses = this.model.get('meses') as FormArray;
@@ -220,10 +241,15 @@ export class ContratoFormComponent implements OnInit {
     let i=1;
     
     while (currentDate <= new Date(this.model.get('fechaFin')?.value||'')) {
+      console.log('asf');
+      
       i++
-      if(i%2==0 && bi==2) {
-  
-      }else{
+      if(bi==1){
+        const control = this.fb.control(currentDate);
+        meses.push(control)
+        this.months.push(currentDate.toLocaleString('es-PE', { month: 'long' }));
+      }
+      else if(i%2==this.getTipoMes%2 && bi==2) {
         const control = this.fb.control(currentDate);
         meses.push(control)
         this.months.push(currentDate.toLocaleString('es-PE', { month: 'long' }));

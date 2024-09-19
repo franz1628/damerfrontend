@@ -121,7 +121,7 @@
                     <div class="col-12">
     
                         <div class="mb-3 row">
-                            <label for="diaEntrega" class="col-md-5 col-form-label-sm">Día de Entrega</label>
+                            <label for="diaEntrega" class="col-md-5 col-form-label-sm">Día de Entregas</label>
                             <div class="col-sm-7">
                                 <input type="number" class="form-control form-control-sm" formControlName="diaEntrega">
                             </div>
@@ -151,15 +151,15 @@
                     <div class="col-12">
     
                         <div class="mb-3 row">
-                            <label for="idFrecuencia" class="col-md-5 col-form-label-sm">Frecuencia </label>
+                            <label for="idFrecuencia" class="col-md-5 col-form-label-sm">Frecuencias </label>
                             <div class="col-sm-7">
                                 <select class="form-select form-select-sm" name="idFrecuencia"
-                                    formControlName="idFrecuencia" id="idFrecuencia">
+                                    formControlName="idFrecuencia" id="idFrecuencia" (change)="cambiaFrecuencia($event)">
                                     <option value="0">[SELECCIONAR]</option>
                                     @for (frecuencia of frecuencias; track $index) {
                                     <option value="{{frecuencia.id}}">{{frecuencia.descripcion}}</option>
                                     }
-                                </select>
+                                </select> 
                             </div>
                             <span *ngIf="isValidField('idFrecuencia')" class="form-text text-danger">
                                 {{ getFieldError('idFrecuencia') }}

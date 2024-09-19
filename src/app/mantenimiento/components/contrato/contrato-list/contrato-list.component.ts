@@ -17,6 +17,7 @@ import { ContratoEdicionComponent } from '../contrato-edicion/contrato-edicion.c
   templateUrl: './contrato-list.component.html'
 })
 export class ContratoListComponent implements OnInit{
+
   contratos:Contrato[]=[];
   listContratosGrupo:Contrato[][] = [];
   contrato:Contrato=ContratoInit;
@@ -133,6 +134,12 @@ export class ContratoListComponent implements OnInit{
         this.alert.showAlert('Mensaje','Estado guardado correctamente','success');    
       })  
     })
+  } 
+
+  cambiaFrecuencia($event: Event) {
+    const valor = ($event.target as HTMLInputElement).value;
+  
+    
   }
 
   handleEditarContrato(contrato:Contrato){

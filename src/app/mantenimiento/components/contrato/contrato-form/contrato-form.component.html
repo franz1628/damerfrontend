@@ -134,7 +134,7 @@
                                         <label for="idFrecuencia" class="col-md-5 col-form-label-sm">Frecuencia</label>
                                         <div class="col-sm-7">
                                             <select class="form-select form-select-sm" name="idFrecuencia"
-                                                (change)="generateMonths()" formControlName="idFrecuencia"
+                                                (change)="changeFrecuencia($event)" formControlName="idFrecuencia"
                                                 id="idFrecuencia">
                                                 <option value="0">[SELECCIONAR]</option>
                                                 @for (frecuencia of frecuencias; track $index) {
@@ -147,6 +147,24 @@
                                         </span>
                                     </div>
 
+                                </div>
+                            </div>
+                            <div class="row" [hidden]="model.get('idFrecuencia')?.value==1 || model.get('idFrecuencia')?.value==0 ">
+                                <div class="col-12">
+
+                                    <div class="mb-3 row">
+                                        <label for="tipoMes" class="col-md-5 col-form-label-sm">Tipo de mes</label>
+                                       
+
+                                        <div class="col-sm-7">
+                                            <select name="tipoMes" id="tipoMes" class="form-select form-select-sm" (change)="changeTipoMes($event)">
+                                                <option value="0">IMPAR</option>
+                                                <option value="1">PAR</option>
+                                            </select>
+                                        </div>
+                                       
+                                    </div>
+                                   
                                 </div>
                             </div>
 
@@ -259,7 +277,7 @@
                                         <input type="checkbox" class="form-check-input" name="categoriaUnidadVentas"
                                             [formControlName]="i" id="categoriaUnidadVenta_{{ i }}">
                                         <label class="form-check-label"
-                                            for="categoriaUnidadVenta_{{ i }}">{{categoriaUnidadVentas[i]?.UnidadVenta?.descripcion||''}}</label>
+                                            for="categoriaUnidadVenta_{{ i }}">{{categoriaUnidadVentas[i].UnidadVenta.descripcion||''}}</label>
                                     </div>
                                 </div>
                                 <span *ngIf="isValidField('categoriaUnidadVentas')" class="form-text text-danger">
