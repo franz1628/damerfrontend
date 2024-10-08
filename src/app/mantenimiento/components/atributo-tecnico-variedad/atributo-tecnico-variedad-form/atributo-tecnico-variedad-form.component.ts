@@ -66,6 +66,7 @@ export class AtributoTecnicoVariedadFormComponent {
               id: [model.id],
               descripcion:[model.descripcion],
               solicitarUnidad:[model.solicitarUnidad],
+              fechaModificacion:[model.fechaModificacion?.substring(0,10)]
             });
   
             this.modelosArray.push(nuevoModelo);

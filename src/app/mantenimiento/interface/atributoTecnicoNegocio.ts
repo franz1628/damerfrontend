@@ -10,7 +10,8 @@ export interface AtributoTecnicoNegocio {
     alias2: string,
     alias3: string,
     estado: number,
-    fechaRegistro: Date
+    fechaRegistro: Date,
+    fechaModificacion:string
 
 }
 export const AtributoTecnicoNegocioInit: AtributoTecnicoNegocio = {
@@ -25,5 +26,6 @@ export const AtributoTecnicoNegocioInit: AtributoTecnicoNegocio = {
     alias2: '',
     alias3: '',
     estado: 1,
-    fechaRegistro: new Date()
+    fechaRegistro: new Date(),
+    fechaModificacion:''
 };

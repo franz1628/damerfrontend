@@ -60,6 +60,7 @@ export class NegocioFormComponent {
     interior: [''],
     manzana: [''],
     lote: [''],
+    estado : [1]
   })
 
   listCanal: Canal[] = [];

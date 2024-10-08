@@ -11,7 +11,8 @@ export interface Parametro {
     alias1: string,
     alias2: string,
     alias3: string,
-    idEstadoRegistro: number
+    idEstadoRegistro: number,
+    fechaModificacion:string
 }
 
 export const ParametroInit = {
@@ -27,5 +28,6 @@ export const ParametroInit = {
     alias1: '',
     alias2: '',
     alias3: '',
-    idEstadoRegistro: 0
+    idEstadoRegistro: 0,
+    fechaModificacion:''
 }

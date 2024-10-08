@@ -7,10 +7,11 @@
                 <tr>
                     <th>#</th>
                     <th>Razon Social</th>
-                    <th>Razon Social Ab</th>
+                   
                     <th>RUC</th>
                     <th>Estado</th>
-                    <th>Fecha</th>
+                    <th>Creacion</th>
+                    <th>Modificacion</th>
                    <th>Accion</th> 
                 </tr>
             </thead>
@@ -21,10 +22,11 @@
                     <tr (click)="elegir($index,model)" [ngClass]="{'selected-row': $index === selectIndex}">
                         <td>{{$index+1}}</td>
                         <td>{{model.razonSocial}}</td>
-                        <td>{{model.razonSocialAbreviada}}</td>
+                        
                         <td>{{model.ruc}}</td>
                         <td>  <app-badge-estado [estado]="model.estado"></app-badge-estado> </td>
                         <td>{{model.fechaRegistro.toString().slice(0,10)}}</td>
+                        <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
                         <td>
                             <!-- <button class="btn btn-sm btn-info" (click)="selectEdit(model)"><i class="bi bi-pencil btn-sm"></i> </button>
                             <button class="btn btn-sm btn-danger" (click)="borrar(model)"><i class="bi bi-trash btn-sm"></i> </button> -->

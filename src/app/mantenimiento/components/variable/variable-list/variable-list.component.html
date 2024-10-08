@@ -1,5 +1,5 @@
 @if (loading) {
-    <app-div-cargando></app-div-cargando>
+   
 }@else {
     @if(models.length>0){
         <table class="table table-sm table-bordered">
@@ -7,7 +7,7 @@
                 <tr>
                     <th>Codigo</th>
                     <th>Descripcion</th>
-                    <th>Resumida</th>
+                    <th>Fecha Modificacion</th>
                      <th>Accion</th> 
                 </tr>
             </thead>
@@ -18,11 +18,9 @@
                     <tr>
                         <td>{{model.codigo}}</td>
                         <td>{{model.descripcion}}</td>
-                        <td>{{model.descripcionResumida}}</td>
+                        <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
                         <td>
-                   
-
-                                <img class="iconEdit" src="assets/editar.png"  (click)="selectEdit(model)" data-bs-toggle="modal" data-bs-target="#modalEditAgrupacion">
+                            <img class="iconEdit" src="assets/editar.png"  (click)="selectEdit(model)">
                         </td>
                     </tr>
                 }

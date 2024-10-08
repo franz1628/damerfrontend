@@ -103,6 +103,8 @@ export class VariableFormComponent {
   }
 
   selectEdit(model: Variable) {
+  
+    
     this.model.patchValue(model);
   }
 

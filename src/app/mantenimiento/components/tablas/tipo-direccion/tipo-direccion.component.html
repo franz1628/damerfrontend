@@ -10,6 +10,8 @@
                             <th>Item</th>
                             <th>Descripcion </th>
                             <th>Alias 1</th>
+                            <th>Modificacion</th>
+                            <th>Acciones</th>
                         </tr>
           
                     </thead>
@@ -23,6 +25,7 @@
                    
                              
                               <td> <input class="form-control form-control-sm" formControlName="alias1"> </td>
+                              <td> {{model.get('fechaModificacion')?.value?.substring(0,10) }} </td>
 
             
                               

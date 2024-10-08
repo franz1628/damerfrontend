@@ -7,15 +7,15 @@
         <table class="table table-sm table-bordered">
             <thead class="table-success">
                 <tr>
-                    <th>#</th>
-                    <th>Codigo</th>
+                 
+                    <th>Item</th>
                     <th>Descripcion</th>
-                    <th>Resumida</th>
+               
                     <th>Factor Recargo</th>
                     <th>Avance PermNego</th>
                     <th>Avance PermProsp</th>
                     <th>Tiene Exhibidor</th>
-
+                    <th>Modificacion</th>
                     <th>Acción</th>
                 </tr>
             </thead>
@@ -23,15 +23,15 @@
                 @for (model of models; track $index) {
 
                     <tr>
-                        <td>{{$index+1}}</td>
-                        <td>{{model.codigo}}</td>
+                        
+                        <td>{{model.id}}</td>
                         <td>{{model.descripcion}}</td>
-                        <td>{{model.descripcionResumida}}</td>
+                        
                         <td>{{model.factorRecargo}}</td>
                         <td>{{model.avancePermNego}}</td>
                         <td>{{model.avancePermProsp}}</td>
                         <td>{{model.tieneExhibidor}}</td>
-    
+                        <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
                         <td>
                             <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i
                                     class="bi bi-trash"></i></button>

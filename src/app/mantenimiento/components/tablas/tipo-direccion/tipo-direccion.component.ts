@@ -56,6 +56,7 @@ export class TipoDireccionComponent {
               id: [model.id],
               descripcion:[model.descripcion],
               alias1:[model.alias1],
+              fechaModificacion:[model.fechaModificacion],
             });
   
             this.modelosArray.push(nuevoModelo);
@@ -79,7 +80,7 @@ export class TipoDireccionComponent {
       const modelo = this.modelosArray.controls[num].getRawValue();
 
       this.service.update(modelo.id, modelo).subscribe(x => {
-
+        this.loadModels();
         this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
       });
     })

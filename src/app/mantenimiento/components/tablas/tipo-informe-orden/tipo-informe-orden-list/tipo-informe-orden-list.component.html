@@ -10,8 +10,8 @@
                     <th>#</th>
                     <th>Codigo</th>
                     <th>Descripcion</th>
-                    <th>Resumida</th>
                     <th>Tipo Estudio</th>
+                    <th>Modificacion</th>
                     <th>Acción</th>
                 </tr>
             </thead>
@@ -22,7 +22,7 @@
                         <td>{{$index+1}}</td>
                         <td>{{model.codigo}}</td>
                         <td>{{model.descripcion}}</td>
-                        <td>{{model.descripcionResumida}}</td>
+        
                         <td>
                             <ul>
                                 @for (tipoEstudio of model.TipoEstudio; track $index) {
@@ -30,7 +30,9 @@
                                 }
                             </ul>
                         </td>
-
+                        <td>
+                            {{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}
+                        </td>
     
                         <td>
                             <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i

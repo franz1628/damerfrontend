@@ -16,6 +16,7 @@ export interface TipoInformeOrden {
     TipoEstudio:TipoEstudio[],
     fechaRegistro: Date,
     estado : number,
+    fechaModificacion:string
 }
 export const TipoInformeOrdenInit: TipoInformeOrden = {
     id: 0,
@@ -33,4 +34,5 @@ export const TipoInformeOrdenInit: TipoInformeOrden = {
     TipoEstudio:[],
     fechaRegistro: new Date(),
     estado : 1,
+    fechaModificacion : ''
 };

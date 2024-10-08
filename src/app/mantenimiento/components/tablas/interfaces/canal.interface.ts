@@ -12,6 +12,7 @@ export interface Canal {
     alias2: string,
     alias3: string,
     estado: number,
+    fechaModificacion:string
 }
 
 export const CanalInit: Canal = {
@@ -27,5 +28,6 @@ export const CanalInit: Canal = {
     alias1: "",
     alias2: "",
     alias3: "",
-    estado: 1
+    estado: 1,
+    fechaModificacion:''
   };

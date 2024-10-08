@@ -17,6 +17,7 @@ export interface Cliente {
     alias3: string,
     estado: number,
     fechaRegistro: Date,
+    fechaModificacion:string
     
 }
 export const ClienteInit: Cliente = {
@@ -38,4 +39,5 @@ export const ClienteInit: Cliente = {
     alias3: '',
     estado: 1,
     fechaRegistro: new Date(),
+    fechaModificacion:''
 };

@@ -9,6 +9,7 @@
                     <th>Codigo</th>
                     <th>Descripcion</th>
                     <th>Unidad de medida</th>
+                    <th>Fecha Modificacion</th>
                     <!-- <th>Resumidas</th> -->
                     <th>Accion</th>
                 </tr>
@@ -22,6 +23,7 @@
                         <td>{{model.id}}</td>
                         <td>{{model.descripcion}}</td>
                         <td>{{model.solicitarUnidad==1?"SI":"NO"}}</td>
+                        <td>{{model.fechaModificacion}}</td>
                         <!-- <td>{{model.descripcionResumida}}</td> -->
                         <td> 
                             <button class="btn btn-sm btn-info" (click)="selectEdit(model,$index)"> <i class="bi bi-pencil"></i> </button>

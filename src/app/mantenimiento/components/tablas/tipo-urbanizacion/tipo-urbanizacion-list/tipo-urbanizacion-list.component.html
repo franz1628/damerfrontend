@@ -9,7 +9,7 @@
                     <tr>
                         <th>Codigo</th>
                         <th>Descripcion</th>
-                        <th>Resumida</th>
+                        <th>Modificacion</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -17,7 +17,7 @@
                     <tr *ngFor="let model of models">
                         <td>{{model.id}}</td>
                         <td>{{model.descripcion}}</td>
-                        <td>{{model.descripcionResumida}}</td>
+                        <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
                         <td>
                             <button class="btn btn-sm btn-info btn-sm" type="button" (click)="editModel(model)"><i
                                 class="bi bi-pencil"></i></button>

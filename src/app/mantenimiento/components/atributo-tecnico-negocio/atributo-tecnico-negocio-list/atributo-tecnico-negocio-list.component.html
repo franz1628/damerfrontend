@@ -8,7 +8,7 @@
                     
                     <th>Codigo</th>
                     <th>Descripcion</th>
-                    <th>Resumida</th>
+                    <th>Fecha Modificacion</th>
                      <th>Accion</th> 
                 </tr>
             </thead>
@@ -20,7 +20,7 @@
                        
                         <td>{{model.id}}</td>
                         <td>{{model.descripcion}}</td>
-                        <td>{{model.descripcionResumida}}</td>
+                        <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
                         <td>
                           
 

@@ -3,7 +3,8 @@ export interface TipoDireccion {
     descripcion: string,
     alias1: string,
     estado: number,
-    fechaRegistro:Date
+    fechaRegistro:Date,
+    fechaModificacion:string
 
 }
 
@@ -12,5 +13,6 @@ export const TipoDireccionInit: TipoDireccion = {
     descripcion: '',
     alias1: '',
     estado: 1,
-    fechaRegistro:new Date()
+    fechaRegistro:new Date(),
+    fechaModificacion:''
 }

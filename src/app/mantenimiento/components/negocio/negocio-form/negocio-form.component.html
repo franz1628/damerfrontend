@@ -382,6 +382,20 @@
                         </span>
                     </div>
 
+                    <div class="mb-3 row">
+                        <label for="estado" class="col-md-3 col-form-label-sm">Estado</label>
+                        <div class="col-sm-9">
+                            <select class="form-select form-select-sm" name="estado"
+                                formControlName="estado">
+                                <option value="1">ACTIVO</option>
+                                <option value="0">SUSPENDIDO</option>
+                            </select>
+                        </div>
+                        <span *ngIf="isValidField('estado')" class="form-text text-danger">
+                            {{ getFieldError('estado') }}
+                        </span>
+                    </div>
+
                     <div class="input-group mt-3">
                         <button class="btn btn-sm btn-success btn-sm text-white " (click)="submit()" type="button"
                             *ngIf="!currentModel.id">

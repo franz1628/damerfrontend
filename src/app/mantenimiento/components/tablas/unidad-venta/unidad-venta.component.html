@@ -9,14 +9,13 @@
                         <tr>
                             <th>Item</th>
                             <th>Descripcion </th>
-                            <th>Descripcion Resumida </th>
-                            <th>Tip</th>
+                    
+                  
                             <th>Forma </th>
                             <th>Tipo Medida</th>
                             <th>Medida</th>
                             <th>Alias 1</th>
-                            <th>Alias 2</th>
-                            <th>Alias 3</th>
+                      
                         </tr>
           
                     </thead>
@@ -26,8 +25,7 @@
                             <tr [formGroupName]="$index" (click)="selectAtributo($index)">
                               <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
                               <td> <input class="form-control form-control-sm" formControlName="descripcion"> </td>
-                              <td> <input class="form-control form-control-sm" formControlName="descripcionResumida"> </td>
-                              <td> <input class="form-control form-control-sm" formControlName="tip"> </td>
+                        
                               <td>
                                 <select class="form-select form-select-sm" formControlName="formaUso">
                                     <option value="0">SELECCIONAR</option>
@@ -54,8 +52,7 @@
                               </td>
                              
                               <td> <input class="form-control form-control-sm" formControlName="alias1"> </td>
-                              <td> <input class="form-control form-control-sm" formControlName="alias2"> </td>
-                              <td> <input class="form-control form-control-sm" formControlName="alias3"> </td>
+                            
                     
                               
                               <td>

@@ -15,7 +15,8 @@ export interface AtributoTecnicoVariedad {
     alias3: string,
     estado: number,
     fechaRegistro: Date,
-    AtributoTecnicoVariedadValor:AtributoTecnicoVariedadValor[]
+    AtributoTecnicoVariedadValor:AtributoTecnicoVariedadValor[],
+    fechaModificacion:string
 
 }
 export const AtributoTecnicoVariedadInit: AtributoTecnicoVariedad = {
@@ -33,5 +34,6 @@ export const AtributoTecnicoVariedadInit: AtributoTecnicoVariedad = {
     alias3: '',
     estado: 1,
     fechaRegistro: new Date(),
-    AtributoTecnicoVariedadValor:[]
+    AtributoTecnicoVariedadValor:[],
+    fechaModificacion:''
 };

@@ -36,7 +36,8 @@ export interface Variable {
     alias2: string,
     alias3: string
     estado: number,
-    fechaRegistro: Date
+    fechaRegistro: Date,
+    fechaModificacion:string
 }
 export const VariableInit: Variable = {
     id:0,
@@ -76,5 +77,6 @@ export const VariableInit: Variable = {
     alias2: '',
     alias3: '',
     estado: 1,
-    fechaRegistro: new Date()
+    fechaRegistro: new Date(),
+    fechaModificacion:''
 };
