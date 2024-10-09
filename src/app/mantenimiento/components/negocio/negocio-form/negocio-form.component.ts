@@ -16,6 +16,7 @@ import { ProvinciaService } from '../../tablas/ubigeo/service/provincia.service'
 import { Departamento } from '../../tablas/ubigeo/interface/departamento.interface';
 import { Provincia } from '../../tablas/ubigeo/interface/provincia.interface';
 import { RegexService } from '../../../../shared/services/regex.service';
+import { Zona, ZonaInit } from '../../tablas/interfaces/zona.interface';
 
 
 @Component({
@@ -23,8 +24,6 @@ import { RegexService } from '../../../../shared/services/regex.service';
   templateUrl: './negocio-form.component.html'
 })
 export class NegocioFormComponent {
-
-
   @Input()
   model: Negocio = NegocioInit;
   showLoading: boolean = false;
@@ -33,7 +32,7 @@ export class NegocioFormComponent {
   myForm: FormGroup = this.fb.group({
     id: [0, Validators.required],
     ruc: ['', Validators.required],
-    nombreComercial: ['', Validators.required],
+    nombreComercial: ['', Validators.required], 
     nombreResumido: [''],
     nombreTip: [''],
     idCanal: [0, Validators.required],
@@ -45,21 +44,21 @@ export class NegocioFormComponent {
     idRuta: [0],
     lat: [''],
     lgn: [''],
-    entregaFactura: [''],
-    levantarNegocio: [''],
-    negocioEquivalente: [''],
-    telefono: [''],
-    fax: [''],
-    referencia: [''],
-    zonaAccidentada: [''],
-    zonaRiesgo: [''],
+    entregaFactura: ['',Validators.required],
+    levantarNegocio: ['',Validators.required],
+    negocioEquivalente: ['',Validators.required],
+    telefono: ['',Validators.required],
+    fax: ['',Validators.required],
+    referencia: ['',Validators.required],
+    zonaAccidentada: ['',Validators.required],
+    zonaRiesgo: ['',Validators.required],
     aceptaProductos: [1],
     tipoHorario: [1],
     idVia: [1],
     numeroDomicilio: [1],
-    interior: [''],
-    manzana: [''],
-    lote: [''],
+    interior: ['',Validators.required],
+    manzana: ['',Validators.required],
+    lote: ['',Validators.required],
     estado : [1]
   })
 
@@ -69,6 +68,9 @@ export class NegocioFormComponent {
   negocioDescripcion: string = '';
   negociosEncontrados: Negocio[] = [];
   selectedRowIndex: number = -1;
+  listZonas : Zona[] = [];
+  negocios_x_zona : Negocio[] = [];
+  miZona:Zona = ZonaInit
 
   departamentos:Departamento[] = [];
   provincias:Provincia[] = [];
@@ -86,7 +88,8 @@ export class NegocioFormComponent {
     private provinciaService: ProvinciaService,
     private distritoService: DistritoService,
     private urbanizacionService: UrbanizacionService,
-    private regexService:RegexService
+    private regexService:RegexService,
+    private zonaService:ZonaService
   ) {
   }
 
@@ -97,6 +100,7 @@ export class NegocioFormComponent {
     this.urbanizacionService.get().subscribe(response => { this.showLoading = false; this.listUrbanizacion = response.data });
     this.departamentoService.get().subscribe(response => { this.showLoading = false; this.departamentos = response.data });
     this.provinciaService.get().subscribe(response => { this.showLoading = false; this.provincias = response.data });
+    this.zonaService.get().subscribe(response => {this.showLoading = false; this.listZonas = response.data })
   }
 
   get currentModel() {
@@ -126,10 +130,27 @@ export class NegocioFormComponent {
 
   elegirNegocio(miNegocio: Negocio, index: number):void {
    this.myForm.patchValue(miNegocio);
+   this.miZona = miNegocio.Distrito?.Zona;
    this.selectedRowIndex = index;
   }
 
+  changeZona($event: Event) {
+    const valor = ($event.target as HTMLInputElement).value;
 
+    this.service.negocioXZona(+valor).subscribe(response => {
+      this.negocios_x_zona = response.data
+      
+    })
+    
+  }
+
+  changeDistrito($event: Event) {
+    const valor = ($event.target as HTMLInputElement).value;
+
+    const distrito = this.listDistrito.find(x=>x.id == +valor)
+
+    this.miZona = distrito?.Zona || ZonaInit
+  }
  
   submit() {
     if (this.myForm.invalid) {

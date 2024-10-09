@@ -7,17 +7,17 @@
             <table class="table table-sm table-bordered">
                 <thead class="table-success">
                     <tr>
-                        <th>Codigo</th>
-                        <th>Descripcion</th>
-                        <th>Departamento</th>
-                        <th>Acción</th>
+                        <th>ITEM</th>
+                        <th>DESCRIPCION</th>
+                        <th>PROVINCIA</th>
+                        <th>ACCION</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let model of models">
                         <td>{{model.id}}</td>
                         <td>{{model.descripcion}}</td>
-                        <td>{{model.idProvincia}}</td>
+                        <td>{{model.Provincia.descripcion}}</td>
                         <td>
                             <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i
                                     class="bi bi-trash"></i></button>

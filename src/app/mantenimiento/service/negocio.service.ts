@@ -31,6 +31,10 @@ export class NegocioService {
     return this.http.post<ResponseNegocio>(`${this.apiUrl}/postDescripcion`, {descripcion});
   }
 
+  negocioXZona(idZona: number): Observable<ResponseNegocio> {
+    return this.http.post<ResponseNegocio>(`${this.apiUrl}/negocioXZona`, {idZona});
+  }
+
   add(model: Negocio): Observable<Negocio> {
     return this.http.post<Negocio>(this.apiUrl, model);
   }

@@ -1,3 +1,4 @@
+import { Zona, ZonaInit } from "../../interfaces/zona.interface";
 import { Provincia, ProvinciaInit } from "./provincia.interface";
 
 export interface Distrito {
@@ -6,7 +7,8 @@ export interface Distrito {
     idProvincia:number,
     estado: number,
     idZona:number,
-    Provincia:Provincia
+    Provincia:Provincia,
+    Zona:Zona
 }
 
 export const DistritoInit: Distrito = {
@@ -15,5 +17,6 @@ export const DistritoInit: Distrito = {
     idProvincia:0,
     estado: 1,
     idZona:0,
-    Provincia:ProvinciaInit
+    Provincia:ProvinciaInit,
+    Zona : ZonaInit
   };

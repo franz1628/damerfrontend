@@ -12,6 +12,8 @@ import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
 export class CategoriaListComponent {
   public showLoading: boolean = false;
   selectIndex: number=-1;
+  searchText = '';
+
   constructor(public alert: AlertService, public service: CategoriaService) {
     
   }
@@ -23,6 +25,12 @@ export class CategoriaListComponent {
   @Output() eligeModelEmit: EventEmitter<Categoria> = new EventEmitter()
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
 
+  filteredModels() {
+    return this.models.filter(model => 
+      model.id.toString().includes(this.searchText) ||
+      model.descripcion.toLowerCase().includes(this.searchText.toLowerCase()) 
+    );
+  }
   
 
   editModel(model: Categoria) {

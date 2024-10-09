@@ -1,5 +1,7 @@
 <div class="row">
     <div class="col-md-12">
+        <input type="text" [(ngModel)]="searchText" class="form-control mb-3" placeholder="Buscar...">
+
         @if (showLoading) {
             <!-- <app-div-cargando></app-div-cargando> -->
 
@@ -14,7 +16,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (model of models; track $index) {
+                    @for (model of filteredModels(); track $index) {
 
                         <tr (click)="eligeModel(model,$index)"  [ngClass]="{'selected-row': $index === selectIndex}">
                             <td>{{model.id}}</td>

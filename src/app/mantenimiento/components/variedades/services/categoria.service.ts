@@ -12,6 +12,13 @@ export interface ResponseCategoria {
   message: string
 }
 
+export interface ResponseOneCategoria {
+
+  data: Categoria,
+  state: number,
+  message: string
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +40,8 @@ export class CategoriaService {
     });
   }
 
-  add(model: Categoria): Observable<Categoria> {
-    return this.http.post<Categoria>(this.apiUrl, model);
+  add(model: Categoria): Observable<ResponseOneCategoria> {
+    return this.http.post<ResponseOneCategoria>(this.apiUrl, model);
   }
 
   postId(id: number): Observable<Categoria> {

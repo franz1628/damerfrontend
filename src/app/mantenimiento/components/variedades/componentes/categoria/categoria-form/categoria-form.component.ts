@@ -71,14 +71,19 @@ export class CategoriaFormComponent {
     }
 
     if (!this.currentModel.id) {
-      this.service.add(this.currentModel).subscribe(() => {
-        this.showLoading = false;
-        this.updateModelsEmit.emit(+this.myForm.get('idMegaCategoria')?.value);
-        this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
-        //this.myForm.patchValue(CategoriaInit);
-        this.myForm.clearValidators();
-        this.myForm.patchValue({descripcion:'',alias1:''})
-       // this.myForm.reset();
+      this.service.add(this.currentModel).subscribe((res) => {
+        if(res.state==0){
+          this.alert.showAlert('¡Advertencia!', res.message, 'warning');
+        }else{
+          this.showLoading = false;
+          this.updateModelsEmit.emit(+this.myForm.get('idMegaCategoria')?.value);
+          this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
+          //this.myForm.patchValue(CategoriaInit);
+          this.myForm.clearValidators();
+          this.myForm.patchValue({descripcion:'',alias1:''})
+         // this.myForm.reset();
+        }
+       
       });
     } else {
       this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {

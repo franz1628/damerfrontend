@@ -9,8 +9,8 @@
         <table class="table table-sm table-bordered">
             <thead class="table-success">
                 <tr>
-                    <th>#</th>
-                    <th>Codigo</th>
+                    <th>ITEM</th>
+               
                     <th>TipoZona</th>
                     <th>Descripcion</th>
                     <th>Numero Orden</th>
@@ -23,7 +23,7 @@
                 @for (model of models; track $index) {
                     <tr (click)="elegir(model,$index)"  [ngClass]="{'selected-row': $index === selectIndex}">
                         <td>{{model.id}}</td>
-                        <td>{{model.codigo}}</td>
+                       
                         <td>{{model.TipoZona.descripcion}}</td>
                         <td>{{model.descripcion}}</td>
                         <td>{{model.numeroOrden}}</td>

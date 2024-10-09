@@ -21,7 +21,7 @@
     <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
         <form autocomplete="off" [formGroup]="myForm">
             <div class="row  mt-4">
-                <div class="col-md-4">
+                <div class="col-md-3">
 
                     <div class="mb-3 row">
                         <label class="col-md-3 col-form-label-sm">Código</label>
@@ -204,7 +204,7 @@
                     <div class="mb-3 row">
                         <label for="idDistrito" class="col-md-3 col-form-label-sm">Distrito</label>
                         <div class="col-sm-9">
-                            <select class="form-select form-select-sm" formControlName="idDistrito">
+                            <select class="form-select form-select-sm" formControlName="idDistrito" (change)="changeDistrito($event)">
                                 <option value="0">SELECCIONAR</option>
                                 @for (distrito of getDistritos; track $index) {
                                     <option value={{distrito.id}}>{{distrito.descripcion}}</option>
@@ -216,6 +216,13 @@
                         <span *ngIf="isValidField('idDistrito')" class="form-text text-danger">
                             {{ getFieldError('idDistrito') }}
                         </span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="idDistrito" class="col-md-3 col-form-label-sm">Zona</label>
+                        <div class="col-sm-9">
+                            <span>{{miZona && miZona.descripcion}}</span>
+                        </div>
                     </div>
 
                     <div class="mb-3 row">
@@ -234,7 +241,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="mb-3 row">
                         <label for="idVia" class="col-md-3 col-form-label-sm">Código Via</label>
                         <div class="col-sm-9">
@@ -384,13 +391,20 @@
 
                     <div class="mb-3 row">
                         <label for="estado" class="col-md-3 col-form-label-sm">Estado</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="form-select form-select-sm" name="estado"
                                 formControlName="estado">
                                 <option value="1">ACTIVO</option>
                                 <option value="0">SUSPENDIDO</option>
                             </select>
                         </div>
+                        <label class="col-md-3">
+                            @if(currentModel.estado==0){
+                                <span class="badge text-bg-danger">SUSPENDIDO</span>
+                            }@else{
+                                <span class="badge text-bg-success">ACTIVO</span>
+                            }
+                        </label>
                         <span *ngIf="isValidField('estado')" class="form-text text-danger">
                             {{ getFieldError('estado') }}
                         </span>
@@ -413,6 +427,47 @@
                     </div>
 
 
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Negocios por Zona</h5>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select class="form-select form-select-sm" (change)="changeZona($event)">
+                                <option value="">SELECCIONAR ZONA</option>
+                                @for (zona of listZonas; track $index) {
+                                    <option value={{zona.id}}>{{zona.descripcion}}</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <table class="table table-sm table-bordered">
+                                <thead class="table-success">
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>RUC</th>
+                                        <th>Descripcion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (negocio of negocios_x_zona; track $index) {
+                                        <tr (click)="elegirNegocio(negocio,0)">
+                                            <td>{{negocio.id}}</td>
+                                            <td>{{negocio.ruc}}</td>
+                                            <td>{{negocio.nombreComercial}}</td>
+                                        </tr>
+                                    }@empty {
+                                        <tr>
+                                            <td colspan="3">No hay resultados...</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

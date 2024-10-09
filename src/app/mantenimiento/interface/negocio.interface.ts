@@ -1,3 +1,5 @@
+import { Distrito, DistritoInit } from "../components/tablas/ubigeo/interface/distrito.interface";
+
 export interface Negocio {
     id:number,
     ruc: string,
@@ -30,6 +32,7 @@ export interface Negocio {
     interior: string,
     manzana: string,
     lote: string,
+    Distrito:Distrito
 }
 
 export const NegocioInit: Negocio = {
@@ -63,7 +66,8 @@ export const NegocioInit: Negocio = {
     numeroDomicilio: 0,
     interior: '',
     manzana: '',
-    lote: ''
+    lote: '',
+    Distrito:DistritoInit
   };
 
   

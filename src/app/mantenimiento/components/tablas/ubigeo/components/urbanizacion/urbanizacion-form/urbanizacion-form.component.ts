@@ -65,14 +65,16 @@ export class UrbanizacionFormComponent implements OnInit{
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
-        this.myForm.reset()
+        this.model = UrbanizacionInit
+        this.myForm.patchValue(UrbanizacionInit)
       });
     }else{
       this.service.update(this.currentModel.id,this.currentModel).subscribe(() => {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
-        this.myForm.reset()
+        this.model = UrbanizacionInit
+        this.myForm.patchValue(UrbanizacionInit)
       });
     }
   }
