@@ -138,6 +138,11 @@ export class NegocioFormComponent {
    this.myForm.patchValue(miNegocio);
    this.miZona = miNegocio.Distrito?.Zona;
    this.selectedRowIndex = index;
+   this.myForm.patchValue({
+    idDepartamento:miNegocio.Distrito.Provincia.idDepartamento,
+    idProvincia : miNegocio.Distrito.idProvincia,
+    idDistrito: miNegocio.idDistrito
+   })
   }
 
   changeZona($event: Event) {
