@@ -16,6 +16,7 @@ import { TipoInformeOrdenComponent } from './tipo-informe-orden/tipo-informe-ord
 import { UrbanizacionComponent } from './ubigeo/components/urbanizacion/urbanizacion.component';
 import { UnidadVentaComponent } from './unidad-venta/unidad-venta.component';
 import { TipoDireccionComponent } from './tipo-direccion/tipo-direccion.component';
+import { ViaComponent } from './via/via.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'provincia', component: ProvinciaComponent },
       { path: 'distrito', component: DistritoComponent },
       { path: 'urbanizacion', component: UrbanizacionComponent },
+      { path: 'via', component: ViaComponent },
       { path: 'tipoUrbanizacion', component: TipoUrbanizacionComponent },
       { path: 'canal', component: CanalComponent },
       { path: 'tipoUnidadMedida', component: TipoUnidadMedidaComponent },

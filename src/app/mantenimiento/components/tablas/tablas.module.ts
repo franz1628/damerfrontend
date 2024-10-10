@@ -42,6 +42,7 @@ import { UrbanizacionFormComponent } from './ubigeo/components/urbanizacion/urba
 import { UnidadVentaComponent } from './unidad-venta/unidad-venta.component';
 import { TipoDireccionComponent } from './tipo-direccion/tipo-direccion.component';
 import { TipoEstudioComponent } from './tipo-estudio/tipo-estudio.component';
+import { ViaComponent } from './via/via.component';
 
 
 
@@ -84,7 +85,8 @@ import { TipoEstudioComponent } from './tipo-estudio/tipo-estudio.component';
     UrbanizacionFormComponent,
     UnidadVentaComponent,
     TipoDireccionComponent,
-    TipoEstudioComponent
+    TipoEstudioComponent,
+    ViaComponent
   ],  
     imports: [
         CommonModule,

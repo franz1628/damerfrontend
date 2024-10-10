@@ -243,10 +243,14 @@
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3 row">
-                        <label for="idVia" class="col-md-3 col-form-label-sm">Código Via</label>
+                        <label for="idVia" class="col-md-3 col-form-label-sm">Vía</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="idVia" name="idVia"
-                                formControlName="idVia" id="idVia" />
+                            <select class="form-select form-select-sm" formControlName="idVia"  name="idVia">
+                                <option value="0">SELECCIONAR</option>
+                                <option *ngFor="let via of misVias" [value]="via.id">
+                                    {{via.descripcion}}
+                                </option>
+                            </select>
                         </div>
                         <span *ngIf="isValidField('idVia')" class="form-text text-danger">
                             {{ getFieldError('idVia') }}

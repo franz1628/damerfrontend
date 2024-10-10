@@ -17,6 +17,8 @@ import { Departamento } from '../../tablas/ubigeo/interface/departamento.interfa
 import { Provincia } from '../../tablas/ubigeo/interface/provincia.interface';
 import { RegexService } from '../../../../shared/services/regex.service';
 import { Zona, ZonaInit } from '../../tablas/interfaces/zona.interface';
+import { Via } from '../../../interface/via';
+import { ViaService } from '../../../service/via';
 
 
 @Component({
@@ -56,9 +58,9 @@ export class NegocioFormComponent {
     tipoHorario: [1],
     idVia: [1],
     numeroDomicilio: [1],
-    interior: ['',Validators.required],
-    manzana: ['',Validators.required],
-    lote: ['',Validators.required],
+    interior: [''],
+    manzana: [''],
+    lote: [''],
     estado : [1]
   })
 
@@ -71,6 +73,8 @@ export class NegocioFormComponent {
   listZonas : Zona[] = [];
   negocios_x_zona : Negocio[] = [];
   miZona:Zona = ZonaInit
+  listVias : Via[] = [];
+  misVias : Via[] = [];
 
   departamentos:Departamento[] = [];
   provincias:Provincia[] = [];
@@ -89,7 +93,8 @@ export class NegocioFormComponent {
     private distritoService: DistritoService,
     private urbanizacionService: UrbanizacionService,
     private regexService:RegexService,
-    private zonaService:ZonaService
+    private zonaService:ZonaService,
+    private viaService:ViaService
   ) {
   }
 
@@ -101,6 +106,7 @@ export class NegocioFormComponent {
     this.departamentoService.get().subscribe(response => { this.showLoading = false; this.departamentos = response.data });
     this.provinciaService.get().subscribe(response => { this.showLoading = false; this.provincias = response.data });
     this.zonaService.get().subscribe(response => {this.showLoading = false; this.listZonas = response.data })
+    this.viaService.get().subscribe(response => {this.showLoading = false; this.listVias = response.data })
   }
 
   get currentModel() {
@@ -148,8 +154,10 @@ export class NegocioFormComponent {
     const valor = ($event.target as HTMLInputElement).value;
 
     const distrito = this.listDistrito.find(x=>x.id == +valor)
-
     this.miZona = distrito?.Zona || ZonaInit
+
+    this.misVias = this.listVias.filter(x=>x.idDistrito == +valor)
+
   }
  
   submit() {
