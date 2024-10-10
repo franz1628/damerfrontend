@@ -50,7 +50,7 @@ export class NegocioFormComponent {
     levantarNegocio: ['',Validators.required],
     negocioEquivalente: ['',Validators.required],
     telefono: ['',Validators.required],
-    fax: ['',Validators.required],
+    fax: [''],
     referencia: ['',Validators.required],
     zonaAccidentada: ['',Validators.required],
     zonaRiesgo: ['',Validators.required],
@@ -168,6 +168,17 @@ export class NegocioFormComponent {
   submit() {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
+
+      Object.keys(this.myForm.controls).forEach(field => {
+        const control = this.myForm.get(field);
+  
+        if (control?.invalid) {
+          // Obtén los errores del campo
+          const errors = control.errors;
+          console.log(`El campo ${field} tiene los siguientes errores:`, errors);
+        }
+      });
+
       return;
     }
 
@@ -220,6 +231,7 @@ export class NegocioFormComponent {
   }
 
   isValidField(field: string): boolean | null {
+    const a = this.validForm.isValidField(field, this.myForm)
     return this.validForm.isValidField(field, this.myForm);
   }
 
