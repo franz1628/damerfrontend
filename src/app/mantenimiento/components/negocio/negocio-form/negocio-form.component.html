@@ -454,6 +454,8 @@
                                         <th>Item</th>
                                         <th>RUC</th>
                                         <th>Descripcion</th>
+                                        <th>Creación</th>
+                                        <th>Modificación</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -462,6 +464,8 @@
                                             <td>{{negocio.id}}</td>
                                             <td>{{negocio.ruc}}</td>
                                             <td>{{negocio.nombreComercial}}</td>
+                                            <td>{{negocio.fechaRegistro && negocio.fechaRegistro.substring(0,10)}}</td>
+                                            <td>{{negocio.fechaModificacion && negocio.fechaModificacion.substring(0,10)}}</td>
                                         </tr>
                                     }@empty {
                                         <tr>

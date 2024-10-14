@@ -15,8 +15,6 @@ export interface Negocio {
     lat: string,
     lgn: string,
     estado: number,
-    fechaRegistro: Date,
-    fechaActualiza: Date,
     entregaFactura: string,
     levantarNegocio: string,
     negocioEquivalente: string,
@@ -32,7 +30,9 @@ export interface Negocio {
     interior: string,
     manzana: string,
     lote: string,
-    Distrito:Distrito
+    Distrito:Distrito,
+    fechaRegistro: string,
+    fechaModificacion: string,
 }
 
 export const NegocioInit: Negocio = {
@@ -50,8 +50,6 @@ export const NegocioInit: Negocio = {
     lat: '',
     lgn: '',
     estado: 0,
-    fechaRegistro: new Date(),
-    fechaActualiza: new Date(),
     entregaFactura: '',
     levantarNegocio: '',
     negocioEquivalente: '',
@@ -67,7 +65,9 @@ export const NegocioInit: Negocio = {
     interior: '',
     manzana: '',
     lote: '',
-    Distrito:DistritoInit
+    Distrito:DistritoInit,
+    fechaRegistro: '',
+    fechaModificacion: '',
   };
 
   
