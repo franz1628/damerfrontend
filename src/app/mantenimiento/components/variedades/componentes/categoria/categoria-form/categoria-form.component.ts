@@ -127,6 +127,7 @@ export class CategoriaFormComponent {
     this.myForm.patchValue({id:categoria.id,idMegacategoria:categoria.idMegaCategoria});
     this.buscar();
     this.editEmit.emit(categoria)
+    this.modalBusquedaDescripcion = false
 
   }   
 

@@ -82,11 +82,13 @@ export class SkuListComponent implements OnChanges{
   }
 
   suspender(model: Sku) {
-    this.alert.showAlertConfirm('Advertencia', '¿Desea Suspender?','warning', () => {
+    const titulo = model.estado==1?'¿Desea Suspender?':'¿Desea Activar?';
+    const texto = model.estado==1?'Se suspendió correctamente':'Se activo correctamente';
+    this.alert.showAlertConfirm('Advertencia', titulo,'warning', () => {
       this.showLoading = true
       this.service.suspender(model).subscribe(() => {
         this.showLoading = false;
-        this.alert.showAlert('¡Éxito!', 'Se suspendió correctamente', 'success');
+        this.alert.showAlert('¡Éxito!', texto, 'success');
         this.updateModelsEmit.emit()
       });
     })

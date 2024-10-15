@@ -13,7 +13,6 @@ import { AlertService } from '../../../../shared/services/alert.service';
 export class VariableFormComponent {
   public model = this.fb.group({
     id:[0],
-    codigo: [0,Validators.required],
     idTipoVariable: [0],
     idGrupoVariable: [0],
     descripcion: [''],
@@ -48,7 +47,6 @@ export class VariableFormComponent {
     alias1: [''],
     alias2: [''],
     alias3: [''],
-    estado: [0],
   })
 
   @Output() actualizarListEmit: EventEmitter<null> = new EventEmitter();
@@ -81,10 +79,10 @@ export class VariableFormComponent {
       return;
     }
 
-    this.service.add(this.getModel).subscribe(resp => {
+    /*this.service.add(this.getModel).subscribe(resp => {
       this.model.reset();
       this.actualizarList();
-    })
+    })*/
 
     if(!this.getModel.id){
       this.service.add(this.getModel).subscribe(() => {

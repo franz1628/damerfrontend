@@ -45,7 +45,13 @@
                     <td>
                         <img class="iconEdit" src="assets/editar.png" (click)="editModel(model)">
 
-                        <i class="bi bi-file-earmark-minus" (click)="suspender(model)"></i>
+                        @if(model.estado==1){
+                            <span class="badge text-bg-danger" (click)="suspender(model)">Suspender</span>
+                        }@else {
+                            <span class="badge text-bg-success" (click)="suspender(model)">Activar</span>
+                        }
+
+                      
 
                     
 

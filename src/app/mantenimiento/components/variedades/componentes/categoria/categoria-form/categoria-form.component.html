@@ -171,6 +171,14 @@
                                     <td> <button type="button" class="btn btn-sm btn-info" (click)="elegirCategoriaBusqueda(categoria)"><i class="bi bi-arrow-left"></i></button></td> 
                                     <td>{{categoria.id}}</td>
                                     <td>{{categoria.descripcion}}</td>
+                                    <td>
+                                        @if(categoria.estado){
+                                            <span class="badge rounded-pill text-bg-success">ACTIVO</span>
+                                        }@else{
+                                            <span class="badge rounded-pill text-bg-danger">SUSPENDIDO</span>
+                                        }
+                                     
+                                    </td>
                                
                                 </tr>
                             }

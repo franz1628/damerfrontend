@@ -9,6 +9,8 @@ export interface Categoria {
     alias2: string,
     alias3: string,
     estado: number,
+    fechaRegistro:string,
+    fechaModificacion:string
 }
 
 export const CategoriaInit: Categoria = {
@@ -22,4 +24,6 @@ export const CategoriaInit: Categoria = {
     alias2: '',
     alias3: '',
     estado: 1,
-};
+    fechaRegistro:'',
+    fechaModificacion:''
+}

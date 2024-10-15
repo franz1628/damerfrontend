@@ -7,8 +7,9 @@
                 <tr>
                     <th>Codigo</th>
                     <th>Descripcion</th>
-                    <th>Fecha Modificacion</th>
-                     <th>Accion</th> 
+                    <th>Creación</th>
+                    <th>Modificacion</th>
+                     <th>Acción</th> 
                 </tr>
             </thead>
         
@@ -16,8 +17,9 @@
                 
                 @for (model of models; track $index) {
                     <tr>
-                        <td>{{model.codigo}}</td>
+                        <td>{{model.id}}</td>
                         <td>{{model.descripcion}}</td>
+                        <td>{{model.fechaRegistro && model.fechaRegistro.substring(0,10)}}</td>
                         <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
                         <td>
                             <img class="iconEdit" src="assets/editar.png"  (click)="selectEdit(model)">

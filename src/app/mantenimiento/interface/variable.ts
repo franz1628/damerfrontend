@@ -1,6 +1,5 @@
 export interface Variable {
     id:number,
-    codigo: number,
     idTipoVariable: number,
     idGrupoVariable: number,
     descripcion: string,
@@ -36,12 +35,11 @@ export interface Variable {
     alias2: string,
     alias3: string
     estado: number,
-    fechaRegistro: Date,
+    fechaRegistro: string,
     fechaModificacion:string
 }
 export const VariableInit: Variable = {
     id:0,
-    codigo: 0,
     idTipoVariable: 0,
     idGrupoVariable: 0,
     descripcion: '',
@@ -77,6 +75,6 @@ export const VariableInit: Variable = {
     alias2: '',
     alias3: '',
     estado: 1,
-    fechaRegistro: new Date(),
+    fechaRegistro: '',
     fechaModificacion:''
 };
