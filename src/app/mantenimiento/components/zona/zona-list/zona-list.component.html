@@ -14,8 +14,9 @@
                     <th>TipoZona</th>
                     <th>Descripcion</th>
                     <th>Numero Orden</th>
-                    <th>Alias</th>
-                    <th>Fecha Modificacion</th>
+                    <th>Estado</th>
+                    <th>Creación</th>
+                    <th>Modificacion</th>
                     <th>Acción</th>
                 </tr>
             </thead>
@@ -27,7 +28,15 @@
                         <td>{{model.TipoZona.descripcion}}</td>
                         <td>{{model.descripcion}}</td>
                         <td>{{model.numeroOrden}}</td>
-                        <td>{{model.alias1}}</td>
+                        <td>
+                            @if(model.estado==1){
+                                <span class="badge text-bg-success">ACTIVO</span>
+                            }@else {
+                                <span class="badge text-bg-danger">ANULADO</span>
+                            }
+                        </td>
+                        
+                        <td>{{model.fechaRegistro && model.fechaRegistro.substring(0,10)}}</td>
                         <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
     
                         <td>

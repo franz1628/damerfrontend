@@ -12,9 +12,6 @@
                             <th>Valor </th>
                             <th>Tipo Medida </th>
                             <th>Unidad Medida </th>
-                            <!-- <th>Comentario </th>
-                            <th>Alias 1 </th>
-                            <th>Alias 2 </th> -->
                             <th>Modificación</th>
                             <th><button class="btn btn-sm btn-primary" (click)="guardarTodo()"><i class="bi bi-box-arrow-down"></i> Guardar Atributos</button> </th>
                         </tr>
@@ -38,8 +35,8 @@
                                     <option value="0">SELECCIONAR</option>
                                     @for (valor of getAtributosValor(model.get('idAtributoTecnicoVariedad')?.value);
                                     track $index) {
-                                    <option value={{valor.idAtributoTecnicoVariedadValor}}>
-                                        {{valor.AtributoTecnicoVariedadValor.valor}}</option>
+                                    <option value={{valor.idAtributoTecnicoVariedadValor}} >
+                                        {{valor.AtributoTecnicoVariedadValor && valor.AtributoTecnicoVariedadValor.valor}}</option>
                                     }
                                 </select>
                                 }

@@ -3,7 +3,7 @@
   <div class="col-md-9">
     <h6 class="mb-3 text-center">INFORMACION DEL SKU</h6>
     <hr>
-    <app-sku-form #skuForm [idCategoria]="idCategoria" (updateModelsEmit)="get(modelEdit.idCategoria)" [model]="modelEdit" (editEmit)="editModel($event)" ></app-sku-form>
+    <app-sku-form #skuForm [idCategoria]="idCategoria" (busquedaEmit)="busquedaCampo($event)" (updateModelsEmit)="get(modelEdit.idCategoria)" [model]="modelEdit" (editEmit)="editModel($event)" ></app-sku-form>
   </div>
   <div class="col-md-3">
     <div class="col-md-6">
@@ -38,7 +38,7 @@
     }@else {
       <h6 class="mb-3 text-center">SKUS REGISTRADAS</h6>
       <hr>
-      <app-sku-list [models]="models" [idCategoria]="idCategoria" (updateModelsEmit)="get(modelEdit.idCategoria)" (editEmit)="editModel($event)"></app-sku-list>
+      <app-sku-list #skuList [models]="models" [idCategoria]="idCategoria" (updateModelsEmit)="get(modelEdit.idCategoria)" (editEmit)="editModel($event)"></app-sku-list>
     
     }
   

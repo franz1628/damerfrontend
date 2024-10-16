@@ -3,7 +3,8 @@
 
         <input type="text" [(ngModel)]="searchText" class="form-control mb-3" placeholder="Buscar...">
 
-
+        <br>
+        <button class="btn btn-sm btn-info" (click)="exportExcel()">Excel</button>
         @if (showLoading) {
         <!-- <app-div-cargando></app-div-cargando> -->
 

@@ -11,7 +11,8 @@ export interface Zona {
     alias2: string,
     alias3: string,
     estado: number,
-    fechaModificacion:string
+    fechaModificacion:string,
+    fechaRegistro:string,
 }
 
 export const ZonaInit: Zona = {
@@ -25,5 +26,6 @@ export const ZonaInit: Zona = {
     alias2: "",
     alias3: "",
     estado: 1,
-    fechaModificacion:''
+    fechaModificacion:'',
+    fechaRegistro:'',
   };

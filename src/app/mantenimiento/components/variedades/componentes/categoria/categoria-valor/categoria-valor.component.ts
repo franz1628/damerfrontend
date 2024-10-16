@@ -113,6 +113,11 @@ export class CategoriaValorComponent implements OnInit, OnChanges{
     const modelo = this.modelosArray.at(num).value;
     this.showLoading = true;
 
+    if(!modelo.idAtributoTecnicoVariedadValor){
+      this.alert.showAlert('Advertencia', 'Debe tener un valor', 'warning');
+      return;
+    }
+ 
     try {
       await lastValueFrom(this.service.add(modelo));
       this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');

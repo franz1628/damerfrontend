@@ -16,6 +16,7 @@ export class ClienteFormComponent {
     id: [0],
     codigo: [0,Validators.required],
     idPais: [1],
+    area: ['',Validators.required],
     razonSocial: ['',Validators.required],
     razonSocialAbreviada: [''],
     razonSocialTip: [''],

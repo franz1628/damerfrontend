@@ -1,6 +1,7 @@
 export interface Cliente {
     id: number,
     codigo: number,
+    area:string,
     idPais: number,
     razonSocial: string,
     razonSocialAbreviada: string,
@@ -23,6 +24,7 @@ export interface Cliente {
 export const ClienteInit: Cliente = {
     id: 0,
     codigo: 0,
+    area:'',
     idPais: 0,
     razonSocial: '',
     razonSocialAbreviada: '',

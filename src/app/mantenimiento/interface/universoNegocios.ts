@@ -4,14 +4,16 @@ export interface UniversoNegocios {
     idZona: number,
     valor:number,    
     estado: number,
-    fechaRegistro: Date,
+    fechaRegistro: string,
+    fechaModificacion: string,
     
 }
 export const UniversoNegociosInit: UniversoNegocios = {
     id: 0,
     idCanal: 0,
     idZona: 0,
-    valor:0,
     estado: 1,
-    fechaRegistro: new Date(),
+    valor:0,
+    fechaRegistro: '',
+    fechaModificacion: '',
 };

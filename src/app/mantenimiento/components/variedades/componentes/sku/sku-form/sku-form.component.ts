@@ -29,6 +29,7 @@ export class SkuFormComponent implements OnChanges {
   public showLoading: boolean = false;
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   @Output() editEmit: EventEmitter<Sku> = new EventEmitter();
+  @Output() busquedaEmit: EventEmitter<string> = new EventEmitter();
 
   showCombo: boolean = false
   showPack: boolean = false
@@ -516,7 +517,7 @@ export class SkuFormComponent implements OnChanges {
     if (this.descripcionSku != '') {
       this.modalBusquedaDescripcion = true;
       this.service.postDescripcion(this.descripcionSku).subscribe(x => {
-
+        this.busquedaEmit.emit(this.descripcionSku);
         this.skusBusqueda = x;
       });
     }

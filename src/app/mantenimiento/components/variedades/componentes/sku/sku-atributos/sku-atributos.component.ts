@@ -93,7 +93,7 @@ export class SkuAtributosComponent {
               idCategoriaAtributoTecnico:[model.id],
               solicitarUnidad:[model.AtributoTecnicoVariedad.solicitarUnidad],
               comentario:[atributoVariedad?.comentario||''],
-              idTipoUnidadMedida:[model?.idTipoUnidadMedida],
+              idTipoUnidadMedida:[model?.idTipoUnidadMedida || atributoVariedad?.idTipoUnidadMedida||0],
               idUnidadMedida:[atributoVariedad?.idUnidadMedida||0],
               alias1:[atributoVariedad?.alias1||''],
               alias2:[atributoVariedad?.alias2||''],
