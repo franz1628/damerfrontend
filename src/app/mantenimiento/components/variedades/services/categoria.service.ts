@@ -52,11 +52,11 @@ export class CategoriaService {
     return this.http.post<Categoria[]>(`${this.apiUrl}/descripcion`, {descripcion});
   }
 
-  update(id: number, model: Categoria): Observable<Categoria> {
-    return this.http.put<Categoria>(`${this.apiUrl}/${id}`, model);
+  update(id: number, model: Categoria): Observable<ResponseOneCategoria> {
+    return this.http.put<ResponseOneCategoria>(`${this.apiUrl}/${id}`, model);
   }
 
-  delete(model: Categoria): Observable<Categoria> {
-    return this.http.delete<Categoria>(`${this.apiUrl}/${model.id}`);
+  delete(model: Categoria): Observable<ResponseOneCategoria> {
+    return this.http.delete<ResponseOneCategoria>(`${this.apiUrl}/${model.id}`);
   }
 }

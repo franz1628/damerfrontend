@@ -11,7 +11,10 @@
                             <th>Item</th>
                             <th>Canal </th>
                             <th>Zona</th>
+                            <th>Distrito</th>
                             <th>Valor</th>
+                            <th>Creación</th>
+                            <th>Modificación</th>
                             <th>Acción</th>
                         </tr>
           
@@ -43,10 +46,19 @@
                                 </select>
                               </td>
                               
+                              <td>
+                                <select class="form-select form-select-sm" formControlName="idDistrito">
+                                    <option value="0">SELECCIONAR</option>
+                                    @for (distrito of arrDistritos[$index]; track $index) {
+                                    <option value={{distrito.id}}>{{distrito.descripcion}}</option>
+                                    }
+                                </select>
+                            </td>
                           
                        
                               <td> <input type="number" class="form-control form-control-sm" formControlName="valor"> </td>
-                    
+                              <td> <label class="mt-2">{{model.get('fechaRegistro')?.value}}</label>  </td>
+                              <td> <label class="mt-2">{{model.get('fechaModificacion')?.value}}</label>  </td>   
                               
                               <td>
                                   <div class="btn-group">

@@ -8,6 +8,8 @@ import { AlertService } from '../../../shared/services/alert.service';
 import { Canal } from '../tablas/interfaces/canal.interface';
 import { Zona } from '../tablas/interfaces/zona.interface';
 import { forkJoin, lastValueFrom } from 'rxjs';
+import { Distrito } from '../tablas/ubigeo/interface/distrito.interface';
+import { DistritoService } from '../tablas/ubigeo/service/distrito.service';
 
 @Component({
   selector: 'app-universo-negocios',
@@ -23,6 +25,8 @@ export class UniversoNegociosComponent {
   
   canals:Canal[] = []
   zonas: Zona[] = []
+  distritos:Distrito[] = []
+  arrDistritos:Distrito[][]=[]
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
@@ -32,6 +36,7 @@ export class UniversoNegociosComponent {
     private service: UniversoNegociosService,
     private serviceCanal: CanalService,
     private serviceZona: ZonaService,
+    private serviceDistrito: DistritoService,
     private fb: FormBuilder,
     private alert: AlertService
   ) {
@@ -57,6 +62,7 @@ export class UniversoNegociosComponent {
         service  : this.service.get(),
         serviceCanal  : this.serviceCanal.get(),
         serviceZona  : this.serviceZona.get(),
+        serviceDistrito  : this.serviceDistrito.get(),
         
       }
       ).subscribe({
@@ -65,21 +71,25 @@ export class UniversoNegociosComponent {
           const models = value.service.data;
           this.canals = value.serviceCanal.data
           this.zonas = value.serviceZona.data
-
+          this.distritos = value.serviceDistrito.data
          
 
           models.forEach((model,index) => {
 
-
+            const miDistrito = this.distritos.find(y=>y.id == model.idDistrito)
             const nuevoModelo = this.fb.group({
               id: [model.id],
               idCanal: [model.idCanal],
               idZona: [model.idZona],
+              idDistrito: [model.idDistrito],
               valor: [model.valor],
+              fechaRegistro: [model.fechaRegistro],
+              fechaModificacion: [model.fechaModificacion],
 
             });
   
             this.modelosArray.push(nuevoModelo);
+            this.arrDistritos[index] = this.distritos.filter(x=>x.idZona == miDistrito?.idZona)
           });
   
           if(models.length==0){
@@ -97,6 +107,7 @@ export class UniversoNegociosComponent {
 
   cambiaZona(e:Event,index: number) {
     const valor = (e.target as HTMLInputElement).value
+    this.arrDistritos[index] = this.distritos.filter(x=>x.idZona == parseInt(valor))
   }
 
   editModel(num: number) {
@@ -104,7 +115,7 @@ export class UniversoNegociosComponent {
     const filas:UniversoNegocios[] = this.modelosArray.value;
     const modelo:UniversoNegocios = this.modelosArray.controls[num].getRawValue();
 
-    if(modelo.idCanal==0 || modelo.idZona==0 ){
+    if(modelo.idCanal==0 || modelo.idZona==0  ||  modelo.idDistrito==0){
       this.alert.showAlert('Advertencia','Debe llenar todos los campos','warning');
       return;
     }
@@ -117,11 +128,12 @@ export class UniversoNegociosComponent {
     const exists = filas.some(fila => 
       fila.id != modelo.id &&
       fila.idCanal == modelo.idCanal && 
-      fila.idZona == modelo.idZona 
+      fila.idZona == modelo.idZona && 
+      fila.idDistrito == modelo.idDistrito
     );
     
     if (exists) {
-      this.alert.showAlert('Advertencia', 'Ya existe una muestra ideal con las mismas características','warning');
+      this.alert.showAlert('Advertencia', 'Ya existe un universo con las mismas características','warning');
       return;
     }
 
@@ -145,6 +157,7 @@ export class UniversoNegociosComponent {
       id: [0],
       idCanal: [0],
       idZona: [0],
+      idDistrito: [0],
       valor: [0],
     });
 
@@ -157,7 +170,7 @@ export class UniversoNegociosComponent {
     const filas:UniversoNegocios[] = this.modelosArray.value;
     const modelo:UniversoNegocios = this.modelosArray.controls[num].getRawValue();
 
-    if(modelo.idCanal==0 || modelo.idZona==0 ){
+    if(modelo.idCanal==0 || modelo.idZona==0  ||  modelo.idDistrito==0){
       this.alert.showAlert('Advertencia','Debe llenar todos los campos','warning');
       return;
     }
@@ -170,7 +183,8 @@ export class UniversoNegociosComponent {
     const exists = filas.some(fila => 
       fila.id != modelo.id &&
       fila.idCanal == modelo.idCanal && 
-      fila.idZona == modelo.idZona 
+      fila.idZona == modelo.idZona && 
+      fila.idDistrito == modelo.idDistrito
     );
     
     if (exists) {

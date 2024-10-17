@@ -13,16 +13,20 @@ import { AtributoTecnicoVariedadValor } from '../../../../../interface/atributoT
   templateUrl: './categoria-valor.component.html'
 })
 export class CategoriaValorComponent implements OnInit, OnChanges{
+
   @Input()
   categoriaAtributoTecnico=CategoriaAtributoTecnicoInit;
 
   atributoTecnicoVariedadValors : AtributoTecnicoVariedadValor[] = [];
 
   showLoading = false;
+  searchText = '';
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
   });;
+
+  totalModelos : FormArray<any> | undefined;
 
 
   constructor(
@@ -62,9 +66,11 @@ export class CategoriaValorComponent implements OnInit, OnChanges{
               idAtributoTecnicoVariedadValor:[model.idAtributoTecnicoVariedadValor],
               comentario:[model.comentario],
             });
-  
+
             this.modelosArray.push(nuevoModelo);
+           
           });
+          this.totalModelos = this.modelosArray;
   
           if(models.length==0){
             this.add();
@@ -77,7 +83,16 @@ export class CategoriaValorComponent implements OnInit, OnChanges{
   }
 
   get modelosArray() {
+    const modelos = this.models.get('modelos') as FormArray;
+
     return this.models.get('modelos') as FormArray;
+  }
+
+  getVisibleBusqueda(idAtributoTecnicoVariedadValor:number) {
+    const atributo = this.atributoTecnicoVariedadValors.find(x=>x.id == idAtributoTecnicoVariedadValor);
+
+    return !(atributo?.valor.search(this.searchText)!=-1)
+
   }
 
   editModel(num: number) {

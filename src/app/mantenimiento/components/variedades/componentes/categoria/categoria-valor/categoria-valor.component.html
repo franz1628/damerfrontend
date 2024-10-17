@@ -1,3 +1,5 @@
+<input type="text" [(ngModel)]="searchText" class="form-control mb-3" placeholder="Buscar...">
+
 <form [formGroup]="models">
     <div formArrayName="modelos">
         <table class="table text-center table-sm">
@@ -13,7 +15,7 @@
             <tbody>
                 @if (modelosArray.controls.length!=0) {
                   @for (model of modelosArray.controls; track $index) {
-                    <tr [formGroupName]="$index" (click)="selectAtributo($index)">
+                    <tr [formGroupName]="$index" (click)="selectAtributo($index)" [hidden]="getVisibleBusqueda(model.get('idAtributoTecnicoVariedadValor')?.value)">
                       <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
                       <td> 
                         <select class="form-select form-select-sm" formControlName="idAtributoTecnicoVariedadValor">

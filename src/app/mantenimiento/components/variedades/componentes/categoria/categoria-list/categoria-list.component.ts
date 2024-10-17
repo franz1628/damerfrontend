@@ -51,10 +51,19 @@ export class CategoriaListComponent {
 
   delete(model: Categoria) {
     this.showLoading = true
-    this.service.delete(model).subscribe(() => {
-      this.showLoading = false;
-      this.alert.showAlert('¡Éxito!', 'Se eliminó correctamente', 'success');
-      this.updateModelsEmit.emit()
+    this.service.delete(model).subscribe((x) => {
+
+      if(x.state==1){
+        this.showLoading = false;
+        this.alert.showAlert('¡Éxito!', 'Se eliminó correctamente', 'success');
+        this.updateModelsEmit.emit()
+      }else{
+        this.showLoading = false;
+        //this.updateModelsEmit.emit(+this.myForm.get('idMegaCategoria')?.value);
+        this.alert.showAlert('¡Advertencia!', x.message, 'warning');
+      }
+
+    
     });
   }
 }

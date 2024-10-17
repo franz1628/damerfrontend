@@ -86,10 +86,17 @@ export class CategoriaFormComponent {
        
       });
     } else {
-      this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
-        this.showLoading = false;
-        this.updateModelsEmit.emit(+this.myForm.get('idMegaCategoria')?.value);
-        this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+      this.service.update(this.currentModel.id, this.currentModel).subscribe((x) => {
+        if(x.state==1){
+          this.showLoading = false;
+          this.updateModelsEmit.emit(+this.myForm.get('idMegaCategoria')?.value);
+          this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+        }else{
+          this.showLoading = false;
+          //this.updateModelsEmit.emit(+this.myForm.get('idMegaCategoria')?.value);
+          this.alert.showAlert('¡Advertencia!', x.message, 'warning');
+        }
+       
       });
     }
   }
