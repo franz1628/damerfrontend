@@ -271,7 +271,7 @@ export class ContratoFormComponent implements OnInit {
   guardarContrato(contratoDetalles: ContratoDetalle[]) {
     const model = this.model.value;
 
-    if (model.fechaInicio == "" || model.fechaFin == "") {
+    if (model.fechaInicio == "" || model.fechaFin == "" ) {
       this.alert.showAlert("Mensaje", "Debe elegir fechas", "warning");
       return;
     }
