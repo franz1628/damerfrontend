@@ -16,6 +16,7 @@
                     <th>Descripcion</th>
                     <th>Estado</th>
                     <th>Creación</th>
+                    <th>Modificación<th>
                     <th>Medición</th>
                     <th> Acción</th>
                 </tr>
@@ -40,7 +41,10 @@
                         }
                     </td>
                     <td>
-                        {{(model.fechaRegistro||'').toString().substring(0,10)}}
+                        {{(model.fechaRegistro||'').toString().substring(0,19)}}
+                    </td>
+                    <td>
+                        {{(model.fechaModificacion||'').toString().substring(0,19)}}
                     </td>
                     <td>{{model.medicion}}</td>
                     <td>

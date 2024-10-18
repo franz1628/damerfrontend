@@ -48,13 +48,13 @@
                                     <td>{{contrato.id}}</td>
                                     <td>{{contrato.version}}</td>
                                     <td>{{contrato.diaEntrega}}</td>
-                                    <td>{{contrato.fechaAprobacion}}</td>
-                                    <td>{{contrato.fechaModificacion}}</td>
-                                    <td>{{contrato.fechaInicio}}</td>
-                                    <td>{{contrato.fechaFin}}</td>
+                                    <td>{{contrato.fechaAprobacion.substring(0,10)}}</td>
+                                    <td>{{contrato.fechaModificacion.substring(0,10)}}</td>
+                                    <td>{{contrato.fechaInicio.substring(0,10)}}</td>
+                                    <td>{{contrato.fechaFin.substring(0,10)}}</td>
                                     <td>{{contrato.extension?'SI':'NO'}}</td>
                                     <td>{{contrato.Frecuencia.descripcion}}</td>
-                                    <td>{{contrato.shot?'SI':'NO'}}</td>
+                                    <td>{{contrato.shot?'SI':'NO'}}</td> 
                                     <td>{{contrato.EstadoContrato.descripcion}}</td>
                                     <td>
                                         <button class="btn btn-sm btn-info" (click)="asignaFormContrato(contrato)">

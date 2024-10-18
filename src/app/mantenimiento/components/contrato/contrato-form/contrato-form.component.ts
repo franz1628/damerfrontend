@@ -275,6 +275,11 @@ export class ContratoFormComponent implements OnInit {
       this.alert.showAlert("Mensaje", "Debe elegir fechas", "warning");
       return;
     }
+
+    if (model.idFrecuencia == 0) {
+      this.alert.showAlert("Mensaje", "Debe elegir una frecuencia", "warning");
+      return;
+    }
     this.showLoading = true;
     
 
@@ -295,8 +300,8 @@ export class ContratoFormComponent implements OnInit {
       Cliente: ClienteInit,
       EstadoContrato: EstadoContratoInit,
       Frecuencia: FrecuenciaInit,
-      fechaAprobacion:new Date(),
-      fechaModificacion:new Date(),
+      fechaAprobacion:'',
+      fechaModificacion:'',
     };
 
     this.serviceContrato.add(contrato).subscribe(x => {

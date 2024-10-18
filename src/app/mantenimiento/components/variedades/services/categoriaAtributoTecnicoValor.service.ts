@@ -6,6 +6,20 @@ import { Response } from '../../../../shared/interfaces/response.interface';
 import { Categoria } from '../interfaces/categoria.interface';
 import { CategoriaAtributoTecnicoValor } from '../interfaces/categoriaAtributoTecnicoValor';
 
+export interface ResponseCategoriaAtributoTecnicoValor {
+
+  data: CategoriaAtributoTecnicoValor[],
+  state: number,
+  message: string
+}
+
+export interface ResponseOneCategoriaAtributoTecnicoValor {
+
+  data: CategoriaAtributoTecnicoValor,
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,7 +53,7 @@ export class CategoriaAtributoTecnicoValorService {
     return this.http.put<CategoriaAtributoTecnicoValor>(`${this.apiUrl}/${id}`, model);
   }
 
-  delete(model: CategoriaAtributoTecnicoValor): Observable<CategoriaAtributoTecnicoValor> {
-    return this.http.delete<CategoriaAtributoTecnicoValor>(`${this.apiUrl}/${model.id}`);
+  delete(model: CategoriaAtributoTecnicoValor): Observable<ResponseOneCategoriaAtributoTecnicoValor> {
+    return this.http.delete<ResponseOneCategoriaAtributoTecnicoValor>(`${this.apiUrl}/${model.id}`);
   }
 }
