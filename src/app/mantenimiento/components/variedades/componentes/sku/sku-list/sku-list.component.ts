@@ -5,7 +5,7 @@ import { Sku } from '../../../interfaces/sku.interface';
 import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
 import { Canasta } from '../../../interfaces/canasta.interface';
 import { CategoriaService } from '../../../services/categoria.service';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-sku-list',
   templateUrl: './sku-list.component.html'
@@ -99,46 +99,64 @@ export class SkuListComponent implements OnChanges{
     this.searchText = texto
   }
 
-  exportExcel(){
-    this.skuExport = this.filteredModels()
-    const csvData = this.tableToCSV(this.skuExport);
-    this.downloadCSV(csvData, 'table-export.csv');
+  exportExcel() {
+    this.skuExport = this.filteredModels();  // Obtiene los SKUs filtrados
+    const worksheet = this.skusToWorksheet(this.skuExport);  // Convierte los SKUs a hoja de trabajo
+    const workbook = XLSX.utils.book_new();  // Crea un nuevo libro de trabajo (workbook)
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'SKUs');  // Añade la hoja al libro de trabajo
+    
+    // Exportar como archivo .xlsx
+    XLSX.writeFile(workbook, 'table-export.xlsx');
   }
 
-  tableToCSV(skus: Sku[]): string {
-    console.log(skus);
+  skusToWorksheet(skus: Sku[]): XLSX.WorkSheet {
+    const data: any[] = [];
     
-    const header = 'Codigo categoria;Categoria;Codigo Sku;Sku;Atributo;Tipo Unidad;Unidad Medida\n';
-    let excel = '';
+    // Añadir el encabezado
+    data.push([
+      'Codigo categoria',
+      'Categoria',
+      'Codigo Sku',
+      'Sku',
+      'Atributo',
+      'Tipo Unidad',
+      'Unidad Medida',
+      'Tipo Sku',
+      'Factor',
+      'Fecha Creacion'
+    ]);
 
+    // Añadir las filas de datos
     for (let i = 0; i < skus.length; i++) {
-      
-
-      if(skus[i].SkuAtributoTecnicoVariedadValor.length==0){
-        excel += `${skus[i].idCategoria};${skus[i].Categoria.descripcion};${skus[i].id};${skus[i].descripcion}`;
+      if (skus[i].SkuAtributoTecnicoVariedadValor.length == 0) {
+        data.push([
+          skus[i].idCategoria,
+          skus[i].Categoria.descripcion,
+          skus[i].id,
+          skus[i].descripcion,
+          '', '', '', '', '', ''  // Campos vacíos si no hay atributos
+        ]);
       }
 
       for (let k = 0; k < skus[i].SkuAtributoTecnicoVariedadValor.length; k++) {
         const skuAtri = skus[i].SkuAtributoTecnicoVariedadValor[k];
-        excel += `${skus[i].idCategoria};${skus[i].Categoria.descripcion};${skus[i].id};${skus[i].descripcion};${skuAtri.AtributoTecnicoVariedad?.descripcion || ''};${skuAtri.TipoUnidadMedida?.descripcion || ''};${skuAtri.UnidadMedida?.descripcion || '' }\n`;
+        data.push([
+          skus[i].idCategoria,
+          skus[i].Categoria.descripcion,
+          skus[i].id,
+          skus[i].descripcion,
+          skuAtri.AtributoTecnicoVariedad?.descripcion || '',
+          skuAtri.TipoUnidadMedida?.descripcion || '',
+          skuAtri.UnidadMedida?.descripcion || '',
+          skus[i].tipoSku || '',
+          skuAtri.valor || '',
+          skus[i].fechaRegistro || ''
+        ]);
       }
-      excel += '\n';
     }
-   /* const rows = skus.map(sku => 
-      sku.SkuAtributoTecnicoVariedadValor.map(atr => 
-        `${sku.idCategoria};${sku.Categoria.descripcion};${sku.id};${sku.descripcion};${atr.AtributoTecnicoVariedad?.descripcion || ''};${atr.TipoUnidadMedida?.descripcion || ''};${atr.UnidadMedida?.descripcion || ''}`
-      ).join('\n')
-    ).join('\n');*/
-    
-    return header + excel;
-  }
 
-  downloadCSV(csv: string, filename: string): void {
-    const csvFile = new Blob([csv], { type: 'text/csv' });
-    const downloadLink = document.createElement('a');
-    downloadLink.href = window.URL.createObjectURL(csvFile);
-    downloadLink.download = filename;
-    downloadLink.click();
+    // Convierte los datos a una hoja de trabajo XLSX
+    return XLSX.utils.aoa_to_sheet(data);
   }
 
 }

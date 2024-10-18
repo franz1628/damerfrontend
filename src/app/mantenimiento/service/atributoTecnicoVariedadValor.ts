@@ -7,6 +7,20 @@ import { AtributoTecnicoVariedad } from '../interface/atributoTecnicoVariedad';
 import { AtributoTecnicoVariedadValor } from '../interface/atributoTecnicoVariedadValor';
 import { CategoriaAtributoTecnico } from '../components/variedades/interfaces/categoriaAtributoTecnico';
 
+export interface ResponseAtributoTecnicoVariedadValor {
+
+  data: AtributoTecnicoVariedadValor[],
+  state: number,
+  message: string
+}
+
+export interface ResponseOneAtributoTecnicoVariedadValor {
+
+  data: AtributoTecnicoVariedadValor,
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,7 +51,7 @@ export class AtributoTecnicoVariedadValorService {
     return this.http.put<AtributoTecnicoVariedadValor>(`${this.apiUrl}/${id}`, model);
   }
 
-  delete(model: AtributoTecnicoVariedadValor): Observable<AtributoTecnicoVariedadValor> {
-    return this.http.delete<AtributoTecnicoVariedadValor>(`${this.apiUrl}/${model.id}`);
+  delete(model: AtributoTecnicoVariedadValor): Observable<ResponseOneAtributoTecnicoVariedadValor> {
+    return this.http.delete<ResponseOneAtributoTecnicoVariedadValor>(`${this.apiUrl}/${model.id}`);
   }
 }

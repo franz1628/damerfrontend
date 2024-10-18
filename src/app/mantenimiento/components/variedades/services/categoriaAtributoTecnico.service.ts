@@ -13,6 +13,12 @@ export interface ResponseCategoriaAtributoTecnico {
   message: string
 }
 
+export interface ResponseOneCategoriaAtributoTecnico {
+  data: CategoriaAtributoTecnico,
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,7 +52,7 @@ export class CategoriaAtributoTecnicoService {
     return this.http.put<CategoriaAtributoTecnico>(`${this.apiUrl}/${id}`, model);
   }
 
-  delete(model: CategoriaAtributoTecnico): Observable<CategoriaAtributoTecnico> {
-    return this.http.delete<CategoriaAtributoTecnico>(`${this.apiUrl}/${model.id}`);
+  delete(model: CategoriaAtributoTecnico): Observable<ResponseOneCategoriaAtributoTecnico> {
+    return this.http.delete<ResponseOneCategoriaAtributoTecnico>(`${this.apiUrl}/${model.id}`);
   }
 }

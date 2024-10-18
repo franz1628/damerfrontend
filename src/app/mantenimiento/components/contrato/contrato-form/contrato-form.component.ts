@@ -269,7 +269,13 @@ export class ContratoFormComponent implements OnInit {
   }
 
   guardarContrato(contratoDetalles: ContratoDetalle[]) {
+    
     const model = this.model.value;
+
+    if (contratoDetalles.length==0 ) {
+      this.alert.showAlert("Mensaje", "Debe generar el árbol de estudio, zona, canal", "warning");
+      return;
+    }
 
     if (model.fechaInicio == "" || model.fechaFin == "" ) {
       this.alert.showAlert("Mensaje", "Debe elegir fechas", "warning");

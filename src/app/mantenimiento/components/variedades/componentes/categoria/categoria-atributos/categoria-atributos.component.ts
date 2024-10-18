@@ -194,9 +194,15 @@ export class CategoriaAtributosComponent implements OnInit{
       this.showLoading = true;
 
       try {
-        await lastValueFrom(this.service.delete(modelo));
-        this.alert.showAlert('Mensaje', 'Eliminado correctamente', 'success');
-        this.loadModels();
+        const response = await lastValueFrom(this.service.delete(modelo));
+
+        if(response.state==1){
+          this.alert.showAlert('Mensaje', 'Eliminado correctamente', 'success');
+          this.loadModels();
+        }else{
+          this.alert.showAlert('Advertencia', response.message, 'warning');
+        }
+      
         this.showLoading = false;
       } catch (error) {
         this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');

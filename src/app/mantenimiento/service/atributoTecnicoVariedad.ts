@@ -12,6 +12,12 @@ export interface ResponseAtributoTecnicoVariedad {
   message: string
 }
 
+export interface ResponseOneAtributoTecnicoVariedad {
+  data: AtributoTecnicoVariedad,
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -36,7 +42,7 @@ export class AtributoTecnicoVariedadService {
     return this.http.put<AtributoTecnicoVariedad>(`${this.apiUrl}/${id}`, model);
   }
 
-  delete(model: AtributoTecnicoVariedad): Observable<AtributoTecnicoVariedad> {
-    return this.http.delete<AtributoTecnicoVariedad>(`${this.apiUrl}/${model.id}`);
+  delete(model: AtributoTecnicoVariedad): Observable<ResponseOneAtributoTecnicoVariedad> {
+    return this.http.delete<ResponseOneAtributoTecnicoVariedad>(`${this.apiUrl}/${model.id}`);
   }
 }

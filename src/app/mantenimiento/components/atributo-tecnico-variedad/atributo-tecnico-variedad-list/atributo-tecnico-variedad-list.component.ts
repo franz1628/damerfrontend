@@ -34,9 +34,16 @@ export class AtributoTecnicoVariedadListComponent {
   delete(model:AtributoTecnicoVariedad){
     this.alert.showAlertConfirm('Mensaje','¿Desea eliminarr?','warning',()=>{
       this.showLoading = true;
-      this.service.delete(model).subscribe(()=>{
+      this.service.delete(model).subscribe((x)=>{
+        if(x.state == 1){
+        
+          this.alert.showAlert('Exito','Eliminado correctamente','success');
+          this.actualizarList();
+        }else{
+          this.alert.showAlert('Advertencia',x.message,'success');
+        }
         this.showLoading = false;
-        this.actualizarList();
+        
       });
     });
   }
