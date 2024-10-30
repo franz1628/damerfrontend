@@ -11,6 +11,9 @@ export interface Zona {
     alias2: string,
     alias3: string,
     estado: number,
+    planificadorRuta:number,
+    idZona:number,
+    ZonaPrincipal:Zona|null,
     fechaModificacion:string,
     fechaRegistro:string,
 }
@@ -26,6 +29,9 @@ export const ZonaInit: Zona = {
     alias2: "",
     alias3: "",
     estado: 1,
+    planificadorRuta:1,
+    idZona:0,
+    ZonaPrincipal:null,
     fechaModificacion:'',
     fechaRegistro:'',
   };

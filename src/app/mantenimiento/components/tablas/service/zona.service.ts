@@ -23,6 +23,10 @@ export class ZonaService {
     return this.http.get<Response>(this.apiUrl);
   }
 
+  getPrincipales(): Observable<ResponseZona> {
+    return this.http.get<ResponseZona>(`${this.apiUrl}/getPrincipales`);
+  }
+
   getId(id: number): Observable<Zona|undefined> {
     return this.http.get<Zona>(`${this.apiUrl}/${id}`).pipe(catchError(error=>of(undefined)));
   }
@@ -30,6 +34,11 @@ export class ZonaService {
   postDescripcion(descripcion: string): Observable<ResponseZona> {
     return this.http.post<ResponseZona>(`${this.apiUrl}/descripcion`, {descripcion});
   }
+
+  postDescripcionPrincipal(descripcion: string): Observable<ResponseZona> {
+    return this.http.post<ResponseZona>(`${this.apiUrl}/descripcionPrincipal`, {descripcion});
+  }
+
 
   add(model: Zona): Observable<Zona> {
     return this.http.post<Zona>(this.apiUrl, model);

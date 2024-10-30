@@ -12,6 +12,7 @@ import { TipoZona } from '../../../interface/tipoZona';
   templateUrl: './zona-form.component.html'
 })
 export class ZonaFormComponent {
+
   @Input()
   public model: Zona = ZonaInit
   public showLoading: boolean = false;
@@ -21,6 +22,8 @@ export class ZonaFormComponent {
     idTipoZona:['', Validators.required],
     descripcion: ['', Validators.required],
     numeroOrden: [0],
+    planificadorRuta:[1],
+    idZona:[0],
     alias1: [''],
     alias2: [''],
     alias3: [''],
@@ -28,6 +31,11 @@ export class ZonaFormComponent {
   })
 
   public listTipoZona : TipoZona[] = [];
+  listPrincipales : Zona[] = [];
+  textBusquedaZona: string='';
+  listaResultadosBusqueda:Zona[] = []
+  zonaElegida:Zona = ZonaInit
+  selectIndex:number=-1
   
   constructor(
     public alert: AlertService, 
@@ -41,6 +49,7 @@ export class ZonaFormComponent {
   ngOnInit(){
     this.showLoading = true
     this.serviceTipoZona.get().subscribe(response => { this.showLoading = false; this.listTipoZona = response.data });
+    this.service.getPrincipales().subscribe(x=>this.listPrincipales = x.data)
   }
   
   get currentModel() {
@@ -70,6 +79,17 @@ export class ZonaFormComponent {
       });
     }
   }
+  
+  buscarZona() {
+    this.service.postDescripcionPrincipal(this.textBusquedaZona).subscribe(x=>{
+      this.listaResultadosBusqueda = x.data
+    })
+  }
+
+  elegirZona() {
+    this.myForm.patchValue({idZona:this.zonaElegida.id});
+  }
+    
 
   setModel(model: Zona) {
     this.myForm.patchValue(model);

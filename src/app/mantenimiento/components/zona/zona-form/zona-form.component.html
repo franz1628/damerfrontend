@@ -51,6 +51,36 @@
             </div>
 
             <div class="mb-3 row">
+                <label for="planificadorRuta" class="col-md-4 col-form-label-sm">Planificador Ruta</label>
+                <div class="col-sm-8">
+                    <select class="form-select-sm form-select" formControlName="planificadorRuta">
+                        <option value="1">SI</option>
+                        <option value="0">NO</option>
+                    </select>
+                </div>
+                <span *ngIf="isValidField('planificadorRuta')" class="form-text text-danger">
+                    {{ getFieldError('planificadorRuta') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="idZona" class="col-md-4 col-form-label-sm">Zona Principal</label>
+                <div class="col-sm-8">
+                
+
+                    <div class="input-group mb-3">
+                        <input type="text" readonly class="form-control form-control-sm" [value]="zonaElegida.descripcion">
+                        <button class="btn btn-sm btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-search"></i></button>
+                    </div>
+
+                   
+                </div>
+                <span *ngIf="isValidField('idZona')" class="form-text text-danger">
+                    {{ getFieldError('idZona') }}
+                </span>
+            </div>
+
+            <div class="mb-3 row">
                 <label for="alias1" class="col-md-4 col-form-label-sm">Alias</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control form-control-sm" placeholder="alias1" name="alias1"
@@ -80,3 +110,46 @@
         </form>
     </div>
 </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Buscar Zona Principal</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"> 
+            <div class="input-group mb-3">
+                <input type="text" class="form-control form-control-sm"  [(ngModel)]="textBusquedaZona"/>
+                <button class="btn btn-sm btn-info" type="button" (click)="buscarZona()"><i class="bi bi-search"></i></button>
+            </div>
+
+            <table class="table table-sm table-bordered mt-4">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Descripcion</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @for (zona of listaResultadosBusqueda; track $index) {
+                        <tr (click)="zonaElegida = zona;this.selectIndex=$index"  [ngClass]="{'selected-row': $index === selectIndex}">
+                            <td>{{zona.id}}</td>
+                            <td>{{zona.descripcion}}</td>
+                        </tr>
+                    }@empty {
+                        <tr>
+                            <td colspan="2">No hay resultados...</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="elegirZona()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
