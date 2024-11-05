@@ -1,3 +1,4 @@
+import { Usuario, UsuarioInit } from "../../login/interfaces/usuario";
 import { Categoria, CategoriaInit } from "../components/variedades/interfaces/categoria.interface";
 import { Cliente, ClienteInit } from "./cliente";
 import { EstadoContrato, EstadoContratoInit } from "./estadoContrato";
@@ -21,7 +22,9 @@ export interface Contrato {
     Categoria : Categoria, 
     Cliente:Cliente,
     EstadoContrato:EstadoContrato,
-    Frecuencia:Frecuencia
+    Frecuencia:Frecuencia,
+    idUsuario:number,
+    Usuario:Usuario
     
 }
 export const ContratoInit: Contrato = {
@@ -42,5 +45,7 @@ export const ContratoInit: Contrato = {
     Categoria : CategoriaInit,
     Cliente:ClienteInit,
     EstadoContrato:EstadoContratoInit,
-    Frecuencia:FrecuenciaInit
+    Frecuencia:FrecuenciaInit,
+    idUsuario:1,
+    Usuario:UsuarioInit
 };

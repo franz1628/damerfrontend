@@ -7,7 +7,7 @@ import { environments } from '../../environments/environments';
 
 
 export interface ResponseUsuario {
-  data: Usuario[],
+  data: Usuario,
   state: number,
   message: string
 }
@@ -43,6 +43,10 @@ export class AuthService {
       map(response => {
         if (response.state === 1) {
           this.isAuthenticated = true;
+
+          const usuario:Usuario = response.data;
+          localStorage.setItem("usuario", JSON.stringify(usuario));
+
           this.router.navigate(['/']); 
           return true;
         } else {

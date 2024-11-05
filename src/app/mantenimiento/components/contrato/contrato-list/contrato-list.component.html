@@ -30,6 +30,7 @@
                                 <tr class="fs-6">
                                     <th>Nº Contrato</th>
                                     <th>Ver.</th>
+                                    <th>Usuario</th>
                                     <th>Dia entrega</th>
                                     <th>Aprobación</th>
                                     <th>Modificación</th>
@@ -47,6 +48,7 @@
                                 <tr>
                                     <td>{{contrato.id}}</td>
                                     <td>{{contrato.version}}</td>
+                                    <td>{{contrato.Usuario.nombres + ' ' + contrato.Usuario.apellidoPaterno}}</td>
                                     <td>{{contrato.diaEntrega}}</td>
                                     <td>{{contrato.fechaAprobacion.substring(0,10)}}</td>
                                     <td>{{contrato.fechaModificacion.substring(0,10)}}</td>

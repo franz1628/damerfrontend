@@ -10,9 +10,10 @@
                         <tr>
                             <th>Item</th>
                             <th>Categoria </th>
+                            <th>Medicion</th>
+                            <th>Zona Proyectada</th>
                             <th>Canal </th>
-                            <th>Zona</th>
-                            <th>Valor</th>
+                            <th>FPenetracion</th>
                             <th>Acción</th>
                         </tr>
           
@@ -34,10 +35,10 @@
                               </td>
 
                               <td>
-                                <select class="form-select form-select-sm" formControlName="idCanal">
+                                <select class="form-select form-select-sm" formControlName="idMedicion" >
                                     <option value="0">SELECCIONAR</option>
-                                    @for (canal of canals; track $index) {
-                                        <option value={{canal.id}}>{{canal.descripcion}}</option>
+                                    @for (medicion of medicions; track $index) {
+                                        <option value={{medicion.id}}>{{medicion.medicion}}</option>
                                     }
                                 </select>
                               </td>
@@ -50,6 +51,17 @@
                                     }
                                 </select>
                               </td>
+
+                              <td>
+                                <select class="form-select form-select-sm" formControlName="idCanal">
+                                    <option value="0">SELECCIONAR</option>
+                                    @for (canal of canals; track $index) {
+                                        <option value={{canal.id}}>{{canal.descripcion}}</option>
+                                    }
+                                </select>
+                              </td>
+
+                            
                               
                            
                               <td> <input type="number" class="form-control form-control-sm" formControlName="valor"> </td>

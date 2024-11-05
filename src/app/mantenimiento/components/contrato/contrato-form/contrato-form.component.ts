@@ -39,6 +39,7 @@ import { ContratoVariableService } from '../../../service/contratoVariable';
 import { ContratoUnidadVentaService } from '../../../service/contratoUnidadVenta';
 import { ContratoMesService } from '../../../service/contratoMes';
 import { ContratoEtiquetasComponent } from '../contrato-etiquetas/contrato-etiquetas.component';
+import { UsuarioInit } from '../../../../login/interfaces/usuario';
 
 @Component({
   selector: 'app-contrato-form',
@@ -308,6 +309,8 @@ export class ContratoFormComponent implements OnInit {
       Frecuencia: FrecuenciaInit,
       fechaAprobacion:'',
       fechaModificacion:'',
+      idUsuario:JSON.parse(localStorage.getItem('usuario')||'').id,
+      Usuario : UsuarioInit
     };
 
     this.serviceContrato.add(contrato).subscribe(x => {

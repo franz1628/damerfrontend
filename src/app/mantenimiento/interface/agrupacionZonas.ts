@@ -14,7 +14,8 @@ export interface AgrupacionZonas {
     alias1: string,
     alias2: string,
     alias3: string,
-    fechaRegistro:Date,
+    fechaRegistro:string,
+    fechaModificacion:string,
     estado:number
 }
 export const AgrupacionZonasInit: AgrupacionZonas = {
@@ -28,7 +29,8 @@ export const AgrupacionZonasInit: AgrupacionZonas = {
     alias1: '',
     alias2: '',
     alias3: '',
-    fechaRegistro:new Date(),
+    fechaRegistro:'',
+    fechaModificacion:'',
     estado:1
 
 

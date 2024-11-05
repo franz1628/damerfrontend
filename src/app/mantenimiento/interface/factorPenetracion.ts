@@ -5,7 +5,9 @@ export interface FactorPenetracion {
     idCategoria: number,
     valor:number,    
     estado: number,
-    fechaRegistro: Date,
+    idMedicion:number,
+    fechaRegistro: string,
+    fechaModificacion:string
     
 }
 export const FactorPenetracionInit: FactorPenetracion = {
@@ -15,5 +17,7 @@ export const FactorPenetracionInit: FactorPenetracion = {
     idCategoria: 0,
     valor:0,    
     estado: 1,
-    fechaRegistro:new Date(),
+    idMedicion:0,
+    fechaRegistro:'',
+    fechaModificacion:'',
 };

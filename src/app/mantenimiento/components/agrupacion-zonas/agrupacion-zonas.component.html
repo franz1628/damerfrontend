@@ -11,13 +11,13 @@
             <thead class="table-success fs-6">
                 <tr>
                     <th>Item</th>
+                    <th>Tipo  </th>
+                    <th>Tipo Z Grupo</th>
                     <th>Descripcion </th>
-                    <th>Resumida </th>
-   
-                    <th>Tipo 1 </th>
-                    <th>Tipo 2</th>
-                    <th>Tipo 3</th>
-                    <th>Alias 1</th>
+                    <th>Tip </th>
+                    <th>Estatus</th>
+                    <th>Modificacion</th>
+                    <th>Usuario</th>
                     <th>Acción</th>
                 </tr>
   
@@ -27,9 +27,7 @@
                   @for (model of modelosArray.controls; track $index) {
                     <tr [formGroupName]="$index" (click)="selectAtributo($index)" [ngClass]="{'selected-row': $index === selectedRowIndex}"  >
                       <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
-                      <td> <input class="form-control form-control-sm" formControlName="descripcion"> </td>
-                      <td> <input class="form-control form-control-sm" formControlName="descripcionResumida"> </td>
-  
+
                       <td>
                         <select class="form-select form-select-sm" formControlName="idTipoAgrupacion1">
                             <option value="0">SELECCIONAR</option>
@@ -37,7 +35,7 @@
                             <option value="2">COMPUESTA</option>
                         </select>
                       </td>
-                     
+
                       <td>
                         <select class="form-select form-select-sm" formControlName="idTipoAgrupacion2">
                             <option value="0">SELECCIONAR</option>
@@ -46,18 +44,26 @@
                         </select>
                       </td>
 
+                      <td> <input class="form-control form-control-sm" formControlName="descripcion"> </td>
+
+                      <td> <input class="form-control form-control-sm" formControlName="tip"> </td>
+
                       <td>
-                        <select class="form-select form-select-sm" formControlName="idTipoAgrupacion3">
-                            <option value="0">SELECCIONAR</option>
-                            <option value="1">CONSOLIDADA</option>
-                            <option value="2">PROYECTADA</option>
-                        </select>
+
+                        @if(model.get('estado')?.value=='1'){
+                          <span class="badge text-bg-success">ACTIVO</span>
+                        }@else {
+                          <span class="badge text-bg-warning">SUSPENDIDO</span>
+                        }
+
                       </td>
-                    
+                      <td> {{model.get('fechaModificacion')?.value?.substring(0,10)}} </td>
+  
                      
-                      <td> <input class="form-control form-control-sm" formControlName="alias1"> </td>
+                      <td></td>
+                     
+                     
                       
-            
                       
                       <td class="text-start">
                           <div class="btn-group ">

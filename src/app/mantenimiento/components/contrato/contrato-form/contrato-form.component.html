@@ -266,7 +266,7 @@
                                         <input type="checkbox" class="form-check-input" name="categoriaUnidadVentas"
                                             [formControlName]="i" id="categoriaUnidadVenta_{{ i }}">
                                         <label class="form-check-label"
-                                            for="categoriaUnidadVenta_{{ i }}">{{categoriaUnidadVentas[i].UnidadVenta.descripcion||''}}</label>
+                                            for="categoriaUnidadVenta_{{ i }}">{{categoriaUnidadVentas[i]?.UnidadVenta?.descripcion||''}}</label>
                                     </div>
                                 </div>
                                 <span *ngIf="isValidField('categoriaUnidadVentas')" class="form-text text-danger">

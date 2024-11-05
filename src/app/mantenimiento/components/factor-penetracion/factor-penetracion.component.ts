@@ -11,6 +11,8 @@ import { CanalService } from '../tablas/service/canal.sevice';
 import { ZonaService } from '../tablas/service/zona.service';
 import { AlertService } from '../../../shared/services/alert.service';
 import { forkJoin, lastValueFrom } from 'rxjs';
+import { MedicionService } from '../../service/medicion.service';
+import { Medicion } from '../../interface/medicion';
 
 @Component({
   selector: 'app-factor-penetracion',
@@ -28,6 +30,7 @@ export class FactorPenetracionComponent {
   categorias:Categoria[] = []
   canals:Canal[] = []
   zonas: Zona[] = []
+  medicions:Medicion[] = []
   
 
   models: FormGroup = this.fb.group({
@@ -39,6 +42,7 @@ export class FactorPenetracionComponent {
     private serviceCategoria: CategoriaService,
     private serviceCanal: CanalService,
     private serviceZona: ZonaService,
+    private serviceMedicion:MedicionService,
     private fb: FormBuilder,
     private alert: AlertService
   ) {
@@ -64,7 +68,8 @@ export class FactorPenetracionComponent {
         service  : this.service.get(),
         serviceCategoria  : this.serviceCategoria.get(),
         serviceCanal  : this.serviceCanal.get(),
-        serviceZona  : this.serviceZona.get(),
+        serviceZona  : this.serviceZona.getProyectada(),
+        serviceMedicion: this.serviceMedicion.get()
       }
       ).subscribe({
         next:value => {
@@ -73,6 +78,7 @@ export class FactorPenetracionComponent {
           this.categorias = value.serviceCategoria.data
           this.canals = value.serviceCanal.data
           this.zonas = value.serviceZona.data
+          this.medicions = value.serviceMedicion.data
 
           models.forEach((model,index) => {
 
@@ -82,6 +88,7 @@ export class FactorPenetracionComponent {
               idCanal: [model.idCanal],
               idZona: [model.idZona],
               valor: [model.valor],
+              idMedicion: [model.idMedicion],
 
             });
   
@@ -154,6 +161,7 @@ export class FactorPenetracionComponent {
       idZona: [0],
       idDistrito: [0],
       valor: [0],
+      idMedicion: [0],
     });
 
     this.modelosArray.push(nuevoModelo);

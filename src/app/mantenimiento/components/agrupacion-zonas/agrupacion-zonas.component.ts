@@ -55,6 +55,9 @@ export class AgrupacionZonasComponent implements OnInit {
           alias1: [model.alias1],
           alias2: [model.alias2],
           alias3: [model.alias3],
+          fechaRegistro: [model.fechaRegistro],
+          fechaModificacion: [model.fechaModificacion],
+          estado: [model.estado],
         });
 
         this.modelosArray.push(nuevoModelo);
