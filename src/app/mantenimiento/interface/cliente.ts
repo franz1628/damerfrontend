@@ -1,8 +1,11 @@
+import { Usuario, UsuarioInit } from "../../login/interfaces/usuario";
+
 export interface Cliente {
     id: number,
     codigo: number,
     area:string,
     idPais: number,
+    idUsuario: number,
     razonSocial: string,
     razonSocialAbreviada: string,
     razonSocialTip: string,
@@ -18,7 +21,8 @@ export interface Cliente {
     alias3: string,
     estado: number,
     fechaRegistro: Date,
-    fechaModificacion:string
+    fechaModificacion:string,
+    Usuario:Usuario
     
 }
 export const ClienteInit: Cliente = {
@@ -26,6 +30,7 @@ export const ClienteInit: Cliente = {
     codigo: 0,
     area:'',
     idPais: 0,
+    idUsuario: 0,
     razonSocial: '',
     razonSocialAbreviada: '',
     razonSocialTip: '',
@@ -41,5 +46,6 @@ export const ClienteInit: Cliente = {
     alias3: '',
     estado: 1,
     fechaRegistro: new Date(),
-    fechaModificacion:''
+    fechaModificacion:'',
+    Usuario:UsuarioInit
 };

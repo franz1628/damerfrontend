@@ -9,6 +9,7 @@
                     <th>Razon Social</th>
                    
                     <th>RUC</th>
+                    <th>Usuario</th>
                     <th>Estado</th>
                     <th>Creacion</th>
                     <th>Modificacion</th>
@@ -24,6 +25,7 @@
                         <td>{{model.razonSocial}}</td>
                         
                         <td>{{model.ruc}}</td>
+                        <td>{{(model.Usuario.nombres || ' ') + ' ' + model.Usuario.apellidoPaterno || ' ' }}</td>
                         <td>  <app-badge-estado [estado]="model.estado"></app-badge-estado> </td>
                         <td>{{model.fechaRegistro.toString().slice(0,10)}}</td>
                         <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>

@@ -90,6 +90,11 @@ export class ContratoListComponent implements OnInit{
 
   asignaFormContrato(contrato:Contrato){
     this.contrato = contrato;
+    this.contrato.fechaAprobacion = this.contrato.fechaAprobacion.substring(0,10)
+    this.contrato.fechaModificacion = this.contrato.fechaModificacion.substring(0,10)
+    this.contrato.fechaInicio = this.contrato.fechaInicio.substring(0,10)
+    this.contrato.fechaFin = this.contrato.fechaFin.substring(0,10)
+    
     this.model.patchValue({...contrato});
   }
 
