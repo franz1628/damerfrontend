@@ -18,11 +18,12 @@ import { ContratoEdicionComponent } from '../contrato-edicion/contrato-edicion.c
 })
 export class ContratoListComponent implements OnInit{
 
-  contratos:Contrato[]=[];
+  contratos:Contrato[]=[];  
   listContratosGrupo:Contrato[][] = [];
   contrato:Contrato=ContratoInit;
   frecuencias:Frecuencia[] = [];
   estadoContratos:EstadoContrato[] = []; 
+  selectIndex:number=-1
 
   @ViewChild('botonCerrarModalEstado') botonCerrarModalEstado!: ElementRef;
   @Output()emitEditarContrato:EventEmitter<Contrato> = new EventEmitter();
@@ -165,6 +166,12 @@ export class ContratoListComponent implements OnInit{
 
   getFieldErrorEstadoContrato(field: string): string | null {
     return this.validForm.getFieldError(field, this.modelEstadoContrato);
+  }
+
+  elegir(index: number,model:Contrato) {
+    this.selectIndex=index
+   
+
   }
 
 }

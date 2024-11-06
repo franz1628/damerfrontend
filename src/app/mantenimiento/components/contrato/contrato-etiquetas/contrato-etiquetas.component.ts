@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { TipoEstudioService } from '../../../service/tipoEstudio';
 import { ClienteZona } from '../../../interface/clienteZona';
 import { ClienteCanal } from '../../../interface/clienteCanal';
-import { TipoEstudio } from '../../../interface/tipoEstudio';
+import { TipoEstudio, TipoEstudioInit } from '../../../interface/tipoEstudio';
 import { AtributoFuncionalVariedad } from '../../../interface/atributoFuncionalVariedad';
 import { TipoInformeOrden } from '../../../interface/tipoInformeOrden';
 import { AlertService } from '../../../../shared/services/alert.service';
@@ -139,6 +139,7 @@ export class ContratoEtiquetasComponent implements OnInit {
   }
 
   actualizarEtiquetas(idCliente:number,idCategoria:number):void{
+    this.tipoEstudios = [TipoEstudioInit]
     this.serviceClienteZona.postIdCliente(idCliente).subscribe((x) => {
       this.zonas = x.data;
       this.contratoForm.zonas = [];
