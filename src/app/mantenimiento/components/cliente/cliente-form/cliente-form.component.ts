@@ -30,6 +30,7 @@ export class ClienteFormComponent {
     alias1: [''],
     alias2: [''],
     alias3: [''],
+    idUsuario:[0]
   })
 
   @Output() actualizarListEmit: EventEmitter<null> = new EventEmitter();
@@ -64,6 +65,8 @@ export class ClienteFormComponent {
       this.model.markAllAsTouched();
       return;
     }
+
+    this.model.patchValue({idUsuario:JSON.parse(localStorage.getItem('usuario')||'').id})
 
     this.service.add(this.getModel).subscribe(resp => {
       this.reset();
