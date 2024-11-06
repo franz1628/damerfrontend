@@ -139,7 +139,7 @@ export class ContratoEtiquetasComponent implements OnInit {
   }
 
   actualizarEtiquetas(idCliente:number,idCategoria:number):void{
-    this.tipoEstudios = [TipoEstudioInit]
+   // this.tipoEstudios = [TipoEstudioInit]
     this.serviceClienteZona.postIdCliente(idCliente).subscribe((x) => {
       this.zonas = x.data;
       this.contratoForm.zonas = [];
