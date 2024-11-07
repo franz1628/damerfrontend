@@ -60,8 +60,8 @@
         </div>
 
     </div>
-    @if(model.id!=0){
-    <div class="tab-pane " id="direccion" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+    
+    <div class="tab-pane " id="direccion" role="tabpanel" aria-labelledby="profile-tab" tabindex="0" [hidden]="model.id==0">
         <div class="row mt-4">
             <div class="col-4">
                 <h6 class="mb-3 text-center">DIRECCIONES DE CLIENTE</h6>
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane " id="contacto" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+    <div class="tab-pane " id="contacto" role="tabpanel" aria-labelledby="contact-tab" tabindex="0" [hidden]="model.id==0">
         <div class="row mt-4">
             <div class="col-4">
                 <h6 class="mb-3 text-center">CONTACTOS DE CLIENTE</h6>
@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    <div class="tab-pane " id="categoria" role="tabpanel" aria-labelledby="categoria-tab" tabindex="0">
+    <div class="tab-pane " id="categoria" role="tabpanel" aria-labelledby="categoria-tab" tabindex="0" [hidden]="model.id==0">
         <div class="row mt-4">
             <div class="col-6">
                 <h6 class="mb-3 text-center">LISTADO CATEGORIAS CLIENTE</h6>
@@ -130,7 +130,7 @@
         }
     </div>
 
-    <div class="tab-pane " id="canal" role="tabpanel" aria-labelledby="canal-tab" tabindex="0">
+    <div class="tab-pane " id="canal" role="tabpanel" aria-labelledby="canal-tab" tabindex="0" [hidden]="model.id==0">
         <div class="row mt-4">
             <div class="col-4">
                 <h6 class="mb-3 text-center">CANAL DE CLIENTE</h6>
@@ -148,7 +148,7 @@
         </div>
     </div>
 
-    <div class="tab-pane " id="zona" role="tabpanel" aria-labelledby="zona-tab" tabindex="0">
+    <div class="tab-pane " id="zona" role="tabpanel" aria-labelledby="zona-tab" tabindex="0" [hidden]="model.id==0">
         <div class="row mt-4">
             <div class="col-4">
                 <h6 class="mb-3 text-center">ZONA DE CLIENTE</h6>
@@ -165,6 +165,6 @@
             </div>
         </div>
     </div>
-    }
+    
 
 </div>

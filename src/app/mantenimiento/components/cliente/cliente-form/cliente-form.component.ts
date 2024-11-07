@@ -14,21 +14,21 @@ import { catchError, throwError } from 'rxjs';
 export class ClienteFormComponent {
   public model = this.fb.group({
     id: [0],
-    codigo: [0,Validators.required],
+    codigo: [0],
     idPais: [1],
-    area: ['',Validators.required],
+    area: [''],
     razonSocial: ['',Validators.required],
     razonSocialAbreviada: [''],
     razonSocialTip: [''],
-    ruc: ['',Validators.required],
+    ruc: ['', [Validators.pattern(/^\d{1,11}$/)]],
     razonSocialCorporativa: [''],
     codigoRubro: [''],
     idCategorizacionCliente:  [0],
-    aniversario: [new Date(), [Validators.required,Validators.pattern(this.regexService.regexFecha)]],
+    aniversario: [new Date()],
     web: [''],
     mesCierre: [0],
     alias1: [''],
-    alias2: [''],
+    alias2: [''], 
     alias3: [''],
     idUsuario:[0]
   })

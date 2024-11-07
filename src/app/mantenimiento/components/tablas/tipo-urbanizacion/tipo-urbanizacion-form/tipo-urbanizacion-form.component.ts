@@ -17,7 +17,7 @@ export class TipoUrbanizacionFormComponent {
   public myForm: FormGroup = this.fb.group({
     id: [0],
     descripcion: ['', Validators.required],
-    descripcionResumida: ['', Validators.required],
+    descripcionResumida: [''],
   })
 
   constructor(

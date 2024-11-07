@@ -17,7 +17,7 @@ export class ClienteContactoListComponent {
   constructor(public service : ClienteContactoService){ }
 
   ngOnInit(): void {
-    this.actualizarList();
+    //this.actualizarList(this.getModel.id);
   }
 
   selectEdit(model:ClienteContacto){
@@ -28,9 +28,9 @@ export class ClienteContactoListComponent {
     return this.cliente;
   }
 
-  actualizarList(){
+  actualizarList(idCliente:number){
     this.loading=true;
-    this.service.getIdCliente(this.getModel.codigo).subscribe(resp => {
+    this.service.getIdCliente(idCliente).subscribe(resp => {
       this.models = resp.data;
       this.loading=false;
     })

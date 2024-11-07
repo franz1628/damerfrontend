@@ -53,7 +53,7 @@ export class ClienteContactoFormComponent {
       this.model.markAllAsTouched();
       return;
     }
-
+    this.model.patchValue({idCliente:this.cliente.codigo});
     this.service.add(this.getModel).subscribe(resp => {
       this.model.reset();
       this.actualizarList();
@@ -73,6 +73,7 @@ export class ClienteContactoFormComponent {
   }
 
   editar(){
+    this.model.patchValue({idCliente:this.cliente.codigo});
     this.service.update(this.getModel.id,this.getModel).pipe(
       catchError(error => {
         this.alert.showAlert('Mensaje',error.error.message,'warning');

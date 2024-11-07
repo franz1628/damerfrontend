@@ -51,12 +51,14 @@ export class DistritoFormComponent {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
+        this.myForm.reset()
       });
     }else{
       this.service.update(this.currentModel.id,this.currentModel).subscribe(() => {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+        this.myForm.reset()
       });
     }
   }

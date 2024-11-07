@@ -97,7 +97,7 @@ export class ClienteComponent {
   }
 
   actualizarContactoList(){
-    this.clienteContactoListComp.actualizarList();
+    this.clienteContactoListComp.actualizarList(this.model.id);
   }
 
   actualizarCategoriaList(){
@@ -113,10 +113,16 @@ export class ClienteComponent {
   }
 
   selectEdit(model:Cliente){
+    console.log(model);
+    
     this.model = model; 
     this.clienteAgrupacionCategoria = ClienteAgrupacionCategoriaInit
     
     this.clienteFormComp.selectEdit(model);
+    if(this.model.id!=0){
+
+      this.clienteContactoListComp.actualizarList(this.model.id);
+    }
   }
 
   resetModel(){
