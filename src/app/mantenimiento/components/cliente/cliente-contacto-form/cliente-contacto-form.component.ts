@@ -56,7 +56,7 @@ export class ClienteContactoFormComponent {
     this.model.patchValue({idCliente:this.cliente.id});
 
     this.service.add(this.getModel).subscribe(resp => {
-      this.model.reset();
+      this.model.patchValue(ClienteContactoInit)
       this.actualizarList();
     })
 
@@ -84,7 +84,7 @@ export class ClienteContactoFormComponent {
         this.alert.showAlert('Mensaje','Se modificó correctamente','success');
         this.actualizarList();
         this.model.clearValidators()
-        this.reset();
+        this.model.patchValue(ClienteContactoInit)
     });
   } 
 
