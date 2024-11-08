@@ -27,6 +27,8 @@ export class ClienteDireccionListComponent implements OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('cambio cliente');
+    
     if (changes['cliente']) {
       this.actualizarList();
     }
@@ -41,6 +43,8 @@ export class ClienteDireccionListComponent implements OnChanges{
   }
 
   actualizarList(){
+    console.log(this.getModel.id);
+    
     this.loading=true;
     this.service.getIdCliente(this.getModel.id).subscribe(resp => {
       this.models = resp.data;

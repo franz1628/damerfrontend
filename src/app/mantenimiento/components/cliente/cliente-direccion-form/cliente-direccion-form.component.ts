@@ -28,6 +28,7 @@ export class ClienteDireccionFormComponent {
     id:[0],
     idCliente: [0,Validators.required],
     idTipoDireccion: [0],
+    descripcion: [''],
     idDepartamento: [0],
     idProvincia: [0],
     idDistrito: [0, [Validators.required,Validators.pattern(this.regexService.regexCombo)]],
@@ -112,6 +113,7 @@ export class ClienteDireccionFormComponent {
       return;
     }
 
+    this.model.patchValue({idCliente:this.cliente.id});
     this.service.add(this.getModel).subscribe(resp => {
       this.reset();
       this.actualizarList();
@@ -135,6 +137,7 @@ export class ClienteDireccionFormComponent {
   }
 
   editar(){
+    this.model.patchValue({idCliente:this.cliente.id});
     this.service.update(this.getModel.id,this.getModel).pipe(
       catchError(error => {
         this.alert.showAlert('Mensaje',error.error.message,'warning');
