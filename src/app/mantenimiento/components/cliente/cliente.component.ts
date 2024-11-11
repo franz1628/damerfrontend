@@ -41,6 +41,8 @@ export class ClienteComponent {
 
   }
 
+  showLoading: boolean = false;
+
   @ViewChild('clienteListComp')
   clienteListComp!: ClienteListComponent;
  
@@ -93,7 +95,7 @@ export class ClienteComponent {
   }
 
   actualizarDireccionList(){
-    this.clienteDireccionListComp.actualizarList();
+    this.clienteDireccionListComp.actualizarList(this.model.id);
   }
 
   actualizarContactoList(){
@@ -105,24 +107,27 @@ export class ClienteComponent {
   }
 
   actualizarCanalList(){
-    this.clienteCanalListComp.actualizarList();
+    this.clienteCanalListComp.actualizarList(this.model.id);
   }
 
   actualizarZonaList(){
-    this.clienteZonaListComp.actualizarList();
+    this.clienteZonaListComp.actualizarList(this.model.id);
   }
 
-  selectEdit(model:Cliente){
-    console.log(model);
-    
+  async selectEdit(model:Cliente){
+    this.showLoading = true;
     this.model = model; 
     this.clienteAgrupacionCategoria = ClienteAgrupacionCategoriaInit
     
     this.clienteFormComp.selectEdit(model);
     if(this.model.id!=0){
-
-      this.clienteContactoListComp.actualizarList(this.model.id);
+      await this.clienteContactoListComp.actualizarList(this.model.id);
+      await this.clienteDireccionListComp.actualizarList(this.model.id);
+      await this.clienteCategoriaListComp.loadModels(this.model.id);
+      await this.clienteCanalListComp.actualizarList(this.model.id);
+      await this.clienteZonaListComp.actualizarList(this.model.id);
     }
+    this.showLoading=false;
   }
 
   resetModel(){

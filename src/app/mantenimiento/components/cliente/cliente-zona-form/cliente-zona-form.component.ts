@@ -61,6 +61,8 @@ export class ClienteZonaFormComponent {
       return;
     }
 
+    this.model.patchValue({idCliente:this.cliente.id});
+
     this.service.postIdCliente(this.getModel.idCliente).subscribe(x=>{
       const zonas = x.data
 
@@ -91,6 +93,8 @@ export class ClienteZonaFormComponent {
   }
 
   editar(){
+    this.model.patchValue({idCliente:this.cliente.id});
+    
     this.service.update(this.getModel.id,this.getModel).pipe(
       catchError(error => {
         this.alert.showAlert('Mensaje',error.error.message,'warning');

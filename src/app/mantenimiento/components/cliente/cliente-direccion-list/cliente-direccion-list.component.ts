@@ -3,6 +3,7 @@ import { ClienteDireccion } from '../../../interface/clienteDireccion';
 import { ClienteDireccionService } from '../../../service/clienteDireccion';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
 import { AlertService } from '../../../../shared/services/alert.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-cliente-direccion-list',
@@ -22,15 +23,13 @@ export class ClienteDireccionListComponent implements OnChanges{
   ){ }
 
   ngOnInit(): void { 
-    this.actualizarList();
+    this.actualizarList(this.cliente.id);
     
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('cambio cliente');
-    
     if (changes['cliente']) {
-      this.actualizarList();
+      //this.actualizarList(this.cliente.id);
     }
   }
 
@@ -42,21 +41,21 @@ export class ClienteDireccionListComponent implements OnChanges{
     return this.cliente;
   }
 
-  actualizarList(){
-    console.log(this.getModel.id);
-    
-    this.loading=true;
-    this.service.getIdCliente(this.getModel.id).subscribe(resp => {
+  async actualizarList(idCliente: number): Promise<void> {
+    this.loading = true;
+    try {
+      const resp = await firstValueFrom(this.service.getIdCliente(idCliente));
       this.models = resp.data;
-      this.loading=false;
-    })
+    } finally {
+      this.loading = false;
+    }
   }
 
   delete(model: ClienteDireccion) {
     this.alert.showAlertConfirm('Advertencia','Desea eliminar?','warning',()=>{
       this.service.delete(model).subscribe(x=>{
         this.alert.showAlert('Mensaje','Eliminado correctamente','success');
-        this.actualizarList()
+        this.actualizarList(model.idCliente)
       })
     })
   }

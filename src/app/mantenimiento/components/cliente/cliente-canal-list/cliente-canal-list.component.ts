@@ -3,6 +3,7 @@ import { ClienteCanal } from '../../../interface/clienteCanal';
 import { ClienteCanalService } from '../../../service/clienteCanal';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-cliente-canal-list',
@@ -18,26 +19,29 @@ export class ClienteCanalListComponent {
   constructor(public service : ClienteCanalService, private alert:AlertService){ }
 
   ngOnInit(): void {
-    this.actualizarList();
+    this.actualizarList(this.cliente.id);
   } 
   
   selectEdit(model:ClienteCanal){
     this.selectEditEmit.emit(model);
   }
 
-  actualizarList(){
-    this.loading=true;
-    this.service.postIdCliente(this.cliente.id).subscribe(resp => {
+  async actualizarList(idCliente: number): Promise<void> {
+    this.loading = true;
+    try {
+      const resp = await firstValueFrom(this.service.postIdCliente(idCliente));
       this.models = resp.data;
-      this.loading=false;
-      
-    })
+    } finally {
+      this.loading = false;
+    }
   }
+
+
 
   borrar(model:ClienteCanal){
     this.alert.showAlertConfirm('Advertencia','¿Desea suspender?','warning',()=>{
       this.service.delete(model).subscribe(x=>{
-        this.actualizarList();
+        this.actualizarList(this.cliente.id);
       })
     })
   }

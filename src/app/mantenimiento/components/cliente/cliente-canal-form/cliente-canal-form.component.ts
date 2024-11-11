@@ -59,6 +59,7 @@ export class ClienteCanalFormComponent {
       this.model.markAllAsTouched();
       return;
     }
+    this.model.patchValue({idCliente:this.cliente.id});
 
     this.service.postIdCliente(this.getModel.idCliente).subscribe(x=>{
       const canales = x.data
@@ -88,6 +89,7 @@ export class ClienteCanalFormComponent {
   }
 
   editar(){
+    this.model.patchValue({idCliente:this.cliente.id});
     this.service.update(this.getModel.id,this.getModel).pipe(
       catchError(error => {
         this.alert.showAlert('Mensaje',error.error.message,'warning');

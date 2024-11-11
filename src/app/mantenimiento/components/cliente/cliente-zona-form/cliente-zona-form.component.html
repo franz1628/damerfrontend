@@ -19,7 +19,7 @@
             <div class="mb-3 row">
                 <label for="idZona" class="col-md-4 col-form-label-sm">Codigo Zona</label>
                 <div class="col-sm-8">
-                    <select name="idZona" id="idZona" formControlName="idZona">
+                    <select class="form-select form-select-sm" name="idZona" id="idZona" formControlName="idZona">
                         <option value="0">SELECCIONAR</option>
                         @for (zona of zonas; track $index) {
                             <option value={{zona.id}}>{{zona.descripcion}}</option>

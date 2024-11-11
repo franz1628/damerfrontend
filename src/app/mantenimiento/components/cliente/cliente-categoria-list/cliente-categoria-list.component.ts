@@ -57,26 +57,27 @@ export class ClienteCategoriaListComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['cliente']) {
-
-
-      this.loadModels();
+      this.loadModels(this.cliente.id);
     }
   }
 
-  loadModels(): void {
+  async loadModels(idCliente:number): Promise<void> {
     this.showLoading = true;
     (this.models.get('modelos') as FormArray).clear();
 
     forkJoin(
       {
-        service: this.service.postIdCliente(this.cliente.id),
-        serviceCategoria: this.serviceClienteCategoria.postIdCliente(this.cliente.id)
+        service: this.service.postIdCliente(idCliente),
+        serviceCategoria: this.serviceClienteCategoria.postIdCliente(idCliente)
       }
     ).subscribe({
       next: value => {
         this.clienteCategorias = value.service.data
         const clienteCategorias = value.serviceCategoria.data
         this.categoriasAgrupacionTotal = [];
+
+        this.modelosArray.clear()
+
         for (let i = 0; i < clienteCategorias.length; i++) {
           this.categoriasAgrupacionTotal.push(clienteCategorias[i].Categoria);
           //const element = clienteCategorias[i];
@@ -185,7 +186,7 @@ export class ClienteCategoriaListComponent implements OnChanges {
       this.service.addCategoriasNuevo(this.cliente.id, this.categoriasAgrupacion, this.nombreAgrupacionCategoria).subscribe(x => {
         this.alert.showAlert('Mensaje', 'Agregado correctament', 'success')
         this.botonCerrarModalAgrupacion.nativeElement.click()
-        this.loadModels()
+        this.loadModels(this.cliente.id)
         this.showLoading = false
       })
     } else {
@@ -193,7 +194,7 @@ export class ClienteCategoriaListComponent implements OnChanges {
 
         this.alert.showAlert('Mensaje', 'Modificado correctament', 'success')
         this.botonCerrarModalAgrupacion.nativeElement.click()
-        this.loadModels()
+        this.loadModels(this.cliente.id)
         this.showLoading = false
       })
     }
@@ -220,7 +221,7 @@ export class ClienteCategoriaListComponent implements OnChanges {
     try {
       await lastValueFrom(this.service.add(modelo));
       this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
-      this.loadModels();
+      this.loadModels(modelo.idCliente);
       this.showLoading = false;
     } catch (error) {
       this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
@@ -236,7 +237,7 @@ export class ClienteCategoriaListComponent implements OnChanges {
       try {
         await lastValueFrom(this.service.delete(modelo));
         this.alert.showAlert('Mensaje', 'Eliminado correctamente', 'success');
-        this.loadModels();
+        this.loadModels(modelo.idCliente);
         this.showLoading = false;
       } catch (error) {
         this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
