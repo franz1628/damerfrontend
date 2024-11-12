@@ -1,43 +1,152 @@
-@if (loading) {
-    <app-div-cargando></app-div-cargando> 
-}@else {
-    @if(models.length>0){
-        <table class="table table-sm table-bordered">
-            <thead class="table-success">
-                <tr>
-                    <th>#</th>
-                    <th>Canal</th>
-                    <th>Agrupación</th>
-                    <th>Fecha</th>
-                   <th>Accion</th> 
-                </tr>
-            </thead>
-        
-            <tbody>
-                
-                @for (model of models; track $index) {
-                    <tr>
-                        <td>{{$index+1}}</td>
-                        <td>{{model.Canal.descripcion}}</td>
-                        <td>{{model.nombreAgrupacion}}</td>
-                       
-                        <td>{{model.fechaRegistro.toString().slice(0,10)}}</td>
-                        <td>
-                            <img class="iconEdit" src="assets/editar.png" (click)="selectEdit(model)">
+<div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="models">
+            <div formArrayName="modelos">
+                <table class="table text-center table-sm table-bordered">
+                    <thead class="table-success fs-6">
+                        <tr>
+                            <th>Id</th>
 
-                            
-                            <img class="iconEliminar" src="assets/eliminar.png" (click)="borrar(model)">
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Canales</th>
 
-                          
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                            <th>Acciones</th>
+                        </tr>
 
-        
-    }@else {
-        <span>No se encontraron resultados</span>
-    }
-}
+                    </thead>
+                    <tbody>
+                        @if (modelosArray.controls.length!=0) {
+                        @for (model of modelosArray.controls; track $index) {
+                        <tr [formGroupName]="$index" (click)="elegir($index)"
+                            [ngClass]="{'selected-row': $index === selectIndex}">
+                            <td> <label class="mt-2">{{model.get('id')?.value}}</label> </td>
+                            <td>
+                                {{model.get('nombre')?.value==''?model.get('canals')?.value:model.get('nombre')?.value}}
+                            </td>
+                            <td>
+                                {{model.get('canals')?.value.includes(',')?'COMPUESTA':'SIMPLE'}}
+                            </td>
+                            <td>
+                                {{model.get('canals')?.value}}
+                            </td>
 
+                            <td>
+                                <div class="btn-group">
+                                    <!-- <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"
+                                    data-bs-toggle="modal" data-bs-target="#modalEditAgrupacionCanal"><i
+                                        class="bi bi-pencil"></i></button> -->
+
+                                       
+                                        <img class="iconEdit" src="assets/editar.png"  (click)="editModel($index)" data-bs-toggle="modal" data-bs-target="#modalEditAgrupacionCanal">
+                                   
+
+                                    @if(model.get('id')?.value!=0){
+                                      
+                                        <!-- <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i
+                                                class="bi bi-trash-fill"></i></button> -->
+                                                <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete($index)">
+
+                                        @if(modelosArray.controls.length==$index+1){
+                                        <!-- <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
+                                                class="bi bi-plus-lg"></i></button> -->
+
+                                                <img class="iconNuevo" src="assets/nuevo.png"  (click)="add()">
+                                        }
+                                    }@else{
+                                    <!-- <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
+                                            class="bi bi-save2"></i></button> -->
+                                    }
+                                </div>
+
+
+
+                            </td>
+                        </tr>
+                        }
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+        </form>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalEditAgrupacionCanal" tabindex="-1" aria-labelledby="modalEditAgrupacionCanalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalEditAgrupacionCanalLabel">Agrupacion de Canal</h1>
+                <button type="button" id="modalAgrupaciones" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="nombreAgrupacionCanal" placeholder="Nombre Agrupacion">
+
+                          </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <select class="form-select" id="modalCanalAgrupacion" (change)="comboEligeCanalAgrupacion($event)"
+                                aria-label="Example select with button addon">
+                                <option selected>Seleccinar</option>
+                                @for (canal of canalsAgrupacionTotal; track $index) {
+                                <option value={{canal.id}}>{{canal.descripcion}}</option>
+                                }
+                            </select>
+                            <button class="btn btn-primary" type="button" (click)="agregarCanalAgrupacion()"> <i class="bi bi-plus-lg"></i> Agregar</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-sm mt-4 table-bordered">
+                    <thead>
+                        <tr class="table-success">
+                            <th>Id</th>
+                            <th>Canal</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (canal of canalsAgrupacion ; track $index) {
+                            <tr>
+                                <td>{{canal.id}}</td>
+                                <td>{{canal.descripcion}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger"> <i class="bi bi-trash"></i> </button>
+                                </td>
+                            </tr>
+                        }@empty {
+                            <tr>
+                                No hay canales agregados...
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" #botonCerrarModalAgrupacion data-bs-dismiss="modal" id="cerrarModalAgrupacion">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="guardarCanalAgrupacion()"> <i class="bi bi-save"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<app-black-loading [show]="showLoading"></app-black-loading>

@@ -8,6 +8,8 @@
                     <th>#</th>
                     <th>Codigo Cliente</th>
                     <th>Tipo Direccion</th>
+                    <th>Descripcion</th>
+                    <th>Numero</th>
                     <th>Referencia</th>
                      <th>Accion</th> 
                 </tr>
@@ -20,6 +22,8 @@
                         <td>{{$index+1}}</td>
                         <td>{{model.idCliente}}</td>
                         <td>{{model.TipoDireccion.descripcion}}</td>
+                        <td>{{model.descripcion}}</td>
+                        <td>{{model.numDomicilio}}</td>
                         <td>{{model.referencia +' '+ model.Distrito.descripcion +' '+model.Distrito.Provincia.descripcion +' '+ model.Distrito.Provincia.Departamento.descripcion}}</td>
                         <td>
                 

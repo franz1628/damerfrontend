@@ -1,125 +1,173 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidFormService } from '../../../../shared/services/validForm.service';
-import { ClienteZonaService } from '../../../service/clienteZona';
 import { RegexService } from '../../../../shared/services/regex.service';
-import { ClienteZona, ClienteZonaInit } from '../../../interface/clienteZona';
-import { catchError, throwError } from 'rxjs';
+import { catchError, forkJoin, lastValueFrom, throwError } from 'rxjs';
 import { AlertService } from '../../../../shared/services/alert.service';
-import { Zona } from '../../tablas/interfaces/zona.interface';
+import { ClienteZonaService } from '../../../service/clienteZona';
 import { ZonaService } from '../../tablas/service/zona.service';
+import { ClienteZona } from '../../../interface/clienteZona';
+import { Zona } from '../../tablas/interfaces/zona.interface';
 
 @Component({
-  selector: 'app-cliente-zona-form', 
-  templateUrl: './cliente-zona-form.component.html'
+  selector: 'app-cliente-zona-form',
+  templateUrl: './cliente-zona-form.component.html' 
 })
 export class ClienteZonaFormComponent {
-  @Output() actualizarListEmit: EventEmitter<null> = new EventEmitter();
-  @Input() 
-  cliente :Cliente = ClienteInit; 
-  zonas:Zona[] = [];
+  @Input()
+  cliente: Cliente = ClienteInit
 
-  public model = this.fb.group({
-    id:[0],
-    codZona: [0],
-    idZona: [0],
-    idCliente: [0],
-    nombreAgrupacion: ['',Validators.required],
-  })
+  selectIndex: number = -1
+  zonas : Zona[] = []
+  
+  showLoading: boolean = false;
+
+  clienteZonas: ClienteZona[] = [];
+
+  models: FormGroup = this.fb.group({
+    modelos: this.fb.array([]),
+  });
 
   constructor(
-    private fb: FormBuilder,
-    private validForm: ValidFormService,
     private service: ClienteZonaService,
-    private serviceZona : ZonaService,
-    private regexService : RegexService,
-    private alert : AlertService,
-  ) {
+    private serviceZona: ZonaService,
+    private fb: FormBuilder,
+    private alert: AlertService
+  ) { }
+
+  ngOnInit(): void {
 
   }
 
-  ngOnInit(): void {
-    this.model.patchValue({idCliente:this.cliente.id});
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['cliente']) {
+      this.loadModels();
 
-    this.serviceZona.get().subscribe(x=>{
-      this.zonas = x.data;
+    }
+  }
+
+  loadModels(): void {
+    this.showLoading = true;
+    (this.models.get('modelos') as FormArray).clear();
+
+    forkJoin(
+      {
+        service: this.service.postIdCliente(this.cliente.id),
+        serviceZona : this.serviceZona.get()
+      }
+    ).subscribe({
+      next: value => {
+        this.clienteZonas = value.service.data
+        this.zonas = value.serviceZona.data
+
+        this.clienteZonas.forEach(model => {
+          const nuevoModelo = this.fb.group({
+            id: [model.id],
+            idZona: [model.idZona],
+            idCliente: [model.idCliente],
+          });
+          this.modelosArray.push(nuevoModelo);
+        });
+
+        if (this.clienteZonas.length == 0) {
+          this.add();
+        }
+
+        this.showLoading = false;
+      }
     })
+
   }
 
   get getModel() {
-    return this.model.value as ClienteZona
+    return this.cliente;
   }
 
-  actualizarList() {
-    this.actualizarListEmit.emit();
+  get modelosArray() {
+    return this.models.get('modelos') as FormArray;
   }
 
-  agregar() {
-    if (this.model.invalid) {
-      this.model.markAllAsTouched();
-      return;
+  editModel(index: number) {
+    const filas:ClienteZona[] = this.modelosArray.value.slice(0,-1);
+    const modelo:ClienteZona = this.modelosArray.at(index).value;
+    
+    if(filas.find(x=>x.idZona == modelo.idZona)){
+      this.alert.showAlert("Advertencia","Esa zona ya esta agregada","warning");
+      return
     }
 
-    this.model.patchValue({idCliente:this.cliente.id});
-
-    this.service.postIdCliente(this.getModel.idCliente).subscribe(x=>{
-      const zonas = x.data
-
-      if(zonas.find(y=>y.idZona == this.getModel.idZona)){
-        this.alert.showAlert('Advertencia','Esta zona ya fue agregada','warning')
-        return
-      }else{
-        this.service.add(this.getModel).subscribe(resp => {
-          this.reset();
-          this.actualizarList();
-        })
-      }
-
+    this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
+      const modelo = this.modelosArray.controls[index].getRawValue();
+      //this.atributoFuncionalVariedad = modelo;
+      this.service.update(modelo.id, modelo).subscribe(x => {
+        this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
+      });
     })
- 
+
+  }
+
+  elegir(index: number) {
+    const modelo = this.modelosArray.controls[index].getRawValue();
+    this.selectIndex = index
   }
 
 
+  add() {
 
-  reset(){
-    this.model.patchValue({
-      idZona:0,
-      nombreAgrupacion:''
+    const nuevoModelo = this.fb.group({
+      id: [0],
+      idCliente: [this.cliente.id],
+      idZona: [0],
+
     });
 
-    this.model.clearValidators()
-    //this.resetModelEmit.emit();
+    this.modelosArray.push(nuevoModelo);
   }
 
-  editar(){
-    this.model.patchValue({idCliente:this.cliente.id});
-    
-    this.service.update(this.getModel.id,this.getModel).pipe(
-      catchError(error => {
-        this.alert.showAlert('Mensaje',error.error.message,'warning');
-        return throwError(()=>error);
-      })
-    ).subscribe(x=>{
-        this.alert.showAlert('Mensaje',x.message,'success');
-        this.actualizarList();
-        this.reset();
-    });
-  } 
+  async save(num: number): Promise<void> {
+    const filas:ClienteZona[] = this.modelosArray.value.slice(0,-1);
+    const modelo:ClienteZona = this.modelosArray.at(num).value;
 
-  selectEdit(model: ClienteZona) {
-    this.model.patchValue(model);
-  } 
+    if(modelo.idZona==0){
+      this.alert.showAlert("Advertencia","Debe elegir una zona","warning");
+      return
+    }
 
-  nuevo() {
-    this.model.patchValue(ClienteZonaInit);
+    if(filas.find(x=>x.idZona == modelo.idZona)){
+      this.alert.showAlert("Advertencia","Esa zona ya esta agregada","warning");
+      return
+    }
+
+    this.showLoading = true;
+
+    try {
+      await lastValueFrom(this.service.add(modelo));
+      this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
+      this.loadModels();
+      this.showLoading = false;
+    } catch (error) {
+      this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+      this.showLoading = false;
+    }
   }
 
-  isValidField(field: string): boolean | null {
-    return this.validForm.isValidField(field, this.model);
-  }
+  async delete(num: number) {
+    this.alert.showAlertConfirm('Advertencia', '¿Está seguro de eliminar?', 'warning', async () => {
+      const modelo = this.modelosArray.at(num).value;
+      this.showLoading = true;
 
-  getFieldError(field: string): string | null {
-    return this.validForm.getFieldError(field, this.model);
+      try {
+        await lastValueFrom(this.service.delete(modelo));
+        this.alert.showAlert('Mensaje', 'Eliminado correctamente', 'success');
+        this.loadModels();
+        this.showLoading = false;
+      } catch (error) {
+        this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+        this.showLoading = false;
+      }
+    })
+
+
   }
 }

@@ -22,6 +22,8 @@ import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../
 import { ClienteFormulaComponent } from './cliente-formula/cliente-formula.component';
 import { AlertService } from '../../../shared/services/alert.service';
 import { ClienteAgrupacionCategoria, ClienteAgrupacionCategoriaInit } from '../../interface/clienteAgrupacionCategoria';
+import { ClienteAgrupacionZona, ClienteAgrupacionZonaInit } from '../../interface/clienteAgrupacionZona';
+import { ClienteAgrupacionCanal, ClienteAgrupacionCanalInit } from '../../interface/clienteAgrupacionCanal';
 
 @Component({
   selector: 'app-cliente',
@@ -34,6 +36,8 @@ export class ClienteComponent {
   atributoFuncionalVariedad : AtributoFuncionalVariedad = AtributoFuncionalVariedadInit;
   showModalFormula: boolean = false;
   clienteAgrupacionCategoria = ClienteAgrupacionCategoriaInit
+  clienteAgrupacionZona = ClienteAgrupacionZonaInit
+  clienteAgrupacionCanal = ClienteAgrupacionCanalInit
 
   constructor(
     private alert: AlertService
@@ -107,11 +111,11 @@ export class ClienteComponent {
   }
 
   actualizarCanalList(){
-    this.clienteCanalListComp.actualizarList(this.model.id);
+    //this.clienteCanalListComp.actualizarList(this.model.id);
   }
 
   actualizarZonaList(){
-    this.clienteZonaListComp.actualizarList(this.model.id);
+    //this.clienteZonaListComp.actualizarList(this.model.id);
   }
 
   async selectEdit(model:Cliente){
@@ -124,8 +128,8 @@ export class ClienteComponent {
       await this.clienteContactoListComp.actualizarList(this.model.id);
       await this.clienteDireccionListComp.actualizarList(this.model.id);
       await this.clienteCategoriaListComp.loadModels(this.model.id);
-      await this.clienteCanalListComp.actualizarList(this.model.id);
-      await this.clienteZonaListComp.actualizarList(this.model.id);
+      await this.clienteCanalListComp.loadModels(this.model.id);
+      await this.clienteZonaListComp.loadModels(this.model.id);
     }
     this.showLoading=false;
   }
@@ -159,12 +163,14 @@ export class ClienteComponent {
     // this.atributoFuncionalVariedad = model;
   }
 
-  selectCanalEdit(model:ClienteCanal){
-    this.clienteCanalFormComp.selectEdit(model); 
+  selectCanalEdit(model:ClienteAgrupacionCanal){
+    //this.clienteCanalFormComp.selectEdit(model); 
+    this.clienteAgrupacionCanal = model
   }
 
-  selectZonaEdit(model:ClienteZona){
-    this.clienteZonaFormComp.selectEdit(model); 
+  selectZonaEdit(model:ClienteAgrupacionZona){
+   // this.clienteZonaFormComp.selectEdit(model); 
+    this.clienteAgrupacionZona = model
   }
 
   abrirModalFormular(){

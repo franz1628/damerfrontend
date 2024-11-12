@@ -37,11 +37,7 @@ export class ClienteCategoriaFormComponent {
   ) { }
 
   ngOnInit(): void {
-    // this.loadModels();
-    // this.serviceCategoria.get().subscribe(x=>{
-    //   this.categorias =x.data
-      
-    // })
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -71,10 +67,6 @@ export class ClienteCategoriaFormComponent {
             idCategoria: [model.idCategoria],
             idCliente: [model.idCliente],
           });
-
-         
-         
-
           this.modelosArray.push(nuevoModelo);
         });
 

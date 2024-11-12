@@ -28,9 +28,9 @@ export class ClienteContactoListComponent {
     return this.cliente;
   }
 
-  actualizarList(idCliente:number){
+  async actualizarList(idCliente:number){
     this.loading=true;
-    this.service.getIdCliente(idCliente).subscribe(resp => {
+     this.service.getIdCliente(idCliente).subscribe(resp => {
       this.models = resp.data;
       this.loading=false;
     })

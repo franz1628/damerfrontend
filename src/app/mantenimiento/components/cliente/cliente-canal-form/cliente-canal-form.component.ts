@@ -1,120 +1,173 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ClienteCanal, ClienteCanalInit } from '../../../interface/clienteCanal';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
-import { ClienteCanalService } from '../../../service/clienteCanal';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidFormService } from '../../../../shared/services/validForm.service';
+import { RegexService } from '../../../../shared/services/regex.service';
+import { catchError, forkJoin, lastValueFrom, throwError } from 'rxjs';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { Canal } from '../../tablas/interfaces/canal.interface';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ValidFormService } from '../../../../shared/services/validForm.service';
+import { ClienteCanal } from '../../../interface/clienteCanal';
+import { ClienteCanalService } from '../../../service/clienteCanal';
 import { CanalService } from '../../tablas/service/canal.sevice';
-import { RegexService } from '../../../../shared/services/regex.service';
-import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-cliente-canal-form',
-  templateUrl: './cliente-canal-form.component.html'
+  templateUrl: './cliente-canal-form.component.html' 
 })
 export class ClienteCanalFormComponent {
-  @Output() actualizarListEmit: EventEmitter<null> = new EventEmitter();
-  @Input() 
-  cliente :Cliente = ClienteInit; 
-  canals:Canal[] = []; 
+  @Input()
+  cliente: Cliente = ClienteInit
 
-  public model = this.fb.group({
-    id:[0],
-    idCliente: [0,Validators.required],
-    idCanal: [0,Validators.required],
-    nombreAgrupacion: ['',Validators.required],
-  })
+  selectIndex: number = -1
+  canals : Canal[] = []
+  
+  showLoading: boolean = false;
+
+  clienteCanals: ClienteCanal[] = [];
+
+  models: FormGroup = this.fb.group({
+    modelos: this.fb.array([]),
+  });
 
   constructor(
-    private fb: FormBuilder,
-    private validForm: ValidFormService,
     private service: ClienteCanalService,
-    private serviceCanal : CanalService,
-    private regexService : RegexService,
-    private alert : AlertService,
-  ) {
+    private serviceCanal: CanalService,
+    private fb: FormBuilder,
+    private alert: AlertService
+  ) { }
+
+  ngOnInit(): void {
 
   }
 
-  ngOnInit(): void {
-    this.model.patchValue({idCliente:this.cliente.id});
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['cliente']) {
+      this.loadModels();
 
-    this.serviceCanal.get().subscribe(x=>{
-      this.canals = x.data;
+    }
+  }
+
+  loadModels(): void {
+    this.showLoading = true;
+    (this.models.get('modelos') as FormArray).clear();
+
+    forkJoin(
+      {
+        service: this.service.postIdCliente(this.cliente.id),
+        serviceCanal : this.serviceCanal.get()
+      }
+    ).subscribe({
+      next: value => {
+        this.clienteCanals = value.service.data
+        this.canals = value.serviceCanal.data
+
+        this.clienteCanals.forEach(model => {
+          const nuevoModelo = this.fb.group({
+            id: [model.id],
+            idCanal: [model.idCanal],
+            idCliente: [model.idCliente],
+          });
+          this.modelosArray.push(nuevoModelo);
+        });
+
+        if (this.clienteCanals.length == 0) {
+          this.add();
+        }
+
+        this.showLoading = false;
+      }
     })
+
   }
 
   get getModel() {
-    return this.model.value as ClienteCanal
+    return this.cliente;
   }
 
-  actualizarList() {
-    this.actualizarListEmit.emit();
+  get modelosArray() {
+    return this.models.get('modelos') as FormArray;
   }
 
-  agregar() {
-    if (this.model.invalid) {
-      this.model.markAllAsTouched();
-      return;
+  editModel(index: number) {
+    const filas:ClienteCanal[] = this.modelosArray.value.slice(0,-1);
+    const modelo:ClienteCanal = this.modelosArray.at(index).value;
+    
+    if(filas.find(x=>x.idCanal == modelo.idCanal)){
+      this.alert.showAlert("Advertencia","Esa Canal ya esta agregada","warning");
+      return
     }
-    this.model.patchValue({idCliente:this.cliente.id});
 
-    this.service.postIdCliente(this.getModel.idCliente).subscribe(x=>{
-      const canales = x.data
-
-      if(canales.find(x=>x.idCanal == this.getModel.idCanal)){
-        this.alert.showAlert('Advertencia','Este canal ya fue agregado','warning')
-        return
-      }else{
-        this.service.add(this.getModel).subscribe(resp => {
-          this.reset();
-          this.actualizarList();
-        })
-      }
-
+    this.alert.showAlertConfirm('Aviso', '¿Desea modificar?', 'warning', () => {
+      const modelo = this.modelosArray.controls[index].getRawValue();
+      //this.atributoFuncionalVariedad = modelo;
+      this.service.update(modelo.id, modelo).subscribe(x => {
+        this.alert.showAlert('Mensaje', 'Guardado correctamente', 'success');
+      });
     })
- 
+
   }
 
-  reset(){
-    this.model.patchValue({
-      idCanal : 0,
-      nombreAgrupacion : ''
+  elegir(index: number) {
+    const modelo = this.modelosArray.controls[index].getRawValue();
+    this.selectIndex = index
+  }
+
+
+  add() {
+
+    const nuevoModelo = this.fb.group({
+      id: [0],
+      idCliente: [this.cliente.id],
+      idCanal: [0],
+
     });
 
- 
-    //this.resetModelEmit.emit();
+    this.modelosArray.push(nuevoModelo);
   }
 
-  editar(){
-    this.model.patchValue({idCliente:this.cliente.id});
-    this.service.update(this.getModel.id,this.getModel).pipe(
-      catchError(error => {
-        this.alert.showAlert('Mensaje',error.error.message,'warning');
-        return throwError(()=>error);
-      })
-    ).subscribe(x=>{
-        this.alert.showAlert('Mensaje',x.message,'success');
-        this.actualizarList();
-        this.reset();
-    });
-  }  
+  async save(num: number): Promise<void> {
+    const filas:ClienteCanal[] = this.modelosArray.value.slice(0,-1);
+    const modelo:ClienteCanal = this.modelosArray.at(num).value;
 
-  selectEdit(model: ClienteCanal) {
-    this.model.patchValue(model);
-  } 
+    if(modelo.idCanal==0){
+      this.alert.showAlert("Advertencia","Debe elegir una Canal","warning");
+      return
+    }
 
-  nuevo() {
-    this.model.patchValue(ClienteCanalInit);
+    if(filas.find(x=>x.idCanal == modelo.idCanal)){
+      this.alert.showAlert("Advertencia","Ese Canal ya esta agregada","warning");
+      return
+    }
+
+    this.showLoading = true;
+
+    try {
+      await lastValueFrom(this.service.add(modelo));
+      this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
+      this.loadModels();
+      this.showLoading = false;
+    } catch (error) {
+      this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+      this.showLoading = false;
+    }
   }
 
-  isValidField(field: string): boolean | null {
-    return this.validForm.isValidField(field, this.model);
-  }
+  async delete(num: number) {
+    this.alert.showAlertConfirm('Advertencia', '¿Está seguro de eliminar?', 'warning', async () => {
+      const modelo = this.modelosArray.at(num).value;
+      this.showLoading = true;
 
-  getFieldError(field: string): string | null {
-    return this.validForm.getFieldError(field, this.model);
+      try {
+        await lastValueFrom(this.service.delete(modelo));
+        this.alert.showAlert('Mensaje', 'Eliminado correctamente', 'success');
+        this.loadModels();
+        this.showLoading = false;
+      } catch (error) {
+        this.alert.showAlert('Error', 'Hubo un problema en el servidor', 'error');
+        this.showLoading = false;
+      }
+    })
+
+
   }
 }
