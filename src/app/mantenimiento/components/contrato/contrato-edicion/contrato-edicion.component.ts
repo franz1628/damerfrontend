@@ -20,6 +20,12 @@ import { TipoInformeOrdenService } from '../../../service/tipoInformeOrden';
 import { AtributoTecnicoNegocioInit } from '../../../interface/atributoTecnicoNegocio';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { ContratoEtiquetasComponent } from '../contrato-etiquetas/contrato-etiquetas.component';
+import { AgrupacionZonas, AgrupacionZonasInit } from '../../../interface/agrupacionZonas';
+import { AgrupacionCanals, AgrupacionCanalsInit } from '../../../interface/agrupacionCanals';
+import { ClienteAgrupacionZonaService } from '../../../service/clienteAgrupacionZona';
+import { ClienteAgrupacionCanalService } from '../../../service/clienteAgrupacionCanal';
+import { ClienteAgrupacionZona, ClienteAgrupacionZonaInit } from '../../../interface/clienteAgrupacionZona';
+import { ClienteAgrupacionCanal, ClienteAgrupacionCanalInit } from '../../../interface/clienteAgrupacionCanal';
 
 
 @Component({
@@ -34,8 +40,8 @@ export class ContratoEdicionComponent implements OnInit {
   @ViewChild('contratoEtiquetas')
   contratoEtiquetas!: ContratoEtiquetasComponent;
 
-  zonas_M: Zona[] = [];
-  canals_M: Canal[] = [];
+  zonas_M: ClienteAgrupacionZona[] = [];
+  canals_M: ClienteAgrupacionCanal[] = [];
   tipoEstudios_M: TipoEstudio[] = [];
   atributoFuncionalVariedads_M: AtributoFuncionalVariedad[] = [];
   tipoInformeOrdens_M: TipoInformeOrden[] = [];
@@ -43,8 +49,8 @@ export class ContratoEdicionComponent implements OnInit {
   idCliente:number=0;
   idCategoria:number=0;
 
-  zonas: Zona[] = [];
-  canals: Canal[] = [];
+  zonas: ClienteAgrupacionZona[] = [];
+  canals: ClienteAgrupacionCanal[] = [];
   tipoEstudios: TipoEstudio[] = [];
   atributoFuncionalVariedads: AtributoFuncionalVariedad[] = [];
   tipoInformeOrdens: TipoInformeOrden[] = [];
@@ -64,8 +70,8 @@ export class ContratoEdicionComponent implements OnInit {
     private fb: FormBuilder,
     private serviceContrato: ContratoService,
     private servicieContratoDetalle: ContratoDetalleService,
-    private serviceClienteZona: ClienteZonaService,
-    private serviceClienteCanal: ClienteCanalService,
+    private serviceClienteAgrupacionZona: ClienteAgrupacionZonaService,
+    private serviceClienteAgrupacionCanal: ClienteAgrupacionCanalService,
     private serviceTipoEstudio: TipoEstudioService,
     private serviceAtributoFuncionalVariedad: AtributoFuncionalVariedadService,
     private serviceTipoInformeOrden: TipoInformeOrdenService,
@@ -220,21 +226,21 @@ export class ContratoEdicionComponent implements OnInit {
      
       
       this.servicieContratoDetalle.getIdContrato(contrato.id).subscribe(x => {
-        this.serviceClienteZona.postIdCliente(contrato.idCliente).subscribe(y => {
+        this.serviceClienteAgrupacionZona.postIdCliente(contrato.idCliente).subscribe(y => {
   
   
           const clienteZonas = y.data
           for (let id = 0; id < clienteZonas.length; id++) {
-            this.zonas_M.push(clienteZonas[id].Zona);
+            this.zonas_M.push(clienteZonas[id]);
           }
   
-          this.serviceClienteCanal.postIdCliente(contrato.idCliente).subscribe(z => {
+          this.serviceClienteAgrupacionCanal.postIdCliente(contrato.idCliente).subscribe(z => {
   
             this.contratoEtiquetas.actualizarEtiquetas(contrato.idCliente,contrato.idCategoria);
   
             const clienteCanals = z.data
             for (let id = 0; id < clienteCanals.length; id++) {
-              this.canals_M.push(clienteCanals[id].Canal);
+              this.canals_M.push(clienteCanals[id]);
             }
   
             this.serviceAtributoFuncionalVariedad.postIdClienteIdCategoria(contrato.idCliente, contrato.idCategoria).subscribe(a => {
@@ -257,12 +263,12 @@ export class ContratoEdicionComponent implements OnInit {
                   this.tipoEstudios.push(this.tipoEstudios_M.find(x => x.id == contratoDetalleData.idTipoEstudio) || TipoEstudioInit)
                 }
   
-                if (!this.zonas.find(x => x.id == contratoDetalleData.idZona)) {
-                  this.zonas.push(this.zonas_M.find(x => x.id == contratoDetalleData.idZona) || ZonaInit)
+                if (!this.zonas.find(x => x.id == contratoDetalleData.idAgrupacionZona)) {
+                  this.zonas.push(this.zonas_M.find(x => x.idAgrupacionZona == contratoDetalleData.idAgrupacionZona) || ClienteAgrupacionZonaInit)
                 }
   
-                if (!this.canals.find(x => x.id == contratoDetalleData.idCanal)) {
-                  this.canals.push(this.canals_M.find(x => x.id == contratoDetalleData.idCanal) || CanalInit)
+                if (!this.canals.find(x => x.id == contratoDetalleData.idAgrupacionCanal)) {
+                  this.canals.push(this.canals_M.find(x => x.idAgrupacionCanal == contratoDetalleData.idAgrupacionCanal) || ClienteAgrupacionCanalInit)
                 }
   
                 if (!this.tipoInformeOrdens.find(x => x.id == contratoDetalleData.idTipoInforme)) {
@@ -304,13 +310,13 @@ export class ContratoEdicionComponent implements OnInit {
                       for (let q = 0; q < this.atributoFuncionalVariedads.length; q++) {
                         if (!this.atributoFuncionalVariedads[index]) continue;
   
-                        const contratoDetalleSea: ContratoDetalle = x.data.find(o => o.idZona == this.zonas[j].id && o.idCanal == this.canals[k].id && o.idTipoInforme == this.tipoInformeOrdens[m].id && o.idTipoEstudio == this.tipoEstudios[index].id && o.idAtributoFuncionalVariedad == this.atributoFuncionalVariedads[q].id) || ContratoDetalleInit;
+                        const contratoDetalleSea: ContratoDetalle = x.data.find(o => o.idAgrupacionZona == this.zonas[j].id && o.idAgrupacionCanal == this.canals[k].id && o.idTipoInforme == this.tipoInformeOrdens[m].id && o.idTipoEstudio == this.tipoEstudios[index].id && o.idAtributoFuncionalVariedad == this.atributoFuncionalVariedads[q].id) || ContratoDetalleInit;
   
   
                         const control: ContratoDetalle = {
                           idTipoEstudio: this.tipoEstudios[index].id,
-                          idZona: this.zonas[j].id,
-                          idCanal: this.canals[k].id,
+                          idAgrupacionZona: this.zonas[j].id,
+                          idAgrupacionCanal: this.canals[k].id,
                           idTipoInforme: this.tipoInformeOrdens[m].id,
                           idAtributoFuncionalVariedad: this.atributoFuncionalVariedads[q].id,
                           estado: 1,
@@ -390,8 +396,8 @@ export class ContratoEdicionComponent implements OnInit {
 
                 const control: ContratoDetalle = {
                   idTipoEstudio: [contratoForm.tipoEstudios][index],
-                  idZona: contratoForm.zonas[j].id,
-                  idCanal: contratoForm.canals[k].id,
+                  idAgrupacionZona: contratoForm.zonas[j].id,
+                  idAgrupacionCanal: contratoForm.canals[k].id,
                   idTipoInforme: contratoForm.tipoInformeOrdens[z].id,
                   idAtributoFuncionalVariedad: contratoForm.atributoFuncionalVariedads[q].id,
                   estado: 1,
@@ -469,8 +475,8 @@ export class ContratoEdicionComponent implements OnInit {
                 id: 0,
                 idContrato: 0,
                 idTipoEstudio: contrato.idTipoEstudio,
-                idZona: contrato.idZona,
-                idCanal: contrato.idCanal,
+                idAgrupacionZona: contrato.idAgrupacionZona,
+                idAgrupacionCanal: contrato.idAgrupacionCanal,
                 idTipoInforme: contrato.idTipoInforme,
                 idAtributoFuncionalVariedad: contrato.idAtributoFuncionalVariedad,
                 valor: contrato.valor,

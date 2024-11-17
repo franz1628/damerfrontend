@@ -9,6 +9,10 @@ import { ClienteZonaService } from '../../../service/clienteZona';
 import { ZonaService } from '../../tablas/service/zona.service';
 import { ClienteZona } from '../../../interface/clienteZona';
 import { Zona } from '../../tablas/interfaces/zona.interface';
+import { AgrupacionZonas } from '../../../interface/agrupacionZonas';
+import { AgrupacionZonasService } from '../../../service/agrupacionZonas';
+import { ClienteAgrupacionZona } from '../../../interface/clienteAgrupacionZona';
+import { ClienteAgrupacionZonaService } from '../../../service/clienteAgrupacionZona';
 
 @Component({
   selector: 'app-cliente-zona-form',
@@ -19,19 +23,19 @@ export class ClienteZonaFormComponent {
   cliente: Cliente = ClienteInit
 
   selectIndex: number = -1
-  zonas : Zona[] = []
+  agrupacionZonas : AgrupacionZonas[] = []
   
   showLoading: boolean = false;
 
-  clienteZonas: ClienteZona[] = [];
+  clienteAgrupacionZona: ClienteAgrupacionZona[] = [];
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
   });
 
   constructor(
-    private service: ClienteZonaService,
-    private serviceZona: ZonaService,
+    private service: ClienteAgrupacionZonaService,
+    private serviceAgrupacionZonas: AgrupacionZonasService,
     private fb: FormBuilder,
     private alert: AlertService
   ) { }
@@ -54,23 +58,23 @@ export class ClienteZonaFormComponent {
     forkJoin(
       {
         service: this.service.postIdCliente(this.cliente.id),
-        serviceZona : this.serviceZona.get()
+        serviceAgrupacionZonas : this.serviceAgrupacionZonas.get()
       }
     ).subscribe({
       next: value => {
-        this.clienteZonas = value.service.data
-        this.zonas = value.serviceZona.data
+        this.clienteAgrupacionZona = value.service.data
+        this.agrupacionZonas = value.serviceAgrupacionZonas.data
 
-        this.clienteZonas.forEach(model => {
+        this.clienteAgrupacionZona.forEach(model => {
           const nuevoModelo = this.fb.group({
             id: [model.id],
-            idZona: [model.idZona],
+            idAgrupacionZona: [model.idAgrupacionZona],
             idCliente: [model.idCliente],
           });
           this.modelosArray.push(nuevoModelo);
         });
 
-        if (this.clienteZonas.length == 0) {
+        if (this.clienteAgrupacionZona.length == 0) {
           this.add();
         }
 
@@ -89,11 +93,11 @@ export class ClienteZonaFormComponent {
   }
 
   editModel(index: number) {
-    const filas:ClienteZona[] = this.modelosArray.value.slice(0,-1);
-    const modelo:ClienteZona = this.modelosArray.at(index).value;
+    const filas:ClienteAgrupacionZona[] = this.modelosArray.value.slice(0,-1);
+    const modelo:ClienteAgrupacionZona = this.modelosArray.at(index).value;
     
-    if(filas.find(x=>x.idZona == modelo.idZona)){
-      this.alert.showAlert("Advertencia","Esa zona ya esta agregada","warning");
+    if(filas.find((x,key)=>x.idAgrupacionZona == modelo.idAgrupacionZona && key != index)){
+      this.alert.showAlert("Advertencia","Esa Agrupacion ya esta agregada","warning");
       return
     }
 
@@ -118,7 +122,7 @@ export class ClienteZonaFormComponent {
     const nuevoModelo = this.fb.group({
       id: [0],
       idCliente: [this.cliente.id],
-      idZona: [0],
+      idAgrupacionZona: [0],
 
     });
 
@@ -126,16 +130,16 @@ export class ClienteZonaFormComponent {
   }
 
   async save(num: number): Promise<void> {
-    const filas:ClienteZona[] = this.modelosArray.value.slice(0,-1);
-    const modelo:ClienteZona = this.modelosArray.at(num).value;
+    const filas:ClienteAgrupacionZona[] = this.modelosArray.value.slice(0,-1);
+    const modelo:ClienteAgrupacionZona = this.modelosArray.at(num).value;
 
-    if(modelo.idZona==0){
-      this.alert.showAlert("Advertencia","Debe elegir una zona","warning");
+    if(modelo.idAgrupacionZona==0){
+      this.alert.showAlert("Advertencia","Debe elegir una Agrupacion","warning");
       return
     }
 
-    if(filas.find(x=>x.idZona == modelo.idZona)){
-      this.alert.showAlert("Advertencia","Esa zona ya esta agregada","warning");
+    if(filas.find(x=>x.idAgrupacionZona == modelo.idAgrupacionZona)){
+      this.alert.showAlert("Advertencia","Esa agrupacion ya esta agregada","warning");
       return
     }
 

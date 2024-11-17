@@ -1,4 +1,5 @@
 import { AgrupacionCanalCanal } from "./agrupacionCanalCanal";
+import { AgrupacionCanals, AgrupacionCanalsInit } from "./agrupacionCanals";
 
 export interface ClienteAgrupacionCanal {
     id:number,
@@ -6,7 +7,8 @@ export interface ClienteAgrupacionCanal {
     fechaRegistro:Date,
     estado:number,
     nombre:string,
-    AgrupacionCanalCanal: AgrupacionCanalCanal[]
+    idAgrupacionCanal:number,
+    AgrupacionCanals:AgrupacionCanals
 }
 export const ClienteAgrupacionCanalInit: ClienteAgrupacionCanal = {
     id:0,
@@ -14,5 +16,6 @@ export const ClienteAgrupacionCanalInit: ClienteAgrupacionCanal = {
     fechaRegistro:new Date(),
     nombre:'',
     estado:1,
-    AgrupacionCanalCanal : []
+    idAgrupacionCanal:0,
+    AgrupacionCanals:AgrupacionCanalsInit
 };

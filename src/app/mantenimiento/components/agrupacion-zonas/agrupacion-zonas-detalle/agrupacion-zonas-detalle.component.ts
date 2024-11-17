@@ -106,7 +106,7 @@ export class AgrupacionZonasDetalleComponent implements OnInit,OnChanges{
   }
 
   selectAtributo(index: number) {
-    this.agrupacionZonas = (this.models.get('modelos') as FormArray).at(index).value;
+    this.agrupacionZonasDetalles = (this.models.get('modelos') as FormArray).at(index).value;
     this.selectIndex = index
   }
 
@@ -135,10 +135,26 @@ export class AgrupacionZonasDetalleComponent implements OnInit,OnChanges{
   }
 
   async save(num: number): Promise<void> {
-    const modelo = this.modelosArray.at(num).value;
+    const modelo:AgrupacionZonasDetalle = this.modelosArray.at(num).value;
+   
+
+    if(modelo.idZona==0){
+      this.alert.showAlert('Advertencia','Debe elegir un Zona','warning');
+      return;
+    }
+
     this.showLoading = true;
 
     try {
+      const resp = await lastValueFrom(this.service.postIdAgrupacionZonas(this.agrupacionZonas.id))
+      const agrupaciones = resp.data
+
+      if(agrupaciones.find(x=>x.idZona==modelo.idZona)){
+        this.alert.showAlert('Advertencia', 'Zona ya registrado en la agrupacion', 'warning');
+        this.showLoading = false;
+        return;
+      }
+
       await lastValueFrom(this.service.add(modelo));
       this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
       this.loadModels();

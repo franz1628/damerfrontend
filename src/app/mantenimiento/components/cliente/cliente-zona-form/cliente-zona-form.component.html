@@ -22,12 +22,14 @@
               <tr [formGroupName]="$index" (click)="elegir($index)"  [ngClass]="{'selected-row': $index === selectIndex}" >
                 <td> <label class="mt-2">{{model.get('id')?.value}}</label> </td>
                 <td>
-                    <select class="form-select form-select-sm" formControlName="idZona">
-                        <option value="">SELECCIONAR</option>
-                        @for (zona of zonas; track $index) {
-                            <option value={{zona.id}}>{{zona.descripcion}}</option>
-                        }
-                    </select>
+                  <ng-select
+                      [items]="agrupacionZonas"
+                      bindLabel="descripcion"
+                      bindValue="id"
+                      placeholder="Selecciona una Zona"
+                      formControlName="idAgrupacionZona"
+                    >
+                    </ng-select>
                
                 </td>
      

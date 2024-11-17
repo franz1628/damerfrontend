@@ -49,7 +49,7 @@ export class AgrupacionCanalsDetalleComponent {
  
   loadModels(): void { 
     if(this.agrupacionCanals.id==0) return
-     
+    
     this.showLoading = true;
     (this.models.get('modelos') as FormArray).clear();
 
@@ -110,8 +110,9 @@ export class AgrupacionCanalsDetalleComponent {
   }
 
   selectAtributo(index: number) {
-    this.agrupacionCanals = (this.models.get('modelos') as FormArray).at(index).value;
+    this.agrupacionCanalsDetalles = (this.models.get('modelos') as FormArray).at(index).value;
     this.selectIndex = index
+    
   }
 
   elegirCanal(canal: Canal,index:number) {
@@ -139,16 +140,26 @@ export class AgrupacionCanalsDetalleComponent {
   }
 
   async save(num: number): Promise<void> {
-    const modelo = this.modelosArray.at(num).value;
+    const modelo:AgrupacionCanalsDetalle = this.modelosArray.at(num).value;
 
-    if(modelo.descripcion==''){
-      this.alert.showAlert('Advertencia','Debe terner una descripcion','warning');
+    if(modelo.idCanal==0){
+      this.alert.showAlert('Advertencia','Debe elegir un Canal','warning');
       return;
     }
+
 
     this.showLoading = true;
 
     try {
+      const resp = await lastValueFrom(this.service.postIdAgrupacionCanals(this.agrupacionCanals.id))
+      const agrupaciones = resp.data
+
+      if(agrupaciones.find(x=>x.idCanal==modelo.idCanal)){
+        this.alert.showAlert('Advertencia', 'Canal ya registrado en la agrupacion', 'warning');
+        this.showLoading = false;
+        return;
+      }
+
       await lastValueFrom(this.service.add(modelo));
       this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success');
       this.loadModels();

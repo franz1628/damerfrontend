@@ -4,12 +4,16 @@ import { Canal } from "../components/tablas/interfaces/canal.interface";
 import { TipoEstudio } from "./tipoEstudio";
 import { TipoInformeOrden } from "./tipoInformeOrden";
 import { AtributoFuncionalVariedad } from "./atributoFuncionalVariedad";
+import { AgrupacionZonas } from "./agrupacionZonas";
+import { AgrupacionCanals } from "./agrupacionCanals";
+import { ClienteAgrupacionZona } from "./clienteAgrupacionZona";
+import { ClienteAgrupacionCanal } from "./clienteAgrupacionCanal";
 
 export interface ContratoForm {
   id: number
   tipoEstudios: number
-  zonas: Zona[]
-  canals: Canal[]
+  zonas: ClienteAgrupacionZona[]
+  canals: ClienteAgrupacionCanal[]
   atributoFuncionalVariedads: AtributoFuncionalVariedad[]
   categoriaUnidadVentas: []
   tipoInformeOrdens: TipoInformeOrden[]

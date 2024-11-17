@@ -132,36 +132,23 @@
 
     <div class="tab-pane " id="canal" role="tabpanel" aria-labelledby="canal-tab" tabindex="0" [hidden]="model.id==0">
         <div class="row mt-4">
-            <div class="col-6">
+            <div class="col-8">
                 <h6 class="mb-3 text-center">LISTADO CANAL CLIENTE</h6>
                 <hr>
                 <app-cliente-canal-form [cliente]="model" #clienteCanalFormComp
                     (actualizarListEmit)="actualizarCanalList()"></app-cliente-canal-form>
             </div>
-
-            <div class="col-6">
-                <h6 class="mb-3 text-center">AGRUPACION CANAL</h6>
-                <hr>
-                <app-cliente-canal-list [cliente]="model" #clienteCanalListComp (selectClienteAgrupacionCanal)="selectCanalEdit($event)"
-                    ></app-cliente-canal-list>
-            </div>
+        
         </div>
     </div>
 
     <div class="tab-pane " id="zona" role="tabpanel" aria-labelledby="zona-tab" tabindex="0" [hidden]="model.id==0">
         <div class="row mt-4">
-            <div class="col-6">
+            <div class="col-8">
                 <h6 class="mb-3 text-center">LISTADO ZONAS CLIENTE</h6>
                 <hr>
                 <app-cliente-zona-form [cliente]="model" #clienteZonaFormComp
                     (actualizarListEmit)="actualizarZonaList()"></app-cliente-zona-form>
-            </div>
-
-            <div class="col-6">
-                <h6 class="mb-3 text-center">AGRUPACION ZONAS</h6>
-                <hr>
-                <app-cliente-zona-list [cliente]="model" #clienteZonaListComp (selectClienteAgrupacionZona)="selectZonaEdit($event)"
-                    ></app-cliente-zona-list>
             </div>
         </div>
     </div>

@@ -165,7 +165,7 @@ export class ContratoFormComponent implements OnInit {
     this.showLoading = true;
     const a = event.target as HTMLInputElement
     this.serviceCliente.postId(parseInt(a.value)).subscribe(x => {
-
+ 
       this.cliente = x
       this.serviceClienteCategoria.postIdCliente(parseInt(a.value)).subscribe(y => {
         let arr_categorias = [];
@@ -230,34 +230,43 @@ export class ContratoFormComponent implements OnInit {
   }
 
   generateMonths() {
-    
     this.months = [];
-
-    let currentDate = new Date(this.model.get('fechaInicio')?.value||'');
-    let arr_meses : Date[] = []
-    let meses = this.model.get('meses') as FormArray;
-    meses.clear()
-
+  
+    const fechaInicioStr = this.model.get('fechaInicio')?.value || '';
+    const fechaFinStr = this.model.get('fechaFin')?.value || '';
+  
+    // Validar entradas
+    if (!fechaInicioStr || !fechaFinStr) {
+      console.error('Las fechas no son válidas.');
+      return;
+    }
+  
+  
+    // Crear fechas locales sin ajuste de horas
+    let currentDate = new Date(+fechaInicioStr.substring(0,4), +fechaInicioStr.substring(5,7) -1 , +fechaInicioStr.substring(8,10));
+    const endDate = new Date(+fechaFinStr.substring(0,4), +fechaFinStr.substring(5,7) -1 , +fechaFinStr.substring(8,10));
+  
+    const meses = this.model.get('meses') as FormArray;
+    meses.clear();
+  
     const bi = parseInt(this.model.get('idFrecuencia')?.value?.toString() || '1');
-    let i=1;
-    
-    while (currentDate <= new Date(this.model.get('fechaFin')?.value||'')) {
-      console.log('asf');
-      
-      i++
-      if(bi==1){
-        const control = this.fb.control(currentDate);
-        meses.push(control)
-        this.months.push(currentDate.toLocaleString('es-PE', { month: 'long' }));
+  
+    while (currentDate <= endDate) {
+      if (bi === 1 || (bi === 2 && currentDate.getMonth() % 2 === this.getTipoMes % 2)) {
+        // Agregar al FormArray
+        const control = this.fb.control(new Date(currentDate)); // Crear una copia de la fecha
+        meses.push(control);
+  
+        // Formatear el nombre del mes
+        const monthName = currentDate.toLocaleString('es-PE', { month: 'long' });
+        this.months.push(monthName);
       }
-      else if(i%2==this.getTipoMes%2 && bi==2) {
-        const control = this.fb.control(currentDate);
-        meses.push(control)
-        this.months.push(currentDate.toLocaleString('es-PE', { month: 'long' }));
-      }
-      currentDate.setMonth(currentDate.getMonth() + 1);
+  
+      // Avanzar un mes usando formato local
+      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, currentDate.getDate());
     }
   }
+  
 
   get getMeses(){
     return this.model.get('meses') as FormArray

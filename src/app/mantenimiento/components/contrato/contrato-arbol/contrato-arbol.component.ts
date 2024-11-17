@@ -16,6 +16,10 @@ import { ContratoDetalle } from '../../../interface/contratoDetalle';
 import { ZonaService } from '../../tablas/service/zona.service';
 import { CanalService } from '../../tablas/service/canal.sevice';
 import { AlertService } from '../../../../shared/services/alert.service';
+import { AgrupacionZonas } from '../../../interface/agrupacionZonas';
+import { AgrupacionCanals } from '../../../interface/agrupacionCanals';
+import { ClienteAgrupacionZona } from '../../../interface/clienteAgrupacionZona';
+import { ClienteAgrupacionCanal } from '../../../interface/clienteAgrupacionCanal';
 
 @Component({
   selector: 'app-contrato-arbol',
@@ -26,8 +30,8 @@ export class ContratoArbolComponent implements OnInit {
   @Input()
   contratoForm!: ContratoForm
 
-  zonas: Zona[] = [];
-  canals: Canal[] = [];
+  zonas: ClienteAgrupacionZona[] = [];
+  canals: ClienteAgrupacionCanal[] = [];
   tipoEstudios: TipoEstudio[] = [];
   atributoFuncionalVariedads: AtributoFuncionalVariedad[] = [];
   tipoInformeOrdens: TipoInformeOrden[] = [];
@@ -223,8 +227,8 @@ export class ContratoArbolComponent implements OnInit {
 
               const control: ContratoDetalle = {
                 idTipoEstudio: [contrato.tipoEstudios][index],
-                idZona: contrato.zonas[j].id,
-                idCanal: contrato.canals[k].id,
+                idAgrupacionZona: contrato.zonas[j].id,
+                idAgrupacionCanal: contrato.canals[k].id,
                 idTipoInforme: contrato.tipoInformeOrdens[z].id,
                 idAtributoFuncionalVariedad: contrato.atributoFuncionalVariedads[q].id,
                 estado: 1,
@@ -304,8 +308,8 @@ export class ContratoArbolComponent implements OnInit {
                 id: 0,
                 idContrato: 0,
                 idTipoEstudio: contrato.idTipoEstudio,
-                idZona: contrato.idZona,
-                idCanal: contrato.idCanal,
+                idAgrupacionZona: contrato.idAgrupacionZona,
+                idAgrupacionCanal: contrato.idAgrupacionCanal,
                 idTipoInforme: contrato.idTipoInforme,
                 idAtributoFuncionalVariedad: contrato.idAtributoFuncionalVariedad,
                 valor: contrato.valor,

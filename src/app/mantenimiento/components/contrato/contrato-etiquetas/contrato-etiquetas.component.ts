@@ -11,6 +11,10 @@ import { ClienteZonaService } from '../../../service/clienteZona';
 import { ClienteCanalService } from '../../../service/clienteCanal';
 import { ContratoForm, ContratoFormInit } from '../../../interface/contratoForm';
 import { AtributoFuncionalVariedadService } from '../../../service/atributoFuncionalVariedad';
+import { ClienteAgrupacionZona } from '../../../interface/clienteAgrupacionZona';
+import { ClienteAgrupacionCanal } from '../../../interface/clienteAgrupacionCanal';
+import { ClienteAgrupacionZonaService } from '../../../service/clienteAgrupacionZona';
+import { ClienteAgrupacionCanalService } from '../../../service/clienteAgrupacionCanal';
 
 @Component({
   selector: 'app-contrato-etiquetas',
@@ -28,8 +32,8 @@ export class ContratoEtiquetasComponent implements OnInit {
     tipoInformeOrdens: this.fb.array<number>([]),
   });
 
-  zonas: ClienteZona[] = [];
-  canals: ClienteCanal[] = [];
+  zonas: ClienteAgrupacionZona[] = [];
+  canals: ClienteAgrupacionCanal[] = [];
   tipoEstudios: TipoEstudio[] = [];
   atributoFuncionalVariedads: AtributoFuncionalVariedad[] = [];
   tipoInformeOrdens: TipoInformeOrden[] = [];
@@ -40,8 +44,8 @@ export class ContratoEtiquetasComponent implements OnInit {
     private fb:FormBuilder,
     private serviceTipoEstudio : TipoEstudioService,
     private alert:AlertService,
-    private serviceClienteZona:ClienteZonaService,
-    private serviceClienteCanal:ClienteCanalService,
+    private serviceClienteAgrupacionZona:ClienteAgrupacionZonaService,
+    private serviceClienteAgrupacionCanal:ClienteAgrupacionCanalService,
     private serviceAtributoFuncionalVariedad: AtributoFuncionalVariedadService
 
   ){}
@@ -74,7 +78,7 @@ export class ContratoEtiquetasComponent implements OnInit {
     const arr_zonas = (this.model.get('zonas') as FormArray).value;
     for (let i = 0; i < arr_zonas.length; i++) {
       if(arr_zonas[i]){
-        this.contratoForm.zonas.push(this.zonas[i].Zona);
+        this.contratoForm.zonas.push(this.zonas[i]);
       }
     }
 
@@ -82,7 +86,7 @@ export class ContratoEtiquetasComponent implements OnInit {
     const arr_canals = (this.model.get('canals') as FormArray).value;
     for (let i = 0; i < arr_canals.length; i++) {
       if(arr_canals[i]){
-        this.contratoForm.canals.push(this.canals[i].Canal);
+        this.contratoForm.canals.push(this.canals[i]);
       }
     }
 
@@ -140,7 +144,7 @@ export class ContratoEtiquetasComponent implements OnInit {
 
   actualizarEtiquetas(idCliente:number,idCategoria:number):void{
    // this.tipoEstudios = [TipoEstudioInit]
-    this.serviceClienteZona.postIdCliente(idCliente).subscribe((x) => {
+    this.serviceClienteAgrupacionZona.postIdCliente(idCliente).subscribe((x) => {
       this.zonas = x.data;
       this.contratoForm.zonas = [];
 
@@ -150,12 +154,12 @@ export class ContratoEtiquetasComponent implements OnInit {
         const control = this.fb.control(true);
         arr.push(control);
 
-        this.contratoForm.zonas.push(x.data[index].Zona);
+        this.contratoForm.zonas.push(x.data[index]);
       }
 
     });
 
-    this.serviceClienteCanal.postIdCliente(idCliente).subscribe((x) => {
+    this.serviceClienteAgrupacionCanal.postIdCliente(idCliente).subscribe((x) => {
       this.canals = x.data;
       this.contratoForm.canals = [];
 
@@ -165,10 +169,10 @@ export class ContratoEtiquetasComponent implements OnInit {
         const control = this.fb.control(true);
         arr.push(control);
 
-        this.contratoForm.canals.push(x.data[index].Canal);
-      }
-
-    });
+        this.contratoForm.canals.push(x.data[index]);
+      } 
+ 
+    }); 
 
     this.serviceAtributoFuncionalVariedad.postIdClienteIdCategoria(idCliente, idCategoria).subscribe((x) => {
 

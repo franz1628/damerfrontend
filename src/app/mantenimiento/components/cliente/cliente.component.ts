@@ -15,8 +15,6 @@ import { ClienteCanal } from '../../interface/clienteCanal';
 import { ClienteZona } from '../../interface/clienteZona';
 import { ClienteCanalFormComponent } from './cliente-canal-form/cliente-canal-form.component';
 import { ClienteZonaFormComponent } from './cliente-zona-form/cliente-zona-form.component';
-import { ClienteCanalListComponent } from './cliente-canal-list/cliente-canal-list.component';
-import { ClienteZonaListComponent } from './cliente-zona-list/cliente-zona-list.component';
 import { Categoria, CategoriaInit } from '../variedades/interfaces/categoria.interface';
 import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../interface/atributoFuncionalVariedad';
 import { ClienteFormulaComponent } from './cliente-formula/cliente-formula.component';
@@ -58,12 +56,6 @@ export class ClienteComponent {
 
   @ViewChild('clienteCategoriaListComp')
   clienteCategoriaListComp!: ClienteCategoriaListComponent;
-
-  @ViewChild('clienteCanalListComp')
-  clienteCanalListComp!: ClienteCanalListComponent;
-
-  @ViewChild('clienteZonaListComp')
-  clienteZonaListComp!: ClienteZonaListComponent;
 
   @ViewChild('clienteFormComp') 
   clienteFormComp!: ClienteFormComponent;
@@ -128,8 +120,8 @@ export class ClienteComponent {
       await this.clienteContactoListComp.actualizarList(this.model.id);
       await this.clienteDireccionListComp.actualizarList(this.model.id);
       await this.clienteCategoriaListComp.loadModels(this.model.id);
-      await this.clienteCanalListComp.loadModels(this.model.id);
-      await this.clienteZonaListComp.loadModels(this.model.id);
+     // await this.clienteCanalListComp.loadModels(this.model.id);
+      //await this.clienteZonaListComp.loadModels(this.model.id);
     }
     this.showLoading=false;
   }

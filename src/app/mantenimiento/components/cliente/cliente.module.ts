@@ -12,9 +12,7 @@ import { ClienteContactoListComponent } from './cliente-contacto-list/cliente-co
 import { ClienteContactoFormComponent } from './cliente-contacto-form/cliente-contacto-form.component';
 import { ClienteCategoriaListComponent } from './cliente-categoria-list/cliente-categoria-list.component';
 import { ClienteCategoriaFormComponent } from './cliente-categoria-form/cliente-categoria-form.component';
-import { ClienteCanalListComponent } from './cliente-canal-list/cliente-canal-list.component';
 import { ClienteCanalFormComponent } from './cliente-canal-form/cliente-canal-form.component';
-import { ClienteZonaListComponent } from './cliente-zona-list/cliente-zona-list.component';
 import { ClienteZonaFormComponent } from './cliente-zona-form/cliente-zona-form.component';
 import { ClienteFormulaComponent } from './cliente-formula/cliente-formula.component';
 import { ClienteAtributoFuncionalComponent } from './cliente-atributo-funcional/cliente-atributo-funcional.component';
@@ -24,16 +22,18 @@ import { ClienteAtributoFiltroComponent } from './cliente-atributo-filtro/client
 import { ClienteConcatenacionComponent } from './cliente-concatenacion/cliente-concatenacion.component';
 import { ClienteResultadosComponent } from './cliente-resultados/cliente-resultados.component';
 import { ClienteResultadosFiltroComponent } from './cliente-resultados-filtro/cliente-resultados-filtro.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
-  declarations: [ClienteComponent, ClienteFormComponent, ClienteListComponent, ClienteDireccionFormComponent, ClienteDireccionListComponent, ClienteContactoListComponent, ClienteContactoFormComponent, ClienteCategoriaListComponent, ClienteCategoriaFormComponent, ClienteCanalListComponent, ClienteCanalFormComponent, ClienteZonaListComponent, ClienteZonaFormComponent, ClienteFormulaComponent, ClienteAtributoFuncionalComponent, ClienteAtributoValorComponent, ClienteAtributoFormulaComponent, ClienteAtributoFiltroComponent, ClienteConcatenacionComponent, ClienteResultadosComponent, ClienteResultadosFiltroComponent],
+  declarations: [ClienteComponent, ClienteFormComponent, ClienteListComponent, ClienteDireccionFormComponent, ClienteDireccionListComponent, ClienteContactoListComponent, ClienteContactoFormComponent, ClienteCategoriaListComponent, ClienteCategoriaFormComponent, ClienteCanalFormComponent, ClienteZonaFormComponent, ClienteFormulaComponent, ClienteAtributoFuncionalComponent, ClienteAtributoValorComponent, ClienteAtributoFormulaComponent, ClienteAtributoFiltroComponent, ClienteConcatenacionComponent, ClienteResultadosComponent, ClienteResultadosFiltroComponent],
   imports: [
 
     CommonModule,
     FormsModule,
     SharedModule,
     ReactiveFormsModule,
-    ClienteRoutingModule
+    ClienteRoutingModule,
+    NgSelectModule
   ]
 })
 export class ClienteModule { }
