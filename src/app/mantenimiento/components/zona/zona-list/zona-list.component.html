@@ -14,6 +14,7 @@
                     <th>TipoZona</th>
                     <th>Descripcion</th>
                     <th>Zona Principal</th>
+                    <th>Ruta</th>
                     <th>Numero Orden</th>
                     <th>Estado</th>
                     <th>Creación</th>
@@ -29,6 +30,7 @@
                         <td>{{model.TipoZona.descripcion}}</td>
                         <td>{{model.descripcion}}</td>
                         <td>{{model.ZonaPrincipal?.descripcion}}</td>
+                        <td>{{model.planificadorRuta?'SI':'NO'}}</td>
                         <td>{{model.numeroOrden}}</td>
                         <td>
                             @if(model.estado==1){

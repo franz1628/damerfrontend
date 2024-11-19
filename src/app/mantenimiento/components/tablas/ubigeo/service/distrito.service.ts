@@ -46,8 +46,12 @@ export class DistritoService {
     return this.http.post<ResponseDistrito>(`${this.apiUrl}/postByZona`, {zona});
   }
 
-  update(id: number, model: Distrito): Observable<Distrito> {
-    return this.http.put<Distrito>(`${this.apiUrl}/${id}`, model);
+  update(id: number, model: Distrito): Observable<ResponseDistrito> {
+    return this.http.put<ResponseDistrito>(`${this.apiUrl}/${id}`, model);
+  }
+
+  postQuitarZona(id: number, model: Distrito,idZona:number): Observable<ResponseDistrito> {
+    return this.http.put<ResponseDistrito>(`${this.apiUrl}/postQuitarZona/${id}`, {model,idZona});
   }
 
   delete(model: Distrito): Observable<Distrito> {

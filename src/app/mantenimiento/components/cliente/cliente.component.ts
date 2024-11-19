@@ -131,7 +131,7 @@ export class ClienteComponent {
   }
 
   selectDireccionEdit(model:ClienteDireccion){
-    this.clienteDireccionFormComp.selectEdit(model);
+    this.clienteDireccionFormComp.selectEdit(model); 
   }
 
   selectContactoEdit(model:ClienteContacto){

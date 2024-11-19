@@ -106,11 +106,15 @@ export class ZonaComponent {
   eliminarDistritoZona(distrito: Distrito,zona: Zona) {
     this.alert.showAlertConfirm('Mensaje','Desea sacar el distrito de la zona','warning',()=>{
       distrito.idZona=0
-  
-      this.serviceDistrito.update(distrito.id,distrito).subscribe(x=>{
+      this.serviceDistrito.postQuitarZona(distrito.id,distrito,zona.id).subscribe(x=>{
         this.alert.showAlert('Mensaje','Eliminado correctamente','success')     
         this.eligeModel(this.model)
       })
+
+      /*this.serviceDistrito.update(distrito.id,distrito).subscribe(x=>{
+        this.alert.showAlert('Mensaje','Eliminado correctamente','success')     
+        this.eligeModel(this.model)
+      })*/
     })
     
   }
@@ -121,23 +125,18 @@ export class ZonaComponent {
       return 
     }
 
-    this.serviceDistrito.getId(this.idDistritoDistrito).subscribe(z=>{
+    let miDistrito = this.distritos.filter(x=>x.id == this.idDistritoDistrito)[0]
+    miDistrito.idZona = this.model.id
 
-      
-      if(z.data.idZona==0){
-        let miDistrito = this.distritos.filter(x=>x.id == this.idDistritoDistrito)[0]
-        miDistrito.idZona = this.model.id
-    
-        this.serviceDistrito.update(this.idDistritoDistrito,miDistrito).subscribe(x=>{
-          this.alert.showAlert('Mensaje','Agregado correctamente','success')     
-          this.eligeModel(this.model)
-        })
+    this.serviceDistrito.update(this.idDistritoDistrito,miDistrito).subscribe(x=>{
+      if(x.state == 1){
+        this.alert.showAlert('Mensaje',x.message,'success')     
+        this.eligeModel(this.model)
       }else{
-        this.alert.showAlert('Mensaje','Este distrito ya tiene una zona asignada','warning')     
+        this.alert.showAlert('Mensaje',x.message,'warning')    
       }
     })
-    
-   
+
   }
 
 }
