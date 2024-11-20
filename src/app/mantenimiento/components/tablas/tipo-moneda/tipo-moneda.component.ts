@@ -1,30 +1,23 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
-import { UnidadVenta, UnidadVentaInit } from '../../../interface/unidadVenta';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { TipoMonedaService } from '../../../service/tipoMoneda';
 import { AlertService } from '../../../../shared/services/alert.service';
-import { UnidadVentaService } from '../../../service/unidadVenta';
 import { forkJoin, lastValueFrom } from 'rxjs';
-import { TipoUnidadMedidaService } from '../../../service/tipoUnidadMedida';
-import { UnidadMedidaService } from '../../../service/unidadMedida';
-import { TipoUnidadMedida } from '../../../interface/tipoUnidadMedida';
-import { UnidadMedida } from '../../../interface/unidadMedida';
-import { TipoEstudioService } from '../../../service/tipoEstudio';
 
 @Component({
-  selector: 'app-tipo-estudio',
-  templateUrl: './tipo-estudio.component.html'
+  selector: 'app-tipo-moneda',
+  templateUrl: './tipo-moneda.component.html'
 })
-export class TipoEstudioComponent {
-
+export class TipoMonedaComponent {
   @Input()
   showLoading: boolean = false;
   
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
-  });;
+  });
 
   constructor(
-    private service: TipoEstudioService,
+    private service: TipoMonedaService,
     private fb: FormBuilder,
     private alert: AlertService
   ) {
@@ -59,13 +52,8 @@ export class TipoEstudioComponent {
             const nuevoModelo = this.fb.group({
               id: [model.id], 
               descripcion:[model.descripcion],
-              intTipoProyeccion:[model.intTipoProyeccion],
-              intPrioridadLevantamiento:[model.intPrioridadLevantamiento],
-              indicarSolicitarBandeja:[model.indicarSolicitarBandeja],
-              indicarUtilizarMuestra:[model.indicarUtilizarMuestra],
-              especificarAtributo:[model.especificarAtributo],
-              indicarEspecificarSku:[model.indicarEspecificarSku],
-              indicarMuestraReal:[model.indicarMuestraReal],
+              simbolo:[model.simbolo],
+              alias:[model.alias],
             });
   
             this.modelosArray.push(nuevoModelo);
@@ -105,13 +93,8 @@ export class TipoEstudioComponent {
     const nuevoModelo = this.fb.group({
       id: [0],
       descripcion:[''],
-      intTipoProyeccion:[0],
-      intPrioridadLevantamiento:[0],
-      indicarSolicitarBandeja:[0],
-      indicarUtilizarMuestra:[0],
-      especificarAtributo:[0],
-      indicarEspecificarSku:[0],
-      indicarMuestraReal:[0]
+      simbolo:[''],
+      alias:[''],
     });
 
     this.modelosArray.push(nuevoModelo);
@@ -152,11 +135,5 @@ export class TipoEstudioComponent {
         this.showLoading = false;
       }
     })
- 
-
   }
-
-  
- 
-
 }

@@ -21,7 +21,7 @@ export interface ResponseTipoEstudio {
   providedIn: 'root'
 })
 export class TipoEstudioService {
-  private apiUrl = environments.baseUrl+'api/TipoEstudio'; // Reemplaza con la URL de tu backend
+  private apiUrl = environments.baseUrl+'api/tipoEstudio'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 

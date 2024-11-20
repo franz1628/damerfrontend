@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-12">
+        <h6 class="mb-3 text-center">TIPO DE MONEDA</h6>
+
+        <form [formGroup]="models">
+            <div formArrayName="modelos">
+                <table class="table text-center table-sm">
+                    <thead class="table-success fs-6">
+                        <tr>
+                            <th>Item</th>
+                            <th>Descripcion </th>
+                            <th>Simbolo</th>
+                            <th>Alias</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (modelosArray.controls.length!=0) {
+                          @for (model of modelosArray.controls; track $index) {
+                            <tr [formGroupName]="$index">
+                              <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
+                              <td> <input class="form-control form-control-sm" formControlName="descripcion"> </td>
+                            
+                              <td> <input class="form-control form-control-sm" formControlName="simbolo"> </td>
+                              <td> <input class="form-control form-control-sm" formControlName="alias"> </td>
+                              
+                              <td>
+                                  <div class="btn-group">
+                                      @if(model.get('id')?.value!=0){
+                                      <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i
+                                              class="bi bi-pencil"></i></button>
+                                      <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i class="bi bi-trash-fill"></i></button>
+                                      @if(modelosArray.controls.length==$index+1){
+                                      <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
+                                              class="bi bi-plus-lg"></i></button>
+                                      }
+                                      }@else{
+                                      <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
+                                              class="bi bi-save2"></i></button>
+                                      }
+                                  </div>
+                              </td>
+                          </tr>
+                          }
+                        }
+                    </tbody>
+                </table>
+            </div>
+          
+          </form>
+    </div>
+    <div class="col-md-1"></div>
+   
+</div>
+
+
+

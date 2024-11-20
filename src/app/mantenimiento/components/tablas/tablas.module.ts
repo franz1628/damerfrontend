@@ -43,6 +43,8 @@ import { UnidadVentaComponent } from './unidad-venta/unidad-venta.component';
 import { TipoDireccionComponent } from './tipo-direccion/tipo-direccion.component';
 import { TipoEstudioComponent } from './tipo-estudio/tipo-estudio.component';
 import { ViaComponent } from './via/via.component';
+import { TipoPresentacionComponent } from './tipo-presentacion/tipo-presentacion.component';
+import { TipoMonedaComponent } from './tipo-moneda/tipo-moneda.component';
 
 
 
@@ -86,7 +88,9 @@ import { ViaComponent } from './via/via.component';
     UnidadVentaComponent,
     TipoDireccionComponent,
     TipoEstudioComponent,
-    ViaComponent
+    ViaComponent,
+    TipoPresentacionComponent,
+    TipoMonedaComponent
   ],  
     imports: [
         CommonModule,

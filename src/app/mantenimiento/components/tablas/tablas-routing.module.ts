@@ -17,6 +17,9 @@ import { UrbanizacionComponent } from './ubigeo/components/urbanizacion/urbaniza
 import { UnidadVentaComponent } from './unidad-venta/unidad-venta.component';
 import { TipoDireccionComponent } from './tipo-direccion/tipo-direccion.component';
 import { ViaComponent } from './via/via.component';
+import { TipoEstudioComponent } from './tipo-estudio/tipo-estudio.component';
+import { TipoPresentacionComponent } from './tipo-presentacion/tipo-presentacion.component';
+import { TipoMonedaComponent } from './tipo-moneda/tipo-moneda.component';
 
 const routes: Routes = [
   {
@@ -35,7 +38,10 @@ const routes: Routes = [
       { path: 'tipoInformeOrden', component: TipoInformeOrdenComponent },
       { path: 'unidadMedida', component: UnidadMedidaComponent },
       { path: 'unidadVenta', component: UnidadVentaComponent },
-      { path: 'tipoDireccion', component: TipoDireccionComponent }
+      { path: 'tipoDireccion', component: TipoDireccionComponent },
+      { path: 'tipoEstudio', component: TipoEstudioComponent },
+      { path: 'tipoMoneda', component: TipoMonedaComponent },
+      { path: 'tipoPresentacion', component: TipoPresentacionComponent }
       , {
         path: '404', 
         component: Error404PageComponent,
