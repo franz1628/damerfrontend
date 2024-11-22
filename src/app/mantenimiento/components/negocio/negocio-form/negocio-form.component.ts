@@ -105,7 +105,7 @@ export class NegocioFormComponent {
     this.urbanizacionService.get().subscribe(response => { this.showLoading = false; this.listUrbanizacion = response.data });
     this.departamentoService.get().subscribe(response => { this.showLoading = false; this.departamentos = response.data });
     this.provinciaService.get().subscribe(response => { this.showLoading = false; this.provincias = response.data });
-    this.zonaService.get().subscribe(response => {this.showLoading = false; this.listZonas = response.data })
+    this.zonaService.getPlanificador().subscribe(response => {this.showLoading = false; this.listZonas = response.data })
     this.viaService.get().subscribe(response => {this.showLoading = false; this.listVias = response.data })
   }
 

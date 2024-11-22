@@ -31,6 +31,10 @@ export class ZonaService {
     return this.http.get<ResponseZona>(`${this.apiUrl}/getProyectada`);
   }
 
+  getPlanificador(): Observable<ResponseZona> {
+    return this.http.get<ResponseZona>(`${this.apiUrl}/getPlanificador`);
+  }
+
   getId(id: number): Observable<Zona|undefined> {
     return this.http.get<Zona>(`${this.apiUrl}/${id}`).pipe(catchError(error=>of(undefined)));
   }
