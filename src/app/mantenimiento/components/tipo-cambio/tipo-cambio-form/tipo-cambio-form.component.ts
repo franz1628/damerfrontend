@@ -65,7 +65,7 @@ export class TipoCambioFormComponent implements OnInit {
     }
 
     this.service.add(this.getModel).subscribe(resp => {
-      this.model.reset();
+      this.nuevo();
       this.actualizarList();
     })
 
@@ -80,7 +80,7 @@ export class TipoCambioFormComponent implements OnInit {
     }
 
     this.service.update(this.getModel.id, this.getModel).subscribe(resp => {
-      this.model.reset();
+      this.nuevo();
       this.actualizarList();
     })
 
