@@ -6,7 +6,7 @@
             <thead class="table-success">
                 <tr>
                     <th>Id</th>
-                    <th>Moneda</th>
+                    <th>Tipo Moneda</th>
                     <th>Tipo</th>
                     <th>Valor</th>
                     <th>Fecha</th>
@@ -19,7 +19,7 @@
                 @for (model of models; track $index) {
                     <tr>
                         <td>{{model.id}}</td>
-                        <td>{{model.Moneda.descripcion}}</td>
+                        <td>{{model.TipoMoneda.descripcion}}</td>
                         <td>{{model.TipoTipoCambio.descripcion}}</td>
                         <td>{{model.valor}}</td>
                         <td>{{ model.fecha | date:'dd/MM/yyyy' }}</td>

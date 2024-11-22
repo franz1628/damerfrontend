@@ -8,6 +8,8 @@ import { TipoCambioService } from '../../../service/tipoCambio.service';
 import { Moneda } from '../../../interface/moneda';
 import { MonedaService } from '../../../service/moneda';
 import { RegexService } from '../../../../shared/services/regex.service';
+import { TipoMonedaService } from '../../../service/tipoMoneda';
+import { TipoMoneda } from '../../../interface/tipoMoneda';
 
 @Component({
   selector: 'app-tipo-cambio-form',
@@ -17,7 +19,7 @@ export class TipoCambioFormComponent implements OnInit {
   public model = this.fb.group({
     id: [0],
     fecha: [new Date(), [Validators.required,Validators.pattern(this.regexService.regexFecha)]],
-    idMoneda: [0, [Validators.required,Validators.pattern(this.regexService.regexCombo)]],
+    idTipoMoneda: [0, [Validators.required,Validators.pattern(this.regexService.regexCombo)]],
     idTipoTipoCambio: [0, [Validators.required,Validators.pattern(this.regexService.regexCombo)]],
     valor: [0, [Validators.required,Validators.pattern(this.regexService.regexFloat)]]
   })
@@ -25,14 +27,14 @@ export class TipoCambioFormComponent implements OnInit {
   @Output() actualizarListEmit: EventEmitter<null> = new EventEmitter();
 
   public listTipoTipoCambio: TipoTipoCambio[] = []
-  public listMoneda: Moneda[] = []
+  public listTipoMoneda: TipoMoneda[] = []
 
   constructor(
     private fb: FormBuilder,
     private validForm: ValidFormService,
     private tipoTipoCambioService: TipoTipoCambioService,
     private service: TipoCambioService,
-    private monedaService: MonedaService,
+    private tipoMonedaService: TipoMonedaService,
     private regexService:RegexService
   ) {
 
@@ -43,8 +45,8 @@ export class TipoCambioFormComponent implements OnInit {
       this.listTipoTipoCambio = resp.data;
     })
 
-    this.monedaService.get().subscribe(resp => {
-      this.listMoneda = resp.data;
+    this.tipoMonedaService.get().subscribe(resp => {
+      this.listTipoMoneda = resp.data;
     })
   }
 
@@ -63,6 +65,21 @@ export class TipoCambioFormComponent implements OnInit {
     }
 
     this.service.add(this.getModel).subscribe(resp => {
+      this.model.reset();
+      this.actualizarList();
+    })
+
+  }
+
+  
+
+  editar() {
+    if (this.model.invalid) {
+      this.model.markAllAsTouched();
+      return;
+    }
+
+    this.service.update(this.getModel.id, this.getModel).subscribe(resp => {
       this.model.reset();
       this.actualizarList();
     })

@@ -14,19 +14,19 @@
             </div>
 
             <div class="mb-3 row">
-                <label for="idMoneda" class="col-md-4 col-form-label-sm">Moneda</label>
+                <label for="idTipoMoneda" class="col-md-4 col-form-label-sm">Tipo Moneda</label>
                 <div class="col-sm-8">
-                    <select class="form-select form-select-sm" formControlName="idMoneda" id="idMoneda"
-                        name="idMoneda">
+                    <select class="form-select form-select-sm" formControlName="idTipoMoneda" id="idTipoMoneda"
+                        name="idTipoMoneda">
                         <option value="0">Seleccionar</option>
-                        @for (moneda of listMoneda; track $index) {
-                            <option value={{moneda.id}}>{{moneda.descripcion}}</option>
+                        @for (tipoMoneda of listTipoMoneda; track $index) {
+                            <option value={{tipoMoneda.id}}>{{tipoMoneda.descripcion}}</option>
                         }
                     </select>
 
                 </div>
-                <span *ngIf="isValidField('idMoneda')" class="form-text text-danger">
-                    {{ getFieldError('idMoneda') }}
+                <span *ngIf="isValidField('idTipoMoneda')" class="form-text text-danger">
+                    {{ getFieldError('idTipoMoneda') }}
                 </span>
             </div>
 
@@ -58,7 +58,14 @@
                 </span>
             </div>
 
-            <button class="btn btn-sm btn-success" (click)="agregar()">GUARDAR</button>
+            @if(getModel.id==0){
+
+                <button class="btn btn-sm btn-success" (click)="agregar()">GUARDAR</button>
+            }@else{
+                <button class="btn btn-sm btn-info" (click)="nuevo()">NUEVO</button>
+                <button class="btn btn-sm btn-success" (click)="editar()">GUARDAR</button>
+            }
+
 
             <!-- <app-add-tipo-cambio [model]="getModel" (actualizarList)="actualizarList()"></app-add-tipo-cambio> -->
         </div>
