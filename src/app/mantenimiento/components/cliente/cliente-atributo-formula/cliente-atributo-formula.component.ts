@@ -24,7 +24,7 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
   checkboxSeleccionados: number[] = [];
   idAtributoTecnicoVariedad: number = 0
   idCategoriaAtributoTecnico:number=0
-
+  valors:string[] = []
 
   constructor(
     private serviceCategoriaAtributoTecnico: CategoriaAtributoTecnicoService,
@@ -51,33 +51,38 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
       this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
    
         const clienteFormulas: ClienteFormula = y.data
-        let valors:string[] = []
         if(clienteFormulas!=null){
-          valors = clienteFormulas.idAtributoTecnicoVariedadValors?.split(',')||[];
+          this.valors = clienteFormulas.idAtributoTecnicoVariedadValors?.split(',')||[];
         }else{
-          valors = []
+          this.valors = []
         }
         this.checkboxSeleccionados = []
         this.idAtributoTecnicoVariedad = clienteFormulas?.idAtributoTecnicoVariedad;
 
         this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idCategoriaAtributoTecnico).subscribe(x => {
           this.categoriaAtributoTecnicoValors = x
+          for (let i = 0; i < this.valors.length; i++) {
+            const element = this.valors[i];
+  
+            this.checkboxSeleccionados.push(parseInt(element));
+          }
 
         })
 
-        for (let i = 0; i < valors.length; i++) {
-          const element = valors[i];
-
-          this.checkboxSeleccionados.push(parseInt(element));
-        }
-
-
-
-
+       
       })
     })
 
   }
+
+  checkAllFormula() {
+    this.checkboxSeleccionados = [];
+    for (let i = 0; i < this.categoriaAtributoTecnicoValors.length; i++) {
+    
+      this.checkboxSeleccionados.push(this.categoriaAtributoTecnicoValors[i].idAtributoTecnicoVariedadValor);
+    
+    }
+  } 
 
   changeAtributo(e: Event) {
     const idCategoriaAtributoTecnico = +(e.target as HTMLInputElement).value
@@ -86,6 +91,13 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
     this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(idCategoriaAtributoTecnico).subscribe(x => {
       this.checkboxSeleccionados = []
       this.categoriaAtributoTecnicoValors = x
+
+      for (let i = 0; i < this.valors.length; i++) {
+        const element = this.valors[i];
+
+        this.checkboxSeleccionados.push(parseInt(element));
+      }
+      
     })
 
   }

@@ -184,17 +184,28 @@ export class ClienteCategoriaListComponent implements OnChanges {
 
     if (this.idClienteAgrupacionCategoria == 0) { //Nueva Agrupacion de categoria
       this.service.addCategoriasNuevo(this.cliente.id, this.categoriasAgrupacion, this.nombreAgrupacionCategoria).subscribe(x => {
-        this.alert.showAlert('Mensaje', 'Agregado correctament', 'success')
-        this.botonCerrarModalAgrupacion.nativeElement.click()
-        this.loadModels(this.cliente.id)
+
+        if(x.state==1){
+          this.alert.showAlert('Mensaje', 'Agregado correctamente', 'success')
+          this.botonCerrarModalAgrupacion.nativeElement.click()
+          this.loadModels(this.cliente.id)
+          
+        }else{
+          this.alert.showAlert('Advertencia', x.message, 'warning')
+        }
+
         this.showLoading = false
       })
     } else {
       this.service.editCategorias(this.idClienteAgrupacionCategoria, this.categoriasAgrupacion, this.nombreAgrupacionCategoria).subscribe(x => {
-
-        this.alert.showAlert('Mensaje', 'Modificado correctament', 'success')
-        this.botonCerrarModalAgrupacion.nativeElement.click()
-        this.loadModels(this.cliente.id)
+        if(x.state==1){
+          this.alert.showAlert('Mensaje', 'Modificado correctament', 'success')
+          this.botonCerrarModalAgrupacion.nativeElement.click()
+          this.loadModels(this.cliente.id)
+         
+        }else{
+          this.alert.showAlert('Advertencia', x.message, 'warning')
+        }
         this.showLoading = false
       })
     }

@@ -15,6 +15,8 @@ import { CategoriaAtributoTecnicoValor } from '../../variedades/interfaces/categ
   templateUrl: './cliente-formula.component.html'
 })
 export class ClienteFormulaComponent implements OnInit {
+  checkFormula: boolean[] = [];
+
   public categoriaAtributoTecnicos : CategoriaAtributoTecnico[] = [];
   public categoriaAtributoTecnicoValors : CategoriaAtributoTecnicoValor[] = [];
 
@@ -41,17 +43,23 @@ export class ClienteFormulaComponent implements OnInit {
     this.service.postIdCategoria(categoria.id).subscribe(x=>{
       this.categoriaAtributoTecnicos = x.data;
     });
- 
-
   }
+
+  checkAllFormula() {
+    for (let i = 0; i < this.categoriaAtributoTecnicoValors.length; i++) {
+      this.checkFormula[i] = true;
+    }
+  } 
 
   changeAtributo(e:Event){
     const valor = e.target as HTMLInputElement;
-
+ 
     //Listando valores de la categoria atributotecnico
     this.serviceValor.postIdCategoriaAtributoTecnico(parseInt(valor.value)).subscribe(x=>{
       this.categoriaAtributoTecnicoValors = x;
-      
+      for (let i = 0; i < this.categoriaAtributoTecnicoValors.length; i++) {
+        this.checkFormula.push(false)
+      }
       
     });
     

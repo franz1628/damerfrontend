@@ -1,4 +1,4 @@
-<div class="row mt-4">
+<div class="row mt-12">
     <div class="col-md-3">
         <select class="form-select form-select-sm" (change)="changeAtributo($event)">
             <option value="0">SELECCIONAR</option>
@@ -12,8 +12,18 @@
     </div>
 </div>
 
-<div class="row mt-4">
-    <div class="col-md-3">
+<div class="row mt-12">
+    <div class="col-md-12">
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" (click)="checkAllFormula()">
+            <label>
+                Seleccionar Todos
+            </label>
+        </div>
+
+        <hr>
+
         @for (atr of categoriaAtributoTecnicoValors; track $index) {
         <div class="form-check">
             <input class="form-check-input" type="checkbox" 

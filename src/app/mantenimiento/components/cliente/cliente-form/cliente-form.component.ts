@@ -69,8 +69,12 @@ export class ClienteFormComponent {
     this.model.patchValue({idUsuario:JSON.parse(localStorage.getItem('usuario')||'').id})
 
     this.service.add(this.getModel).subscribe(resp => {
-      this.reset();
-      this.actualizarList();
+      if(resp.state==1){
+        this.reset();
+        this.actualizarList();
+      }else{
+        this.alert.showAlert('Advertencia',resp.message,'warning');
+      }
     })
 
   }
@@ -95,9 +99,14 @@ export class ClienteFormComponent {
         return throwError(()=>error);
       })
     ).subscribe(x=>{
+      if(x.state==1){
         this.alert.showAlert('Mensaje',x.message,'success');
         this.actualizarList();
         this.reset();
+      }else{
+        this.alert.showAlert('Advertencia',x.message,'warning');
+      }
+
     });
   } 
 

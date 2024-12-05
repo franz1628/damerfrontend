@@ -6,6 +6,7 @@ export interface ClienteContacto {
     nombreCompleto: string,
     cargo: string,
     correo: string,
+    telefono: string,
     estado: number,
     fechaRegistro: Date,
     Cliente:Cliente
@@ -17,6 +18,7 @@ export const ClienteContactoInit: ClienteContacto = {
     nombreCompleto: '',
     cargo: '',
     correo: '',
+    telefono: '',
     estado: 1,
     fechaRegistro: new Date(),
     Cliente:ClienteInit

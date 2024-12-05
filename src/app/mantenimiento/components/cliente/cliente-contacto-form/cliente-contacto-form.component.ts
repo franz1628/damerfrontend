@@ -23,6 +23,7 @@ export class ClienteContactoFormComponent {
     nombreCompleto: ['',Validators.required],
     cargo: ['',Validators.required],
     correo: ['',Validators.required],
+    telefono: ['',Validators.required],
   })
 
   constructor(

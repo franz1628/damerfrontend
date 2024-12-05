@@ -101,14 +101,14 @@
     <div class="tab-pane " id="categoria" role="tabpanel" aria-labelledby="categoria-tab" tabindex="0" [hidden]="model.id==0">
         <div class="row mt-4">
             <div class="col-6">
-                <h6 class="mb-3 text-center">LISTADO CATEGORIAS CLIENTE</h6>
+                <h6 class="mb-3 text-center">CATEGORIAS-DIRECTORIO</h6>
                 <hr>
                 <app-cliente-categoria-form [cliente]="model" #clienteCategoriaFormComp
                     (actualizarListEmit)="actualizarCategoriaList()"></app-cliente-categoria-form>
             </div>
 
             <div class="col-6">
-                <h6 class="mb-3 text-center">AGRUPACION CATEGORIAS</h6>
+                <h6 class="mb-3 text-center">ENTREGABLE CATEGORIAS</h6>
                 <hr>
                 <app-cliente-categoria-list [cliente]="model" #clienteCategoriaListComp (selectClienteAgrupacionCategoria)="selectCategoriaEdit($event)"
                     ></app-cliente-categoria-list>

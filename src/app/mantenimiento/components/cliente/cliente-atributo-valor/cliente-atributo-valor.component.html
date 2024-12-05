@@ -7,10 +7,10 @@
               <tr>
                 <th>Id</th>
                 <th>Valor </th>
-                <th>Alerta </th>
+                <!-- <th>Alerta </th> -->
                 <th>Tipo Valor</th>
-                <th>Cond</th>
-                <th>Form</th>
+                <!-- <th>Cond</th>
+                <th>Form</th> -->
                 <th>Skus</th>
               </tr>
 
@@ -23,30 +23,34 @@
                 <td>
                   <input type="text" class="form-control form-control-sm" formControlName="descripcion">
                 </td>
-                <td>
+                <!-- <td>
                   <select class="form-select form-select-sm" formControlName="alerta">
                     <option value="0">SELECCIONAR</option>
                     <option value="1">SI</option>
                     <option value="2">NO</option>
                   </select>
-                </td>
+                </td> -->
 
                 <td>
                   <select class="form-select form-select-sm" formControlName="idTipoAtributoFuncionalVariedadValor">
-                    <option value="0">SELECCIONAR</option>
-                    <option value="1">CONCATENACION</option>
-                    <option value="2">EQUIVALENCIA</option>
-                    <option value="3">FILTRO</option>
-                    <option value="4">RESTO</option>
+                    @if(model.get('idTipoAtributoFuncionalVariedadValor')?.value == '4'){
+                      <option value="4" selected disabled>RESTO</option>
+                    }@else{
+                      <option value="0">SELECCIONAR</option>
+                      <option value="1">CONCATENACION</option>
+                      <option value="2">EQUIVALENCIA</option>
+                      <option value="3">FILTRO</option>
+                    }
+                    
                   </select>
                 </td>
 
-                <td>
+                <!-- <td>
                   <input type="text" class="form-control form-control-sm" formControlName="condicion">
                 </td>
                 <td>
                   <input type="text" class="form-control form-control-sm" formControlName="formula">
-                </td>
+                </td> -->
                 <td>
                   <input type="text" class="form-control form-control-sm" formControlName="nSkus">
                 </td>

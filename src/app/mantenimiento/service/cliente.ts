@@ -5,6 +5,12 @@ import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
 import { Cliente } from '../interface/cliente';
 
+export interface ResponseClienteOne {
+  data: Cliente,
+  state: number,
+  message: string
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,12 +36,12 @@ export class ClienteService {
     return this.http.post<Cliente>(`${this.apiUrl}/id/`, {id});
   }
 
-  add(model: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.apiUrl, model);
+  add(model: Cliente): Observable<ResponseClienteOne> {
+    return this.http.post<ResponseClienteOne>(this.apiUrl, model);
   }
 
-  update(id: number, model: Cliente): Observable<Response> {
-    return this.http.put<Response>(`${this.apiUrl}/${id}`, model);
+  update(id: number, model: Cliente): Observable<ResponseClienteOne> {
+    return this.http.put<ResponseClienteOne>(`${this.apiUrl}/${id}`, model);
   }
 
   delete(model: Cliente): Observable<Cliente> {

@@ -29,17 +29,21 @@
     
             <div class="mb-3 row">
                 <div class="col-sm-8">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" (click)="checkAllFormula()">
+                        <label>
+                            Seleccionar Todos
+                        </label>
+                    </div>
     
                     @for (categoriaAtributoTecnicoValor of categoriaAtributoTecnicoValors; track $index) {
-                    
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="categoriaAtributoTecnicoValor_{{$index}}" id="categoriaAtributoTecnicoValor_{{$index}}"
+                        <input class="form-check-input" [checked]="checkFormula[$index]" type="checkbox" name="categoriaAtributoTecnicoValor_{{$index}}" id="categoriaAtributoTecnicoValor_{{$index}}"
                         value="{{categoriaAtributoTecnicoValor.id}}">
                         <label class="form-check-label" for="categoriaAtributoTecnicoValor_{{$index}}">
                             {{categoriaAtributoTecnicoValor.comentario}}
                         </label>
                     </div>
-    
                     } 
     
     

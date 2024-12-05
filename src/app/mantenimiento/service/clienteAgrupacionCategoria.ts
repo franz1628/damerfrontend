@@ -11,6 +11,11 @@ export interface ResponseclienteAgrupacionCategoria {
   state: number,
   message: string
 }
+export interface ResponseclienteAgrupacionCategoriaOne {
+  data: ClienteAgrupacionCategoria,
+  state: number,
+  message: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -35,11 +40,11 @@ export class ClienteAgrupacionCategoriaService {
   }
 
   addCategoriasNuevo(idCliente:number, categoriasAgrupacion: Categoria[], nombreAgrupacionCategoria:string) {
-    return this.http.post<ClienteAgrupacionCategoria>(`${this.apiUrl}/addCategoriasNuevo`, {idCliente,categoriasAgrupacion,nombreAgrupacionCategoria});
+    return this.http.post<ResponseclienteAgrupacionCategoriaOne>(`${this.apiUrl}/addCategoriasNuevo`, {idCliente,categoriasAgrupacion,nombreAgrupacionCategoria});
   }
 
   editCategorias(idClienteAgrupacionCategoria: number, categoriasAgrupacion: Categoria[],nombreAgrupacionCategoria:string) {
-    return this.http.post<ClienteAgrupacionCategoria>(`${this.apiUrl}/editCategorias`, {
+    return this.http.post<ResponseclienteAgrupacionCategoriaOne>(`${this.apiUrl}/editCategorias`, {
       categoriasAgrupacion,
       idClienteAgrupacionCategoria,
       nombreAgrupacionCategoria
