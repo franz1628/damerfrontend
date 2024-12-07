@@ -32,17 +32,26 @@
                 </td> -->
 
                 <td>
-                  <select class="form-select form-select-sm" formControlName="idTipoAtributoFuncionalVariedadValor">
-                    @if(model.get('idTipoAtributoFuncionalVariedadValor')?.value == '4'){
-                      <option value="4" selected disabled>RESTO</option>
-                    }@else{
-                      <option value="0">SELECCIONAR</option>
-                      <option value="1">CONCATENACION</option>
-                      <option value="2">EQUIVALENCIA</option>
-                      <option value="3">FILTRO</option>
-                    }
+                  @if(model.get('idTipoAtributoFuncionalVariedadValor')?.value == '4'){
+                    <select class="form-select form-select-sm" formControlName="idTipoAtributoFuncionalVariedadValor">
+                 
+                        <option value="4" disabled>RESTO</option>
+                     
+                      
+                    </select>
+                  }@else{
+                    <select class="form-select form-select-sm" formControlName="idTipoAtributoFuncionalVariedadValor">
                     
-                  </select>
+                        <option value="0">SELECCIONAR</option>
+                        <option value="1">CONCATENACION</option>
+                        <option value="2">EQUIVALENCIA</option>
+                        <option value="3">FILTRO</option>
+                      
+                      
+                    </select>
+                  }
+
+                  
                 </td>
 
                 <!-- <td>

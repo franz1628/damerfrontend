@@ -59,6 +59,8 @@ export class ClienteAtributoValorComponent {
         next:value => {
          
           const models = value.service.data;
+          console.log(models);
+          
 
           models.forEach(model => {
             const nuevoModelo = this.fb.group({
@@ -66,7 +68,7 @@ export class ClienteAtributoValorComponent {
               idAtributoFuncionalVariedad: [this.atributoFuncionalVariedad.id],
               descripcion: [model.descripcion],
               alerta: [model.alerta],
-              idTipoAtributoFuncionalVariedadValor: [model.idTipoAtributoFuncionalVariedadValor],
+              idTipoAtributoFuncionalVariedadValor: [model.idTipoAtributoFuncionalVariedadValor.toString()],
               condicion: [model.condicion],
               formula: [model.formula],
               nSkus: [model.nSkus],

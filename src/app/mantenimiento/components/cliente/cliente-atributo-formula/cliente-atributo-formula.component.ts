@@ -40,16 +40,19 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
     }
   }
   ngOnInit(): void {
-    this.loadChanges()
+    //this.loadChanges()
   }
 
   loadChanges(): void {
 
     this.serviceCategoriaAtributoTecnico.postIdAgrupacionCategoria(this.atributoFuncionalVariedad.idClienteAgrupacionCategoria).subscribe(x => {
       this.categoriaAtributoTecnicos = x.data
+      console.log(x);
+      
 
       this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
-   
+        console.log(y);
+        
         const clienteFormulas: ClienteFormula = y.data
         if(clienteFormulas!=null){
           this.valors = clienteFormulas.idAtributoTecnicoVariedadValors?.split(',')||[];
@@ -59,8 +62,9 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
         this.checkboxSeleccionados = []
         this.idAtributoTecnicoVariedad = clienteFormulas?.idAtributoTecnicoVariedad;
 
-        this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idCategoriaAtributoTecnico).subscribe(x => {
-          this.categoriaAtributoTecnicoValors = x
+        this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idAtributoTecnicoVariedad).subscribe(z => {
+          this.categoriaAtributoTecnicoValors = z
+
           for (let i = 0; i < this.valors.length; i++) {
             const element = this.valors[i];
   

@@ -1,6 +1,6 @@
 <div class="row mt-12">
     <div class="col-md-3">
-        <select class="form-select form-select-sm" (change)="changeAtributo($event)">
+        <select class="form-select form-select-sm" (change)="changeAtributo($event)" [(ngModel)]="idAtributoTecnicoVariedad">
             <option value="0">SELECCIONAR</option>
             @for (atr of categoriaAtributoTecnicos; track $index) {
             <option [selected]="idAtributoTecnicoVariedad==atr.id?'selected':''" value={{atr.id}}>{{atr.AtributoTecnicoVariedad.descripcion}}</option>

@@ -23,6 +23,7 @@ import { ClienteFiltroService } from '../../../service/clienteFiltro';
 import { ClienteContactoService } from '../../../service/clienteContacto';
 import { ClienteConcatenacionService } from '../../../service/clienteConcatenacion';
 import { ClienteAgrupacionCategoriaInit } from '../../../interface/clienteAgrupacionCategoria';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-cliente-atributo-funcional',
@@ -271,6 +272,80 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
 
 
     })
+  }
+
+  exportExcel() {
+    //this.skus = this.filteredModels();  // Obtiene los SKUs filtrados
+    const worksheet = this.skusToWorksheet(this.skus);  // Convierte los SKUs a hoja de trabajo
+    const workbook = XLSX.utils.book_new();  // Crea un nuevo libro de trabajo (workbook)
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'SKUs');  // Añade la hoja al libro de trabajo
+    
+    // Exportar como archivo .xlsx
+    XLSX.writeFile(workbook, 'table-export.xlsx');
+  }
+
+  skusToWorksheet(skus: Sku[]): XLSX.WorkSheet {
+    const data: any[] = [];
+    
+    // Añadir el encabezado
+    data.push([
+      'Codigo categoria',
+      'Categoria',
+      'Codigo Sku',
+      'Sku',
+      'Atributo',
+      'Tipo Unidad',
+      'Unidad Medida',
+      'Tipo Sku',
+      'Factor',
+      'Fecha Creacion'
+    ]);
+
+    const filaCabecera :string[] = [];
+    filaCabecera.push('Resultado');
+    filaCabecera.push('Sku');
+    filaCabecera.push('Descripcion');
+    filaCabecera.push('Categoria');
+
+    for(const ind in this.categoriaAtributoTecnicos){
+      filaCabecera.push(this.categoriaAtributoTecnicos[ind].AtributoTecnicoVariedad.descripcion);
+    }
+
+    data.push(filaCabecera);
+
+    for (const ind in skus) {
+        const sku = skus[ind];
+        let fila:string[] = [];
+      
+        if(this.getSkuElegidos[ind]!=''){
+          fila.push(this.getSkuElegidos[ind])
+        }else {
+          fila.push('RESTO')
+        }
+        
+        fila.push(sku.id.toString());
+        fila.push(sku.descripcion);
+        fila.push(sku.Categoria.descripcion);
+
+        for(const ind2 in this.categoriaAtributoTecnicos){
+          const cat = this.categoriaAtributoTecnicos[ind2];
+          
+            for (const ind3 in sku.SkuAtributoTecnicoVariedadValor) {
+              const atri = sku.SkuAtributoTecnicoVariedadValor[ind3]
+              if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad){
+                fila.push(atri?.AtributoTecnicoVariedadValor?.valor || '')
+              }
+            }
+        
+        }
+
+        data.push(fila);
+    }
+
+     
+ 
+    // Convierte los datos a una hoja de trabajo XLSX
+    return XLSX.utils.aoa_to_sheet(data);
   }
 
   editModel(index: number) {
