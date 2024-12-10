@@ -280,12 +280,11 @@
                       @for(cat of categoriaAtributoTecnicos;track $index){
 
                       <th>
-                        @for (atri of sku.SkuAtributoTecnicoVariedadValor; track
-                        $index) { @if(atri.idAtributoTecnicoVariedad ==
-                        cat.idAtributoTecnicoVariedad){
-                        {{ atri?.AtributoTecnicoVariedadValor?.valor || "" }}
-
-                        } }
+                        @for (atri of sku.SkuAtributoTecnicoVariedadValor; track $index) { 
+                          @if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad){
+                            {{ atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || "" }}
+                          } 
+                        }
                       </th>
                       }
                     </tr>

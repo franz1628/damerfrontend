@@ -62,16 +62,19 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
         this.checkboxSeleccionados = []
         this.idAtributoTecnicoVariedad = clienteFormulas?.idAtributoTecnicoVariedad;
 
-        this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idAtributoTecnicoVariedad).subscribe(z => {
-          this.categoriaAtributoTecnicoValors = z
+        if(this.idAtributoTecnicoVariedad){
 
-          for (let i = 0; i < this.valors.length; i++) {
-            const element = this.valors[i];
+          this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idAtributoTecnicoVariedad).subscribe(z => {
+            this.categoriaAtributoTecnicoValors = z
   
-            this.checkboxSeleccionados.push(parseInt(element));
-          }
-
-        })
+            for (let i = 0; i < this.valors.length; i++) {
+              const element = this.valors[i];
+    
+              this.checkboxSeleccionados.push(parseInt(element));
+            }
+  
+          })
+        }
 
        
       })

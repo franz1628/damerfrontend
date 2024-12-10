@@ -109,6 +109,8 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
         this.tipoUnidadMedidas = value.serviceTipoUnidadMedida.data
         this.unidadMedidas = value.serviceUnidadMedida.data
         this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico.data
+        console.log(this.categoriaAtributoTecnicos);
+        
 
         const atributoFuncionales = value.service.data;
 
@@ -160,6 +162,8 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     ).subscribe({
       next: value => {
         this.skus = value.serviceSku.data
+        console.log(value.serviceSku.data);
+        
         const atrisFunci = value.serviceAtributoFuncionalVariedadValor.data
         this.skusElegidos = new Array(this.skus.length).fill('');
 
