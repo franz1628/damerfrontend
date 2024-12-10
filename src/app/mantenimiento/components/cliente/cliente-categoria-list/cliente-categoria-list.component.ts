@@ -17,8 +17,6 @@ import { CategoriaService } from '../../variedades/services/categoria.service';
 })
 export class ClienteCategoriaListComponent implements OnChanges {
 
-
-
   @Input() cliente: Cliente = ClienteInit
   @Output() selectClienteAgrupacionCategoria: EventEmitter<ClienteAgrupacionCategoria> = new EventEmitter()
 
@@ -255,7 +253,10 @@ export class ClienteCategoriaListComponent implements OnChanges {
         this.showLoading = false;
       }
     })
-
-
   }
+
+  quitarCategoria(id:number) {
+    this.categoriasAgrupacion = this.categoriasAgrupacion.filter(x=>x.id!=id);
+  }
+
 }

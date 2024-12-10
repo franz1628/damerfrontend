@@ -159,31 +159,23 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
       }
     ).subscribe({
       next: value => {
-
-
         this.skus = value.serviceSku.data
         const atrisFunci = value.serviceAtributoFuncionalVariedadValor.data
-
         this.skusElegidos = new Array(this.skus.length).fill('');
 
         for (let i = 0; i < atrisFunci.length; i++) {
           const atrivalor = atrisFunci[i];
-
-          
           if (atrivalor.idTipoAtributoFuncionalVariedadValor == 2) {//EQUIVALENCIA
             this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(atrivalor.id).subscribe(y => {
               const clienteFormulas: ClienteFormula = y.data
               this.serviceSkuAtributoTecnicoVariedadValor.postResultados(clienteFormulas.idAtributoTecnicoVariedadValors, this.idClienteAgrupacionCategoria).subscribe(x => {
                 const arrayskus = x.data
-
-
                 arrayskus.map(y => {
                   for (let k = 0; k < this.skus.length; k++) {
                     if (this.skus[k].id == y.Sku.id) {
                       this.skusElegidos[k] = y.AtributoTecnicoVariedadValor.valor
                     }
                   }
-                  //skusElegidos.push(y.Sku)
                 })
               })
             })

@@ -124,7 +124,7 @@
                                 <td>{{categoria.id}}</td>
                                 <td>{{categoria.descripcion}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-danger"> <i class="bi bi-trash"></i> </button>
+                                    <button class="btn btn-sm btn-danger" (click)="quitarCategoria(categoria.id)"> <i class="bi bi-trash"></i> </button>
                                 </td>
                             </tr>
                         }@empty {

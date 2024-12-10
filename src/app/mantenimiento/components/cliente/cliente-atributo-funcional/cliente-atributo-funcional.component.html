@@ -1,193 +1,256 @@
-  
- <div class="row">
+<div class="row">
   <div class="col-md-5">
-
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="atributoFuncionalTab" data-bs-toggle="tab"
-          data-bs-target="#atributoFuncionalTab-pane" type="button" role="tab" aria-controls="atributoFuncionalTab-pane"
-          aria-selected="true">ATRIBUTO FUNCIONAL</button>
+        <button
+          class="nav-link active"
+          id="atributoFuncionalTab"
+          data-bs-toggle="tab"
+          data-bs-target="#atributoFuncionalTab-pane"
+          type="button"
+          role="tab"
+          aria-controls="atributoFuncionalTab-pane"
+          aria-selected="true"
+        >
+          ATRIBUTO FUNCIONAL
+        </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="AtributoValoresTab" data-bs-toggle="tab" data-bs-target="#AtributoValoresTab-pane"
-          type="button" role="tab" aria-controls="AtributoValoresTab-pane" aria-selected="false">VALORES</button>
+        <button
+          class="nav-link"
+          id="AtributoValoresTab"
+          data-bs-toggle="tab"
+          data-bs-target="#AtributoValoresTab-pane"
+          type="button"
+          role="tab"
+          aria-controls="AtributoValoresTab-pane"
+          aria-selected="false"
+        >
+          VALORES
+        </button>
       </li>
-
     </ul>
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="atributoFuncionalTab-pane" role="tabpanel"
-        aria-labelledby="atributoFuncionalTab" tabindex="0">
-  
+      <div
+        class="tab-pane fade show active"
+        id="atributoFuncionalTab-pane"
+        role="tabpanel"
+        aria-labelledby="atributoFuncionalTab"
+        tabindex="0"
+      >
         <div class="row">
           <div class="col-md-12">
             <h6 class="mb-3 mt-3 text-center">ATRIBUTOS FUNCIONALES</h6>
-  
+
             <form [formGroup]="models">
               <div formArrayName="modelos">
                 <table class="table text-center table-sm">
                   <thead class="table-success fs-6">
                     <tr>
                       <th>Id</th>
-                      <th>Descripción </th>
-                    
-                      <!-- <th>Indice</th>
-                      <th>Tipo Medida</th>
-                      <th>Unidad Medida</th>
-                      <th>Alias 1</th> -->
+                      <th>Descripción</th>
                       <th>Acciones</th>
                     </tr>
-  
                   </thead>
                   <tbody>
-                    @if (modelosArray.controls.length!=0) {
-                    @for (model of modelosArray.controls; track $index) {
-                    <tr [formGroupName]="$index" (click)="elegir($index)"  [ngClass]="{'selected-row': $index === selectIndex}" >
-                      <td> <label class="mt-2">{{model.get('id')?.value}}</label> </td>
+                    @if (modelosArray.controls.length!=0) { @for (model of
+                    modelosArray.controls; track $index) {
+                    <tr
+                      [formGroupName]="$index"
+                      (click)="elegir($index)"
+                      [ngClass]="{ 'selected-row': $index === selectIndex }"
+                    >
                       <td>
-                        <input type="text" class="form-control form-control-sm" formControlName="descripcion">
+                        <label class="mt-2">{{ model.get("id")?.value }}</label>
                       </td>
-                    <!-- <td>
-                        <input type="text" class="form-control form-control-sm" formControlName="descripcionResumida">
-                      </td>
-  
                       <td>
-                        <input type="text" class="form-control form-control-sm" formControlName="tip">
-                      </td> -->
-                      <!-- <td>
-                        <select class="form-select form-select-sm" formControlName="idIndiceAtributo">
-                          <option value="0">SELECCIONAR</option>
-                          <option value="1">ATRIBUTO FUNCIONAL</option>
-                          <option value="2">SEGMENTO</option>
-  
-                        </select>
-                      </td> -->
-  
-                      <!-- <td>
-                        <select class="form-select form-select-sm" formControlName="idTipoUnidadMedida">
-                          <option value="0">SELECCIONAR</option>
-                          @for (tipo of tipoUnidadMedidas; track $index) {
-                          <option value={{tipo.id}}>{{tipo.descripcion}}</option>
-                          }
-                        </select>
+                        <input
+                          type="text"
+                          class="form-control form-control-sm"
+                          formControlName="descripcion"
+                        />
                       </td>
-  
-                      <td>
-                        <select class="form-select form-select-sm" formControlName="idUnidadMedida">
-                          <option value="0">SELECCIONAR</option>
-                          @for (unidad of unidadMedidas; track $index) {
-                          <option value={{unidad.id}}>{{unidad.descripcion}}</option>
-                          }
-                        </select>
-                      </td> -->
-  
-                      <!-- <td>
-                        <input type="text" class="form-control form-control-sm" formControlName="alias1">
-                      </td> -->
-  
                       <td>
                         <div class="btn-group">
-  
                           @if(model.get('id')?.value!=0){
-                          <button class="btn btn-sm btn-info btn-sm" (click)="editModel($index)"><i
-                              class="bi bi-pencil"></i></button>
-                          <button class="btn btn-sm btn-danger btn-sm" (click)="delete($index)"><i
-                              class="bi bi-trash-fill"></i></button>
+                          <button
+                            class="btn btn-sm btn-info btn-sm"
+                            (click)="editModel($index)"
+                          >
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-danger btn-sm"
+                            (click)="delete($index)"
+                          >
+                            <i class="bi bi-trash-fill"></i>
+                          </button>
                           @if(modelosArray.controls.length==$index+1){
-                          <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i
-                              class="bi bi-plus-lg"></i></button>
-                          }
-                          }@else{
-                          <button class="btn btn-sm btn-success btn-sm" (click)="save($index)"><i
-                              class="bi bi-save2"></i></button>
+                          <button
+                            class="btn btn-sm btn-primary btn-sm"
+                            (click)="add()"
+                          >
+                            <i class="bi bi-plus-lg"></i>
+                          </button>
+                          } }@else{
+                          <button
+                            class="btn btn-sm btn-success btn-sm"
+                            (click)="save($index)"
+                          >
+                            <i class="bi bi-save2"></i>
+                          </button>
                           }
                         </div>
-  
-  
-  
                       </td>
                     </tr>
-                    }
-  
-                    }
-  
+                    } }
                   </tbody>
                 </table>
               </div>
-  
             </form>
           </div>
           <div class="col-md-1"></div>
-          <div class="col-md-5">
-          </div>
+          <div class="col-md-5"></div>
         </div>
       </div>
-      <div class="tab-pane fade" id="AtributoValoresTab-pane" role="tabpanel" aria-labelledby="AtributoValoresTab"
-        tabindex="0">
-        <app-cliente-atributo-valor (emitAtributoFuncionalVariedadValor)="elegirAtributoFuncionalVariedadValor($event)" [atributoFuncionalVariedad]="atributoFuncionalVariedad"></app-cliente-atributo-valor>
+      <div
+        class="tab-pane fade"
+        id="AtributoValoresTab-pane"
+        role="tabpanel"
+        aria-labelledby="AtributoValoresTab"
+        tabindex="0"
+      >
+        <app-cliente-atributo-valor
+          (emitAtributoFuncionalVariedadValor)="
+            elegirAtributoFuncionalVariedadValor($event)
+          "
+          [atributoFuncionalVariedad]="atributoFuncionalVariedad"
+        ></app-cliente-atributo-valor>
       </div>
-  
-
-  
     </div>
   </div>
-  <!-- <div class="col-md-1"></div> -->
-  <div class="col-md-7">
 
+  <div class="col-md-7">
     <div class="row">
       <div class="col-md-9">
         <ul class="nav nav-tabs" id="myTab2" role="tablist">
-    
-          
-       
           @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==1){
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="concatenacion" data-bs-toggle="tab" data-bs-target="#concatenacion-pane"
-                type="button" role="tab" aria-controls="concatenacion-pane" aria-selected="false">CONCATENACION</button>
-            </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="concatenacion"
+              data-bs-toggle="tab"
+              data-bs-target="#concatenacion-pane"
+              type="button"
+              role="tab"
+              aria-controls="concatenacion-pane"
+              aria-selected="false"
+            >
+              CONCATENACION
+            </button>
+          </li>
           }
-    
           @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==2){
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="formulaTab" data-bs-toggle="tab" data-bs-target="#formulaTab-pane"
-                type="button" role="tab" aria-controls="formulaTab-pane" aria-selected="false">FORMULA</button>
-            </li>
-      
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="resultadosTab" data-bs-toggle="tab" data-bs-target="#resultadosTab-pane"
-                type="button" role="tab" aria-controls="resultadosTab-pane" aria-selected="false">FILTRO FORMULA</button>
-            </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="formulaTab"
+              data-bs-toggle="tab"
+              data-bs-target="#formulaTab-pane"
+              type="button"
+              role="tab"
+              aria-controls="formulaTab-pane"
+              aria-selected="false"
+            >
+              FORMULA
+            </button>
+          </li>
+
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="resultadosTab"
+              data-bs-toggle="tab"
+              data-bs-target="#resultadosTab-pane"
+              type="button"
+              role="tab"
+              aria-controls="resultadosTab-pane"
+              aria-selected="false"
+            >
+              FILTRO FORMULA
+            </button>
+          </li>
           }
           @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==3){
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="filtroTab" data-bs-toggle="tab" data-bs-target="#filtroTab-pane"
-                type="button" role="tab" aria-controls="filtroTab-pane" aria-selected="false">FILTRO</button>
-            </li>
-    
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="resultadosFiltroTab" data-bs-toggle="tab" data-bs-target="#resultadosFiltroTab-pane"
-                type="button" role="tab" aria-controls="resultadosFiltroTab-pane" aria-selected="false">FILTRO FILTRO</button>
-            </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="filtroTab"
+              data-bs-toggle="tab"
+              data-bs-target="#filtroTab-pane"
+              type="button"
+              role="tab"
+              aria-controls="filtroTab-pane"
+              aria-selected="false"
+            >
+              FILTRO
+            </button>
+          </li>
+
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="resultadosFiltroTab"
+              data-bs-toggle="tab"
+              data-bs-target="#resultadosFiltroTab-pane"
+              type="button"
+              role="tab"
+              aria-controls="resultadosFiltroTab-pane"
+              aria-selected="false"
+            >
+              FILTRO FILTRO
+            </button>
+          </li>
           }
-      
-         
-     
-        </ul> 
+        </ul>
       </div>
       <div class="col-md-3">
-        <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#modalResultados">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#modalResultados"
+        >
           Ver Resultados
         </button>
 
-        <div class="modal fade" id="modalResultados" tabindex="-1" aria-labelledby="modalResultadosLabel" aria-hidden="true">
+        <div
+          class="modal fade"
+          id="modalResultados"
+          tabindex="-1"
+          aria-labelledby="modalResultadosLabel"
+          aria-hidden="true"
+        >
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalResultadosLabel">Resultadoss</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div> 
+                <h1 class="modal-title fs-5" id="modalResultadosLabel">
+                  Resultadoss
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
               <div class="modal-body">
-                <button class="btn btn-info btn-sm"  (click)="verResultados()"><i class="bi bi-arrow-clockwise"></i> Actualizar</button>
-                <button class="btn btn-sm btn-success" (click)="exportExcel()">Excel</button>
+                <button class="btn btn-info btn-sm" (click)="verResultados()">
+                  <i class="bi bi-arrow-clockwise"></i> Actualizar
+                </button>
+                <button class="btn btn-sm btn-success" (click)="exportExcel()">
+                  Excel
+                </button>
                 <table class="table table-sm">
                   <thead class="table-success">
                     <tr>
@@ -196,43 +259,36 @@
                       <th>Descripcion</th>
                       <th>Categoria</th>
                       @for(cat of categoriaAtributoTecnicos;track $index){
-                        <th>{{cat.AtributoTecnicoVariedad.descripcion}}</th>
+                      <th>{{ cat.AtributoTecnicoVariedad.descripcion }}</th>
                       }
-
                     </tr>
                   </thead>
 
                   <tbody>
                     @for (sku of skus; track $index) {
-                      <tr>
-                        <td>
-                          @if(getSkuElegidos[$index]!=''){
-                            {{getSkuElegidos[$index]}}
-                            
-                          }@else {
-                            RESTO
-                          }
-                        
-                        </td>
-                        <td>{{sku.id}}</td>
-                        <td>{{sku.descripcion}}</td>
-                        <td>{{sku.Categoria.descripcion}}</td>
+                    <tr>
+                      <td>
+                        @if(getSkuElegidos[$index]!=''){
+                        {{ getSkuElegidos[$index] }}
 
-                        @for(cat of categoriaAtributoTecnicos;track $index){
-                          
-                          <th>
-                            @for (atri of sku.SkuAtributoTecnicoVariedadValor; track $index) {
-                              @if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad){
-                                {{atri?.AtributoTecnicoVariedadValor?.valor || ''}}
-                                
-                              }
-                            }
-                          </th>
-                        }
+                        }@else { RESTO }
+                      </td>
+                      <td>{{ sku.id }}</td>
+                      <td>{{ sku.descripcion }}</td>
+                      <td>{{ sku.Categoria.descripcion }}</td>
 
-                        
+                      @for(cat of categoriaAtributoTecnicos;track $index){
 
-                      </tr>
+                      <th>
+                        @for (atri of sku.SkuAtributoTecnicoVariedadValor; track
+                        $index) { @if(atri.idAtributoTecnicoVariedad ==
+                        cat.idAtributoTecnicoVariedad){
+                        {{ atri?.AtributoTecnicoVariedadValor?.valor || "" }}
+
+                        } }
+                      </th>
+                      }
+                    </tr>
                     }
                   </tbody>
                 </table>
@@ -240,66 +296,80 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
     <div class="tab-content" id="myTabContent2">
-
-   
-      
-
-        
-      
-      
       @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==3){
-        <div class="tab-pane fade" id="filtroTab-pane" role="tabpanel" aria-labelledby="filtroTab"
-          tabindex="0">
-          <app-cliente-atributo-filtro [atributoFuncionalVariedad]="atributoFuncionalVariedad" [atributoFuncionalVariedadValor]="atributoFuncionalVariedadValor"></app-cliente-atributo-filtro>
-        </div>
+      <div
+        class="tab-pane fade"
+        id="filtroTab-pane"
+        role="tabpanel"
+        aria-labelledby="filtroTab"
+        tabindex="0"
+      >
+        <app-cliente-atributo-filtro
+          [atributoFuncionalVariedad]="atributoFuncionalVariedad"
+          [atributoFuncionalVariedadValor]="atributoFuncionalVariedadValor"
+        ></app-cliente-atributo-filtro>
+      </div>
 
-        <div class="tab-pane fade" id="resultadosFiltroTab-pane" role="tabpanel" aria-labelledby="resultadosFiltroTab"
-        tabindex="0">
-          <app-cliente-resultados-filtro [atributoFuncionalVariedad]="atributoFuncionalVariedad" [atributoFuncionalVariedadValor]="atributoFuncionalVariedadValor"></app-cliente-resultados-filtro>
-       </div>
+      <div
+        class="tab-pane fade"
+        id="resultadosFiltroTab-pane"
+        role="tabpanel"
+        aria-labelledby="resultadosFiltroTab"
+        tabindex="0"
+      >
+        <app-cliente-resultados-filtro
+          [atributoFuncionalVariedad]="atributoFuncionalVariedad"
+          [atributoFuncionalVariedadValor]="atributoFuncionalVariedadValor"
+        ></app-cliente-resultados-filtro>
+      </div>
       }
-  
-   
-
       @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==2){
-        <div class="tab-pane fade" id="formulaTab-pane" role="tabpanel" aria-labelledby="formulaTab"
-        tabindex="0">
-          <app-cliente-atributo-formula [atributoFuncionalVariedadValor]="atributoFuncionalVariedadValor" [atributoFuncionalVariedad]="atributoFuncionalVariedad"></app-cliente-atributo-formula>
-        </div>
+      <div
+        class="tab-pane fade"
+        id="formulaTab-pane"
+        role="tabpanel"
+        aria-labelledby="formulaTab"
+        tabindex="0"
+      >
+        <app-cliente-atributo-formula
+          [atributoFuncionalVariedadValor]="atributoFuncionalVariedadValor"
+          [atributoFuncionalVariedad]="atributoFuncionalVariedad"
+        ></app-cliente-atributo-formula>
+      </div>
 
-        <div class="tab-pane fade" id="resultadosTab-pane" role="tabpanel" aria-labelledby="resultadosTab"
-        tabindex="0">
-          <app-cliente-resultados [atributoFuncionalVariedad]="atributoFuncionalVariedad" [atributoFuncionalVariedadValor]="atributoFuncionalVariedadValor"></app-cliente-resultados>
-       </div>
+      <div
+        class="tab-pane fade"
+        id="resultadosTab-pane"
+        role="tabpanel"
+        aria-labelledby="resultadosTab"
+        tabindex="0"
+      >
+        <app-cliente-resultados
+          [atributoFuncionalVariedad]="atributoFuncionalVariedad"
+          [atributoFuncionalVariedadValor]="atributoFuncionalVariedadValor"
+        ></app-cliente-resultados>
+      </div>
       }
-
       @if(atributoFuncionalVariedadValor.idTipoAtributoFuncionalVariedadValor==1){
-        <div class="tab-pane fade" id="concatenacion-pane" role="tabpanel" aria-labelledby="concatenacion"
-          tabindex="0">
-          <app-cliente-concatenacion  [atributoFuncionalVariedad]="atributoFuncionalVariedad" [atributoFuncionalVariedadValor]="atributoFuncionalVariedadValor"></app-cliente-concatenacion>
-        </div>
+      <div
+        class="tab-pane fade"
+        id="concatenacion-pane"
+        role="tabpanel"
+        aria-labelledby="concatenacion"
+        tabindex="0"
+      >
+        <app-cliente-concatenacion
+          [atributoFuncionalVariedad]="atributoFuncionalVariedad"
+          [atributoFuncionalVariedadValor]="atributoFuncionalVariedadValor"
+        ></app-cliente-concatenacion>
+      </div>
       }
-
-  
-   
-  
     </div>
-
-
   </div>
-
- </div> 
-
-
-
-
-
-
-
+</div>
 
 <app-black-loading [show]="showLoading"></app-black-loading>
