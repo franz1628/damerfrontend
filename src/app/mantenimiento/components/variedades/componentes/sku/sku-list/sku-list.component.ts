@@ -113,46 +113,45 @@ export class SkuListComponent implements OnChanges{
     const data: any[] = [];
     
     // Añadir el encabezado
-    data.push([
-      'Codigo categoria',
-      'Categoria',
-      'Codigo Sku',
-      'Sku',
-      'Atributo',
-      'Tipo Unidad',
-      'Unidad Medida',
-      'Tipo Sku',
-      'Factor',
-      'Fecha Creacion'
-    ]);
+   
+    const titulos :string[] = []
+    titulos.push('Codigo categoria')
+    titulos.push( 'Categoria')
+    titulos.push('Codigo Sku')
+    titulos.push( 'Sku')
+    titulos.push('Tipo SKU')
+    titulos.push('Fecha Registro')
+
+    for (let k = 0; k < skus[0].SkuAtributoTecnicoVariedadValor.length; k++) {
+      const skuAtri = skus[0].SkuAtributoTecnicoVariedadValor[k];
+      titulos.push(skuAtri.AtributoTecnicoVariedad?.descripcion || '')
+    }
+
+    data.push(titulos)
 
     // Añadir las filas de datos
     for (let i = 0; i < skus.length; i++) {
-      if (skus[i].SkuAtributoTecnicoVariedadValor.length == 0) {
-        data.push([
-          skus[i].idCategoria,
-          skus[i].Categoria.descripcion,
-          skus[i].id,
-          skus[i].descripcion,
-          '', '', '', '', '', ''  // Campos vacíos si no hay atributos
-        ]);
+      const arr : string[] = []
+      arr.push(skus[i].idCategoria.toString());
+      arr.push(skus[i].Categoria.descripcion.toString());
+      arr.push(skus[i].id.toString());
+      arr.push(skus[i].descripcion.toString());
+
+      if(skus[i].tipoSku==1){
+        arr.push('REGULAR');
+      }else if(skus[i].tipoSku==2){
+        arr.push('PACK');
+      }else{
+        arr.push('COMBO');
       }
+      arr.push(skus[i].tipoSku.toString()|| '');
+      arr.push(skus[i].fechaRegistro.toString()|| '');
 
       for (let k = 0; k < skus[i].SkuAtributoTecnicoVariedadValor.length; k++) {
         const skuAtri = skus[i].SkuAtributoTecnicoVariedadValor[k];
-        data.push([
-          skus[i].idCategoria,
-          skus[i].Categoria.descripcion,
-          skus[i].id,
-          skus[i].descripcion,
-          skuAtri.AtributoTecnicoVariedad?.descripcion || '',
-          skuAtri.TipoUnidadMedida?.descripcion || '',
-          skuAtri.UnidadMedida?.descripcion || '',
-          skus[i].tipoSku || '',
-          skuAtri.valor || '',
-          skus[i].fechaRegistro || ''
-        ]);
+        arr.push(skuAtri.AtributoTecnicoVariedadValor?.valor || skuAtri.valor ||'')
       }
+      data.push(arr);
     }
 
     // Convierte los datos a una hoja de trabajo XLSX

@@ -21,9 +21,9 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
     //console.log(this.authService.isLoggedIn());
-    if(localStorage.getItem('medicion')){
+   /* if(localStorage.getItem('medicion')){
       this.showModal = false;
-    }
+    }*/
 
   }
 

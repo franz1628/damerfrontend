@@ -396,6 +396,9 @@ export class SkuFormComponent implements OnChanges {
 
 
   eligeTipoSku(e: Event) {
+    this.skuCombos = []
+    this.porcentajes = []
+    
     const valor = (e.target as HTMLInputElement).value;
 
     if (valor == "1") {
@@ -470,6 +473,8 @@ export class SkuFormComponent implements OnChanges {
     this.model = sku;
 
     if (sku.tipoSku == 3) {
+      this.skuCombos = []
+      this.porcentajes = []
       for (let i = 0; i < sku.SkuHijos.length; i++) {
         this.skuCombos.push(sku.SkuHijos[i].Sku);
         this.porcentajes.push(sku.SkuHijos[i].porcentaje.toString())

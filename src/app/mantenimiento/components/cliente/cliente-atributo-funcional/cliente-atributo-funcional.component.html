@@ -235,7 +235,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="modalResultadosLabel">
-                  Resultadoss
+                  Resultados
                 </h1>
                 <button
                   type="button"
@@ -261,6 +261,7 @@
                       @for(cat of categoriaAtributoTecnicos;track $index){
                       <th>{{ cat.AtributoTecnicoVariedad.descripcion }}</th>
                       }
+                     <th>Estado</th>
                     </tr>
                   </thead>
 
@@ -276,17 +277,31 @@
                       <td>{{ sku.id }}</td>
                       <td>{{ sku.descripcion }}</td>
                       <td>{{ sku.Categoria.descripcion }}</td>
-
+                     
                       @for(cat of categoriaAtributoTecnicos;track $index){
 
-                      <th>
+                        <td>
                         @for (atri of sku.SkuAtributoTecnicoVariedadValor; track $index) { 
                           @if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad){
                             {{ atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || "" }}
+                            @if(atri?.UnidadMedida?.descripcion){
+                              {{ ' - '+atri?.UnidadMedida?.descripcion  }}
+                            }
+                            
                           } 
                         }
-                      </th>
+                        </td>
                       }
+                      
+                      <td>
+                        @if(sku.estado==1){
+                          <span class="badge rounded-pill text-bg-success">ACTIVO</span>
+                        }@else if(sku.estado==2){
+                          <span class="badge rounded-pill text-bg-danger">SUSPENDIDO</span>
+                        }@else {
+                          <span class="badge rounded-pill text-bg-danger">ELIMINADO</span>
+                        }
+                      </td>
                     </tr>
                     }
                   </tbody>
