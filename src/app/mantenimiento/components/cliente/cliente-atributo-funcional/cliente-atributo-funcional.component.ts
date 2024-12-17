@@ -162,7 +162,6 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     ).subscribe({
       next: value => {
         this.skus = value.serviceSku.data
-        console.log(value.serviceSku.data);
         
         const atrisFunci = value.serviceAtributoFuncionalVariedadValor.data
         this.skusElegidos = new Array(this.skus.length).fill('');
@@ -262,12 +261,6 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
 
       }
     })
-
-    this.serviceSku.getByCategoriaAll(this.modelCategoria.id).subscribe(x => {
-
-
-
-    })
   }
 
   exportExcel() {
@@ -282,31 +275,17 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
 
   skusToWorksheet(skus: Sku[]): XLSX.WorkSheet {
     const data: any[] = [];
-    
-    // Añadir el encabezado
-    data.push([
-      'Codigo categoria',
-      'Categoria',
-      'Codigo Sku',
-      'Sku',
-      'Atributo',
-      'Tipo Unidad',
-      'Unidad Medida',
-      'Tipo Sku',
-      'Factor',
-      'Fecha Creacion'
-    ]);
 
     const filaCabecera :string[] = [];
-    filaCabecera.push('Resultado');
-    filaCabecera.push('Sku');
-    filaCabecera.push('Descripcion');
-    filaCabecera.push('Categoria');
+    filaCabecera.push('RESULTADO');
+    filaCabecera.push('SKU');
+    filaCabecera.push('DESCRIPCION');
+    filaCabecera.push('CATEGORIA');
 
     for(const ind in this.categoriaAtributoTecnicos){
       filaCabecera.push(this.categoriaAtributoTecnicos[ind].AtributoTecnicoVariedad.descripcion);
     }
-
+    filaCabecera.push('ESTADO');
     data.push(filaCabecera);
 
     for (const ind in skus) {
@@ -325,14 +304,26 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
 
         for(const ind2 in this.categoriaAtributoTecnicos){
           const cat = this.categoriaAtributoTecnicos[ind2];
-          
+            let existe = 0;
             for (const ind3 in sku.SkuAtributoTecnicoVariedadValor) {
               const atri = sku.SkuAtributoTecnicoVariedadValor[ind3]
               if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad){
-                fila.push(atri?.AtributoTecnicoVariedadValor?.valor || '')
+                existe = 1;
+                fila.push(atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || ' ')
               }
             }
-        
+
+            if(!existe){
+              fila.push('')
+            }
+        }
+
+        if(sku.estado==1){
+          fila.push("ACTIVO");
+        }else if(sku.estado==0){
+          fila.push("ELIMINADO");
+        }else{
+          fila.push("SUSPENDIDO");
         }
 
         data.push(fila);

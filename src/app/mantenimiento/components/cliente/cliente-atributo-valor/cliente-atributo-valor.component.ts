@@ -149,6 +149,21 @@ export class ClienteAtributoValorComponent {
       this.alert.showAlert('Advertencia', 'Debe tener una descripción', 'warning');
       return;
     }
+
+
+    if(modelo.idTipoAtributoFuncionalVariedadValor==2){
+
+      for (let i = 0; i < this.modelosArray.controls.length; i++) {
+        const model = this.modelosArray.controls[i].value
+        if(model.idTipoAtributoFuncionalVariedadValor==2 && num!=i){
+          this.alert.showAlert('Advertencia', 'Ya existe una EQUIVALENCIA', 'warning');
+          return;
+        }
+        
+      }
+    }
+
+
     
     this.showLoading = true;
 

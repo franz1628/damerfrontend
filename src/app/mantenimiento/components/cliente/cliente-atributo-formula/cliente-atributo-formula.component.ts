@@ -25,6 +25,7 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
   idAtributoTecnicoVariedad: number = 0
   idCategoriaAtributoTecnico:number=0
   valors:string[] = []
+  checkAll:boolean = false
 
   constructor(
     private serviceCategoriaAtributoTecnico: CategoriaAtributoTecnicoService,
@@ -83,12 +84,17 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
   }
 
   checkAllFormula() {
+
     this.checkboxSeleccionados = [];
-    for (let i = 0; i < this.categoriaAtributoTecnicoValors.length; i++) {
-    
-      this.checkboxSeleccionados.push(this.categoriaAtributoTecnicoValors[i].idAtributoTecnicoVariedadValor);
-    
+
+    if(!this.checkAll){
+      for (let i = 0; i < this.categoriaAtributoTecnicoValors.length; i++) {
+      
+        this.checkboxSeleccionados.push(this.categoriaAtributoTecnicoValors[i].idAtributoTecnicoVariedadValor);
+      
+      }
     }
+    this.checkAll = !this.checkAll
   } 
 
   changeAtributo(e: Event) {
