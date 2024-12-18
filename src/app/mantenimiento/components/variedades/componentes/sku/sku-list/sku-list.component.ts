@@ -106,7 +106,7 @@ export class SkuListComponent implements OnChanges{
     XLSX.utils.book_append_sheet(workbook, worksheet, 'SKUs');  // Añade la hoja al libro de trabajo
     
     // Exportar como archivo .xlsx
-    XLSX.writeFile(workbook, 'table-export.xlsx');
+    XLSX.writeFile(workbook, 'skus.xlsx');
   }
 
   skusToWorksheet(skus: Sku[]): XLSX.WorkSheet {
