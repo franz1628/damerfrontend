@@ -19,10 +19,10 @@
                         <td>{{model.descripcion}}</td>
                         <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
                         <td>
-                            <button class="btn btn-sm btn-info btn-sm" type="button" (click)="editModel(model)"><i
-                                class="bi bi-pencil"></i></button>
-                            <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i
-                                    class="bi bi-trash"></i></button>
+                          
+                            <img class="iconEdit" src="assets/editar.png"  (click)="editModel(model)">
+                            <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete(model)">
+                         
                             
                         </td>
                     </tr>

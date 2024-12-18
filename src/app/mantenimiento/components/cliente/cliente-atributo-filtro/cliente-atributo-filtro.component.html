@@ -104,20 +104,18 @@
                 <div class="btn-group">
 
                   @if(model.get('id')?.value!=0){
-                  <button class="btn btn-sm btn-info btn-sm" (click)="editModel(idx)"><i
-                      class="bi bi-pencil"></i></button>
-                  <button class="btn btn-sm btn-danger btn-sm" (click)="delete(idx)"><i
-                      class="bi bi-trash-fill"></i></button>
+                  
+                      <img class="iconEdit" src="assets/editar.png"  (click)="editModel(idx)">
+                      <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete(idx)">
                   @if(modelosArray.controls.length==idx+1){
-                  <button class="btn btn-sm btn-primary btn-sm" (click)="add()"><i class="bi bi-plus-lg"></i></button>
+                    <img class="iconNuevo" src="assets/nuevo.png"  (click)="add()">
                   }
                   }@else{
-                  <button class="btn btn-sm btn-success btn-sm" (click)="save(idx)"><i
-                      class="bi bi-save2"></i></button>
+                    <img class="iconNuevo" src="assets/nuevo.png"  (click)="save(idx)">
                   }
                 </div>
 
-
+ 
 
               </td>
             </tr>

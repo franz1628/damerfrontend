@@ -73,32 +73,22 @@
                       <td>
                         <div class="btn-group">
                           @if(model.get('id')?.value!=0){
-                          <button
-                            class="btn btn-sm btn-info btn-sm"
-                            (click)="editModel($index)"
-                          >
-                            <i class="bi bi-pencil"></i>
-                          </button>
-                          <button
-                            class="btn btn-sm btn-danger btn-sm"
-                            (click)="delete($index)"
-                          >
-                            <i class="bi bi-trash-fill"></i>
-                          </button>
+       
+
+                          <img class="iconEdit" src="assets/editar.png"  (click)="editModel($index)">
+
+                          <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete($index)">
+
                           @if(modelosArray.controls.length==$index+1){
-                          <button
-                            class="btn btn-sm btn-primary btn-sm"
-                            (click)="add()"
-                          >
-                            <i class="bi bi-plus-lg"></i>
-                          </button>
+
+                            <img class="iconNuevo" src="assets/nuevo.png"  (click)="add()">
+
+
+                  
                           } }@else{
-                          <button
-                            class="btn btn-sm btn-success btn-sm"
-                            (click)="save($index)"
-                          >
-                            <i class="bi bi-save2"></i>
-                          </button>
+
+                            <img class="iconNuevo" src="assets/nuevo.png"  (click)="save($index)">
+                         
                           }
                         </div>
                       </td>
@@ -244,7 +234,7 @@
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" style="overflow-y: auto;height: 800px;">
                 <button class="btn btn-info btn-sm" (click)="verResultados()">
                   <i class="bi bi-arrow-clockwise"></i> Actualizar
                 </button>
@@ -282,7 +272,7 @@
 
                         <td>
                         @for (atri of sku.SkuAtributoTecnicoVariedadValor; track $index) { 
-                          @if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad){
+                          @if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad && cat.id == atri.idCategoriaAtributoTecnico){
                             {{ atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || "" }}
                             @if(atri?.UnidadMedida?.descripcion){
                               {{ ' - '+atri?.UnidadMedida?.descripcion  }}

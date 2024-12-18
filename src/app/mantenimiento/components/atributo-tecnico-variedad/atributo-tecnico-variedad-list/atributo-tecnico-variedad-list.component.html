@@ -26,8 +26,9 @@
                         <td>{{model.fechaModificacion}}</td>
                         <!-- <td>{{model.descripcionResumida}}</td> -->
                         <td> 
-                            <button class="btn btn-sm btn-info" (click)="selectEdit(model,$index)"> <i class="bi bi-pencil"></i> </button>
-                            <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i class="bi bi-trash"></i></button>
+                           
+                            <img class="iconEdit" src="assets/editar.png"  (click)="selectEdit(model,$index)">
+                            <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete(model)">
                         </td>
                     </tr>
                 }

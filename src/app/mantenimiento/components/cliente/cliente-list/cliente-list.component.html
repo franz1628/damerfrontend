@@ -30,9 +30,6 @@
                         <td>{{model.fechaRegistro.toString().slice(0,10)}}</td>
                         <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
                         <td>
-                            <!-- <button class="btn btn-sm btn-info" (click)="selectEdit(model)"><i class="bi bi-pencil btn-sm"></i> </button>
-                            <button class="btn btn-sm btn-danger" (click)="borrar(model)"><i class="bi bi-trash btn-sm"></i> </button> -->
-
                             <img class="iconEdit" src="assets/editar.png"  (click)="selectEdit(model)">
                             <img class="iconEliminar" src="assets/eliminar.png"  (click)="borrar(model)">
                         </td>

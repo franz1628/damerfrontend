@@ -61,9 +61,9 @@
                                     <td>{{contrato.shot?'SI':'NO'}}</td> 
                                     <td>{{contrato.EstadoContrato.descripcion}}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-info" (click)="asignaFormContrato(contrato)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
+                                 
+
+                                        <img class="iconEdit" src="assets/editar.png"  (click)="asignaFormContrato(contrato)">
 
                                         <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#modalEstadoContrato"

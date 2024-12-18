@@ -144,7 +144,7 @@ export class SkuListComponent implements OnChanges{
       }else{
         arr.push('COMBO');
       }
-      arr.push(skus[i].tipoSku.toString()|| '');
+  
       arr.push(skus[i].fechaRegistro.toString()|| '');
 
       for (let k = 0; k < skus[i].SkuAtributoTecnicoVariedadValor.length; k++) {

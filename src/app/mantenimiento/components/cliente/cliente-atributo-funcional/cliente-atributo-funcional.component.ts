@@ -307,7 +307,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
             let existe = 0;
             for (const ind3 in sku.SkuAtributoTecnicoVariedadValor) {
               const atri = sku.SkuAtributoTecnicoVariedadValor[ind3]
-              if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad){
+              if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad && cat.id == atri.idCategoriaAtributoTecnico){
                 existe = 1;
                 fila.push(atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || ' ')
               }

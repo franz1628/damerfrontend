@@ -25,13 +25,9 @@
                             <td>{{model.descripcion}}</td>
                             <td>{{model.fechaRegistro && model.fechaRegistro.substring(0,19)}}</td>
                             <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,19)}}</td>
-                            <!-- <td>{{model.descripcionResumida}}</td> -->
+                           
                             <td>
-                                <!-- <button class="btn btn-sm btn-danger btn-sm" type="button" (click)="delete(model)"><i
-                                        class="bi bi-trash"></i></button>
-                                <button class="btn btn-sm btn-info btn-sm" type="button" (click)="editModel(model)"><i
-                                        class="bi bi-pencil"></i></button> -->
-
+                              
                                         <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete(model)">
                                         <img class="iconEdit" src="assets/editar.png"  (click)="editModel(model)">
                             </td>
