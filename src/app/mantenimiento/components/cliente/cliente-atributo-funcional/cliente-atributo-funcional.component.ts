@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Cliente, ClienteInit } from '../../../interface/cliente';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { forkJoin, lastValueFrom, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { forkJoin, lastValueFrom, Subscription } from 'rxjs';
 import { AtributoFuncionalVariedad, AtributoFuncionalVariedadInit } from '../../../interface/atributoFuncionalVariedad';
 import { TipoUnidadMedidaService } from '../../../service/tipoUnidadMedida';
 import { UnidadMedidaService } from '../../../service/unidadMedida';
@@ -153,83 +153,120 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
   }
 
   verResultados() {
-    this.showLoading=true
-    forkJoin({
-      serviceSku: this.serviceSku.getByCategoriaAll(this.idClienteAgrupacionCategoria),
-      serviceAtributoFuncionalVariedadValor: this.serviceAtributoFuncionalVariedadValor.postIdAtributoFuncionalVariedad(this.atributoFuncionalVariedad.id),
-    }).subscribe({
+    forkJoin(
+      {
+        serviceSku: this.serviceSku.getByCategoriaAll(this.idClienteAgrupacionCategoria),
+        serviceAtributoFuncionalVariedadValor: this.serviceAtributoFuncionalVariedadValor.postIdAtributoFuncionalVariedad(this.atributoFuncionalVariedad.id),
+
+      }
+    ).subscribe({
       next: value => {
+        this.skus = value.serviceSku.data
         
-        this.skus = value.serviceSku.data;
-        const atrisFunci = value.serviceAtributoFuncionalVariedadValor.data;
+        const atrisFunci = value.serviceAtributoFuncionalVariedadValor.data
         this.skusElegidos = new Array(this.skus.length).fill('');
-  
-        const llamadas: Observable<any>[] = [];
-  
-        atrisFunci.forEach(atrivalor => {
-          if (atrivalor.idTipoAtributoFuncionalVariedadValor == 2) { // EQUIVALENCIA
-            const llamada = this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(atrivalor.id).pipe(
-              switchMap(y => this.serviceSkuAtributoTecnicoVariedadValor.postResultados(y.data.idAtributoTecnicoVariedadValors, this.idClienteAgrupacionCategoria)),
-              tap(x => {
-                x.data.forEach(y => {
-                  const skuIndex = this.skus.findIndex(sku => sku.id == y.Sku.id);
-                  if (skuIndex >= 0) {
-                    this.skusElegidos[skuIndex] = y.AtributoTecnicoVariedadValor.valor;
-                  }
-                });
-              })
-            );
-            llamadas.push(llamada);
-          }
-  
-          if (atrivalor.idTipoAtributoFuncionalVariedadValor == 3) { // FILTRO
-            const llamada = this.serviceClienteFiltro.postResultados(atrivalor.id).pipe(
-              tap(x => {
-                x.data.forEach(y => {
-                  const skuIndex = this.skus.findIndex(sku => sku.id == y.id);
-                  if (skuIndex >= 0) {
-                    this.skusElegidos[skuIndex] = atrivalor.descripcion;
-                  }
-                });
-              })
-            );
-            llamadas.push(llamada);
-          }
-  
-          if (atrivalor.idTipoAtributoFuncionalVariedadValor == 1) { // CONCATENACION
-            const llamada = this.serviceClienteConcatenacion.postIdAtributoFuncionalVariedadValor(atrivalor.id).pipe(
-              tap(x => {
-                this.arrayAtributos = x.data.idAtributoTecnicoVariedads?.split(',') || [];
-                this.arrayVariables = x.data.variables?.split(',') || [];
-  
-                this.skus.forEach((w, ind) => {
-                  let miString = this.arrayVariables.includes("1") ? w.descripcion : '';
-  
-                  w.SkuAtributoTecnicoVariedadValor.forEach(k => {
-                    if (this.arrayAtributos.includes(k.idAtributoTecnicoVariedad.toString())) {
-                      miString += `-${k.AtributoTecnicoVariedadValor?.valor || ''}`;
+
+        for (let i = 0; i < atrisFunci.length; i++) {
+          const atrivalor = atrisFunci[i];
+          if (atrivalor.idTipoAtributoFuncionalVariedadValor == 2) {//EQUIVALENCIA
+            this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(atrivalor.id).subscribe(y => {
+              const clienteFormulas: ClienteFormula = y.data
+              if (clienteFormulas && clienteFormulas.idAtributoTecnicoVariedadValors) {
+                this.serviceSkuAtributoTecnicoVariedadValor.postResultados(
+                  clienteFormulas.idAtributoTecnicoVariedadValors, 
+                  this.idClienteAgrupacionCategoria
+                ).subscribe(x => {
+                  const arrayskus = x.data;
+                  arrayskus.map(y => {
+                    for (let k = 0; k < this.skus.length; k++) {
+                      if (this.skus[k].id == y.Sku.id) {
+                        this.skusElegidos[k] = y.AtributoTecnicoVariedadValor.valor;
+                      }
                     }
                   });
-  
-                  if (miString) {
-                    this.skusElegidos[ind] = miString;
-                  }
                 });
+              }
+            })
+          }
+
+          if (atrivalor.idTipoAtributoFuncionalVariedadValor == 3) {//FILTRO
+            this.serviceClienteFiltro.postResultados(atrivalor.id).subscribe(x => {
+
+              const arrayskus = x.data
+
+              arrayskus.map(y => {
+                for (let k = 0; k < this.skus.length; k++) {
+                  if (this.skus[k].id == y.id) {
+                    this.skusElegidos[k] = atrivalor.descripcion
+                  }
+
+                }
               })
-            );
-            llamadas.push(llamada);
+
+            })
           }
-        });
-  
-        forkJoin(llamadas).subscribe({
-          complete: () => {
-            this.showLoading=false
+          
+          if (atrivalor.idTipoAtributoFuncionalVariedadValor == 1) {//CONCATENACION
+
+
+            this.serviceClienteConcatenacion.postIdAtributoFuncionalVariedadValor(atrivalor.id).subscribe(x => {
+
+
+              this.arrayAtributos = x.data.idAtributoTecnicoVariedads != '' ? x.data.idAtributoTecnicoVariedads.split(',') : []
+              this.arrayVariables = x.data.variables != '' ? x.data.variables.split(',') : []
+
+              //this.skusElegidos = [];
+
+
+              this.skus.map((w, ind) => {
+                const valores = w.SkuAtributoTecnicoVariedadValor;
+                let miString = ''
+
+                for (let i = 0; i < this.arrayVariables.length; i++) {
+                  const atr = this.arrayVariables[i];
+                  if ("1" == atr) {
+
+                    miString = w.descripcion
+
+                  }
+
+                }
+
+
+                valores.map(k => {
+
+
+
+                  for (let i = 0; i < this.arrayAtributos.length; i++) {
+                    const atr = this.arrayAtributos[i];
+                    if (k.idAtributoTecnicoVariedad.toString() == atr) {
+
+
+                      miString = miString + '-' + (k.AtributoTecnicoVariedadValor?.valor || '')
+                    }
+
+                  }
+                })
+                if (miString != "") {
+                  this.skusElegidos[ind] = miString
+                }
+
+
+
+              })
+
+
+            })
+
+
+
           }
-        });
+        }
+
+
       }
-    });
+    })
   }
-  
 
   exportExcel() {
     //this.skus = this.filteredModels();  // Obtiene los SKUs filtrados
@@ -238,7 +275,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     XLSX.utils.book_append_sheet(workbook, worksheet, 'SKUs');  // Añade la hoja al libro de trabajo
     
     // Exportar como archivo .xlsx
-    XLSX.writeFile(workbook, 'skusCliente.xlsx');
+    XLSX.writeFile(workbook, 'skuCLiente.xlsx');
   }
 
   skusToWorksheet(skus: Sku[]): XLSX.WorkSheet {

@@ -48,12 +48,9 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
 
     this.serviceCategoriaAtributoTecnico.postIdAgrupacionCategoria(this.atributoFuncionalVariedad.idClienteAgrupacionCategoria).subscribe(x => {
       this.categoriaAtributoTecnicos = x.data
-      console.log(x);
-      
 
       this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
-        console.log(y);
-        
+
         const clienteFormulas: ClienteFormula = y.data
         if(clienteFormulas!=null){
           this.valors = clienteFormulas.idAtributoTecnicoVariedadValors?.split(',')||[];

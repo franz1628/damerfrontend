@@ -149,7 +149,13 @@ export class SkuListComponent implements OnChanges{
 
       for (let k = 0; k < skus[i].SkuAtributoTecnicoVariedadValor.length; k++) {
         const skuAtri = skus[i].SkuAtributoTecnicoVariedadValor[k];
-        arr.push(skuAtri.AtributoTecnicoVariedadValor?.valor || skuAtri.valor ||'')
+        let valor = skuAtri.AtributoTecnicoVariedadValor?.valor || skuAtri.valor ||'';
+
+        if(skuAtri.UnidadMedida){
+          valor += valor + ' - ' + skuAtri.UnidadMedida?.descripcion
+        }
+
+        arr.push(valor)
       }
       data.push(arr);
     }
