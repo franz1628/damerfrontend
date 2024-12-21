@@ -296,7 +296,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
 
       filaCabecera.push(valor) 
     }
-
+ 
     filaCabecera.push('ESTADO');
     data.push(filaCabecera);
 

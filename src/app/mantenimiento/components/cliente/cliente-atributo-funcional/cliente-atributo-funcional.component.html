@@ -250,7 +250,14 @@
                       <th>Descripcion</th>
                       <th>Categoria</th>
                       @for(cat of categoriaAtributoTecnicos;track $index){
-                      <th>{{ cat.AtributoTecnicoVariedad.descripcion }}</th>
+                      <th>{{ cat.AtributoTecnicoVariedad.descripcion }} 
+
+                        @if(skus[0] && skus[0].SkuAtributoTecnicoVariedadValor[$index]?.UnidadMedida){
+                          - {{skus[0].SkuAtributoTecnicoVariedadValor[$index].UnidadMedida?.descripcion}}
+                        }
+                      </th>
+
+                       
                       }
                      <th>Estado</th>
                     </tr>
@@ -276,7 +283,7 @@
                           @if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad && cat.id == atri.idCategoriaAtributoTecnico){
                             {{ atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || "" }}
                             @if(atri?.UnidadMedida?.descripcion){
-                              {{ ' - '+atri?.UnidadMedida?.descripcion  }}
+                              
                             }
                             
                           } 
