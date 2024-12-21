@@ -122,10 +122,17 @@ export class SkuListComponent implements OnChanges{
     titulos.push('Tipo SKU')
     titulos.push('Fecha Registro')
 
-    for (let k = 0; k < skus[0].SkuAtributoTecnicoVariedadValor.length; k++) {
-      const skuAtri = skus[0].SkuAtributoTecnicoVariedadValor[k];
-      titulos.push(skuAtri.AtributoTecnicoVariedad?.descripcion || '')
-    }
+    
+
+      for (let k = 0; k < skus[0].SkuAtributoTecnicoVariedadValor.length; k++) {
+        const skuAtri = skus[0].SkuAtributoTecnicoVariedadValor[k];
+        let valor = skuAtri.AtributoTecnicoVariedad?.descripcion || ''
+        if(skuAtri.UnidadMedida){
+          valor += ' - ' + skuAtri.UnidadMedida.descripcion
+        }
+        titulos.push(valor)
+      }
+    
 
     data.push(titulos)
 
@@ -151,9 +158,9 @@ export class SkuListComponent implements OnChanges{
         const skuAtri = skus[i].SkuAtributoTecnicoVariedadValor[k];
         let valor = skuAtri.AtributoTecnicoVariedadValor?.valor || skuAtri.valor ||'';
 
-        if(skuAtri.UnidadMedida){
+        /*if(skuAtri.UnidadMedida){
           valor += valor + ' - ' + skuAtri.UnidadMedida?.descripcion
-        }
+        }*/
 
         arr.push(valor)
       }

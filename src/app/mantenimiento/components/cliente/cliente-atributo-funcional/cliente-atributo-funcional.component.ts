@@ -288,8 +288,15 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     filaCabecera.push('CATEGORIA');
 
     for(const ind in this.categoriaAtributoTecnicos){
-      filaCabecera.push(this.categoriaAtributoTecnicos[ind].AtributoTecnicoVariedad.descripcion);
+      let valor = this.categoriaAtributoTecnicos[ind].AtributoTecnicoVariedad.descripcion;
+      if(skus[0].SkuAtributoTecnicoVariedadValor[ind]?.UnidadMedida){
+
+        valor += ' - ' + skus[0].SkuAtributoTecnicoVariedadValor[ind].UnidadMedida?.descripcion
+      }
+
+      filaCabecera.push(valor) 
     }
+
     filaCabecera.push('ESTADO');
     data.push(filaCabecera);
 
@@ -315,9 +322,9 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
               if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad && cat.id == atri.idCategoriaAtributoTecnico){
                 existe = 1;
                 let valor = atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || ' ';
-                if(atri?.UnidadMedida){
+                /*if(atri?.UnidadMedida){
                   valor+=' ' + atri?.UnidadMedida?.descripcion
-                }
+                }*/
                 
                 fila.push(valor)
               }
