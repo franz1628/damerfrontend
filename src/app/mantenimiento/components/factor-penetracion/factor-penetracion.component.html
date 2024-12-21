@@ -10,9 +10,9 @@
                         <tr>
                             <th>Item</th>
                             <th>Categoria </th>
-                            <th>Medicion</th>
                             <th>Zona Proyectada</th>
                             <th>Canal </th>
+                            <th>Medicion</th>
                             <th>FPenetracion</th>
                             <th>Acción</th>
                         </tr>
@@ -35,15 +35,6 @@
                               </td>
 
                               <td>
-                                <select class="form-select form-select-sm" formControlName="idMedicion" >
-                                    <option value="0">SELECCIONAR</option>
-                                    @for (medicion of medicions; track $index) {
-                                        <option value={{medicion.id}}>{{medicion.medicion}}</option>
-                                    }
-                                </select>
-                              </td>
-
-                              <td>
                                 <select class="form-select form-select-sm" formControlName="idZona">
                                     <option value="0">SELECCIONAR</option>
                                     @for (zona of zonas; track $index) {
@@ -60,6 +51,19 @@
                                     }
                                 </select>
                               </td>
+
+                              <td>
+                                <select class="form-select form-select-sm" formControlName="idMedicion" >
+                                    <option value="0">SELECCIONAR</option>
+                                    @for (medicion of medicions; track $index) {
+                                        <option value={{medicion.id}}>{{medicion.medicion}}</option>
+                                    }
+                                </select>
+                              </td>
+
+                              
+
+                            
 
                             
                               
