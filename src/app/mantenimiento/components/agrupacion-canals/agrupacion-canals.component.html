@@ -26,28 +26,20 @@
 
                       <td class="text-start">
                           <div class="btn-group ">
-  
                               @if(model.get('id')?.value!=0){
-                              
-                              <img class="iconEdit" src="assets/editar.png"  (click)="editModel($index)">        
-                              <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete($index)">
+                                <app-tooltip [tooltipText]="'Editar'" [imgSrc]="'assets/editar.png'" (clickEvent)="editModel($index)"></app-tooltip>
+                                <app-tooltip [tooltipText]="'Eliminar'" [imgSrc]="'assets/eliminar.png'" (clickEvent)="delete($index)"></app-tooltip> 
                               @if(modelosArray.controls.length==$index+1){
-                                <img class="iconNuevo" src="assets/nuevo.png"  (click)="add()">
+                                <app-tooltip [tooltipText]="'Nuevo'" [imgSrc]="'assets/nuevo.png'" (clickEvent)="add()"></app-tooltip>
                               }
                               }@else{
-                                <img class="iconNuevo" src="assets/nuevo.png"  (click)="save($index)">
-
+                                <app-tooltip [tooltipText]="'Guardar'" [imgSrc]="'assets/nuevo.png'" (clickEvent)="save($index)"></app-tooltip>
                               }
                           </div>
-  
-  
-  
                       </td>
                   </tr>
                   }
-                   
                 }
-  
             </tbody>
         </table>
     </div>
