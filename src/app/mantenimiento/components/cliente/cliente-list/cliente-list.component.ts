@@ -32,17 +32,17 @@ export class ClienteListComponent {
       this.loading=false;
     })
   }
-
+ 
   borrar(model:Cliente){
     this.alert.showAlertConfirm('Advertencia','¿Desea suspender?','warning',()=>{
       this.service.delete(model).subscribe(x=>{
         this.actualizarList();
       })
-    })
+    }) 
   }
 
   elegir(index: number,model:Cliente) {
-    this.selectIndex=index
+    this.selectIndex=index 
     this.selectEditEmit.emit(model)
 
   }

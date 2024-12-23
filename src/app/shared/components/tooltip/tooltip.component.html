@@ -1,0 +1,5 @@
+<div class="tooltip-container" [attr.data-tooltip]="tooltipText">
+    <img *ngIf="imgSrc" [src]="imgSrc" alt="Imagen con Tooltip" (click)="onClick()" />
+    <ng-content *ngIf="!imgSrc"></ng-content> <!-- Permite usar cualquier contenido si no es una imagen -->
+  </div>
+  

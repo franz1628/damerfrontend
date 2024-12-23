@@ -48,7 +48,9 @@
                     </td>
                     <td>{{model.medicion}}</td>
                     <td>
-                        <img class="iconEdit" src="assets/editar.png" (click)="editModel(model)">
+                       
+                        <app-tooltip [tooltipText]="'Editar'" [imgSrc]="'assets/editar.png'" (clickEvent)="editModel(model)"></app-tooltip>
+                                                
 
                         @if(model.estado==1){
                             <span class="badge text-bg-danger" (click)="suspender(model)">Suspender</span>
@@ -56,11 +58,8 @@
                             <span class="badge text-bg-success" (click)="suspender(model)">Activar</span>
                         }
 
-                      
-
                     
-
-                        <img class="iconEliminar" src="assets/eliminar.png" (click)="delete(model)">
+                        <app-tooltip [tooltipText]="'Eliminar'" [imgSrc]="'assets/eliminar.png'" (clickEvent)="delete(model)"></app-tooltip>
                     </td>
                 </tr>
                 }@empty {

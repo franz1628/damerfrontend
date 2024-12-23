@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { AlertService } from '../shared/services/alert.service';
+import { MedicionService } from '../mantenimiento/service/medicion.service';
+import { Medicion } from '../mantenimiento/interface/medicion';
 
 @Component({
   selector: 'app-home',
@@ -11,20 +13,20 @@ export class HomeComponent implements OnInit{
 
   showModal=true;
   medicion='';
+  mediciones:Medicion[] = [];
 
   constructor(
     private authService :AuthService,
+    private medicionService : MedicionService,
     private alert : AlertService
   ){
 
   }
 
   ngOnInit(): void {
-    //console.log(this.authService.isLoggedIn());
-   /* if(localStorage.getItem('medicion')){
-      this.showModal = false;
-    }*/
-
+    this.medicionService.get().subscribe(x=>{
+      this.mediciones = x.data;
+    });
   }
 
   guardar() {

@@ -132,7 +132,9 @@
                 <div class="mb-3 row">
                     <select class="form-select" [(ngModel)]="medicion">
                         <option value="">Elegir</option>
-                        <option value="2406">2406</option>
+                        @for (medicion of mediciones; track $index) {
+                            <option value={{medicion.id}}>{{medicion.medicion}}</option>
+                        }
                     </select>
                 </div>
 

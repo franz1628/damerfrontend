@@ -6,6 +6,12 @@ import { Negocio } from '../interface/negocio.interface';
 import { environments } from '../../../environments/environments';
 import { Medicion } from '../interface/medicion';
 
+interface ResponseMedicion  {
+  data: Medicion[];
+  message: string;
+  status: number; 
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,8 +20,8 @@ export class MedicionService {
 
   constructor(private http: HttpClient) {}
 
-  get(): Observable<Response> {
-    return this.http.get<Response>(this.apiUrl);
+  get(): Observable<ResponseMedicion> {
+    return this.http.get<ResponseMedicion>(this.apiUrl);
   }
 
   getId(id: number): Observable<Response> {

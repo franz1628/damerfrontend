@@ -6,16 +6,17 @@ import { Error404PageComponent } from './pages/error404-page/error404-page.compo
 import { InputControlComponent } from './components/form/input-control/input-control.component';
 import { DivCargandoComponent } from './components/div-cargando/div-cargando.component';
 import { BadgeEstadoComponent } from './components/badge-estado/badge-estado.component';
+import { TooltipComponent } from './components/tooltip/tooltip.component';
 
 
 
 @NgModule({
-  declarations: [BlackLoadingComponent, Error404PageComponent,InputControlComponent, DivCargandoComponent, BadgeEstadoComponent],
+  declarations: [BlackLoadingComponent, Error404PageComponent,InputControlComponent, DivCargandoComponent, BadgeEstadoComponent, TooltipComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
   ],
-  exports:[BlackLoadingComponent,InputControlComponent,DivCargandoComponent,BadgeEstadoComponent]
+  exports:[BlackLoadingComponent,InputControlComponent,DivCargandoComponent,BadgeEstadoComponent, TooltipComponent]
 })
 export class SharedModule { }

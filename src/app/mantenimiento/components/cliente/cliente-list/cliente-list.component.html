@@ -30,8 +30,10 @@
                         <td>{{model.fechaRegistro.toString().slice(0,10)}}</td>
                         <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
                         <td>
-                            <img class="iconEdit" src="assets/editar.png"  (click)="selectEdit(model)">
-                            <img class="iconEliminar" src="assets/eliminar.png"  (click)="borrar(model)">
+                            <app-tooltip [tooltipText]="'Editar'" [imgSrc]="'assets/editar.png'" (clickEvent)="selectEdit(model)"></app-tooltip>
+                            <app-tooltip [tooltipText]="'Eliminar'" [imgSrc]="'assets/eliminar.png'" (clickEvent)="borrar(model)"></app-tooltip>
+                            
+                       
                         </td>
                     </tr>
                 }
