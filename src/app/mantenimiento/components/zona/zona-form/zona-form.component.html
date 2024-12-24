@@ -16,7 +16,7 @@
                 <label for="idTipoZona" class="col-md-4 col-form-label-sm">Tipo de Zona</label>
                 <div class="col-sm-8">
                     <select class="form-select form-select-sm" formControlName="idTipoZona">
-                        <option value="">SELECCIONAR</option>
+                        <option value="0">SELECCIONAR</option>
                         <option *ngFor="let tipoZona of listTipoZona" [value]="tipoZona.id">
                             {{tipoZona.descripcion}}
                         </option>

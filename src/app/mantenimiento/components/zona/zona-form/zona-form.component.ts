@@ -19,7 +19,7 @@ export class ZonaFormComponent {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   public myForm: FormGroup = this.fb.group({
     id: [0],
-    idTipoZona:['', Validators.required],
+    idTipoZona:['0', Validators.required],
     descripcion: ['', Validators.required],
     numeroOrden: [0],
     planificadorRuta:[1],
@@ -60,6 +60,11 @@ export class ZonaFormComponent {
   submit() {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
+      return;
+    }
+
+    if(this.currentModel.idTipoZona == 0){
+      this.alert.showAlert('¡Error!', 'Debe seleccionar una zona principal', 'error');  
       return;
     }
 
