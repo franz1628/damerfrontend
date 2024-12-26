@@ -18,7 +18,6 @@ export class TipoInformeOrdenFormComponent {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   public myForm: FormGroup = this.fb.group({
     id: [0],
-    codigo: [0, [Validators.required, Validators.min(1), Validators.pattern(/^-?\d+$/)]],
     descripcion: ['', Validators.required],
     descripcionResumida: [''],
     tip: [''],

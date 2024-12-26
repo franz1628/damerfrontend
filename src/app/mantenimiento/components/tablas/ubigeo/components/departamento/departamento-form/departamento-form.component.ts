@@ -40,12 +40,14 @@ export class DepartamentoFormComponent {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
+        this.myForm.patchValue(DepartamentoInit);
       });
     }else{
       this.service.update(this.currentModel.id,this.currentModel).subscribe(() => {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+        this.myForm.patchValue(DepartamentoInit);
       });
     }
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AlertService } from '../../../shared/services/alert.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidFormService } from '../../../shared/services/validForm.service';
@@ -9,7 +9,10 @@ import { MedicionService } from '../../service/medicion.service';
   selector: 'app-medicion',
   templateUrl: './medicion.component.html'
 })
-export class MedicionComponent {
+export class MedicionComponent implements OnInit{
+
+  models:Medicion[] = []
+
   public myForm: FormGroup = this.fb.group({
     id: [0, Validators.required],
     anio: [2024, [Validators.required,Validators.min(2010),Validators.max(2050), Validators.pattern(/^-?\d+$/)]],
@@ -25,6 +28,16 @@ export class MedicionComponent {
     private medicionService : MedicionService
     ){
 
+  }
+
+  ngOnInit(): void {
+    this.loadModels()
+  }
+
+  loadModels(){
+    this.medicionService.get().subscribe(x=>{
+      this.models = x.data
+    })  
   }
 
   get currentModel() {
@@ -47,11 +60,23 @@ export class MedicionComponent {
       return;
     }
 
-    this.medicionService.update(1,this.currentModel).subscribe(resp=>{
+    this.medicionService.add(this.currentModel).subscribe(resp=>{
+      this.loadModels()
       this.alert.showAlert('Mensaje','Se guardo correctamente','success');
     })
 
   }
+
+  borrar(model: Medicion) {
+    this.alert.showAlertConfirm('Advertencia','¿Desea desactivar el registro?','warning',()=>{
+      this.medicionService.delete(model).subscribe(x=>{
+        this.loadModels()
+        this.alert.showAlert('Mensaje','Eliminado con exito','info');
+      })
+    })
+  }
+
+ 
 
   isValidField(field: string): boolean | null {
     return this.validForm.isValidField(field, this.myForm);

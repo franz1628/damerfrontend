@@ -3,8 +3,8 @@
         <form (ngSubmit)="submit()" autocomplete="off" [formGroup]="myForm">
 
             <div class="mb-3 row">
-                <label for="descripcion" class="col-md-2 col-form-label-sm">Descripcion</label>
-                <div class="col-sm-10">
+                <label for="descripcion" class="col-md-4 col-form-label-sm">Descripcion</label>
+                <div class="col-sm-8">
                     <input type="text" class="form-control form-control-sm" placeholder="descripcion" name="descripcion"
                         formControlName="descripcion" id="descripcion" />
                 </div>
@@ -15,11 +15,25 @@
 
 
             <div class="mb-3 row">
-                <label for="idProvincia" class="col-md-2 col-form-label-sm">Provincia</label>
-                <div class="col-sm-10">
+                <label for="idDepartamento" class="col-md-4 col-form-label-sm">Departamento</label>
+                <div class="col-sm-8">
+                    <select class="form-select form-select-sm" formControlName="idDepartamento">
+                        <option value="0">SELECCIONAR</option>
+                        <option *ngFor="let departamento of listDepartamento" [value]="departamento.id">
+                            {{departamento.descripcion}}
+                        </option>
+                    </select>
+
+                </div>
+            
+            </div>
+
+            <div class="mb-3 row">
+                <label for="idProvincia" class="col-md-4 col-form-label-sm">Provincia</label>
+                <div class="col-sm-8">
                     <select class="form-select form-select-sm" formControlName="idProvincia">
-                        <option value="">SELECCIONAR</option>
-                        <option *ngFor="let provincia of listProvincia" [value]="provincia.id">
+                        <option value="0">SELECCIONAR</option>
+                        <option *ngFor="let provincia of listPorDepartamento" [value]="provincia.id">
                             {{provincia.descripcion}}
                         </option>
                     </select>

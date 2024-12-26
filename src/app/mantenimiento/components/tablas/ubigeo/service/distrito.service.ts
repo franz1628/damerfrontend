@@ -38,8 +38,8 @@ export class DistritoService {
     return this.http.get<ResponseDistritoOne>(`${this.apiUrl}/${id}`);
   }
 
-  add(model: Distrito): Observable<Distrito> {
-    return this.http.post<Distrito>(this.apiUrl, model);
+  add(model: Distrito): Observable<ResponseDistrito> {
+    return this.http.post<ResponseDistrito>(this.apiUrl, model);
   }
 
   postByZona(zona: Zona): Observable<ResponseDistrito> {

@@ -21,7 +21,7 @@ export class ProvinciaFormComponent {
   public myForm: FormGroup = this.fb.group({
     id: [0],
     descripcion: ['', Validators.required],
-    idDepartamento: ['', Validators.required],
+    idDepartamento: ['0', Validators.required],
     estado: [1]
   })
 
@@ -47,6 +47,11 @@ export class ProvinciaFormComponent {
       return;
     }
 
+    if (this.currentModel.idDepartamento==0) {
+      this.alert.showAlert('Advertencia!', 'Debe elegir un departamento', 'warning');
+      return
+    }
+
     if (!this.currentModel.id) {
       this.service.add(this.currentModel)
         .pipe(catchError(val => of(undefined)))
@@ -55,6 +60,8 @@ export class ProvinciaFormComponent {
             this.showLoading = false;
             this.updateModelsEmit.emit();
             this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
+            this.myForm.patchValue(ProvinciaInit)
+            this.myForm.clearValidators()
           }
         });
     } else {
@@ -62,6 +69,8 @@ export class ProvinciaFormComponent {
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
+        this.myForm.patchValue(ProvinciaInit)
+        this.myForm.clearValidators()
       });
     }
   }

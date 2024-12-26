@@ -17,7 +17,7 @@
                 <label for="idDepartamento" class="col-md-4 col-form-label-sm">Departamento</label>
                 <div class="col-sm-8">
                     <select class="form-select form-select-sm" formControlName="idDepartamento">
-                        <option value="">SELECCIONAR</option>
+                        <option value="0">SELECCIONAR</option>
                         <option *ngFor="let departamento of listDepartamentos" [value]="departamento.id">
                             {{departamento.descripcion}}
                         </option>
