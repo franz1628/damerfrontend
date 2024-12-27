@@ -1,6 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { UniversoNegocios, UniversoNegociosInit } from '../../interface/universoNegocios';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { UniversoNegociosService } from '../../service/universoNegocios';
 import { CanalService } from '../tablas/service/canal.sevice';
 import { ZonaService } from '../tablas/service/zona.service';
@@ -16,6 +16,8 @@ import { DistritoService } from '../tablas/ubigeo/service/distrito.service';
   templateUrl: './universo-negocios.component.html'
 })
 export class UniversoNegociosComponent {
+
+
   @Input()
   modelUniversoNegocios: UniversoNegocios = UniversoNegociosInit
   showLoading: boolean = false;
@@ -30,7 +32,10 @@ export class UniversoNegociosComponent {
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
-  });;
+  });
+
+  textoBuscar: string='';
+  modelsFilter:UniversoNegocios[]=[]
 
   constructor(
     private service: UniversoNegociosService,
@@ -68,13 +73,12 @@ export class UniversoNegociosComponent {
       ).subscribe({
         next:value => {
 
-          const models = value.service.data;
+          this.modelsFilter = value.service.data;
           this.canals = value.serviceCanal.data
           this.zonas = value.serviceZona.data
           this.distritos = value.serviceDistrito.data
-         
 
-          models.forEach((model,index) => {
+          this.modelsFilter.forEach((model,index) => {
 
             const miDistrito = this.distritos.find(y=>y.id == model.idDistrito)
             const nuevoModelo = this.fb.group({
@@ -92,7 +96,7 @@ export class UniversoNegociosComponent {
             this.arrDistritos[index] = this.distritos.filter(x=>x.idZona == miDistrito?.idZona)
           });
   
-          if(models.length==0){
+          if(this.modelsFilter.length==0){
             this.add();
           }
   
@@ -101,8 +105,16 @@ export class UniversoNegociosComponent {
       })
   }
 
+  filtroBusqueda(model:UniversoNegocios):boolean {
+    return this.canals.find(y=>y.id == model.idCanal)?.descripcion.includes(this.textoBuscar.toUpperCase()) 
+      || this.zonas.find(y=>y.id == model.idZona)?.descripcion.includes(this.textoBuscar.toUpperCase()) 
+      || this.distritos.find(y=>y.id == model.idDistrito)?.descripcion.includes(this.textoBuscar.toUpperCase()) 
+      || model.valor.toString().includes(this.textoBuscar.toString().toUpperCase()) 
+  }
+ 
   get modelosArray() {
-    return this.models.get('modelos') as FormArray;
+    const arr_model = this.models.get('modelos') as FormArray;
+    return arr_model;
   }
 
   cambiaZona(e:Event,index: number) {
@@ -149,6 +161,8 @@ export class UniversoNegociosComponent {
   }
 
   selectAtributo(index: number) {
+    console.log(index);
+    
     this.UniversoNegocios = (this.models.get('modelos') as FormArray).at(index).value;
   }
 

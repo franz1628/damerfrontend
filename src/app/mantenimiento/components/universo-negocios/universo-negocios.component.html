@@ -2,6 +2,7 @@
 <div class="row">
     <div class="col-md-12">
         <h6 class="mb-3 text-center">Universo Negocios</h6>
+        <input type="text" class="form form-control-sm w-100 mb-2" placeholder="Buscar..." [(ngModel)]="textoBuscar">
 
         <form [formGroup]="models">
             <div formArrayName="modelos">
@@ -20,42 +21,41 @@
           
                     </thead>
                     <tbody>
-                        @if (modelosArray.controls.length!=0) {
-                          @for (model of modelosArray.controls; track $index) {
-                            <tr [formGroupName]="$index" (click)="selectAtributo($index)">
-                              <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
-
-                        
-                              <td>
-                                <select class="form-select form-select-sm" (change)="cambiaZona($event,$index)" formControlName="idZona">
-                                    <option value="0">SELECCIONAR</option>
-                                    @for (zona of zonas; track $index) {
-                                        <option value={{zona.id}}>{{zona.descripcion}}</option>
-                                    }
-                                </select>
-                              </td>
-
-                              <td>
-                                <select class="form-select form-select-sm" formControlName="idCanal">
-                                    <option value="0">SELECCIONAR</option>
-                                    @for (canal of canals; track $index) {
-                                        <option value={{canal.id}}>{{canal.descripcion}}</option>
-                                    }
-                                </select>
-                              </td>
-
-                            
-                              
-                              <td>
-                                <select class="form-select form-select-sm" formControlName="idDistrito">
-                                    <option value="0">SELECCIONAR</option>
-                                    @for (distrito of arrDistritos[$index]; track $index) {
-                                    <option value={{distrito.id}}>{{distrito.descripcion}}</option>
-                                    }
-                                </select>
-                            </td>
+                        @if (this.modelosArray.length!=0) {
+                          @for (model of this.modelosArray.controls; track $index) {
+                            @if(filtroBusqueda(model.value)){
+                              <tr [formGroupName]="$index" (click)="selectAtributo($index)">
+                                <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
+                                <td>{{$index}}</td>
                           
-                       
+                                <td>
+                                  <select class="form-select form-select-sm" (change)="cambiaZona($event,$index)" formControlName="idZona">
+                                      <option value="0">SELECCIONAR</option>
+                                      @for (zona of zonas; track $index) {
+                                          <option value={{zona.id}}>{{zona.descripcion}}</option>
+                                      }
+                                  </select>
+                                </td>
+  
+                                <td>
+                                  <select class="form-select form-select-sm" formControlName="idCanal">
+                                      <option value="0">SELECCIONAR</option>
+                                      @for (canal of canals; track $index) {
+                                          <option value={{canal.id}}>{{canal.descripcion}}</option>
+                                      }
+                                  </select>
+                                </td>
+  
+                                <td>
+                                  <select class="form-select form-select-sm" formControlName="idDistrito">
+                                      <option value="0">SELECCIONAR</option>
+                                      @for (distrito of arrDistritos[$index]; track $index) {
+                                      <option value={{distrito.id}}>{{distrito.descripcion}}</option>
+                                      }
+                                  </select>
+                              </td>
+                            
+                  
                               <td> <input type="number" class="form-control form-control-sm" formControlName="valor"> </td>
                               <td> <label class="mt-2">{{model.get('fechaRegistro')?.value}}</label>  </td>
                               <td> <label class="mt-2">{{model.get('fechaModificacion')?.value}}</label>  </td>   
@@ -77,7 +77,8 @@
           
           
                               </td>
-                          </tr>
+                            </tr>
+                            }
                           }
                            
                         }

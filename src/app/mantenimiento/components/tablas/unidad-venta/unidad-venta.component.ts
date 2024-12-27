@@ -120,7 +120,7 @@ export class UnidadVentaComponent {
       tip:[''],
       formaUso:[0],
       idTipoUnidadMedida:[0],
-      unidadMedida:[0],
+      idUnidadMedida:[0],
       alias1:[''],
       alias2:[''],
       alias3:[''],

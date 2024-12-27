@@ -95,6 +95,11 @@ export class AtributoTecnicoVariedadFormComponent {
     const modelo:AtributoTecnicoVariedad = this.modelosArray.at(num).value;
     const modelos_all:AtributoTecnicoVariedad[] = this.modelosArray.value;
 
+    if(modelo.descripcion==''){
+      this.alert.showAlert('Advertencia','Falta la descripcion','warning');
+      return
+    }
+    
     if(modelos_all.some((x,ind)=>x.descripcion == modelo.descripcion && num!=ind)){
       this.alert.showAlert('Mensaje', 'No se permiten valores duplciados', 'warning');
       return
@@ -130,6 +135,11 @@ export class AtributoTecnicoVariedadFormComponent {
   async save(num: number): Promise<void> {
     const modelo:AtributoTecnicoVariedad = this.modelosArray.at(num).value;
     const modelos_all:AtributoTecnicoVariedad[] = this.modelosArray.value;
+
+    if(modelo.descripcion==''){
+      this.alert.showAlert('Advertencia','Falta la descripcion','warning');
+      return
+    }
 
     if(modelos_all.some((x,ind)=>x.descripcion == modelo.descripcion && num!=ind)){
       this.alert.showAlert('Mensaje', 'No se permiten atributos duplciados', 'warning');

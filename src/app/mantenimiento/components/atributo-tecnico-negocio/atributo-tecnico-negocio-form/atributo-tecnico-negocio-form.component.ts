@@ -58,6 +58,11 @@ export class AtributoTecnicoNegocioFormComponent {
       return;
     }
 
+    if(this.getModel.descripcion==''){
+      this.alert.showAlert('Advertencia','Falta la descripcion','warning');
+      return
+    }
+
     this.service.add(this.getModel).subscribe(resp => {
       this.model.reset();
       this.actualizarList();
@@ -79,6 +84,11 @@ export class AtributoTecnicoNegocioFormComponent {
   }
 
   editar(){
+    if(this.getModel.descripcion==''){
+      this.alert.showAlert('Advertencia','Falta la descripcion','warning');
+      return
+    }
+    
     this.service.update(this.getModel.id,this.getModel).pipe(
       catchError(error => {
         this.alert.showAlert('Mensaje',error.error.message,'warning');

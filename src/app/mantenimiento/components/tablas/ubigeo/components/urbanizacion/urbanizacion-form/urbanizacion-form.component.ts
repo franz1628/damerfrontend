@@ -60,6 +60,11 @@ export class UrbanizacionFormComponent implements OnInit{
       return;
     }
 
+    if(this.currentModel.idDistrito==0){
+      this.alert.showAlert('Advertencia!', 'Se debe elgir distrito', 'warning');
+      return
+    }
+
     if(!this.currentModel.id){
       this.service.add(this.currentModel).subscribe(() => {
         this.showLoading = false;

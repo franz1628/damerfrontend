@@ -48,36 +48,62 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
 
     this.serviceCategoriaAtributoTecnico.postIdAgrupacionCategoria(this.atributoFuncionalVariedad.idClienteAgrupacionCategoria).subscribe(x => {
       this.categoriaAtributoTecnicos = x.data
+   
+      
+     /* const uniqueArray = Array.from(
+        new Map(this.categoriaAtributoTecnicos.map(item => [item.idAtributoTecnicoVariedad, item])).values()
+      );
 
-      this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
+      this.categoriaAtributoTecnicos = uniqueArray;*/
 
-        const clienteFormulas: ClienteFormula = y.data
-        if(clienteFormulas!=null){
-          this.valors = clienteFormulas.idAtributoTecnicoVariedadValors?.split(',')||[];
-        }else{
-          this.valors = []
-        }
-        this.checkboxSeleccionados = []
-        this.idAtributoTecnicoVariedad = clienteFormulas?.idAtributoTecnicoVariedad;
-
-        if(this.idAtributoTecnicoVariedad){
-
-          this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(this.idAtributoTecnicoVariedad).subscribe(z => {
-            this.categoriaAtributoTecnicoValors = z
-  
-            for (let i = 0; i < this.valors.length; i++) {
-              const element = this.valors[i];
-    
-              this.checkboxSeleccionados.push(parseInt(element));
-            }
-  
-          })
-        }
-
-       
-      })
+      this.loadCategoriasAtributos();
     })
 
+  }
+
+  loadCategoriasAtributos(){
+    this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
+
+      const clienteFormulas: ClienteFormula = y.data
+      if(clienteFormulas!=null){
+        this.valors = clienteFormulas.idAtributoTecnicoVariedadValors?.split(',')||[];
+      }else{
+        this.valors = []
+      }
+      this.checkboxSeleccionados = []
+
+      this.checkboxSeleccionados = this.valors.map(x=>parseInt(x));
+
+      if(this.idAtributoTecnicoVariedad){
+        this.categoriaAtributoTecnicos.map(x=>{
+          if(x.idAtributoTecnicoVariedad == this.idAtributoTecnicoVariedad){
+            this.categoriaAtributoTecnicoValors = []
+            this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(x.id).subscribe(x => {
+              this.categoriaAtributoTecnicoValors = this.categoriaAtributoTecnicoValors.concat(x)
+              
+              this.categoriaAtributoTecnicoValors = Array.from(
+                new Map(this.categoriaAtributoTecnicoValors.map(item => [item.idAtributoTecnicoVariedadValor, item])).values()
+              );
+
+            })
+          }
+        })
+
+   
+        
+
+      }
+
+     
+    })
+  }
+
+  get getCategoriasAtributos(){
+      const uniqueArray = Array.from(
+        new Map(this.categoriaAtributoTecnicos.map(item => [item.idAtributoTecnicoVariedad, item])).values()
+      );
+
+      return uniqueArray;
   }
 
   checkAllFormula() {
@@ -95,20 +121,12 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
   } 
 
   changeAtributo(e: Event) {
-    const idCategoriaAtributoTecnico = +(e.target as HTMLInputElement).value
-   // this.idAtributoTecnicoVariedad = idCategoriaAtributoTecnico
-    this.idCategoriaAtributoTecnico = idCategoriaAtributoTecnico;
-    this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(idCategoriaAtributoTecnico).subscribe(x => {
-      this.checkboxSeleccionados = []
-      this.categoriaAtributoTecnicoValors = x
+    const idAtributoTecnicoVariedad = +(e.target as HTMLInputElement).value
+    this.idAtributoTecnicoVariedad = idAtributoTecnicoVariedad
 
-      for (let i = 0; i < this.valors.length; i++) {
-        const element = this.valors[i];
+    this.loadCategoriasAtributos();
 
-        this.checkboxSeleccionados.push(parseInt(element));
-      }
-      
-    })
+   
 
   }
 

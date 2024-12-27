@@ -159,7 +159,7 @@
                         <label for="telefono" class="col-md-3 col-form-label-sm">Teléfono</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" placeholder="telefono"
-                                name="telefono" formControlName="telefono" id="telefono" />
+                                name="telefono" formControlName="telefono" id="telefono" maxlength="9"/>
                         </div>
                         <span *ngIf="isValidField('telefono')" class="form-text text-danger">
                             {{ getFieldError('telefono') }}
@@ -225,7 +225,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-3 row">
+                    <!-- <div class="mb-3 row">
                         <label for="idUrbanizacion" class="col-md-3 col-form-label-sm">Urbanización</label>
                         <div class="col-sm-9">
                             <select class="form-select form-select-sm" formControlName="idUrbanizacion">
@@ -239,10 +239,10 @@
                         <span *ngIf="isValidField('idUrbanizacion')" class="form-text text-danger">
                             {{ getFieldError('idUrbanizacion') }}
                         </span>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-md-3">
-                    <div class="mb-3 row">
+                    <!-- <div class="mb-3 row">
                         <label for="idVia" class="col-md-3 col-form-label-sm">Vía</label>
                         <div class="col-sm-9">
                             <select class="form-select form-select-sm" formControlName="idVia"  name="idVia">
@@ -255,7 +255,7 @@
                         <span *ngIf="isValidField('idVia')" class="form-text text-danger">
                             {{ getFieldError('idVia') }}
                         </span>
-                    </div>
+                    </div> -->
 
                     <div class="mb-3 row">
                         <label for="numeroDomicilio" class="col-md-3 col-form-label-sm">Numero Domicilio</label>
@@ -367,7 +367,7 @@
                         </span>
                     </div>
 
-                    <div class="mb-3 row">
+                    <!-- <div class="mb-3 row">
                         <label for="idRuta" class="col-md-3 col-form-label-sm">Código Ruta</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" placeholder="Ruta" name="idRuta"
@@ -376,7 +376,7 @@
                         <span *ngIf="isValidField('idRuta')" class="form-text text-danger">
                             {{ getFieldError('idRuta') }}
                         </span>
-                    </div>
+                    </div> -->
 
                     <div class="mb-3 row">
                         <label for="aceptaProductos" class="col-md-3 col-form-label-sm">Acepta Productos</label>
@@ -433,7 +433,7 @@
 
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <h5>Negocios por Zona</h5>
                     <div class="row">
                         <div class="col-md-12">
@@ -451,9 +451,13 @@
                             <table class="table table-sm table-bordered">
                                 <thead class="table-success">
                                     <tr>
-                                        <th>Item</th>
+                                        <th>Codigo</th>
                                         <th>RUC</th>
-                                        <th>Descripcion</th>
+                                        <th>Nombre</th>
+                                        <th>Canal</th>
+                                        <th>Direccion</th>
+                                        <th>Departamento</th>
+                                        <th>Provincia</th>
                                         <th>Creación</th>
                                         <th>Modificación</th>
                                     </tr>
@@ -464,6 +468,11 @@
                                             <td>{{negocio.id}}</td>
                                             <td>{{negocio.ruc}}</td>
                                             <td>{{negocio.nombreComercial}}</td>
+                                            <td>{{negocio.idCanal}}</td>
+                                            <td>{{negocio.direccion}}</td>
+                                            <td>{{negocio.Distrito.Provincia.Departamento.descripcion}}</td>
+                                            <td>{{negocio.Distrito.Provincia.descripcion}}</td>
+                                           
                                             <td>{{negocio.fechaRegistro && negocio.fechaRegistro.substring(0,10)}}</td>
                                             <td>{{negocio.fechaModificacion && negocio.fechaModificacion.substring(0,10)}}</td>
                                         </tr>

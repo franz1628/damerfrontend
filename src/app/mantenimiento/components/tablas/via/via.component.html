@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <h6 class="mb-3 text-center">UNIDAD VENTA</h6>
+        <h6 class="mb-3 text-center">VIA</h6>
 
         <form [formGroup]="models">
             <div formArrayName="modelos">
@@ -9,7 +9,7 @@
                         <tr>
                             <th>Item</th>
                             <th>Descripcion </th>
-                            <th>Tipo Via </th>
+                            <!-- <th>Tipo Via </th> -->
                             <th>Creacion</th>
                             <th>Modificacion</th>
                             <th>Acciones</th>
@@ -22,12 +22,12 @@
                               <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
                               <td> <input class="form-control form-control-sm" formControlName="descripcion"> </td>
                         
-                              <td>
+                              <!-- <td>
                                 <select class="form-select form-select-sm" formControlName="idTipoVia">
                                     <option value="0">SELECCIONAR</option>
                                     <option value="1">AVENIDA</option>
                                 </select>
-                              </td>
+                              </td> -->
                               <td>
                                 {{model.get('fechaRegistro')?.value?.substring(0,10)}}
                               </td>
