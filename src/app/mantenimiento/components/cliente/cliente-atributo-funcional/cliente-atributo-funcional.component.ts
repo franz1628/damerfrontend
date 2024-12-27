@@ -109,8 +109,11 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
         this.tipoUnidadMedidas = value.serviceTipoUnidadMedida.data
         this.unidadMedidas = value.serviceUnidadMedida.data
         this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico.data
-        console.log(this.categoriaAtributoTecnicos);
-        
+
+        this.categoriaAtributoTecnicos = Array.from(
+          new Map(this.categoriaAtributoTecnicos.map(item => [item.idAtributoTecnicoVariedad, item])).values()
+        );
+
 
         const atributoFuncionales = value.service.data;
 
@@ -162,7 +165,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     ).subscribe({
       next: value => {
         this.skus = value.serviceSku.data
-        
+
         const atrisFunci = value.serviceAtributoFuncionalVariedadValor.data
         this.skusElegidos = new Array(this.skus.length).fill('');
 
@@ -173,7 +176,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
               const clienteFormulas: ClienteFormula = y.data
               if (clienteFormulas && clienteFormulas.idAtributoTecnicoVariedadValors) {
                 this.serviceSkuAtributoTecnicoVariedadValor.postResultados(
-                  clienteFormulas.idAtributoTecnicoVariedadValors, 
+                  clienteFormulas.idAtributoTecnicoVariedadValors,
                   this.idClienteAgrupacionCategoria
                 ).subscribe(x => {
                   const arrayskus = x.data;
@@ -205,7 +208,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
 
             })
           }
-          
+
           if (atrivalor.idTipoAtributoFuncionalVariedadValor == 1) {//CONCATENACION
 
 
@@ -273,7 +276,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     const worksheet = this.skusToWorksheet(this.skus);  // Convierte los SKUs a hoja de trabajo
     const workbook = XLSX.utils.book_new();  // Crea un nuevo libro de trabajo (workbook)
     XLSX.utils.book_append_sheet(workbook, worksheet, 'SKUs');  // Añade la hoja al libro de trabajo
-    
+
     // Exportar como archivo .xlsx
     XLSX.writeFile(workbook, 'skuCLiente.xlsx');
   }
@@ -281,73 +284,73 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
   skusToWorksheet(skus: Sku[]): XLSX.WorkSheet {
     const data: any[] = [];
 
-    const filaCabecera :string[] = [];
+    const filaCabecera: string[] = [];
     filaCabecera.push('RESULTADO');
     filaCabecera.push('SKU');
     filaCabecera.push('DESCRIPCION');
     filaCabecera.push('CATEGORIA');
 
-    for(const ind in this.categoriaAtributoTecnicos){
+    for (const ind in this.categoriaAtributoTecnicos) {
       let valor = this.categoriaAtributoTecnicos[ind].AtributoTecnicoVariedad.descripcion;
-      if(skus[0].SkuAtributoTecnicoVariedadValor[ind]?.UnidadMedida){
+      if (skus[0].SkuAtributoTecnicoVariedadValor[ind]?.UnidadMedida) {
 
         valor += ' - ' + skus[0].SkuAtributoTecnicoVariedadValor[ind].UnidadMedida?.descripcion
       }
 
-      filaCabecera.push(valor) 
+      filaCabecera.push(valor)
     }
- 
+
     filaCabecera.push('ESTADO');
     data.push(filaCabecera);
 
     for (const ind in skus) {
-        const sku = skus[ind];
-        let fila:string[] = [];
-      
-        if(this.getSkuElegidos[ind]!=''){
-          fila.push(this.getSkuElegidos[ind])
-        }else {
-          fila.push('RESTO')
-        }
-        
-        fila.push(sku.id.toString());
-        fila.push(sku.descripcion);
-        fila.push(sku.Categoria.descripcion);
+      const sku = skus[ind];
+      let fila: string[] = [];
 
-        for(const ind2 in this.categoriaAtributoTecnicos){
-          const cat = this.categoriaAtributoTecnicos[ind2];
-            let existe = 0;
-            for (const ind3 in sku.SkuAtributoTecnicoVariedadValor) {
-              const atri = sku.SkuAtributoTecnicoVariedadValor[ind3]
-              if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad && cat.id == atri.idCategoriaAtributoTecnico){
-                existe = 1;
-                let valor = atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || ' ';
-                /*if(atri?.UnidadMedida){
-                  valor+=' ' + atri?.UnidadMedida?.descripcion
-                }*/
-                
-                fila.push(valor)
-              }
-            }
+      if (this.getSkuElegidos[ind] != '') {
+        fila.push(this.getSkuElegidos[ind])
+      } else {
+        fila.push('RESTO')
+      }
 
-            if(!existe){
-              fila.push('')
-            }
+      fila.push(sku.id.toString());
+      fila.push(sku.descripcion);
+      fila.push(sku.Categoria.descripcion);
+
+      for (const ind2 in this.categoriaAtributoTecnicos) {
+        const cat = this.categoriaAtributoTecnicos[ind2];
+        let existe = 0;
+        for (const ind3 in sku.SkuAtributoTecnicoVariedadValor) {
+          const atri = sku.SkuAtributoTecnicoVariedadValor[ind3]
+          if (atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad && cat.id == atri.idCategoriaAtributoTecnico) {
+            existe = 1;
+            let valor = atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || ' ';
+            /*if(atri?.UnidadMedida){
+              valor+=' ' + atri?.UnidadMedida?.descripcion
+            }*/
+
+            fila.push(valor)
+          }
         }
 
-        if(sku.estado==1){
-          fila.push("ACTIVO");
-        }else if(sku.estado==0){
-          fila.push("ELIMINADO");
-        }else{
-          fila.push("SUSPENDIDO");
+        if (!existe) {
+          fila.push('')
         }
+      }
 
-        data.push(fila);
+      if (sku.estado == 1) {
+        fila.push("ACTIVO");
+      } else if (sku.estado == 0) {
+        fila.push("ELIMINADO");
+      } else {
+        fila.push("SUSPENDIDO");
+      }
+
+      data.push(fila);
     }
 
-     
- 
+
+
     // Convierte los datos a una hoja de trabajo XLSX
     return XLSX.utils.aoa_to_sheet(data);
   }

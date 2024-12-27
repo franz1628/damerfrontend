@@ -280,7 +280,7 @@
 
                         <td>
                         @for (atri of sku.SkuAtributoTecnicoVariedadValor; track $index) { 
-                          @if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad && cat.id == atri.idCategoriaAtributoTecnico){
+                          @if(atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad && cat.idAtributoTecnicoVariedad == atri.idAtributoTecnicoVariedad){
                             {{ atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || "" }}
                             @if(atri?.UnidadMedida?.descripcion){
                               
