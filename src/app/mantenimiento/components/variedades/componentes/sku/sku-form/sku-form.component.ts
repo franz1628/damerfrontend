@@ -137,29 +137,31 @@ export class SkuFormComponent implements OnChanges {
       return;
     }
 
-    const descripcion = this.myForm.get('descripcion')?.value;
-    this.myForm.patchValue({ 'descripcionResumida': descripcion.slice(0, 50), 'tip': descripcion.slice(0, 20) })
+    const descripcion = this.myForm.get('descripcion')?.value.trim();
+    this.myForm.patchValue({ 'descripcion':descripcion.trim(),'descripcionResumida': descripcion.slice(0, 50), 'tip': descripcion.slice(0, 20) })
 
     if (this.currentModel.tipoSku == 1) {
-      if (!this.currentModel.id) {
+      if (!this.currentModel.id) { //NUEVO
         this.currentModel.medicion = parseInt(localStorage.getItem('medicion') || '0');
         this.service.add(this.currentModel).subscribe(e => {
+          if(e.state==0){
+            this.alert.showAlert("Advertencia",e.message,"warning");
+            return;
+          }
+
           if (this.file) {
 
-            const maxSize = 300 * 1024; // 300KB
+            const maxSize = 300 * 1024; 
             const allowedTypes = ['image/png', 'image/jpeg'];
 
-            // Validar el tamaño del archivo
             if (this.file.size > maxSize) {
               this.alert.showAlert('Advertencia', 'El archivo es demasiado grande. El tamaño máximo permitido es 300KB.', 'warning')
-              // Aquí podrías mostrar un mensaje de error al usuario en lugar de solo registrar en la consola
+
               return;
             }
 
-            // Validar el tipo de archivo
             if (!allowedTypes.includes(this.file.type)) {
               this.alert.showAlert('Advertencia', 'Tipo de archivo no permitido. Solo se permiten archivos PNG y JPG.', 'warning')
-              // Aquí podrías mostrar un mensaje de error al usuario en lugar de solo registrar en la consola
               return;
             }
 
@@ -196,32 +198,26 @@ export class SkuFormComponent implements OnChanges {
           
 
         });
-      } else {
+      } else { //EDITAR
 
         if (this.file) {
 
-          const maxSize = 300 * 1024; // 300KB
+          const maxSize = 300 * 1024; 
           const allowedTypes = ['image/png', 'image/jpeg'];
 
-          // Validar el tamaño del archivo
+        
           if (this.file.size > maxSize) {
             this.alert.showAlert('Advertencia', 'El archivo es demasiado grande. El tamaño máximo permitido es 300KB.', 'warning')
-            // Aquí podrías mostrar un mensaje de error al usuario en lugar de solo registrar en la consola
             return;
           }
 
-          // Validar el tipo de archivo
           if (!allowedTypes.includes(this.file.type)) {
             this.alert.showAlert('Advertencia', 'Tipo de archivo no permitido. Solo se permiten archivos PNG y JPG.', 'warning')
-            // Aquí podrías mostrar un mensaje de error al usuario en lugar de solo registrar en la consola
             return;
           }
 
           this.fileUploadService.uploadImageSku(this.file, { ...this.currentModel, id: this.currentModel.id}).subscribe(
             event => {
-
-            
-
               switch (event.type) {
                 case HttpEventType.UploadProgress:
                   this.progress = Math.round(100 * (event.loaded / event.total!));
@@ -230,9 +226,11 @@ export class SkuFormComponent implements OnChanges {
                     this.progress = 0;
                     this.service.update(this.currentModel.id, this.currentModel).subscribe((x) => {
 
-                      /*this.myForm.patchValue({
-                        image : x.data.image
-                      })*/
+                      if(x.state==0){
+                        this.alert.showAlert("Advertencia",x.message,"warning");
+                        return;
+                      }
+
 
                       this.model.image = x.data.image
                       
@@ -253,6 +251,12 @@ export class SkuFormComponent implements OnChanges {
        
         }else{
           this.service.update(this.currentModel.id, this.currentModel).subscribe((x) => {
+
+            if(x.state==0){
+              this.alert.showAlert("Advertencia",x.message,"warning");
+              return;
+            }
+
             this.model = x.data;
             this.showLoading = false;
             this.updateModelsEmit.emit();

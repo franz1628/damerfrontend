@@ -39,15 +39,10 @@ export class SkuListComponent implements OnChanges{
   ngOnChanges(changes: SimpleChanges): void {
 
     if(changes["idCategoria"]){
-      this.load()    
+      
     }
   }
 
-  load(){
-    /*this.service.getByCategoria(this.idCategoria).subscribe(resp=>{
-      this.models = resp.data;
-    })*/
-  }
 
   @Input()
   public models: Sku[] = []

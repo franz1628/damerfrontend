@@ -180,7 +180,7 @@ export class CategoriaAtributosComponent implements OnInit{
 
     const modelos:CategoriaAtributoTecnico[] = this.modelosArray.value;
     if(modelos.some((x,key)=>key!=num && x.idTipoUnidadMedida==modelo.idTipoUnidadMedida && x.idAtributoTecnicoVariedad == modelo.idAtributoTecnicoVariedad)){
-      this.alert.showAlert('Advertencia', 'No puede haver atributos y tipos duplicados', 'warning');
+      this.alert.showAlert('Advertencia', 'No puede haber atributos y tipos duplicados', 'warning');
       return false
     } 
 
