@@ -1,3 +1,4 @@
+import { Canal, CanalInit } from "../components/tablas/interfaces/canal.interface";
 import { Distrito, DistritoInit } from "../components/tablas/ubigeo/interface/distrito.interface";
 
 export interface Negocio {
@@ -31,6 +32,7 @@ export interface Negocio {
     manzana: string,
     lote: string,
     Distrito:Distrito,
+    Canal:Canal,
     fechaRegistro: string,
     fechaModificacion: string,
 }
@@ -66,6 +68,7 @@ export const NegocioInit: Negocio = {
     manzana: '',
     lote: '',
     Distrito:DistritoInit,
+    Canal:CanalInit,
     fechaRegistro: '',
     fechaModificacion: '',
   };

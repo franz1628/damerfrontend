@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ValidFormService } from '../../../../../shared/services/validForm.service';
 import { AlertService } from '../../../../../shared/services/alert.service';
 import { TipoInformeOrden, TipoInformeOrdenInit } from '../../../../interface/tipoInformeOrden';
@@ -21,10 +21,10 @@ export class TipoInformeOrdenFormComponent {
     descripcion: ['', Validators.required],
     descripcionResumida: [''],
     tip: [''],
-    claseInforme: [0],
-    estudios: [0],
-    variables: [0],
-    unidades: [0], 
+    claseInforme: [0, [Validators.required, Validators.pattern(/^(?!0(\.0+)?$)\d+(\.\d+)?$/)]],
+    estudios: [0, [Validators.required, Validators.pattern(/^(?!0(\.0+)?$)\d+(\.\d+)?$/)]],
+    variables: [0, [Validators.required, Validators.pattern(/^(?!0(\.0+)?$)\d+(\.\d+)?$/)]],
+    unidades: [0, [Validators.required, Validators.pattern(/^(?!0(\.0+)?$)\d+(\.\d+)?$/)]], 
     alias1: [''],
     alias2: [''],
     alias3: [''],

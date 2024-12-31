@@ -5,6 +5,13 @@ import { Response } from '../../../../../shared/interfaces/response.interface';
 import { Provincia } from '../interface/provincia.interface';
 import { environments } from '../../../../../../environments/environments';
 
+interface ResponseProvincia{
+  data: Provincia[],
+  state: number,
+  message: string
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,12 +28,12 @@ export class ProvinciaService {
     return this.http.get<Provincia>(`${this.apiUrl}/${id}`).pipe(catchError(error=>of(undefined)));
   }
 
-  add(model: Provincia): Observable<Provincia> {
-    return this.http.post<Provincia>(this.apiUrl, model);
+  add(model: Provincia): Observable<ResponseProvincia> {
+    return this.http.post<ResponseProvincia>(this.apiUrl, model);
   }
 
-  update(id: number, model: Provincia): Observable<Provincia> {
-    return this.http.put<Provincia>(`${this.apiUrl}/${id}`, model);
+  update(id: number, model: Provincia): Observable<ResponseProvincia> {
+    return this.http.put<ResponseProvincia>(`${this.apiUrl}/${id}`, model);
   }
 
   delete(model: Provincia): Observable<Provincia> {

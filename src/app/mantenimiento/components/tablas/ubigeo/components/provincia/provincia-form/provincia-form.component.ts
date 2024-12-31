@@ -54,8 +54,12 @@ export class ProvinciaFormComponent {
 
     if (!this.currentModel.id) {
       this.service.add(this.currentModel)
-        .pipe(catchError(val => of(undefined)))
         .subscribe(res => {
+          if(!res.state){
+            this.alert.showAlert('Advertencia!', res.message, 'warning');
+            return
+          }
+
           if(res){
             this.showLoading = false;
             this.updateModelsEmit.emit();
@@ -65,7 +69,11 @@ export class ProvinciaFormComponent {
           }
         });
     } else {
-      this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
+      this.service.update(this.currentModel.id, this.currentModel).subscribe((res) => {
+        if(!res.state){
+          this.alert.showAlert('Advertencia!', res.message, 'warning');
+          return
+        }
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');

@@ -92,8 +92,13 @@ export class DistritoFormComponent {
       
       } as Distrito;
 
-      console.log(model);
-      this.service.update(this.currentModel.id,model).subscribe(() => {
+ 
+      this.service.update(this.currentModel.id,model).subscribe((res) => {
+        if(!res.state){
+          this.alert.showAlert('¡Mensaje!', res.message, 'warning');
+          return
+        }
+
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
