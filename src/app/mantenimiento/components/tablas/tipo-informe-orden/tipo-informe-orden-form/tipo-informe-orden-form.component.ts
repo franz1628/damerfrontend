@@ -82,7 +82,12 @@ export class TipoInformeOrdenFormComponent {
     if (!this.currentModel.id) {
       
 
-      this.service.add(this.currentModel).subscribe(() => {
+      this.service.add(this.currentModel).subscribe((resp) => {
+        if(resp.state == 0){ 
+          this.showLoading = false;
+          this.alert.showAlert('¡Advertencia!', resp.message, 'warning');
+          return;
+        }
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
@@ -91,7 +96,12 @@ export class TipoInformeOrdenFormComponent {
         this.myForm.reset()
       });
     } else {
-      this.service.update(this.currentModel.id, this.currentModel).subscribe(() => {
+      this.service.update(this.currentModel.id, this.currentModel).subscribe((resp) => {
+        if(resp.state == 0){ 
+          this.showLoading = false;
+          this.alert.showAlert('¡Advertencia!', resp.message, 'warning');
+          return;
+        }
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.myForm.reset()

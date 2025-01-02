@@ -37,12 +37,12 @@ export class TipoInformeOrdenService {
     return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`); 
   }
 
-  add(model: TipoInformeOrden): Observable<TipoInformeOrden> {
-    return this.http.post<TipoInformeOrden>(this.apiUrl, model);
+  add(model: TipoInformeOrden): Observable<ResponseTipoInformeOrdenOne> {
+    return this.http.post<ResponseTipoInformeOrdenOne>(this.apiUrl, model);
   }
 
-  update(id: number, model: TipoInformeOrden): Observable<Response> {
-    return this.http.put<Response>(`${this.apiUrl}/${id}`, model);
+  update(id: number, model: TipoInformeOrden): Observable<ResponseTipoInformeOrdenOne> {
+    return this.http.put<ResponseTipoInformeOrdenOne>(`${this.apiUrl}/${id}`, model);
   }
 
   delete(model: TipoInformeOrden): Observable<TipoInformeOrden> {

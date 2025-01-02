@@ -23,6 +23,7 @@ export class MuestraIdealComponent {
   @Input()
   modelMuestraIdeal: MuestraIdeal = MuestraIdealInit
   showLoading: boolean = false;
+  textoBuscar: string='';
 
   muestraIdeal:MuestraIdeal = MuestraIdealInit;
 
@@ -109,6 +110,13 @@ export class MuestraIdealComponent {
         }
       })
   }
+
+  filtroBusqueda(model:MuestraIdeal):boolean {
+      return this.canals.find(y=>y.id == model.idCanal)?.descripcion.includes(this.textoBuscar.toUpperCase()) 
+        || this.categorias.find(y=>y.id == model.idCategoria)?.descripcion.includes(this.textoBuscar.toUpperCase()) 
+        || this.distritos.find(y=>y.id == model.idDistrito)?.descripcion.includes(this.textoBuscar.toUpperCase()) 
+        || model.valor.toString().includes(this.textoBuscar.toString().toUpperCase()) 
+    }
 
   get modelosArray() {
     return this.models.get('modelos') as FormArray;
