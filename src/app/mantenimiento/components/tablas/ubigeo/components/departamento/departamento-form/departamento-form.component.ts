@@ -36,14 +36,26 @@ export class DepartamentoFormComponent {
     }
 
     if(!this.currentModel.id){
-      this.service.add(this.currentModel).subscribe(() => {
+      this.service.add(this.currentModel).subscribe((res) => {
+        if(res.state == 0){
+          this.showLoading = false;
+          this.alert.showAlert('Advertencia!', res.message, 'warning');
+          return;
+        }
+
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
         this.myForm.patchValue(DepartamentoInit);
       });
     }else{
-      this.service.update(this.currentModel.id,this.currentModel).subscribe(() => {
+      this.service.update(this.currentModel.id,this.currentModel).subscribe((res) => {
+        if(res.state == 0){
+          this.showLoading = false;
+          this.alert.showAlert('Advertencia!', res.message, 'warning');
+          return;
+        }
+
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');

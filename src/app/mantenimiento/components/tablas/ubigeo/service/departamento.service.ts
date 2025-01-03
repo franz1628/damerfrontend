@@ -5,6 +5,12 @@ import { Response } from '../../../../../shared/interfaces/response.interface';
 import { Departamento } from '../interface/departamento.interface';
 import { environments } from '../../../../../../environments/environments';
 
+interface DepartamentoResponse {
+  data: Departamento[],
+  state: number,
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,12 +27,12 @@ export class DepartamentoService {
     return this.http.get<Departamento>(`${this.apiUrl}/${id}`).pipe(catchError(error=>of(undefined)));
   }
 
-  add(model: Departamento): Observable<Departamento> {
-    return this.http.post<Departamento>(this.apiUrl, model);
+  add(model: Departamento): Observable<DepartamentoResponse> {
+    return this.http.post<DepartamentoResponse>(this.apiUrl, model);
   }
 
-  update(id: number, model: Departamento): Observable<Departamento> {
-    return this.http.put<Departamento>(`${this.apiUrl}/${id}`, model);
+  update(id: number, model: Departamento): Observable<DepartamentoResponse> {
+    return this.http.put<DepartamentoResponse>(`${this.apiUrl}/${id}`, model);
   }
 
   delete(model: Departamento): Observable<Departamento> {
