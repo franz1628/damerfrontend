@@ -38,16 +38,16 @@
                                 <select class="form-select form-select-sm" formControlName="idZona">
                                     <option value="0">SELECCIONAR</option>
                                     @for (zona of zonas; track $index) {
-                                        <option value={{zona.id}}>{{zona.descripcion}}</option>
+                                        <option value={{zona.id}}> {{zona.id + ' - ' + zona.descripcion}}</option>
                                     }
                                 </select>
                               </td>
 
                               <td>
-                                <select class="form-select form-select-sm" formControlName="idCanal">
+                                <select class="form-select form-select-sm" formControlName="idAgrupacionCanals">
                                     <option value="0">SELECCIONAR</option>
                                     @for (canal of canals; track $index) {
-                                        <option value={{canal.id}}>{{canal.descripcion}}</option>
+                                        <option value={{canal.id}}>{{canal.id + ' - ' + canal.descripcion}}</option>
                                     }
                                 </select>
                               </td>

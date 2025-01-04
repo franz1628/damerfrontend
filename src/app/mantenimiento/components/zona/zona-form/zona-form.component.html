@@ -15,7 +15,7 @@
             <div class="mb-3 row">
                 <label for="idTipoZona" class="col-md-4 col-form-label-sm">Tipo de Zona</label>
                 <div class="col-sm-8">
-                    <select class="form-select form-select-sm" formControlName="idTipoZona">
+                    <select class="form-select form-select-sm" formControlName="idTipoZona" (change)="changeTipoZona($event)">
                         <option value="0">SELECCIONAR</option>
                         <option *ngFor="let tipoZona of listTipoZona" [value]="tipoZona.id">
                             {{tipoZona.descripcion}}
@@ -55,7 +55,7 @@
                     <label for="planificadorRuta" class="col-md-4 col-form-label-sm">Planificador Ruta</label>
                     <div class="col-sm-8">
                         <select class="form-select-sm form-select" formControlName="planificadorRuta">
-                            <option value="">SELECCIONAR</option>
+                         
                             @if(currentModel.idTipoZona!=2){
                                 <option value="1">SI</option>
                             }

@@ -13,6 +13,8 @@ import { AlertService } from '../../../shared/services/alert.service';
 import { forkJoin, lastValueFrom } from 'rxjs';
 import { MedicionService } from '../../service/medicion.service';
 import { Medicion } from '../../interface/medicion';
+import { AgrupacionCanalsService } from '../../service/agrupacionCanals';
+import { AgrupacionCanals } from '../../interface/agrupacionCanals';
 
 @Component({
   selector: 'app-factor-penetracion',
@@ -28,7 +30,7 @@ export class FactorPenetracionComponent {
   FactorPenetracion:FactorPenetracion = FactorPenetracionInit;
 
   categorias:Categoria[] = []
-  canals:Canal[] = []
+  canals:AgrupacionCanals[] = []
   zonas: Zona[] = []
   medicions:Medicion[] = []
   
@@ -40,7 +42,7 @@ export class FactorPenetracionComponent {
   constructor(
     private service: FactorPenetracionService,
     private serviceCategoria: CategoriaService,
-    private serviceCanal: CanalService,
+    private serviceCanal: AgrupacionCanalsService,
     private serviceZona: ZonaService,
     private serviceMedicion:MedicionService,
     private fb: FormBuilder,
@@ -85,7 +87,7 @@ export class FactorPenetracionComponent {
             const nuevoModelo = this.fb.group({
               id: [model.id],
               idCategoria: [model.idCategoria],
-              idCanal: [model.idCanal],
+              idAgrupacionCanals: [model.idAgrupacionCanals],
               idZona: [model.idZona],
               valor: [model.valor],
               idMedicion: [model.idMedicion],
@@ -115,7 +117,7 @@ export class FactorPenetracionComponent {
     const filas:FactorPenetracion[] = this.modelosArray.value;
     const modelo:FactorPenetracion = this.modelosArray.controls[num].getRawValue();
 
-    if(modelo.idCategoria==0 || modelo.idCanal==0 || modelo.idZona==0 ){
+    if(modelo.idCategoria==0 || modelo.idAgrupacionCanals==0 || modelo.idZona==0 ){
       this.alert.showAlert('Advertencia','Debe llenar todos los campos','warning');
       return;
     }
@@ -127,7 +129,7 @@ export class FactorPenetracionComponent {
 
     const exists = filas.some(fila => 
       fila.id != modelo.id &&
-      fila.idCanal == modelo.idCanal && 
+      fila.idAgrupacionCanals == modelo.idAgrupacionCanals && 
       fila.idCategoria == modelo.idCategoria && 
       fila.idZona == modelo.idZona 
     );
@@ -157,7 +159,7 @@ export class FactorPenetracionComponent {
     const nuevoModelo = this.fb.group({
       id: [0],
       idCategoria: [0],
-      idCanal: [0],
+      idAgrupacionCanals: [0],
       idZona: [0],
       idDistrito: [0],
       valor: [0],
@@ -171,7 +173,7 @@ export class FactorPenetracionComponent {
     const filas:FactorPenetracion[] = this.modelosArray.value;
     const modelo:FactorPenetracion = this.modelosArray.controls[num].getRawValue();
 
-    if(modelo.idCategoria==0 || modelo.idCanal==0 || modelo.idZona==0 ){
+    if(modelo.idCategoria==0 || modelo.idAgrupacionCanals==0 || modelo.idZona==0 ){
       this.alert.showAlert('Advertencia','Debe llenar todos los campos','warning');
       return;
     }
@@ -183,7 +185,7 @@ export class FactorPenetracionComponent {
 
     const exists = filas.some(fila => 
       fila.id != modelo.id &&
-      fila.idCanal == modelo.idCanal && 
+      fila.idAgrupacionCanals == modelo.idAgrupacionCanals && 
       fila.idCategoria == modelo.idCategoria && 
       fila.idZona == modelo.idZona 
     );

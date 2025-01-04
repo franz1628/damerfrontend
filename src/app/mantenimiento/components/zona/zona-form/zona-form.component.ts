@@ -13,16 +13,17 @@ import { TipoZona } from '../../../interface/tipoZona';
 })
 export class ZonaFormComponent {
 
+
   @Input()
   public model: Zona = ZonaInit
   public showLoading: boolean = false;
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
   public myForm: FormGroup = this.fb.group({
     id: [0],
-    idTipoZona:['0', Validators.required],
+    idTipoZona:[0, [Validators.required, Validators.pattern('^[1-9][0-9]*$')]],
     descripcion: ['', Validators.required],
     numeroOrden: [0],
-    planificadorRuta:[1],
+    planificadorRuta:['1'],
     idZona:[0],
     alias1: [''],
     alias2: [''],
@@ -69,7 +70,11 @@ export class ZonaFormComponent {
     }
 
     if(!this.currentModel.id){
-      this.service.add(this.currentModel).subscribe(() => {
+      this.service.add(this.currentModel).subscribe((resp) => {
+        if(resp.state == 0){
+          this.alert.showAlert('Advertencia!', resp.message, 'warning');
+          return;
+        }
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se agregó correctamente', 'success');
@@ -77,7 +82,11 @@ export class ZonaFormComponent {
         this.myForm.clearValidators()
       });
     }else{
-      this.service.update(this.currentModel.id,this.currentModel).subscribe(() => {
+      this.service.update(this.currentModel.id,this.currentModel).subscribe((resp) => {
+        if(resp.state == 0){
+          this.alert.showAlert('Advertencia!', resp.message, 'warning');
+          return;
+        }
         this.showLoading = false;
         this.updateModelsEmit.emit();
         this.alert.showAlert('¡Éxito!', 'Se edito correctamente', 'success');
@@ -89,6 +98,11 @@ export class ZonaFormComponent {
     this.service.postDescripcionPrincipal(this.textBusquedaZona).subscribe(x=>{
       this.listaResultadosBusqueda = x.data
     })
+  }
+
+  changeTipoZona(e: Event) {
+    const valor = (e.target as HTMLInputElement).value;
+    this.myForm.patchValue({planificadorRuta:0});
   }
 
   elegirZona() {

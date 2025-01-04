@@ -10,6 +10,11 @@ export interface ResponseZona {
   state: number,
   message: string
 }
+export interface ResponseZonaOne {
+  data: Zona,
+  state: number,
+  message: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -48,12 +53,12 @@ export class ZonaService {
   }
 
 
-  add(model: Zona): Observable<Zona> {
-    return this.http.post<Zona>(this.apiUrl, model);
+  add(model: Zona): Observable<ResponseZonaOne> {
+    return this.http.post<ResponseZonaOne>(this.apiUrl, model);
   }
 
-  update(id: number, model: Zona): Observable<Zona> {
-    return this.http.put<Zona>(`${this.apiUrl}/${id}`, model);
+  update(id: number, model: Zona): Observable<ResponseZonaOne> {
+    return this.http.put<ResponseZonaOne>(`${this.apiUrl}/${id}`, model);
   }
 
   delete(model: Zona): Observable<Zona> {
