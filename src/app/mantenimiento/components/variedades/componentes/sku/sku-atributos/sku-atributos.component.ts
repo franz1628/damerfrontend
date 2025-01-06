@@ -65,7 +65,7 @@ export class SkuAtributosComponent {
       {
         service  : this.service.postIdSku(this.modelSku.id),
         serviceCategoriaAtributoTecnico : this.serviceCategoriaAtributoTecnico.postIdCategoria(this.modelSku.idCategoria),
-        serviceTipoUnidadMedida : this.serviceTipoUnidadMedida.get(),
+        serviceTipoUnidadMedida : this.serviceTipoUnidadMedida.postTipoMedidaxCategoria(this.modelSku.idCategoria),
         serviceUnidadMedida : this.serviceUnidadMedida.get(),
       }
       ).subscribe({

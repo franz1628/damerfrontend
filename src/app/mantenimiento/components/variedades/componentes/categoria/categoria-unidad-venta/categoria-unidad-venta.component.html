@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-10">
         <h6 class="mb-3 text-center">UNIDAD DE VENTA</h6>
 
         <form [formGroup]="models">
@@ -11,6 +11,7 @@
                             <th>Tipo Medida </th>
                             <th>Unidad Medida </th>
                             <th>Unidad Venta </th>
+                            <th>Default</th>
                             <th>Acciones</th>
                         </tr>
           
@@ -45,6 +46,14 @@
                                         <option value={{unidad.id}}>{{unidad.descripcion}}</option>
                                     }
                                 </select>
+                              </td>
+
+                              <td>
+
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" name="default" formControlName="default" (click)="eligeCheck($event,$index)">
+                                </div>
+
                               </td>
                     
                               <td>

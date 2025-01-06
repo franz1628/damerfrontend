@@ -5,6 +5,15 @@ import { Response } from '../../shared/interfaces/response.interface';
 import { environments } from '../../../environments/environments';
 import { TipoUnidadMedida } from '../interface/tipoUnidadMedida';
 
+interface ResponseTipoUnidadMedida{
+  data: TipoUnidadMedida[],
+  state: number,
+  message: string
+}
+
+
+
+
 @Injectable({
   providedIn: 'root' 
 })
@@ -15,6 +24,10 @@ export class TipoUnidadMedidaService {
 
   get(): Observable<Response> {
     return this.http.get<Response>(this.apiUrl);
+  }
+
+  postTipoMedidaxCategoria(idCategoria:number): Observable<ResponseTipoUnidadMedida> {
+    return this.http.post<ResponseTipoUnidadMedida>(`${this.apiUrl}/postTipoMedidaxCategoria/`,{idCategoria});
   }
 
   getId(id: number): Observable<Response> {

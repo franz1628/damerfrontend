@@ -17,6 +17,7 @@ import { UnidadVentaService } from '../../../../../service/unidadVenta';
 })
 export class CategoriaUnidadVentaComponent {
 
+
   @Input()
   modelCategoria: Categoria = CategoriaInit
   showLoading: boolean = false;
@@ -60,7 +61,7 @@ export class CategoriaUnidadVentaComponent {
     forkJoin( 
       {
         service  : this.service.postIdCategoria(this.modelCategoria.id),
-        serviceTipoUnidadMedida : this.serviceTipoUnidadMedida.get(),
+        serviceTipoUnidadMedida : this.serviceTipoUnidadMedida.postTipoMedidaxCategoria(this.modelCategoria.id),
         serviceUnidadMedida :this.serviceUnidadMedida.get(),
         serviceUnidadVenta : this.serviceUnidadVenta.get()
       }
@@ -70,15 +71,19 @@ export class CategoriaUnidadVentaComponent {
           this.unidadMedidas = value.serviceUnidadMedida.data
           this.unidadVentas = value.serviceUnidadVenta.data
 
-          const models = value.service.data;
 
+          
+          const models = value.service.data;
+          
+          console.log(models);
           models.forEach(model => {
             const nuevoModelo = this.fb.group({
               id: [model.id],
               idCategoria: [model.idCategoria],
               idTipoUnidadMedida: [model.idTipoUnidadMedida],
               idUnidadMedida: [model.idUnidadMedida],
-              idUnidadVenta:[model.idUnidadVenta]
+              idUnidadVenta:[model.idUnidadVenta],
+              default:[model.default],
             });
   
             this.modelosArray.push(nuevoModelo);
@@ -117,13 +122,25 @@ export class CategoriaUnidadVentaComponent {
   }
 
 
+  eligeCheck(e: Event,i:number) {
+    const valor = (e.target as HTMLInputElement).checked;
+
+    if(valor){
+      this.modelosArray.controls.map(x=>x.patchValue({default:0}));
+    }
+     
+    this.modelosArray.at(i).patchValue({default:1})
+  }
+
+
   add() {
     const nuevoModelo = this.fb.group({
       id: [0],
       idCategoria: [this.modelCategoria.id],
       idTipoUnidadMedida: [0],
       idUnidadMedida: [0],
-      idUnidadVenta:[0]
+      idUnidadVenta:[0],
+      default : [0]
     });
 
     this.modelosArray.push(nuevoModelo);

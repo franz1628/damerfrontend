@@ -11,7 +11,8 @@ export interface CategoriaUnidadVenta {
     Categoria:Categoria,
     UnidadVenta:UnidadVenta,
     estado: number,
-    fechaRegistro:Date
+    fechaRegistro:Date,
+    default:boolean
 }
 export const CategoriaUnidadVentaInit: CategoriaUnidadVenta = {
     id: 0,
@@ -22,5 +23,6 @@ export const CategoriaUnidadVentaInit: CategoriaUnidadVenta = {
     Categoria:CategoriaInit,
     UnidadVenta:UnidadVentaInit,
     estado: 1,
-    fechaRegistro:new Date()
+    fechaRegistro:new Date(),
+    default:false
 };
