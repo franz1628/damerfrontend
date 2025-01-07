@@ -14,16 +14,15 @@
     <div class="list-group mt-3">
       <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'categorias'"
         (click)="mostrarContenido('categorias')">Categorías registradas</button>
-      <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'atributos'"
-        (click)="mostrarContenido('atributos')">Atributos técnicos</button>
+
+
+      @if(modelEdit.id){
+        <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'atributos'"
+          (click)="mostrarContenido('atributos')">Atributos técnicos</button>
         <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'unidadVenta'" (click)="mostrarContenido('unidadVenta')">Unidad
-          de Venta</button>
-      <!-- <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'canales'" (click)="mostrarContenido('canales')">Canales
-        de Venta</button>
-      <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'exhibidores'"
-        (click)="mostrarContenido('exhibidores')">Exhibidores</button>
-      <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'subproductos'"
-        (click)="mostrarContenido('subproductos')">Subproductos</button> -->
+            de Venta</button>
+      }  
+     
     </div>
   </div>
 

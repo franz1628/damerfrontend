@@ -322,7 +322,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
         let existe = 0;
         for (const ind3 in sku.SkuAtributoTecnicoVariedadValor) {
           const atri = sku.SkuAtributoTecnicoVariedadValor[ind3]
-          if (atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad && cat.id == atri.idCategoriaAtributoTecnico) {
+          if (atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad && cat.idAtributoTecnicoVariedad == atri.idAtributoTecnicoVariedad) {
             existe = 1;
             let valor = atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || ' ';
             /*if(atri?.UnidadMedida){

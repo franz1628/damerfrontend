@@ -70,7 +70,7 @@ export class SkuAtributosComponent {
       }
       ).subscribe({
         next:value => {
-
+          
           this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico.data
 
           this.tipoUnidadMedidas = value.serviceTipoUnidadMedida.data

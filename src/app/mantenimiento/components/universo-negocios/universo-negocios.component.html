@@ -26,7 +26,7 @@
                             @if(filtroBusqueda(model.value)){
                               <tr [formGroupName]="$index" (click)="selectAtributo($index)">
                                 <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
-                                <td>{{$index}}</td>
+                           
                           
                                 <td>
                                   <select class="form-select form-select-sm" (change)="cambiaZona($event,$index)" formControlName="idZona">
