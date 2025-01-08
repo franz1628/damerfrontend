@@ -1,6 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { Categoria, CategoriaInit } from '../../../interfaces/categoria.interface';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CategoriaUnidadVentaService } from '../../../../../service/categoriaUnidadVenta';
 import { AlertService } from '../../../../../../shared/services/alert.service';
 import { forkJoin, lastValueFrom } from 'rxjs';
@@ -10,12 +10,14 @@ import { TipoUnidadMedida } from '../../../../../interface/tipoUnidadMedida';
 import { UnidadMedida } from '../../../../../interface/unidadMedida';
 import { UnidadVenta } from '../../../../../interface/unidadVenta';
 import { UnidadVentaService } from '../../../../../service/unidadVenta';
+import { CategoriaUnidadVenta } from '../../../../../interface/categoriaUnidadVenta';
 
 @Component({
   selector: 'app-categoria-unidad-venta',
   templateUrl: './categoria-unidad-venta.component.html'
 })
 export class CategoriaUnidadVentaComponent {
+
 
 
   @Input()
@@ -74,6 +76,7 @@ export class CategoriaUnidadVentaComponent {
 
           
           const models = value.service.data;
+
           
           console.log(models);
           models.forEach(model => {
@@ -84,6 +87,7 @@ export class CategoriaUnidadVentaComponent {
               idUnidadMedida: [model.idUnidadMedida],
               idUnidadVenta:[model.idUnidadVenta],
               default:[model.default],
+              estado:[model.estado],
             });
   
             this.modelosArray.push(nuevoModelo);
@@ -132,6 +136,20 @@ export class CategoriaUnidadVentaComponent {
     this.modelosArray.at(i).patchValue({default:1})
   }
 
+    
+  suspender(model: CategoriaUnidadVenta) {
+    const titulo = model.estado==1?'¿Desea Desactivar?':'¿Desea Activar?';
+    const texto = model.estado==1?'Se desactivo correctamente':'Se activo correctamente';
+    this.alert.showAlertConfirm('Advertencia', titulo,'warning', () => {
+      this.showLoading = true
+      this.service.suspender(model).subscribe(() => {
+        this.showLoading = false;
+        this.alert.showAlert('¡Éxito!', texto, 'success');
+        this.loadModels();
+      });
+    })
+  } 
+
 
   add() {
     const nuevoModelo = this.fb.group({
@@ -140,7 +158,8 @@ export class CategoriaUnidadVentaComponent {
       idTipoUnidadMedida: [0],
       idUnidadMedida: [0],
       idUnidadVenta:[0],
-      default : [0]
+      default : [0],
+      estado : [true],
     });
 
     this.modelosArray.push(nuevoModelo);

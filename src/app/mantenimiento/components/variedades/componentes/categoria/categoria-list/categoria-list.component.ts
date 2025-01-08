@@ -26,6 +26,8 @@ export class CategoriaListComponent {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
 
   filteredModels() {
+    console.log(this.models);
+    
     return this.models.filter(model => 
       model.id.toString().includes(this.searchText) ||
       model.descripcion.toLowerCase().includes(this.searchText.toLowerCase()) 

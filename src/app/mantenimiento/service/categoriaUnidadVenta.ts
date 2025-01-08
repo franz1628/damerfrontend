@@ -47,6 +47,10 @@ export class CategoriaUnidadVentaService {
     return this.http.put<Response>(`${this.apiUrl}/${id}`, model);
   }
 
+  suspender(model: CategoriaUnidadVenta): Observable<CategoriaUnidadVenta> {
+    return this.http.post<CategoriaUnidadVenta>(`${this.apiUrl}/suspender`,{model});
+  }
+
   delete(model: CategoriaUnidadVenta): Observable<CategoriaUnidadVenta> {
     return this.http.delete<CategoriaUnidadVenta>(`${this.apiUrl}/${model.id}`);
   }
