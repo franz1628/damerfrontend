@@ -48,23 +48,16 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
 
     this.serviceCategoriaAtributoTecnico.postIdAgrupacionCategoria(this.atributoFuncionalVariedad.idClienteAgrupacionCategoria).subscribe(x => {
       this.categoriaAtributoTecnicos = x.data
-   
-      
-     /* const uniqueArray = Array.from(
-        new Map(this.categoriaAtributoTecnicos.map(item => [item.idAtributoTecnicoVariedad, item])).values()
-      );
-
-      this.categoriaAtributoTecnicos = uniqueArray;*/
-
-      this.loadCategoriasAtributos();
+       this.loadCategoriasAtributos();
     })
 
   }
 
   loadCategoriasAtributos(){
     this.serviceClienteFormula.postIdAtributoFuncionalVariedadValor(this.atributoFuncionalVariedadValor.id).subscribe(y => {
-
+      
       const clienteFormulas: ClienteFormula = y.data
+      
       if(clienteFormulas!=null){
         this.valors = clienteFormulas.idAtributoTecnicoVariedadValors?.split(',')||[];
       }else{
@@ -73,26 +66,25 @@ export class ClienteAtributoFormulaComponent implements OnChanges, OnInit {
       this.checkboxSeleccionados = []
 
       this.checkboxSeleccionados = this.valors.map(x=>parseInt(x));
+      
+      this.idAtributoTecnicoVariedad = this.idAtributoTecnicoVariedad || y.data.idAtributoTecnicoVariedad
 
-      if(this.idAtributoTecnicoVariedad){
-        this.categoriaAtributoTecnicos.map(x=>{
-          if(x.idAtributoTecnicoVariedad == this.idAtributoTecnicoVariedad){
-            this.categoriaAtributoTecnicoValors = []
-            this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(x.id).subscribe(x => {
-              this.categoriaAtributoTecnicoValors = this.categoriaAtributoTecnicoValors.concat(x)
-              
-              this.categoriaAtributoTecnicoValors = Array.from(
-                new Map(this.categoriaAtributoTecnicoValors.map(item => [item.idAtributoTecnicoVariedadValor, item])).values()
-              );
 
-            })
-          }
-        })
+    
+      this.categoriaAtributoTecnicos.map(x=>{
+        if(x.idAtributoTecnicoVariedad == this.idAtributoTecnicoVariedad){
+          this.categoriaAtributoTecnicoValors = []
+          this.serviceCategoriaAtributoTecnicoValors.postIdCategoriaAtributoTecnico(x.id).subscribe(x => {
+            this.categoriaAtributoTecnicoValors = this.categoriaAtributoTecnicoValors.concat(x)
+            
+            this.categoriaAtributoTecnicoValors = Array.from(
+              new Map(this.categoriaAtributoTecnicoValors.map(item => [item.idAtributoTecnicoVariedadValor, item])).values()
+            );
 
-   
-        
-
-      }
+          })
+        }
+      })
+      
 
      
     })
