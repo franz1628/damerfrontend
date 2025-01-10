@@ -10,7 +10,8 @@ import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
   templateUrl: './categoria-list.component.html'
 })
 export class CategoriaListComponent {
-  public showLoading: boolean = false;
+  showLoading: boolean = false;
+  @Input()
   selectIndex: number=-1;
   searchText = '';
 

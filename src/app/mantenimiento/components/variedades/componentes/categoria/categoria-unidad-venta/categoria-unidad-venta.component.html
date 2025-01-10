@@ -12,6 +12,7 @@
                             <th>Unidad Medida </th>
                             <th>Unidad Venta </th>
                             <th>Default</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
           
@@ -48,6 +49,8 @@
                                 </select>
                               </td>
 
+                           
+
                               <td>
 
                                 <div class="form-check  d-flex justify-content-center">
@@ -55,7 +58,18 @@
                                 </div>
 
                               </td>
-                    
+                              
+                              <td>
+                                @if(model.get('estado')?.value){
+                                        
+                                  <span class="badge text-bg-success">ACTIVO</span>
+                                }@else {
+                                 
+                                    <span class="badge text-bg-danger">DESACTIVADO</span>
+                                }
+
+                              </td>
+
                               <td class="">
                                   <div class="btn-group " style="float:left">
           

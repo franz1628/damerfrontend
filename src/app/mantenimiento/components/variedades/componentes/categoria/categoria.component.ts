@@ -43,6 +43,15 @@ export class CategoriaComponent {
     });
   } 
 
+  get getIndex(){
+    let index = -1;
+    const cate = this.models.find((x,i)=>{index=i;return x.id == this.modelEdit.id});
+
+    if(!cate) index=-1 //Para que no se quede marcado el ultimo
+  
+    return index;
+  }
+
   editModel(model: Categoria) {
     this.modelEdit = model;
     this.categoriaForm.setModel(model);

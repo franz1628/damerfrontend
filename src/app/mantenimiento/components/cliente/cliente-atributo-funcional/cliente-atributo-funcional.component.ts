@@ -110,10 +110,16 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
         this.unidadMedidas = value.serviceUnidadMedida.data
         this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico.data
 
-        this.categoriaAtributoTecnicos = Array.from(
-          new Map(this.categoriaAtributoTecnicos.map(item => [item.idAtributoTecnicoVariedad, item])).values()
-        );
+        console.log(this.categoriaAtributoTecnicos);
+        let arr:CategoriaAtributoTecnico[] = [];
+        
+        for (let i = 0; i < this.categoriaAtributoTecnicos.length; i++) {
+          if (!arr.find(item => item.idAtributoTecnicoVariedad === this.categoriaAtributoTecnicos[i].idAtributoTecnicoVariedad) || this.categoriaAtributoTecnicos[i].idAtributoTecnicoVariedad == 4 ) {
+            arr.push(this.categoriaAtributoTecnicos[i]); 
+          }
+        }
 
+        this.categoriaAtributoTecnicos = arr;
 
         const atributoFuncionales = value.service.data;
 
@@ -349,7 +355,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
       data.push(fila);
     }
 
-
+    
 
     // Convierte los datos a una hoja de trabajo XLSX
     return XLSX.utils.aoa_to_sheet(data);
