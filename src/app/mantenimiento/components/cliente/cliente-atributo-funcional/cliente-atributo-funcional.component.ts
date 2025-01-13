@@ -42,7 +42,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
   categoriaAtributoTecnicos: CategoriaAtributoTecnico[] = []
   arrayAtributos: string[] = []
   arrayVariables: string[] = []
-
+  unidadesMedidaSkus:UnidadMedida[] = []
   selectIndex: number = -1
 
   showLoading: boolean = false;
@@ -171,6 +171,21 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     ).subscribe({
       next: value => {
         this.skus = value.serviceSku.data
+        this.unidadesMedidaSkus = [];
+
+        for (let i = 0; i < this.skus.length; i++) {
+          const sku = this.skus[i];
+          const atributos = sku.SkuAtributoTecnicoVariedadValor;
+          for (let k = 0; k < atributos.length; k++) {
+            const atributo = atributos[k];
+ 
+            if(atributo.UnidadMedida && !this.unidadesMedidaSkus.find(x=>x.id == atributo.UnidadMedida.id)){
+              this.unidadesMedidaSkus.push(atributo.UnidadMedida);
+            }
+            
+          }
+          
+        }
 
         const atrisFunci = value.serviceAtributoFuncionalVariedadValor.data
         this.skusElegidos = new Array(this.skus.length).fill('');
@@ -277,6 +292,12 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     })
   }
 
+  isUnidadMedidaPresent(sku: any, unidadId: number): boolean {
+    return sku.SkuAtributoTecnicoVariedadValor.some(
+      (x: any) => x && x.UnidadMedida && x.UnidadMedida.id === unidadId
+    );
+  }
+
   exportExcel() {
     //this.skus = this.filteredModels();  // Obtiene los SKUs filtrados
     const worksheet = this.skusToWorksheet(this.skus);  // Convierte los SKUs a hoja de trabajo
@@ -296,14 +317,16 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     filaCabecera.push('DESCRIPCION');
     filaCabecera.push('CATEGORIA');
 
-    for (const ind in this.categoriaAtributoTecnicos) {
-      let valor = this.categoriaAtributoTecnicos[ind].AtributoTecnicoVariedad.descripcion;
-      if (skus[0].SkuAtributoTecnicoVariedadValor[ind]?.UnidadMedida) {
-
-        valor += ' - ' + skus[0].SkuAtributoTecnicoVariedadValor[ind].UnidadMedida?.descripcion
+    for(const ind in this.categoriaAtributoTecnicos){
+      const cat = this.categoriaAtributoTecnicos[ind]
+      if(!cat.AtributoTecnicoVariedad.solicitarUnidad){
+        filaCabecera.push(cat.AtributoTecnicoVariedad.descripcion)
       }
-
-      filaCabecera.push(valor)
+    }
+    for(const ind in this.unidadesMedidaSkus){
+      const unidad = this.unidadesMedidaSkus[ind];
+      filaCabecera.push("GRAMAJE - " + unidad.descripcion);
+      
     }
 
     filaCabecera.push('ESTADO');
@@ -323,7 +346,37 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
       fila.push(sku.descripcion);
       fila.push(sku.Categoria.descripcion);
 
-      for (const ind2 in this.categoriaAtributoTecnicos) {
+      for(const cat of this.categoriaAtributoTecnicos){
+
+        if(!cat.AtributoTecnicoVariedad.solicitarUnidad) {
+          let a = 0;
+          for (const atri of sku.SkuAtributoTecnicoVariedadValor ) { 
+            if(atri.idCategoriaAtributoTecnico == cat.id && cat.idAtributoTecnicoVariedad == atri.idAtributoTecnicoVariedad){
+              fila.push(atri?.AtributoTecnicoVariedadValor?.valor||" ");
+              a = 1;
+            } 
+          }
+          if(a==0){
+            fila.push(" ")
+          }
+       
+        } 
+      }
+
+      for(const unidad of this.unidadesMedidaSkus){
+      
+        for (const atri of sku.SkuAtributoTecnicoVariedadValor ) { 
+          if(atri?.AtributoTecnicoVariedad?.solicitarUnidad && atri?.UnidadMedida?.id == unidad.id){
+            fila.push(atri?.valor|| " ");
+          }
+        }
+        if(!this.isUnidadMedidaPresent(sku, unidad.id)) {
+          fila.push(" ");
+        }
+     
+      }
+
+      /*for (const ind2 in this.categoriaAtributoTecnicos) {
         const cat = this.categoriaAtributoTecnicos[ind2];
         let existe = 0;
         for (const ind3 in sku.SkuAtributoTecnicoVariedadValor) {
@@ -331,9 +384,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
           if (atri.idAtributoTecnicoVariedad == cat.idAtributoTecnicoVariedad && cat.idAtributoTecnicoVariedad == atri.idAtributoTecnicoVariedad) {
             existe = 1;
             let valor = atri?.AtributoTecnicoVariedadValor?.valor || atri?.valor || ' ';
-            /*if(atri?.UnidadMedida){
-              valor+=' ' + atri?.UnidadMedida?.descripcion
-            }*/
+           
 
             fila.push(valor)
           }
@@ -342,7 +393,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
         if (!existe) {
           fila.push('')
         }
-      }
+      }*/
 
       if (sku.estado == 1) {
         fila.push("ACTIVO");
