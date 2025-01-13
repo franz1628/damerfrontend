@@ -254,7 +254,7 @@
                       <th>Categoria</th>
                       @for(cat of categoriaAtributoTecnicos;track $index){
                       <th>{{ cat.AtributoTecnicoVariedad.descripcion }} 
-
+                     
                         @if(skus[0] && skus[0].SkuAtributoTecnicoVariedadValor[$index]?.UnidadMedida){
                           - {{skus[0].SkuAtributoTecnicoVariedadValor[$index].UnidadMedida?.descripcion}}
                         }

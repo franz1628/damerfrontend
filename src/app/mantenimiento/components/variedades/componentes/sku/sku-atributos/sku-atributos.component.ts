@@ -17,12 +17,12 @@ import { CategoriaAtributoTecnicoValor } from '../../../interfaces/categoriaAtri
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-sku-atributos',
+  selector: 'app-sku-atributos', 
   templateUrl: './sku-atributos.component.html'
 })
 export class SkuAtributosComponent {
 
-  @Input() modelSku: Sku = SkuInit
+  @Input() modelSku: Sku = SkuInit 
   showLoading: boolean = false;
   tipoUnidadMedidas:TipoUnidadMedida[] = [];
   unidadMedidas:UnidadMedida[] = [];

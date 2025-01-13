@@ -47,13 +47,18 @@
 
                             <td>
                                 @if(model.get('solicitarUnidad')?.value!=0){
-
-                                <select class="form-select form-select-sm" formControlName="idTipoUnidadMedida">
+                                <input type="text" [hidden]="true" class="form-control form-control-sm" formControlName="idTipoUnidadMedida" />
+                                @for (tipo of tipoUnidadMedidas; track $index) {
+                                   @if(tipo.id == model.get('idTipoUnidadMedida')?.value){
+                                        {{tipo.descripcion}}
+                                   }
+                                }
+                                <!-- <select [disabled]="true" class="form-select form-select-sm" formControlName="idTipoUnidadMedida">
                                     <option value="0">SELECCIONAR</option>
                                     @for (tipo of tipoUnidadMedidas; track $index) {
                                     <option value={{tipo.id}}>{{tipo.descripcion}}</option>
                                     }
-                                </select>
+                                </select> -->
                                 }
                             </td>
 
@@ -64,7 +69,9 @@
                                 <select class="form-select form-select-sm" formControlName="idUnidadMedida">
                                     <option value="0">SELECCIONAR</option>
                                     @for (unidad of unidadMedidas; track $index) {
-                                    <option value={{unidad.id}}>{{unidad.descripcion}}</option>
+                                        @if(unidad.idTipoUnidadMedida ==  model.get('idTipoUnidadMedida')?.value){
+                                            <option value={{unidad.id}}>{{unidad.descripcion}}</option>
+                                        }
                                     }
                                 </select>
 
