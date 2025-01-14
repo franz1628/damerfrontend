@@ -111,15 +111,18 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
         this.categoriaAtributoTecnicos = value.serviceCategoriaAtributoTecnico.data
 
         console.log(this.categoriaAtributoTecnicos);
-        let arr:CategoriaAtributoTecnico[] = [];
+        
+        /*let arr:CategoriaAtributoTecnico[] = [];
+        console.log(this.categoriaAtributoTecnicos);
         
         for (let i = 0; i < this.categoriaAtributoTecnicos.length; i++) {
-          if (!arr.find(item => item.idAtributoTecnicoVariedad === this.categoriaAtributoTecnicos[i].idAtributoTecnicoVariedad) || this.categoriaAtributoTecnicos[i].idAtributoTecnicoVariedad == 4 ) {
+          const cate = this.categoriaAtributoTecnicos[i];
+          if (!arr.find(item => item.idAtributoTecnicoVariedad === cate.idAtributoTecnicoVariedad  ) || cate.idAtributoTecnicoVariedad == 4 ) {
             arr.push(this.categoriaAtributoTecnicos[i]); 
           }
         }
-
-        this.categoriaAtributoTecnicos = arr;
+        console.log(arr);
+        this.categoriaAtributoTecnicos = arr;*/
 
         const atributoFuncionales = value.service.data;
 
@@ -160,6 +163,8 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
   get modelosArray() {
     return this.models.get('modelos') as FormArray;
   }
+
+
 
   verResultados() {
     forkJoin(
@@ -298,6 +303,46 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     );
   }
 
+  get getTitulos(){
+    const cats = this.categoriaAtributoTecnicos
+    const arr_titulos:number[] = []
+    const arr_descrip:String[] = []
+    for(const cat of cats){
+      if(!cat.AtributoTecnicoVariedad.solicitarUnidad && !arr_titulos.find(x=>x==cat.idAtributoTecnicoVariedad)){
+        arr_descrip.push(cat.AtributoTecnicoVariedad.descripcion);
+        arr_titulos.push(cat.idAtributoTecnicoVariedad);
+      }
+    }
+
+    return arr_descrip;
+  }
+
+  getValores(sku:Sku){
+    const cats = this.categoriaAtributoTecnicos
+    const arr_titulos:number[] = []
+    const arr_descrip:String[] = []
+    for(const cat of cats){
+      if(!cat.AtributoTecnicoVariedad.solicitarUnidad && !arr_titulos.find(x=>x==cat.idAtributoTecnicoVariedad)){
+        arr_descrip.push(cat.AtributoTecnicoVariedad.descripcion);
+        arr_titulos.push(cat.idAtributoTecnicoVariedad);
+      }
+    }
+
+    const arr_valores = [];
+    for(const cat of arr_titulos){
+      let a = 0
+      for (const atri of sku.SkuAtributoTecnicoVariedadValor ) { 
+        if(cat == atri.idAtributoTecnicoVariedad){
+          arr_valores.push(atri?.AtributoTecnicoVariedadValor?.valor)
+          a=1;
+        } 
+      } 
+      if (a==0) arr_valores.push(" ");
+    }
+
+    return arr_valores;
+  }
+
   exportExcel() {
     //this.skus = this.filteredModels();  // Obtiene los SKUs filtrados
     const worksheet = this.skusToWorksheet(this.skus);  // Convierte los SKUs a hoja de trabajo
@@ -317,11 +362,10 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
     filaCabecera.push('DESCRIPCION');
     filaCabecera.push('CATEGORIA');
 
-    for(const ind in this.categoriaAtributoTecnicos){
-      const cat = this.categoriaAtributoTecnicos[ind]
-      if(!cat.AtributoTecnicoVariedad.solicitarUnidad){
-        filaCabecera.push(cat.AtributoTecnicoVariedad.descripcion)
-      }
+    for(const titulo of this.getTitulos){
+  
+      filaCabecera.push(titulo.toString())
+      
     }
     for(const ind in this.unidadesMedidaSkus){
       const unidad = this.unidadesMedidaSkus[ind];
@@ -346,21 +390,8 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
       fila.push(sku.descripcion);
       fila.push(sku.Categoria.descripcion);
 
-      for(const cat of this.categoriaAtributoTecnicos){
-
-        if(!cat.AtributoTecnicoVariedad.solicitarUnidad) {
-          let a = 0;
-          for (const atri of sku.SkuAtributoTecnicoVariedadValor ) { 
-            if(atri.idCategoriaAtributoTecnico == cat.id && cat.idAtributoTecnicoVariedad == atri.idAtributoTecnicoVariedad){
-              fila.push(atri?.AtributoTecnicoVariedadValor?.valor||" ");
-              a = 1;
-            } 
-          }
-          if(a==0){
-            fila.push(" ")
-          }
-       
-        } 
+      for(const cat of this.getValores(sku)){
+        fila.push(cat)
       }
 
       for(const unidad of this.unidadesMedidaSkus){

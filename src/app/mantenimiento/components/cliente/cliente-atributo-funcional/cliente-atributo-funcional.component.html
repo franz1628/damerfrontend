@@ -245,17 +245,15 @@
                   <i class="bi bi-file-earmark-excel"></i>
                   Descargar excel
                 </button>
-                <table class="table table-sm table-bordered table-striped">
+                <table class="table table-sm table-bordered table-striped table-hover">
                   <thead class="table-success">
                     <tr>
                       <th>Resultado</th>
                       <th>Sku</th>
                       <th>Descripcion</th>
                       <th>Categoria</th>
-                      @for(cat of categoriaAtributoTecnicos;track $index){
-                        @if(!cat.AtributoTecnicoVariedad.solicitarUnidad){
-                          <th>{{ cat.AtributoTecnicoVariedad.descripcion }}</th>
-                        }
+                      @for(cat of getTitulos;track $index){
+                        <th>{{ cat }}</th>
                       }
                       @for(unidad of unidadesMedidaSkus;track $index){
                         <th>GRAMAJE <br> {{ unidad.descripcion }}</th>
@@ -277,31 +275,19 @@
                       <td>{{ sku.descripcion }}</td>
                       <td>{{ sku.Categoria.descripcion }}</td>
                      
-                      @for(cat of categoriaAtributoTecnicos;track $index){
-
-                        @if(!cat.AtributoTecnicoVariedad.solicitarUnidad) {
-                          <td>
-                          @for (atri of sku.SkuAtributoTecnicoVariedadValor; track $index ) { 
-                            @if(atri.idCategoriaAtributoTecnico == cat.id && cat.idAtributoTecnicoVariedad == atri.idAtributoTecnicoVariedad){
-                              {{ atri?.AtributoTecnicoVariedadValor?.valor}}
-                            } 
-                          }
-                        </td>
-                        } 
+                      @for(cat of getValores(sku);track $index){
+                        <td>{{cat}}</td>
                       }
 
                       @for(unidad of unidadesMedidaSkus;track $index){
-                      
                         @for (atri of sku.SkuAtributoTecnicoVariedadValor; track $index ) { 
                           @if(atri?.AtributoTecnicoVariedad?.solicitarUnidad && atri?.UnidadMedida?.id == unidad.id){
                             <td>{{atri?.valor}} </td>
-                            
                           }
                         }
                         @if(!isUnidadMedidaPresent(sku, unidad.id)) {
                           <td></td>
                         }
-                     
                       }
                       
                       <td>
