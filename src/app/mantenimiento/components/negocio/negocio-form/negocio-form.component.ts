@@ -19,6 +19,7 @@ import { RegexService } from '../../../../shared/services/regex.service';
 import { Zona, ZonaInit } from '../../tablas/interfaces/zona.interface';
 import { Via } from '../../../interface/via';
 import { ViaService } from '../../../service/via';
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -30,6 +31,8 @@ export class NegocioFormComponent {
   model: Negocio = NegocioInit;
   showLoading: boolean = false;
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
+
+  buscaNegocioZona = ''
 
   myForm: FormGroup = this.fb.group({
     id: [0, Validators.required],
@@ -131,7 +134,7 @@ export class NegocioFormComponent {
       this.negociosEncontrados = x.data;
       this.showLoading = false;
 
-    });
+    }); 
   }
 
   elegirNegocio(miNegocio: Negocio, index: number):void {
@@ -146,11 +149,12 @@ export class NegocioFormComponent {
   }
 
   changeZona($event: Event) {
+    this.showLoading=true;
     const valor = ($event.target as HTMLInputElement).value;
 
     this.service.negocioXZona(+valor).subscribe(response => {
       this.negocios_x_zona = response.data
-      
+      this.showLoading=false;
     })
     
   }
@@ -164,6 +168,57 @@ export class NegocioFormComponent {
     this.misVias = this.listVias.filter(x=>x.idDistrito == +valor)
 
   }
+
+    exportExcel() {
+      if(this.negocios_x_zona.length==0){
+        this.alert.showAlert("Advertencia","No hay negocios para exportar","warning");
+        return
+      }
+
+      const worksheet = this.skusToWorksheet(this.negocios_x_zona);  // Convierte los SKUs a hoja de trabajo
+      const workbook = XLSX.utils.book_new();  // Crea un nuevo libro de trabajo (workbook)
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'SKUs');  // Añade la hoja al libro de trabajo
+  
+      // Exportar como archivo .xlsx
+      XLSX.writeFile(workbook, 'negocios_ciudad.xlsx');
+    }
+  
+    skusToWorksheet(negocios: Negocio[]): XLSX.WorkSheet {
+      const data: any[] = [];  
+  
+      const filaCabecera: string[] = [];
+
+      filaCabecera.push('Dirección');
+      filaCabecera.push('Canal');
+      filaCabecera.push('Ciudad');
+      filaCabecera.push('Distrito');
+      filaCabecera.push('Estado');
+      filaCabecera.push('Latitud');
+      filaCabecera.push('Longitud');
+      filaCabecera.push('Fecha Creación');
+      filaCabecera.push('Fecha Modificación');
+
+
+      data.push(filaCabecera);
+  
+      for (const negocio of negocios) {
+        const fila: string[] = [];
+
+        fila.push(negocio.direccion);
+        fila.push(negocio.Canal.descripcion);
+        fila.push(negocio.Distrito.Zona.descripcion);
+        fila.push(negocio.Distrito.descripcion);
+        fila.push(negocio.estado?"ACTIVO":"INACTIVO");
+        fila.push(negocio.lat);
+        fila.push(negocio.lgn);
+        fila.push(negocio.fechaRegistro);
+        fila.push(negocio.fechaModificacion);
+  
+        data.push(fila);
+      }
+
+      return XLSX.utils.aoa_to_sheet(data);
+    }
  
   submit() {
     if (this.myForm.invalid) {

@@ -19,451 +19,437 @@
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-        <form autocomplete="off" [formGroup]="myForm">
-            <div class="row  mt-4">
-                <div class="col-md-3">
-
-                    <div class="mb-3 row">
-                        <label class="col-md-3 col-form-label-sm">Código</label>
-                        <div class="col-sm-9">
-                            <div class="input-group input-group-sm"><span>{{currentModel.id}}</span></div>
-                        </div>
-                       
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="ruc" class="col-md-3 col-form-label-sm">RUC</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="ruc" name="ruc"
-                                formControlName="ruc" id="ruc" maxlength="11"/>
-                        </div>
-                        <span *ngIf="isValidField('ruc')" class="form-text text-danger">
-                            {{ getFieldError('ruc') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="direccion" class="col-md-3 col-form-label-sm">Dirección</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="direccion"
-                                name="direccion" formControlName="direccion" id="direccion" />
-                        </div>
-                        <span *ngIf="isValidField('direccion')" class="form-text text-danger">
-                            {{ getFieldError('direccion') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="nombreComercial" class="col-md-3 col-form-label-sm">Nombre Comercial</label>
-                        <div class="col-sm-9">
-
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control form-control-sm" placeholder="Nombre comercial"
-                                    name="nombreComercial" formControlName="nombreComercial" id="nombreComercial" />
-                                <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal"
-                                    data-bs-target="#modalBuscarNegocio"><i class="bi bi-search"></i></button>
-                            </div>
-
-                        </div>
-                        <span *ngIf="isValidField('nombreComercial')" class="form-text text-danger">
-                            {{ getFieldError('nombreComercial') }}
-                        </span>
-                    </div>
-
-                    <!-- <div class="mb-3 row">
-                        <label for="nombreResumido" class="col-md-3 col-form-label-sm">Nombre Resumido</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="Nombre resumido"
-                                name="nombreResumido" formControlName="nombreResumido" id="nombreResumido" />
-                        </div>
-                        <span *ngIf="isValidField('nombreResumido')" class="form-text text-danger">
-                            {{ getFieldError('nombreResumido') }}
-                        </span>
-                    </div> -->
-
-                    <!-- <div class="mb-3 row">
-                        <label for="nombreTip" class="col-md-3 col-form-label-sm">Nombre TIP</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="Tip"
-                                name="nombreTip" formControlName="nombreTip" id="nombreTip" />
-                        </div>
-                        <span *ngIf="isValidField('nombreTip')" class="form-text text-danger">
-                            {{ getFieldError('nombreTip') }}
-                        </span>
-                    </div> -->
-
-                    <div class="mb-3 row">
-                        <label for="idCanal" class="col-md-3 col-form-label-sm">Canal</label>
-                        <div class="col-sm-9">
-                            <select class="form-select form-select-sm" formControlName="idCanal">
-                                <option value="0">SELECCIONAR</option>
-                                @for (canal of listCanal; track $index) {
-
-                                    <option value={{canal.id}}>
-                                        {{canal.descripcion}}
-                                    </option>
-                                }
-                            </select>
-
-                        </div>
-                        <span *ngIf="isValidField('idCanal')" class="form-text text-danger">
-                            {{ getFieldError('idCanal') }}
-                        </span>
-                    </div>
-
-
-
-                    <div class="mb-3 row">
-                        <label for="entregaFactura" class="col-md-3 col-form-label-sm">Entrega Factura</label>
-                        <div class="col-sm-9">
-                            <select class="form-select form-select-sm" formControlName="entregaFactura">
-                                <option value="">SELECCIONAR</option>
-                                <option value="true">SI</option>
-                                <option value="false">NO</option>
-                            </select>
-                        </div>
-                        <span *ngIf="isValidField('entregaFactura')" class="form-text text-danger">
-                            {{ getFieldError('entregaFactura') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="levantarNegocio" class="col-md-3 col-form-label-sm">Levantar Negocio</label>
-                        <div class="col-sm-9">
-                            <select class="form-select form-select-sm" formControlName="levantarNegocio">
-                                <option value="">SELECCIONAR</option>
-                                <option value="true">SI</option>
-                                <option value="false">NO</option>
-                            </select>
-                        </div>
-                        <span *ngIf="isValidField('levantarNegocio')" class="form-text text-danger">
-                            {{ getFieldError('levantarNegocio') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="negocioEquivalente" class="col-md-3 col-form-label-sm">Negocio Equivalente</label>
-                        <div class="col-sm-9">
-                            <select class="form-select form-select-sm" formControlName="negocioEquivalente">
-                                <option value="">SELECCIONAR</option>
-                                <option value="true">SI</option>
-                                <option value="false">NO</option>
-                            </select>
-                        </div>
-                        <span *ngIf="isValidField('negocioEquivalente')" class="form-text text-danger">
-                            {{ getFieldError('negocioEquivalente') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="telefono" class="col-md-3 col-form-label-sm">Teléfono</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="telefono"
-                                name="telefono" formControlName="telefono" id="telefono" maxlength="9"/>
-                        </div>
-                        <span *ngIf="isValidField('telefono')" class="form-text text-danger">
-                            {{ getFieldError('telefono') }}
-                        </span>
-                    </div>
-
-                    <!-- <div class="mb-3 row">
-                        <label for="fax" class="col-md-3 col-form-label-sm">Fax</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="fax" name="fax"
-                                formControlName="fax" id="fax" />
-                        </div>
-                        <span *ngIf="isValidField('fax')" class="form-text text-danger">
-                            {{ getFieldError('fax') }}
-                        </span>
-                    </div> -->
-
-                    <div class="mb-3 row">
-                        <label for="idDepartamento" class="col-md-3 col-form-label-sm">Departamento</label>
-                        <div class="col-sm-9">
-                            <select class="form-select form-select-sm" formControlName="idDepartamento">
-                                <option value="0">SELECCIONAR</option>
-                                @for (departamento of departamentos; track $index) {
-                                    <option value={{departamento.id}}>{{departamento.descripcion}}</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="idProvincia" class="col-md-3 col-form-label-sm">Provincia</label>
-                        <div class="col-sm-9">
-                            <select class="form-select form-select-sm" formControlName="idProvincia">
-                                <option value="0">SELECCIONAR</option>
-                                @for (provincia of getProvincias; track $index) {
-                                    <option value={{provincia.id}}>{{provincia.descripcion}}</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="idDistrito" class="col-md-3 col-form-label-sm">Distrito</label>
-                        <div class="col-sm-9">
-                            <select class="form-select form-select-sm" formControlName="idDistrito" (change)="changeDistrito($event)">
-                                <option value="0">SELECCIONAR</option>
-                                @for (distrito of getDistritos; track $index) {
-                                    <option value={{distrito.id}}>{{distrito.descripcion}}</option>
-                                }
-                                
-                            </select>
-
-                        </div>
-                        <span *ngIf="isValidField('idDistrito')" class="form-text text-danger">
-                            {{ getFieldError('idDistrito') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="idDistrito" class="col-md-3 col-form-label-sm">Zona</label>
-                        <div class="col-sm-9">
-                            <span>{{miZona && miZona.descripcion}}</span>
-                        </div>
-                    </div>
-
-                    <!-- <div class="mb-3 row">
-                        <label for="idUrbanizacion" class="col-md-3 col-form-label-sm">Urbanización</label>
-                        <div class="col-sm-9">
-                            <select class="form-select form-select-sm" formControlName="idUrbanizacion">
-                                <option value="0">SELECCIONAR</option>
-                                <option *ngFor="let urbanizacion of getUrbanizacions" [value]="urbanizacion.id">
-                                    {{urbanizacion.descripcion}}
-                                </option>
-                            </select>
-
-                        </div>
-                        <span *ngIf="isValidField('idUrbanizacion')" class="form-text text-danger">
-                            {{ getFieldError('idUrbanizacion') }}
-                        </span>
-                    </div> -->
-                </div>
-                <div class="col-md-3">
-                    <!-- <div class="mb-3 row">
-                        <label for="idVia" class="col-md-3 col-form-label-sm">Vía</label>
-                        <div class="col-sm-9">
-                            <select class="form-select form-select-sm" formControlName="idVia"  name="idVia">
-                                <option value="0">SELECCIONAR</option>
-                                <option *ngFor="let via of misVias" [value]="via.id">
-                                    {{via.descripcion}}
-                                </option>
-                            </select>
-                        </div>
-                        <span *ngIf="isValidField('idVia')" class="form-text text-danger">
-                            {{ getFieldError('idVia') }}
-                        </span>
-                    </div> -->
-
-                    <div class="mb-3 row">
-                        <label for="numeroDomicilio" class="col-md-3 col-form-label-sm">Numero Domicilio</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="numeroDomicilio"
-                                name="numeroDomicilio" formControlName="numeroDomicilio" id="numeroDomicilio" />
-                        </div>
-                        <span *ngIf="isValidField('numeroDomicilio')" class="form-text text-danger">
-                            {{ getFieldError('numeroDomicilio') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="interior" class="col-md-3 col-form-label-sm">Interior</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="interior"
-                                name="interior" formControlName="interior" id="interior" />
-                        </div>
-                        <span *ngIf="isValidField('interior')" class="form-text text-danger">
-                            {{ getFieldError('interior') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="manzana" class="col-md-3 col-form-label-sm">Manzana</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="manzana" name="manzana"
-                                formControlName="manzana" id="manzana" />
-                        </div>
-                        <span *ngIf="isValidField('manzana')" class="form-text text-danger">
-                            {{ getFieldError('manzana') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="lote" class="col-md-3 col-form-label-sm">Lote</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="lote" name="lote"
-                                formControlName="lote" id="lote" />
-                        </div>
-                        <span *ngIf="isValidField('lote')" class="form-text text-danger">
-                            {{ getFieldError('lote') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="referencia" class="col-md-3 col-form-label-sm">Referencia</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="referencia"
-                                name="referencia" formControlName="referencia" id="referencia" />
-                        </div>
-                        <span *ngIf="isValidField('referencia')" class="form-text text-danger">
-                            {{ getFieldError('referencia') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="lat" class="col-md-3 col-form-label-sm">Latitud</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="lat" name="lat"
-                                formControlName="lat" id="lat" />
-                        </div>
-                        <span *ngIf="isValidField('lat')" class="form-text text-danger">
-                            {{ getFieldError('lat') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="lgn" class="col-md-3 col-form-label-sm">longitud</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="lgn" name="lgn"
-                                formControlName="lgn" id="lgn" />
-                        </div>
-                        <span *ngIf="isValidField('lgn')" class="form-text text-danger">
-                            {{ getFieldError('lgn') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="zonaAccidentada" class="col-md-3 col-form-label-sm">Zona Accidentada</label>
-                        <div class="col-sm-9">
-
-                            <select class="form-select form-select-sm" name="zonaAccidentada"
-                                formControlName="zonaAccidentada">
-                                <option value="">SELECCIONAR</option>
-                                <option value="true">SI</option>
-                                <option value="false">NO</option>
-                            </select>
-                        </div>
-                        <span *ngIf="isValidField('zonaAccidentada')" class="form-text text-danger">
-                            {{ getFieldError('zonaAccidentada') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="zonaRiesgo" class="col-md-3 col-form-label-sm">Zona Riesgo</label>
-                        <div class="col-sm-9">
-
-                            <select class="form-select form-select-sm" name="zonaRiesgo" formControlName="zonaRiesgo">
-                                <option value="">SELECCIONAR</option>
-                                <option value="true">SI</option>
-                                <option value="false">NO</option>
-                            </select>
-
-
-                        </div>
-                        <span *ngIf="isValidField('zonaRiesgo')" class="form-text text-danger">
-                            {{ getFieldError('zonaRiesgo') }}
-                        </span>
-                    </div>
-
-                    <!-- <div class="mb-3 row">
-                        <label for="idRuta" class="col-md-3 col-form-label-sm">Código Ruta</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" placeholder="Ruta" name="idRuta"
-                                formControlName="idRuta" id="idRuta" />
-                        </div>
-                        <span *ngIf="isValidField('idRuta')" class="form-text text-danger">
-                            {{ getFieldError('idRuta') }}
-                        </span>
-                    </div> -->
-
-                    <div class="mb-3 row">
-                        <label for="aceptaProductos" class="col-md-3 col-form-label-sm">Acepta Productos</label>
-                        <div class="col-sm-9">
-                            <select class="form-select form-select-sm" name="aceptaProductos"
-                                formControlName="aceptaProductos">
-                                <option value="0">SELECCIONAR</option>
-                                <option value="1">ACEPTA MAS CATEGORIAS</option>
-                                <option value="2">NO ACEPTA MAS CATEGORIAS</option>
-                            </select>
-                        </div>
-                        <span *ngIf="isValidField('aceptaProductos')" class="form-text text-danger">
-                            {{ getFieldError('aceptaProductos') }}
-                        </span>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="estado" class="col-md-3 col-form-label-sm">Estado</label>
-                        <div class="col-sm-6">
-                            <select class="form-select form-select-sm" name="estado"
-                                formControlName="estado">
-                                <option value="1">ACTIVO</option>
-                                <option value="0">SUSPENDIDO</option>
-                            </select>
-                        </div>
-                        <label class="col-md-3">
-                            @if(currentModel.estado==0){
-                                <span class="badge text-bg-danger">SUSPENDIDO</span>
-                            }@else{
-                                <span class="badge text-bg-success">ACTIVO</span>
-                            }
-                        </label>
-                        <span *ngIf="isValidField('estado')" class="form-text text-danger">
-                            {{ getFieldError('estado') }}
-                        </span>
-                    </div>
-
-                    <div class="input-group mt-3">
-                        <button class="btn btn-sm btn-success btn-sm text-white " (click)="submit()" type="button"
-                            *ngIf="!currentModel.id">
-                            <i class="bi bi-box-arrow-down"></i> Guardar
-                        </button>
-                        <button class="btn btn-sm btn-warning btn-sm text-white " (click)="nuevo()" type="button"
-                            *ngIf="currentModel.id">
-                            <i class="bi bi-plus-lg"></i> Nuevo
-                        </button>
-                        <button class="btn btn-sm btn-info btn-sm text-white " (click)="submit()" type="button"
-                            *ngIf="currentModel.id">
-                            <i class="bi bi-pencil"></i> Guardar
-                        </button>
-
-                    </div>
-
-
-                </div>
-
-                <div class="col-md-6">
-                    <h5>Negocios por Zona</h5>
+        
+        <div class="row  mt-4">
+            <div class="col-md-6">
+                <form autocomplete="off" [formGroup]="myForm">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+        
+                            <div class="mb-3 row">
+                                <label class="col-md-3 col-form-label-sm">Código</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group input-group-sm"><span>{{currentModel.id}}</span></div>
+                                </div>
+                            
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="ruc" class="col-md-3 col-form-label-sm">RUC</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="ruc" name="ruc"
+                                        formControlName="ruc" id="ruc" maxlength="11"/>
+                                </div>
+                                <span *ngIf="isValidField('ruc')" class="form-text text-danger">
+                                    {{ getFieldError('ruc') }}
+                                </span>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="direccion" class="col-md-3 col-form-label-sm">Dirección</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="direccion"
+                                        name="direccion" formControlName="direccion" id="direccion" />
+                                </div>
+                                <span *ngIf="isValidField('direccion')" class="form-text text-danger">
+                                    {{ getFieldError('direccion') }}
+                                </span>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="nombreComercial" class="col-md-3 col-form-label-sm">Nombre Comercial</label>
+                                <div class="col-sm-9">
+        
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nombre comercial"
+                                            name="nombreComercial" formControlName="nombreComercial" id="nombreComercial" />
+                                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#modalBuscarNegocio"><i class="bi bi-search"></i></button>
+                                    </div>
+        
+                                </div>
+                                <span *ngIf="isValidField('nombreComercial')" class="form-text text-danger">
+                                    {{ getFieldError('nombreComercial') }}
+                                </span>
+                            </div>
+        
+                            <!-- <div class="mb-3 row">
+                                <label for="nombreResumido" class="col-md-3 col-form-label-sm">Nombre Resumido</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Nombre resumido"
+                                        name="nombreResumido" formControlName="nombreResumido" id="nombreResumido" />
+                                </div>
+                                <span *ngIf="isValidField('nombreResumido')" class="form-text text-danger">
+                                    {{ getFieldError('nombreResumido') }}
+                                </span>
+                            </div> -->
+        
+                            <!-- <div class="mb-3 row">
+                                <label for="nombreTip" class="col-md-3 col-form-label-sm">Nombre TIP</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Tip"
+                                        name="nombreTip" formControlName="nombreTip" id="nombreTip" />
+                                </div>
+                                <span *ngIf="isValidField('nombreTip')" class="form-text text-danger">
+                                    {{ getFieldError('nombreTip') }}
+                                </span>
+                            </div> -->
+        
+                            <div class="mb-3 row">
+                                <label for="idCanal" class="col-md-3 col-form-label-sm">Canal</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select form-select-sm" formControlName="idCanal">
+                                        <option value="0">SELECCIONAR</option>
+                                        @for (canal of listCanal; track $index) {
+        
+                                            <option value={{canal.id}}>
+                                                {{canal.descripcion}}
+                                            </option>
+                                        }
+                                    </select>
+        
+                                </div>
+                                <span *ngIf="isValidField('idCanal')" class="form-text text-danger">
+                                    {{ getFieldError('idCanal') }}
+                                </span>
+                            </div>
+        
+        
+        
+                            <div class="mb-3 row">
+                                <label for="entregaFactura" class="col-md-3 col-form-label-sm">Entrega Factura</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select form-select-sm" formControlName="entregaFactura">
+                                        <option value="">SELECCIONAR</option>
+                                        <option value="true">SI</option>
+                                        <option value="false">NO</option>
+                                    </select>
+                                </div>
+                                <span *ngIf="isValidField('entregaFactura')" class="form-text text-danger">
+                                    {{ getFieldError('entregaFactura') }}
+                                </span>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="levantarNegocio" class="col-md-3 col-form-label-sm">Levantar Negocio</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select form-select-sm" formControlName="levantarNegocio">
+                                        <option value="">SELECCIONAR</option>
+                                        <option value="true">SI</option>
+                                        <option value="false">NO</option>
+                                    </select>
+                                </div>
+                                <span *ngIf="isValidField('levantarNegocio')" class="form-text text-danger">
+                                    {{ getFieldError('levantarNegocio') }}
+                                </span>
+                            </div>
+        
+                            <!-- <div class="mb-3 row">
+                                <label for="negocioEquivalente" class="col-md-3 col-form-label-sm">Negocio Equivalente</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select form-select-sm" formControlName="negocioEquivalente">
+                                        <option value="">SELECCIONAR</option>
+                                        <option value="true">SI</option>
+                                        <option value="false">NO</option>
+                                    </select>
+                                </div>
+                                <span *ngIf="isValidField('negocioEquivalente')" class="form-text text-danger">
+                                    {{ getFieldError('negocioEquivalente') }}
+                                </span>
+                            </div> -->
+        
+                            <div class="mb-3 row">
+                                <label for="telefono" class="col-md-3 col-form-label-sm">Teléfono</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="telefono"
+                                        name="telefono" formControlName="telefono" id="telefono" maxlength="9"/>
+                                </div>
+                                <span *ngIf="isValidField('telefono')" class="form-text text-danger">
+                                    {{ getFieldError('telefono') }}
+                                </span>
+                            </div>
+        
+                            <!-- <div class="mb-3 row">
+                                <label for="fax" class="col-md-3 col-form-label-sm">Fax</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="fax" name="fax"
+                                        formControlName="fax" id="fax" />
+                                </div>
+                                <span *ngIf="isValidField('fax')" class="form-text text-danger">
+                                    {{ getFieldError('fax') }}
+                                </span>
+                            </div> -->
+        
+                            <div class="mb-3 row">
+                                <label for="idDepartamento" class="col-md-3 col-form-label-sm">Departamento</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select form-select-sm" formControlName="idDepartamento">
+                                        <option value="0">SELECCIONAR</option>
+                                        @for (departamento of departamentos; track $index) {
+                                            <option value={{departamento.id}}>{{departamento.descripcion}}</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="idProvincia" class="col-md-3 col-form-label-sm">Provincia</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select form-select-sm" formControlName="idProvincia">
+                                        <option value="0">SELECCIONAR</option>
+                                        @for (provincia of getProvincias; track $index) {
+                                            <option value={{provincia.id}}>{{provincia.descripcion}}</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="idDistrito" class="col-md-3 col-form-label-sm">Distrito</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select form-select-sm" formControlName="idDistrito" (change)="changeDistrito($event)">
+                                        <option value="0">SELECCIONAR</option>
+                                        @for (distrito of getDistritos; track $index) {
+                                            <option value={{distrito.id}}>{{distrito.descripcion}}</option>
+                                        }
+                                        
+                                    </select>
+        
+                                </div>
+                                <span *ngIf="isValidField('idDistrito')" class="form-text text-danger">
+                                    {{ getFieldError('idDistrito') }}
+                                </span>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="idDistrito" class="col-md-3 col-form-label-sm">Zona</label>
+                                <div class="col-sm-9">
+                                    <span>{{miZona && miZona.descripcion}}</span>
+                                </div>
+                            </div>
+        
+ 
+                        </div>
+                        <div class="col-md-6">
+                            <!-- <div class="mb-3 row">
+                                <label for="numeroDomicilio" class="col-md-3 col-form-label-sm">Numero Domicilio</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="numeroDomicilio"
+                                        name="numeroDomicilio" formControlName="numeroDomicilio" id="numeroDomicilio" />
+                                </div>
+                                <span *ngIf="isValidField('numeroDomicilio')" class="form-text text-danger">
+                                    {{ getFieldError('numeroDomicilio') }}
+                                </span>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="interior" class="col-md-3 col-form-label-sm">Interior</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="interior"
+                                        name="interior" formControlName="interior" id="interior" />
+                                </div>
+                                <span *ngIf="isValidField('interior')" class="form-text text-danger">
+                                    {{ getFieldError('interior') }}
+                                </span>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="manzana" class="col-md-3 col-form-label-sm">Manzana</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="manzana" name="manzana"
+                                        formControlName="manzana" id="manzana" />
+                                </div>
+                                <span *ngIf="isValidField('manzana')" class="form-text text-danger">
+                                    {{ getFieldError('manzana') }}
+                                </span>
+                            </div> -->
+        
+                            <!-- <div class="mb-3 row">
+                                <label for="lote" class="col-md-3 col-form-label-sm">Lote</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="lote" name="lote"
+                                        formControlName="lote" id="lote" />
+                                </div>
+                                <span *ngIf="isValidField('lote')" class="form-text text-danger">
+                                    {{ getFieldError('lote') }}
+                                </span>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="referencia" class="col-md-3 col-form-label-sm">Referencia</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="referencia"
+                                        name="referencia" formControlName="referencia" id="referencia" />
+                                </div>
+                                <span *ngIf="isValidField('referencia')" class="form-text text-danger">
+                                    {{ getFieldError('referencia') }}
+                                </span>
+                            </div> -->
+        
+                            <div class="mb-3 row">
+                                <label for="lat" class="col-md-3 col-form-label-sm">Latitud</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="lat" name="lat"
+                                        formControlName="lat" id="lat" />
+                                </div>
+                                <span *ngIf="isValidField('lat')" class="form-text text-danger">
+                                    {{ getFieldError('lat') }}
+                                </span>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="lgn" class="col-md-3 col-form-label-sm">longitud</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="lgn" name="lgn"
+                                        formControlName="lgn" id="lgn" />
+                                </div>
+                                <span *ngIf="isValidField('lgn')" class="form-text text-danger">
+                                    {{ getFieldError('lgn') }}
+                                </span>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="zonaAccidentada" class="col-md-3 col-form-label-sm">Zona Accidentada</label>
+                                <div class="col-sm-9">
+        
+                                    <select class="form-select form-select-sm" name="zonaAccidentada"
+                                        formControlName="zonaAccidentada">
+                                        <option value="">SELECCIONAR</option>
+                                        <option value="true">SI</option>
+                                        <option value="false">NO</option>
+                                    </select>
+                                </div>
+                                <span *ngIf="isValidField('zonaAccidentada')" class="form-text text-danger">
+                                    {{ getFieldError('zonaAccidentada') }}
+                                </span>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="zonaRiesgo" class="col-md-3 col-form-label-sm">Zona Riesgo</label>
+                                <div class="col-sm-9">
+        
+                                    <select class="form-select form-select-sm" name="zonaRiesgo" formControlName="zonaRiesgo">
+                                        <option value="">SELECCIONAR</option>
+                                        <option value="true">SI</option>
+                                        <option value="false">NO</option>
+                                    </select>
+        
+        
+                                </div>
+                                <span *ngIf="isValidField('zonaRiesgo')" class="form-text text-danger">
+                                    {{ getFieldError('zonaRiesgo') }}
+                                </span>
+                            </div>
+        
+                            <!-- <div class="mb-3 row">
+                                <label for="idRuta" class="col-md-3 col-form-label-sm">Código Ruta</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Ruta" name="idRuta"
+                                        formControlName="idRuta" id="idRuta" />
+                                </div>
+                                <span *ngIf="isValidField('idRuta')" class="form-text text-danger">
+                                    {{ getFieldError('idRuta') }}
+                                </span>
+                            </div> -->
+        
+                            <div class="mb-3 row">
+                                <label for="aceptaProductos" class="col-md-3 col-form-label-sm">Acepta Productos</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select form-select-sm" name="aceptaProductos"
+                                        formControlName="aceptaProductos">
+                                        <option value="0">SELECCIONAR</option>
+                                        <option value="1">ACEPTA MAS CATEGORIAS</option>
+                                        <option value="2">NO ACEPTA MAS CATEGORIAS</option>
+                                    </select>
+                                </div>
+                                <span *ngIf="isValidField('aceptaProductos')" class="form-text text-danger">
+                                    {{ getFieldError('aceptaProductos') }}
+                                </span>
+                            </div>
+        
+                            <div class="mb-3 row">
+                                <label for="estado" class="col-md-3 col-form-label-sm">Estado</label>
+                                <div class="col-sm-6">
+                                    <select class="form-select form-select-sm" name="estado"
+                                        formControlName="estado">
+                                        <option value="1">ACTIVO</option>
+                                        <option value="0">SUSPENDIDO</option>
+                                    </select>
+                                </div>
+                                <label class="col-md-3">
+                                    @if(currentModel.estado==0){
+                                        <span class="badge text-bg-danger">SUSPENDIDO</span>
+                                    }@else{
+                                        <span class="badge text-bg-success">ACTIVO</span>
+                                    }
+                                </label>
+                                <span *ngIf="isValidField('estado')" class="form-text text-danger">
+                                    {{ getFieldError('estado') }}
+                                </span>
+                            </div>
+        
+                            <div class="input-group mt-3">
+                                <button class="btn btn-sm btn-success btn-sm text-white " (click)="submit()" type="button"
+                                    *ngIf="!currentModel.id">
+                                    <i class="bi bi-box-arrow-down"></i> Guardar
+                                </button>
+                                <button class="btn btn-sm btn-warning btn-sm text-white " (click)="nuevo()" type="button"
+                                    *ngIf="currentModel.id">
+                                    <i class="bi bi-plus-lg"></i> Nuevo
+                                </button>
+                                <button class="btn btn-sm btn-info btn-sm text-white " (click)="submit()" type="button"
+                                    *ngIf="currentModel.id">
+                                    <i class="bi bi-pencil"></i> Guardar
+                                </button>
+        
+                            </div>
+        
+        
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <h5>Negocios por Ciudad</h5>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+
                             <select class="form-select form-select-sm" (change)="changeZona($event)">
                                 <option value="">SELECCIONAR ZONA</option>
                                 @for (zona of listZonas; track $index) {
                                     <option value={{zona.id}}>{{zona.descripcion}}</option>
                                 }
                             </select>
+
+                            <button type="button" class="btn btn-success" (click)="exportExcel()"><i class="bi bi-box-arrow-down"></i> Excel</button>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row mt-4">
-                        <div class="col-md-12">
-                            <table class="table table-sm table-bordered">
-                                <thead class="table-success">
-                                    <tr>
-                                        <th>Codigo</th>
-                                        <th>RUC</th>
-                                        <th>Nombre</th>
-                                        <th>Canal</th>
-                                        <th>Direccion</th>
-                                        <th>Departamento</th>
-                                        <th>Provincia</th>
-                                        <th>Creación</th>
-                                        <th>Modificación</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (negocio of negocios_x_zona; track $index) {
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <input type="text" placeholder="Buscar por codigo o nombre..." class="form-control form-control-sm mb-4"  [(ngModel)] = "buscaNegocioZona">
+
+
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-success">
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>RUC</th>
+                                    <th>Nombre</th>
+                                    <th>Canal</th>
+                                    <th>Direccion</th>
+                                    <th>Departamento</th>
+                                    <th>Provincia</th>
+                                    <th>Creación</th>
+                                    <th>Modificación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (negocio of negocios_x_zona; track $index) {
+                                    @if(negocio.nombreComercial.includes(buscaNegocioZona) || negocio.id.toString().includes(buscaNegocioZona)){
                                         <tr (click)="elegirNegocio(negocio,0)">
                                             <td>{{negocio.id}}</td>
                                             <td>{{negocio.ruc}}</td>
@@ -472,22 +458,23 @@
                                             <td>{{negocio.direccion}}</td>
                                             <td>{{negocio.Distrito.Provincia.Departamento.descripcion}}</td>
                                             <td>{{negocio.Distrito.Provincia.descripcion}}</td>
-                                           
+                                            
                                             <td>{{negocio.fechaRegistro && negocio.fechaRegistro.substring(0,10)}}</td>
                                             <td>{{negocio.fechaModificacion && negocio.fechaModificacion.substring(0,10)}}</td>
                                         </tr>
-                                    }@empty {
-                                        <tr>
-                                            <td colspan="3">No hay resultados...</td>
-                                        </tr>
                                     }
-                                </tbody>
-                            </table>
-                        </div>
+                                }@empty {
+                                    <tr>
+                                        <td colspan="3">No hay resultados...</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
+       
 
 
     </div>

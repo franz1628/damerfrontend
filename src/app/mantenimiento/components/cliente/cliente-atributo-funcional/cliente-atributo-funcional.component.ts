@@ -354,7 +354,7 @@ export class ClienteAtributoFuncionalComponent implements OnChanges {
   }
 
   skusToWorksheet(skus: Sku[]): XLSX.WorkSheet {
-    const data: any[] = [];
+    const data: any[] = [];  
 
     const filaCabecera: string[] = [];
     filaCabecera.push('RESULTADO');
