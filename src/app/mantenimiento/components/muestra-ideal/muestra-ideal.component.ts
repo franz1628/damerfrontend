@@ -12,6 +12,7 @@ import { Categoria } from '../variedades/interfaces/categoria.interface';
 import { Canal } from '../tablas/interfaces/canal.interface';
 import { Zona } from '../tablas/interfaces/zona.interface';
 import { Distrito } from '../tablas/ubigeo/interface/distrito.interface';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-muestra-ideal',
@@ -32,6 +33,13 @@ export class MuestraIdealComponent {
   zonas: Zona[] = []
   distritos:Distrito[] = []
   arrDistritos:Distrito[][]=[]
+
+  buscarCategoria:string=''
+  buscarCanal:string=''
+  buscarZona:string=''
+  buscarDistrito:string=''
+  buscarValor:string=''
+  muestras:MuestraIdeal[]=[]
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
@@ -75,6 +83,7 @@ export class MuestraIdealComponent {
         next:value => {
 
           const models = value.service.data;
+          this.muestras = value.service.data;
           this.categorias = value.serviceCategoria.data
           this.canals = value.serviceCanal.data
           this.zonas = value.serviceZona.data
@@ -111,12 +120,97 @@ export class MuestraIdealComponent {
       })
   }
 
-  filtroBusqueda(model:MuestraIdeal):boolean {
-      return this.canals.find(y=>y.id == model.idCanal)?.descripcion.includes(this.textoBuscar.toUpperCase()) 
-        || this.categorias.find(y=>y.id == model.idCategoria)?.descripcion.includes(this.textoBuscar.toUpperCase()) 
-        || this.distritos.find(y=>y.id == model.idDistrito)?.descripcion.includes(this.textoBuscar.toUpperCase()) 
-        || model.valor.toString().includes(this.textoBuscar.toString().toUpperCase()) 
+  exportExcel() {
+    this.service.get().subscribe(x=>{
+      const models = x.data
+
+      if(models.length==0){
+        this.alert.showAlert("Advertencia","No muestra para exportar","warning");
+        return
+      }
+
+      const worksheet = this.skusToWorksheet(models);  // Convierte los SKUs a hoja de trabajo
+      const workbook = XLSX.utils.book_new();  // Crea un nuevo libro de trabajo (workbook)
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Muestra');  // Añade la hoja al libro de trabajo
+
+      // Exportar como archivo .xlsx
+      XLSX.writeFile(workbook, 'muestra_ideal.xlsx');
+    })
+
+    
+  }
+
+  skusToWorksheet(models: MuestraIdeal[]): XLSX.WorkSheet {
+    const data: string[][] = [];  
+
+    const filaCabecera: string[] = [];
+
+    filaCabecera.push('Dirección');
+    filaCabecera.push('Cod Categoria');
+    filaCabecera.push('Categoria');
+    filaCabecera.push('Cod Canal');
+    filaCabecera.push('Canal');
+    filaCabecera.push('Cod Ciudad');
+    filaCabecera.push('Ciudad');
+    filaCabecera.push('Cod Distrito');
+    filaCabecera.push('Distrito');
+    filaCabecera.push('Valor');
+    filaCabecera.push('Fecha Creación');
+
+
+    data.push(filaCabecera);
+
+    for (const model of models) {
+      const fila: string[] = [];
+
+      fila.push(model.id.toString());
+      fila.push(model.idCategoria.toString());
+      fila.push(model.Categoria.descripcion);
+      fila.push(model.idCanal.toString());
+      fila.push(model.Canal.descripcion);
+      fila.push(model.Distrito.idZona.toString());
+      fila.push(model.Distrito.Zona.descripcion);
+      fila.push(model.idDistrito.toString());
+      fila.push(model.Distrito.descripcion);
+      fila.push(model.valor.toString());
+      fila.push(model.fechaRegistro.toString());
+      
+
+      data.push(fila);
     }
+
+    return XLSX.utils.aoa_to_sheet(data);
+  } 
+
+  filtroBusqueda(model:MuestraIdeal):boolean|undefined {
+    console.log(model);
+    
+    return this.canals.find(y=>y.id == model.idCanal)?.descripcion.includes(this.buscarCanal.toUpperCase()) 
+      && this.categorias.find(y=>y.id == model.idCategoria)?.descripcion.includes(this.buscarCategoria.toUpperCase()) 
+      && this.distritos.find(y=>y.id == model.idDistrito)?.descripcion.includes(this.buscarDistrito.toUpperCase()) 
+      && this.distritos.find(y=>y.id == model.idDistrito)?.Zona.descripcion.includes(this.buscarZona.toUpperCase()) 
+      && model.valor.toString().includes(this.buscarValor.toString().toUpperCase()) 
+  }
+
+  keyupCategoria(e:Event){
+    this.buscarCategoria = (e.target as HTMLInputElement).value
+  }
+
+  keyupCanal(e:Event){
+    this.buscarCanal = (e.target as HTMLInputElement).value
+  }
+
+  keyupZona(e:Event){
+    this.buscarZona = (e.target as HTMLInputElement).value
+  }
+
+  keyupDistrito(e:Event){
+    this.buscarDistrito = (e.target as HTMLInputElement).value
+  }
+
+  keyupValor(e:Event){
+    this.buscarValor = (e.target as HTMLInputElement).value
+  }
 
   get modelosArray() {
     return this.models.get('modelos') as FormArray;

@@ -1,12 +1,23 @@
 <div class="row">
     <div class="col-md-12">
         <h6 class="mb-3 text-center">MUESTRA IDEAL</h6>
-        <input type="text" class="form form-control-sm w-100 mb-2" placeholder="Buscar..." [(ngModel)]="textoBuscar">
+        <button class="btn btn-success mb-4" (click)="exportExcel()"> <i class="bi bi-box-arrow-down"></i>  Excel</button>
+        <!-- <input type="text" class="form form-control-sm w-100 mb-2" placeholder="Buscar..." [(ngModel)]="textoBuscar"> -->
 
         <form [formGroup]="models">
             <div formArrayName="modelos">
                 <table class="table text-center table-sm">
                     <thead class="table-success fs-6">
+                        <tr>
+                            <th></th>
+                            <th><input type="text" (keyup)="keyupCategoria($event)" placeholder="Categoria..."  /> </th>
+                            <th><input type="text" (keyup)="keyupCanal($event)" placeholder="Canal..."  />  </th>
+                            <th><input type="text" (keyup)="keyupZona($event)" placeholder="Zona..."  /> </th>
+                            <th><input type="text" (keyup)="keyupDistrito($event)" placeholder="Distrito..."  />  </th>
+                            <th><input type="text" (keyup)="keyupValor($event)" placeholder="Valor..."  />  </th>
+                            <th></th>
+                        </tr>
+
                         <tr>
                             <th>Item</th>
                             <th>Categoria </th>

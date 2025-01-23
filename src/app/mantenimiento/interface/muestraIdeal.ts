@@ -1,3 +1,7 @@
+import { Canal, CanalInit } from "../components/tablas/interfaces/canal.interface";
+import { Distrito, DistritoInit } from "../components/tablas/ubigeo/interface/distrito.interface";
+import { Categoria, CategoriaInit } from "../components/variedades/interfaces/categoria.interface";
+
 export interface MuestraIdeal {
     id: number,
     idCategoria: number,
@@ -6,7 +10,9 @@ export interface MuestraIdeal {
     valor:number,    
     estado: number,
     fechaRegistro: Date,
-    
+    Categoria:Categoria,    
+    Canal:Canal,    
+    Distrito:Distrito,    
 }
 export const MuestraIdealInit: MuestraIdeal = {
     id: 0,
@@ -16,4 +22,7 @@ export const MuestraIdealInit: MuestraIdeal = {
     valor:0,
     estado: 1,
     fechaRegistro: new Date(),
+    Categoria:CategoriaInit,    
+    Canal:CanalInit,    
+    Distrito:DistritoInit,
 };
