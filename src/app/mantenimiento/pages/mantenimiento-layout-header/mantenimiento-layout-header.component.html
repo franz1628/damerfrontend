@@ -39,13 +39,17 @@
               
             </ul>
 
-            <span class="navbar-text ms-auto">
-               
+            <!-- Nombre del usuario -->
+            <span class="navbar-text ms-auto me-3">
+                {{ usuario.nombres + ' ' + usuario.apellidoPaterno }}
             </span>
 
+            <!-- Botón de cerrar sesión -->
             <span class="navbar-text">
-                {{ usuario.nombres + ' ' + usuario.apellidoPaterno }}
-              </span>
+                <a href="#" (click)="logout()" class="btn btn-outline-danger btn-sm">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </span>
         </div>
     </div>
 </nav>
