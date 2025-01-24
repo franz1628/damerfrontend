@@ -188,8 +188,12 @@ export class NegocioFormComponent {
 
     const filaCabecera: string[] = [];
 
+    filaCabecera.push('Cod Negocio');
+    filaCabecera.push('Negocio');
     filaCabecera.push('Dirección');
     filaCabecera.push('Canal');
+    filaCabecera.push('Departamento');
+    filaCabecera.push('Provincia');
     filaCabecera.push('Ciudad');
     filaCabecera.push('Distrito');
     filaCabecera.push('Estado');
@@ -203,9 +207,13 @@ export class NegocioFormComponent {
 
     for (const negocio of negocios) {
       const fila: string[] = [];
-
+  
+      fila.push(negocio.id.toString());
+      fila.push(negocio.nombreComercial);
       fila.push(negocio.direccion);
       fila.push(negocio.Canal.descripcion);
+      fila.push(negocio.Distrito.Provincia.Departamento.descripcion);
+      fila.push(negocio.Distrito.Provincia.descripcion);
       fila.push(negocio.Distrito.Zona.descripcion);
       fila.push(negocio.Distrito.descripcion);
       fila.push(negocio.estado?"ACTIVO":"INACTIVO");

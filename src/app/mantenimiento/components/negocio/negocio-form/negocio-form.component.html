@@ -31,13 +31,12 @@
                                 <div class="col-sm-9">
                                     <div class="input-group input-group-sm"><span>{{currentModel.id}}</span></div>
                                 </div>
-                            
                             </div>
         
                             <div class="mb-3 row">
                                 <label for="ruc" class="col-md-3 col-form-label-sm">RUC</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" placeholder="ruc" name="ruc"
+                                    <input type="text" class="form-control form-control-sm" placeholder="RUC" name="ruc"
                                         formControlName="ruc" id="ruc" maxlength="11"/>
                                 </div>
                                 <span *ngIf="isValidField('ruc')" class="form-text text-danger">
@@ -48,7 +47,7 @@
                             <div class="mb-3 row">
                                 <label for="direccion" class="col-md-3 col-form-label-sm">Dirección</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" placeholder="direccion"
+                                    <input type="text" class="form-control form-control-sm" placeholder="Dirección"
                                         name="direccion" formControlName="direccion" id="direccion" />
                                 </div>
                                 <span *ngIf="isValidField('direccion')" class="form-text text-danger">
@@ -161,7 +160,7 @@
                             <div class="mb-3 row">
                                 <label for="telefono" class="col-md-3 col-form-label-sm">Teléfono</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" placeholder="telefono"
+                                    <input type="text" class="form-control form-control-sm" placeholder="Teléfono"
                                         name="telefono" formControlName="telefono" id="telefono" maxlength="9"/>
                                 </div>
                                 <span *ngIf="isValidField('telefono')" class="form-text text-danger">
@@ -289,7 +288,7 @@
                             <div class="mb-3 row">
                                 <label for="lat" class="col-md-3 col-form-label-sm">Latitud</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" placeholder="lat" name="lat"
+                                    <input type="text" class="form-control form-control-sm" placeholder="Latitud" name="lat"
                                         formControlName="lat" id="lat" />
                                 </div>
                                 <span *ngIf="isValidField('lat')" class="form-text text-danger">
@@ -300,7 +299,7 @@
                             <div class="mb-3 row">
                                 <label for="lgn" class="col-md-3 col-form-label-sm">longitud</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" placeholder="lgn" name="lgn"
+                                    <input type="text" class="form-control form-control-sm" placeholder="Longitud" name="lgn"
                                         formControlName="lgn" id="lgn" />
                                 </div>
                                 <span *ngIf="isValidField('lgn')" class="form-text text-danger">
@@ -429,7 +428,7 @@
                 </div>
 
                 <div class="row mt-4">
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="overflow-x: auto;">
                         <input type="text" placeholder="Buscar por codigo o nombre..." class="form-control form-control-sm mb-4"  [(ngModel)] = "buscaNegocioZona">
 
 
@@ -438,26 +437,39 @@
                                 <tr>
                                     <th>Codigo</th>
                                     <th>RUC</th>
+                        
                                     <th>Nombre</th>
                                     <th>Canal</th>
                                     <th>Direccion</th>
                                     <th>Departamento</th>
                                     <th>Provincia</th>
+                                    <th>Ciudad</th>
+                                    <th>Distrito</th>
+                                    <th>Estado</th>
+                                    <th>Latitud</th>
+                                    <th>Longitud</th>
                                     <th>Creación</th>
                                     <th>Modificación</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @for (negocio of negocios_x_zona; track $index) {
-                                    @if(negocio.nombreComercial.includes(buscaNegocioZona) || negocio.id.toString().includes(buscaNegocioZona)){
+                                    @if(negocio.nombreComercial.toUpperCase().includes(buscaNegocioZona.toUpperCase()) || negocio.id.toString().includes(buscaNegocioZona) || negocio.direccion.toUpperCase().includes(buscaNegocioZona.toUpperCase())){
                                         <tr (click)="elegirNegocio(negocio,0)">
                                             <td>{{negocio.id}}</td>
                                             <td>{{negocio.ruc}}</td>
                                             <td>{{negocio.nombreComercial}}</td>
-                                            <td>{{negocio.Canal.descripcion}}</td>
-                                            <td>{{negocio.direccion}}</td>
                                             <td>{{negocio.Distrito.Provincia.Departamento.descripcion}}</td>
                                             <td>{{negocio.Distrito.Provincia.descripcion}}</td>
+                                           
+                                            <td>{{negocio.Canal.descripcion}}</td>
+                                            <td>{{negocio.direccion}}</td>
+                                            <td>{{negocio.Distrito.Zona.descripcion}}</td>
+                                            <td>{{negocio.Distrito.descripcion}}</td>
+                                            <td>{{negocio.estado?"ACTIVO":"INACTIVO"}}</td>
+                                            <td>{{negocio.lat}}</td>
+                                            <td>{{negocio.lgn}}</td>
+                                          
                                             
                                             <td>{{negocio.fechaRegistro && negocio.fechaRegistro.substring(0,10)}}</td>
                                             <td>{{negocio.fechaModificacion && negocio.fechaModificacion.substring(0,10)}}</td>
