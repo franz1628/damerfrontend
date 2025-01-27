@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class MantenimientoLayoutHeaderComponent {
   usuario: Usuario = UsuarioInit;
+  medicion:string = localStorage.getItem('valormedicion') || '';
 
   constructor(private router: Router) {
     const usuarioData = localStorage.getItem('usuario');
@@ -17,6 +18,8 @@ export class MantenimientoLayoutHeaderComponent {
   logout(): void {
     // Eliminar el usuario del almacenamiento local
     localStorage.removeItem('usuario');
+    localStorage.removeItem('medicion');
+    localStorage.removeItem('valormedicion');
 
     // Redirigir al login
     this.router.navigate(['/login']);

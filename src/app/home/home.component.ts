@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit{
 
 
   showModal=true;
-  medicion='';
+  medicion:string='';
   mediciones:Medicion[] = [];
 
   constructor(
@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit{
       return;
     }
     localStorage.setItem('medicion',this.medicion);
+    localStorage.setItem('valormedicion',this.mediciones.find(x=>x.id==+this.medicion)?.medicion.toString()||"");
     this.showModal = false;
   } 
 

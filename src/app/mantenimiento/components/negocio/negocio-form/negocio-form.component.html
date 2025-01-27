@@ -436,14 +436,14 @@
                             <thead class="table-success">
                                 <tr>
                                     <th>Codigo</th>
-                                    <th>RUC</th>
+                                    <!-- <th>RUC</th> -->
                         
                                     <th>Nombre</th>
                                     <th>Canal</th>
-                                    <th>Direccion</th>
+                                    <th>Dirección</th>
+                                    <th>Ciudad</th>
                                     <th>Departamento</th>
                                     <th>Provincia</th>
-                                    <th>Ciudad</th>
                                     <th>Distrito</th>
                                     <th>Estado</th>
                                     <th>Latitud</th>
@@ -457,14 +457,13 @@
                                     @if(negocio.nombreComercial.toUpperCase().includes(buscaNegocioZona.toUpperCase()) || negocio.id.toString().includes(buscaNegocioZona) || negocio.direccion.toUpperCase().includes(buscaNegocioZona.toUpperCase())){
                                         <tr (click)="elegirNegocio(negocio,0)">
                                             <td>{{negocio.id}}</td>
-                                            <td>{{negocio.ruc}}</td>
+                                            <!-- <td>{{negocio.ruc}}</td> -->
                                             <td>{{negocio.nombreComercial}}</td>
-                                            <td>{{negocio.Distrito.Provincia.Departamento.descripcion}}</td>
-                                            <td>{{negocio.Distrito.Provincia.descripcion}}</td>
-                                           
                                             <td>{{negocio.Canal.descripcion}}</td>
                                             <td>{{negocio.direccion}}</td>
                                             <td>{{negocio.Distrito.Zona.descripcion}}</td>
+                                            <td>{{negocio.Distrito.Provincia.Departamento.descripcion}}</td>
+                                            <td>{{negocio.Distrito.Provincia.descripcion}}</td>
                                             <td>{{negocio.Distrito.descripcion}}</td>
                                             <td>{{negocio.estado?"ACTIVO":"INACTIVO"}}</td>
                                             <td>{{negocio.lat}}</td>
