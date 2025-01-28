@@ -435,21 +435,17 @@
                         <table class="table table-sm table-bordered">
                             <thead class="table-success">
                                 <tr>
-                                    <th>Codigo</th>
+                                    <th>Cod Negocio</th>
                                     <!-- <th>RUC</th> -->
-                        
-                                    <th>Nombre</th>
-                                    <th>Canal</th>
                                     <th>Dirección</th>
+                                    <th>Canal</th>
                                     <th>Ciudad</th>
-                                    <th>Departamento</th>
-                                    <th>Provincia</th>
                                     <th>Distrito</th>
                                     <th>Estado</th>
                                     <th>Latitud</th>
                                     <th>Longitud</th>
-                                    <th>Creación</th>
-                                    <th>Modificación</th>
+                                    <th>Fecha Creación</th>
+                                    <th>Fecha Modificación</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -458,12 +454,9 @@
                                         <tr (click)="elegirNegocio(negocio,0)">
                                             <td>{{negocio.id}}</td>
                                             <!-- <td>{{negocio.ruc}}</td> -->
-                                            <td>{{negocio.nombreComercial}}</td>
-                                            <td>{{negocio.Canal.descripcion}}</td>
                                             <td>{{negocio.direccion}}</td>
+                                            <td>{{negocio.Canal.descripcion}}</td>
                                             <td>{{negocio.Distrito.Zona.descripcion}}</td>
-                                            <td>{{negocio.Distrito.Provincia.Departamento.descripcion}}</td>
-                                            <td>{{negocio.Distrito.Provincia.descripcion}}</td>
                                             <td>{{negocio.Distrito.descripcion}}</td>
                                             <td>{{negocio.estado?"ACTIVO":"INACTIVO"}}</td>
                                             <td>{{negocio.lat}}</td>
