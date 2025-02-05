@@ -54,6 +54,22 @@ export class MedicionComponent implements OnInit{
     return '-';
   }
 
+  agregarMedicion(){
+
+    this.medicionService.nextMedicion().subscribe((resp)=>{ 
+      const nextMedicion = resp.data.medicion;
+
+      this.alert.showAlertConfirm('Advertencia','¿Desea agregar la medicion : ' + nextMedicion +' ? ','warning',()=>{
+        this.medicionService.add(this.currentModel).subscribe((resp)=>{
+          this.loadModels()
+          this.alert.showAlert('Mensaje','Se aperturo la medicion correctamente','success');
+        })
+      })
+    });
+
+    
+  }
+
   submit() {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();

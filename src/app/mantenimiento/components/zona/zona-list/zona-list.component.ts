@@ -30,11 +30,15 @@ export class ZonaListComponent {
   }
 
   delete(model: Zona) {
-    this.showLoading = true
-    this.service.delete(model).subscribe(() => {
-      this.showLoading = false;
-      this.alert.showAlert('¡Éxito!', 'Se eliminó correctamente', 'success');
-      this.updateModelsEmit.emit()
-    });
+    this.alert.showAlertConfirm('Advertencia',model.estado?'¿Está seguro que desea desactivar?':'¿Está seguro que desea activar?','warning',() => {
+      this.showLoading = true
+      this.service.delete(model).subscribe(() => {
+        this.showLoading = false;
+        this.alert.showAlert('¡Éxito!', model.estado?'Se desactivó correctamente':'Se activo correctamente', 'success');
+        this.updateModelsEmit.emit()
+      });
+      
+    })
+    
   }
 }

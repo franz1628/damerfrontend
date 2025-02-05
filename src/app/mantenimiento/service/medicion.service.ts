@@ -12,6 +12,13 @@ interface ResponseMedicion  {
   status: number; 
 }
 
+interface ResponseNextMedicion  {
+  data: Medicion;
+  message: string;
+  status: number; 
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,6 +41,10 @@ export class MedicionService {
 
   add(model: Medicion): Observable<Medicion> {
     return this.http.post<Medicion>(this.apiUrl, model);
+  }
+
+  nextMedicion(): Observable<ResponseNextMedicion> {
+    return this.http.get<ResponseNextMedicion>(`${this.apiUrl}/nextMedicion`);
   }
 
   update(id: number, model: Medicion): Observable<Medicion> {
