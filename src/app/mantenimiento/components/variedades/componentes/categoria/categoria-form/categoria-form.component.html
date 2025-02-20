@@ -29,7 +29,7 @@
                     <label for="idCanasta" class="col-md-5 col-form-label-sm">Canasta</label>
                     <div class="col-sm-7">
                         <select class="form-select form-select-sm" name="idCanasta" formControlName="idCanasta"
-                            id="idCanasta">
+                            id="idCanasta"> 
                             <option value="0">SELECCIONAR</option>
                             @for (canasta of listCanasta; track $index) {
                             <option value="{{canasta.id}}">{{canasta.descripcion}}</option>
@@ -45,7 +45,7 @@
                     <label for="idMegaCategoria" class="col-md-5 col-form-label-sm">Mega categoría</label>
                     <div class="col-sm-7">
                         <select class="form-select form-select-sm" name="idMegaCategoria"
-                            formControlName="idMegaCategoria" id="idMegaCategoria">
+                            formControlName="idMegaCategoria" id="idMegaCategoria" >
                             <option value="0">SELECCIONAR</option>
                             @for (categoria of listMegaCategoria; track $index) {
                             <option value="{{categoria.id}}">{{categoria.descripcion}}</option>
@@ -108,6 +108,68 @@
                         {{ getFieldError('alias1') }}
                     </span>
                 </div>
+
+                <div class="mb-3 row">
+                    <label for="idTipoCategoria" class="col-md-5 col-form-label-sm">Tipo Categoría</label>
+                    <div class="col-sm-7">
+                        <select class="form-select form-select-sm" name="idTipoCategoria"
+                            formControlName="idTipoCategoria" id="idTipoCategoria" >
+                            <option value="0">SELECCIONAR</option>
+                            @for (tipoCategoria of listTipoCategorias; track $index) {
+                            <option value="{{tipoCategoria.id}}">{{tipoCategoria.descripcion}}</option>
+                            }
+                        </select>
+                    </div>
+                    <span *ngIf="isValidField('idTipoCategoria')" class="form-text text-danger">
+                        {{ getFieldError('idTipoCategoria') }}
+                    </span>
+                </div>
+
+                <div class="mb-3 row" [hidden]="myForm.getRawValue().idTipoCategoria!=2 && myForm.getRawValue().idTipoCategoria!=3">
+                    <label for="alias2" class="col-md-5 col-form-label-sm">Categorias</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+                            <select class="form-select form-select-sm" formControlName="idCategoria">
+                                <option value="0">SELECCIONAR</option>
+                                @for (categoria of listCategorias; track $index) {
+                                <option value="{{categoria.id}}">{{categoria.descripcion}}</option>
+                                }
+                            </select>
+                            <button type="button" class="btn btn-sm btn-info btn-sm" (click)="agregarCategoria()"><i
+                                    class="bi bi-plus-lg"></i></button>
+                        </div>
+
+                    </div>
+                   
+                </div>
+
+                <div class="mb-3 row" [hidden]="myForm.getRawValue().idTipoCategoria!=2 && myForm.getRawValue().idTipoCategoria!=3">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Descripcion</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (categoria of getGrupoCategorias; track $index) {
+                            <tr>
+                                <td>{{categoria.id}}</td>
+                                <td>{{categoria.descripcion}}</td>
+                                <td><button type="button" class="btn btn-sm btn-danger" (click)="eliminarCategoria(categoria)" [hidden]="currentModel.id"><i
+                                            class="bi bi-trash"></i></button></td>
+                            </tr>
+                            }@empty {
+                                <tr>
+                                    <td colspan="3">No hay categorias agregadas...</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                   
+                </div>
+
                 <!-- <div class="mb-3 row">
                     <label for="alias2" class="col-md-5 col-form-label-sm">Alias 2</label>
                     <div class="col-sm-7">

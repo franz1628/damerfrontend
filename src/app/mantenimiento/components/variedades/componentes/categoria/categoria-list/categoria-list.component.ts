@@ -10,13 +10,15 @@ import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
   templateUrl: './categoria-list.component.html'
 })
 export class CategoriaListComponent {
+  
   showLoading: boolean = false;
   @Input()
   selectIndex: number=-1;
   searchText = '';
+  listCategorias: Categoria[] = [];
 
   constructor(public alert: AlertService, public service: CategoriaService) {
-    
+   
   }
 
   @Input()
@@ -27,8 +29,7 @@ export class CategoriaListComponent {
   @Output() updateModelsEmit: EventEmitter<null> = new EventEmitter();
 
   filteredModels() {
-    console.log(this.models);
-    
+
     return this.models.filter(model => 
       model.id.toString().includes(this.searchText) ||
       model.descripcion.toLowerCase().includes(this.searchText.toLowerCase()) 
@@ -43,6 +44,12 @@ export class CategoriaListComponent {
   eligeModel(model: Categoria,index:number) {
     this.editEmit.emit(model)
     this.selectIndex=index
+
+    
+  }
+
+  getCategoriaList(idCategoria:string){
+    return this.models.find(x=>x.id==+idCategoria)?.descripcion
   }
 
   changeList(canasta:Canasta, megaCategoria: MegaCategoria){

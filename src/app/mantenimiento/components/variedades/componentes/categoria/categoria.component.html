@@ -1,7 +1,7 @@
 <h4 class="text-center">{{title}}  <span class="text-danger">{{modelEdit.descripcion}}</span> </h4>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-8">
     <h6 class="mb-3 text-center">INFORMACION DE LA CATEGORIA</h6>
     <hr>
     <app-categoria-form #categoriaForm (selectCategoriaEmit)="selectCategoria($event)" (editEmit)="editModel($event)"
@@ -9,7 +9,7 @@
       [model]="modelEdit"></app-categoria-form>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-4">
  
     <div class="list-group mt-3">
       <button type="button" class="list-group-item list-group-item-action" [class.active]="botonActivo === 'categorias'"

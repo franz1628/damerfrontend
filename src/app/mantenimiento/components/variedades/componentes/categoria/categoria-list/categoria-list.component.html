@@ -1,3 +1,30 @@
+<style>
+    .grupo{
+        position: relative;
+        z-index: 1000;
+    }
+    .grupoItems{
+        z-index: 1000;
+        display: none ;
+        position: absolute;
+        top: -66px;
+        width: 300px;
+        left: 0;
+        border: 2px solid #c50e11;
+        background-color: #391a1a;
+        color: white;
+        font-weight: bold;
+    }
+
+    .grupo:hover .grupoItems{
+        display: block;
+    }
+    .grupoItems ul{
+        list-style: none;
+        padding: 5px;
+    }
+</style>
+
 <div class="row">
     <div class="col-md-12">
         <input type="text" [(ngModel)]="searchText" class="form-control mb-3" placeholder="Buscar...">
@@ -11,6 +38,7 @@
                     <tr>
                         <th>Codigo</th>
                         <th>Descripcion</th>
+                        <th>Tipo</th>
                         <th>Creación</th>
                         <th>Modificación</th>
                         <!-- <th>DescripcionResu</th> -->
@@ -21,8 +49,27 @@
                     @for (model of filteredModels(); track $index) {
 
                         <tr (click)="eligeModel(model,$index)"  [ngClass]="{'selected-row': $index === selectIndex}">
-                            <td>{{model.id}}</td>
+                            <td class="grupo">
+                                @if(model.idCategorias!=null){
+                                    <div class="grupoItems">
+                                        <ul>
+                                            @for (idCategoria of model.idCategorias.split(','); track $index) {
+                                                <li>{{getCategoriaList(idCategoria)}}</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <span style="text-decoration: underline;font-weight: bold;">{{model.id}}</span>
+                                }@else {
+                                    {{model.id}}
+                                }
+                              
+                             
+                            </td>
                             <td>{{model.descripcion}}</td>
+                            <td>
+                               
+                                {{model.TipoCategoria.descripcion}}
+                            </td>
                             <td>{{model.fechaRegistro && model.fechaRegistro.substring(0,19)}}</td>
                             <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,19)}}</td>
                            
@@ -46,3 +93,4 @@
 
     </div>
 </div>
+
