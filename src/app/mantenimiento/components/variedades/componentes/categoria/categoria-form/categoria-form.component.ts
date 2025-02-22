@@ -123,7 +123,10 @@ export class CategoriaFormComponent {
     this.canastaService.get().subscribe(resp => { this.listCanasta = resp.data });
     this.megaCategoriaService.get().subscribe(resp => { this.listMegaCategoria = resp.data });
     this.myForm.patchValue({ idCanasta: idCanasta, idMegaCategoria : idMegaCategoria });
-    this.categoriaService.getIdCanastaMegaCategoria(idMegaCategoria).subscribe(resp => {this.listCategorias = resp.data;});
+    this.categoriaService.getIdCanastaMegaCategoria(idMegaCategoria).subscribe(resp => {
+      this.listCategorias = resp.data;
+      this.listCategorias = this.listCategorias.filter(x=>x.idTipoCategoria==1);
+    });
   }
 
   

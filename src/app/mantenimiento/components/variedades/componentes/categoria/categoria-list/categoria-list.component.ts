@@ -54,9 +54,25 @@ export class CategoriaListComponent {
 
   changeList(canasta:Canasta, megaCategoria: MegaCategoria){
     this.selectIndex=-1
-    this.service.getIdCanastaMegaCategoria(megaCategoria.id).subscribe(resp=>{
+    this.service.getIdCanastaMegaCategoriaAll(megaCategoria.id).subscribe(resp=>{
       this.models = resp.data;
     })
+  }
+
+  changeState(model:Categoria){
+    this.alert.showAlertConfirm('¡Advertencia!', '¿Está seguro que desea cambiar el estado?', 'warning',() => {
+      this.showLoading = true
+      this.service.changeState(model).subscribe((x) => {
+        if(x.state==1){
+          this.showLoading = false;
+          this.alert.showAlert('¡Éxito!', 'Se cambió el estado correctamente', 'success');
+          this.updateModelsEmit.emit()
+        }else{
+          this.showLoading = false;
+          this.alert.showAlert('¡Advertencia!', x.message, 'warning');
+        }
+      });
+    });
   }
 
   delete(model: Categoria) {

@@ -38,7 +38,7 @@ export class CategoriaComponent {
 
   get(idMegaCategoria:number): void {
     this.showLoading = true
-    this.service.getIdCanastaMegaCategoria(idMegaCategoria).subscribe(response => { 
+    this.service.getIdCanastaMegaCategoriaAll(idMegaCategoria).subscribe(response => { 
       this.showLoading = false; this.models = response.data;
     });
   } 

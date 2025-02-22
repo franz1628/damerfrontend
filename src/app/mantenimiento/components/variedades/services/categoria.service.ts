@@ -40,6 +40,12 @@ export class CategoriaService {
     });
   }
 
+  getIdCanastaMegaCategoriaAll(idMegaCategoria: number): Observable<Response> {
+    return this.http.post<Response>(`${this.apiUrl}/canasta/megaCategoriaAll`,{
+      idMegaCategoria
+    });
+  }
+
   add(model: Categoria): Observable<ResponseOneCategoria> {
     return this.http.post<ResponseOneCategoria>(this.apiUrl, model);
   }
@@ -58,5 +64,9 @@ export class CategoriaService {
 
   delete(model: Categoria): Observable<ResponseOneCategoria> {
     return this.http.delete<ResponseOneCategoria>(`${this.apiUrl}/${model.id}`);
+  }
+
+  changeState(model: Categoria): Observable<ResponseOneCategoria> {
+    return this.http.post<ResponseOneCategoria>(`${this.apiUrl}/changeState`, model);
   }
 }
