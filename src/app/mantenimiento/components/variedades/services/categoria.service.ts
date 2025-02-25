@@ -69,4 +69,8 @@ export class CategoriaService {
   changeState(model: Categoria): Observable<ResponseOneCategoria> {
     return this.http.post<ResponseOneCategoria>(`${this.apiUrl}/changeState`, model);
   }
+
+  getCategorias(idCategorias: string): Observable<ResponseCategoria> {
+    return this.http.post<ResponseCategoria>(`${this.apiUrl}/getCategorias`, {idCategorias});
+  }
 }

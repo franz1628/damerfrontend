@@ -27,6 +27,7 @@ export class CategoriaAtributosComponent implements OnInit{
   atributoTecnicoVariedads:AtributoTecnicoVariedad[] = [];
   tipoUnidadMedidas:TipoUnidadMedida[] = []
   selectIndex:number=-1
+  repeAtri:AtributoTecnicoVariedad[] = []
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
@@ -38,6 +39,7 @@ export class CategoriaAtributosComponent implements OnInit{
     private service: CategoriaAtributoTecnicoService,
     private serviceAtributoTecnicoVariedadService : AtributoTecnicoVariedadService,
     private serviceTipoUnidadMedida:TipoUnidadMedidaService,
+    private serviceCategoria: CategoriaService,
     private fb: FormBuilder,
     private alert: AlertService
   ) {
@@ -54,6 +56,30 @@ export class CategoriaAtributosComponent implements OnInit{
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['modelCategoria']) {
       this.loadModels();
+
+      if(this.modelCategoria.idTipoCategoria!=1){
+        let repetidos:number[] = []
+        this.repeAtri = []
+        this.serviceCategoria.getCategorias(this.modelCategoria.idCategorias).subscribe(x=>{
+          const cates = x.data.map(y=>y.CategoriaAtributoTecnico)
+          let arrRe:number[] = []
+
+          cates.forEach(z => {
+            const arr =z.forEach(a=>{
+              if(arrRe.some(b=>b==a.idAtributoTecnicoVariedad) && !repetidos.some(b=>b==a.idAtributoTecnicoVariedad)){
+                repetidos.push(a.idAtributoTecnicoVariedad)
+                this.repeAtri.push(a.AtributoTecnicoVariedad)
+              }else{
+                arrRe.push(a.idAtributoTecnicoVariedad)
+              }
+            })
+            
+            
+          })
+        }
+        
+        
+      )}
     }
   } 
 
