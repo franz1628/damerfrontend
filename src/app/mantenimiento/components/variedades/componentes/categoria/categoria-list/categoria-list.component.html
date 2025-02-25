@@ -51,7 +51,7 @@
 
                         <tr (click)="eligeModel(model,$index)"  [ngClass]="{'selected-row': $index === selectIndex}">
                             <td class="grupo">
-                                @if(model.idCategorias!=null && model.idCategorias!=""){
+                                @if(model.idCategorias!=null && model.idCategorias.trim()!=""){
                                     <div class="grupoItems">
                                         <ul>
                                             @for (idCategoria of model.idCategorias.split(','); track $index) {
