@@ -23,6 +23,7 @@ import { AgrupacionCanals } from '../../interface/agrupacionCanals';
 export class FactorPenetracionComponent {
 
 
+
   @Input()
   modelFactorPenetracion: FactorPenetracion = FactorPenetracionInit
   showLoading: boolean = false;
@@ -33,7 +34,7 @@ export class FactorPenetracionComponent {
   canals:AgrupacionCanals[] = []
   zonas: Zona[] = []
   medicions:Medicion[] = []
-  
+  factores:FactorPenetracion[] = []
 
   models: FormGroup = this.fb.group({
     modelos: this.fb.array([]),
@@ -76,13 +77,13 @@ export class FactorPenetracionComponent {
       ).subscribe({
         next:value => {
 
-          const models = value.service.data;
+          this.factores = value.service.data;
           this.categorias = value.serviceCategoria.data
           this.canals = value.serviceCanal.data
           this.zonas = value.serviceZona.data
           this.medicions = value.serviceMedicion.data
 
-          models.forEach((model,index) => {
+          this.factores.forEach((model,index) => {
 
             const nuevoModelo = this.fb.group({
               id: [model.id],
@@ -97,7 +98,7 @@ export class FactorPenetracionComponent {
             this.modelosArray.push(nuevoModelo);
           });
   
-          if(models.length==0){
+          if(this.factores.length==0){
             this.add();
           }
   
@@ -110,7 +111,9 @@ export class FactorPenetracionComponent {
     return this.models.get('modelos') as FormArray;
   }
 
-  
+  getMedicion(idMedicion:number) {
+    return this.medicions.find(x => x.id == idMedicion)?.medicion;
+  }
 
   editModel(num: number) {
 
@@ -163,7 +166,7 @@ export class FactorPenetracionComponent {
       idZona: [0],
       idDistrito: [0],
       valor: [0],
-      idMedicion: [0],
+      idMedicion: [localStorage.getItem('medicion')],
     });
 
     this.modelosArray.push(nuevoModelo);

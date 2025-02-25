@@ -1,3 +1,5 @@
+import { Medicion, MedicionInit } from "./medicion";
+
 export interface FactorPenetracion {
     id: number,
     idZona: number,
@@ -7,7 +9,8 @@ export interface FactorPenetracion {
     estado: number,
     idMedicion:number,
     fechaRegistro: string,
-    fechaModificacion:string
+    fechaModificacion:string,
+    Medicion:Medicion
     
 }
 export const FactorPenetracionInit: FactorPenetracion = {
@@ -20,4 +23,5 @@ export const FactorPenetracionInit: FactorPenetracion = {
     idMedicion:0,
     fechaRegistro:'',
     fechaModificacion:'',
+    Medicion:MedicionInit
 };

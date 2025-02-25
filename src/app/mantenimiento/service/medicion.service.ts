@@ -39,8 +39,8 @@ export class MedicionService {
     return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
   }
 
-  add(model: Medicion): Observable<Medicion> {
-    return this.http.post<Medicion>(this.apiUrl, model);
+  add(model: Medicion): Observable<ResponseMedicion> {
+    return this.http.post<ResponseMedicion>(this.apiUrl, model);
   }
 
   nextMedicion(): Observable<ResponseNextMedicion> {

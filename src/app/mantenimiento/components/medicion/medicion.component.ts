@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { AlertService } from '../../../shared/services/alert.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidFormService } from '../../../shared/services/validForm.service';
@@ -61,8 +61,12 @@ export class MedicionComponent implements OnInit{
 
       this.alert.showAlertConfirm('Advertencia','¿Desea agregar la medicion : ' + nextMedicion +' ? ','warning',()=>{
         this.medicionService.add(this.currentModel).subscribe((resp)=>{
-          this.loadModels()
-          this.alert.showAlert('Mensaje','Se aperturo la medicion correctamente','success');
+          if(resp.status == 1){
+            this.loadModels()
+            this.alert.showAlert('Mensaje','Se aperturo la medicion correctamente','success');
+          }else{
+            this.alert.showAlert('Mensaje',resp.message,'error');
+          }
         })
       })
     });

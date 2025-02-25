@@ -7,7 +7,7 @@ export interface UniversoNegocios {
     estado: number,
     fechaRegistro: string,
     fechaModificacion: string,
-    
+    idMedicion:number    
 }
 export const UniversoNegociosInit: UniversoNegocios = {
     id: 0,
@@ -18,4 +18,5 @@ export const UniversoNegociosInit: UniversoNegocios = {
     valor:0,
     fechaRegistro: '',
     fechaModificacion: '',
+    idMedicion:0
 };

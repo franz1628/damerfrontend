@@ -55,24 +55,8 @@
                               <td> <input type="number" class="form-control form-control-sm" formControlName="valor"> </td>
 
                               <td>
-                                <select class="form-select form-select-sm" formControlName="idMedicion" >
-                                    <option value="0">SELECCIONAR</option>
-                                    @for (medicion of medicions; track $index) {
-                                        <option value={{medicion.id}}>{{medicion.medicion}}</option>
-                                    }
-                                </select>
+                                {{getMedicion(model.get('idMedicion')?.value)}}
                               </td>
-
-                              
-
-                            
-
-                            
-                              
-                           
-                             
-                    
-                              
                               <td>
                                   <div class="btn-group">
           
