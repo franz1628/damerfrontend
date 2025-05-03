@@ -23,9 +23,6 @@ export class AuthService {
 
   constructor(private router: Router, private http: HttpClient) {}
 
-  /**
-   * Inicia sesión con email y contraseña
-   */
   login(email: string, password: string): Observable<boolean> {
     return this.http
       .post<ResponseUsuario>(`${this.apiUrl}/login`, { email, password })
@@ -50,32 +47,45 @@ export class AuthService {
       );
   }
 
-  /**
-   * Cierra sesión y elimina los datos del usuario
-   */
   logout(): void {
-    // Eliminar usuario de localStorage
     localStorage.removeItem('usuario');
-
-    // Actualizar el estado de autenticación
     this.isAuthenticatedSubject.next(false);
-
-    // Navegar al login
     this.router.navigate(['/login']);
   }
 
-  /**
-   * Verifica si el usuario está autenticado
-   */
   isLoggedIn(): boolean {
     return this.isAuthenticatedSubject.getValue();
   }
 
-  /**
-   * Método privado para verificar el almacenamiento local al cargar la aplicación
-   */
   private checkLocalStorage(): boolean {
     const usuario = localStorage.getItem('usuario');
     return !!usuario; // Retorna true si existe el usuario, false si no.
+  }
+
+  getUsuario() {
+    const raw = localStorage.getItem('usuario');
+    return raw ? JSON.parse(raw) : null;
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  getRol(): string {
+    const usuario = this.getUsuario();
+    if (!usuario) return 'Guest';
+
+    switch (usuario.idCargo) {
+      case 1:
+        return 'Admin';
+      case 2:
+        return 'User';
+      default:
+        return 'Guest';
+    }
+  }
+
+  isAdmin(): boolean {
+    return this.getRol() === 'Admin';
   }
 }

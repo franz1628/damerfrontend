@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { Error404PageComponent } from '../shared/pages/error404-page/error404-page.component';
 import { ZonaComponent } from './components/zona/zona.component';
+import { roleGuard } from '../role.guard';
 
 const routes: Routes = [
   {
@@ -43,11 +44,13 @@ const routes: Routes = [
       },
       {
         path: 'tablas',
-        loadChildren: () => import('./components/tablas/tablas.module').then(m => m.TablasModule)
+        loadChildren: () => import('./components/tablas/tablas.module').then(m => m.TablasModule),
+        canActivate: [roleGuard('Admin')]
       },
       {
         path: 'variable',
-        loadChildren: () => import('./components/variable/variable.module').then(m => m.VariableModule)
+        loadChildren: () => import('./components/variable/variable.module').then(m => m.VariableModule),
+    
       },
       {
         path: 'contrato',
