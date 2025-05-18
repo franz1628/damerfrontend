@@ -9,7 +9,7 @@ export interface Usuario {
     fechaModificacion:string,
     estado:number,
     idCargo:number,
-
+    vistas: string
 }
 
 export const UsuarioInit: Usuario = {
@@ -23,4 +23,5 @@ export const UsuarioInit: Usuario = {
     fechaModificacion:'',
     estado:1,
     idCargo:0,
+    vistas: ''
   };

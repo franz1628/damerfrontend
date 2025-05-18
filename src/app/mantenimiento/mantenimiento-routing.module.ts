@@ -74,6 +74,9 @@ const routes: Routes = [
       }, {
         path: 'factorPenetracion',
         loadChildren: () => import('./components/factor-penetracion/factor-penetracion.module').then(m => m.FactorPenetracionModule)
+      },{
+        path: 'usuario',
+        loadChildren: () => import('./components/usuario/usuario.module').then(m => m.UsuarioModule)
       },
       {
         path: '404',

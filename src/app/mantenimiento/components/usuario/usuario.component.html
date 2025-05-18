@@ -1,0 +1,84 @@
+<table class="table table-bordered table-sm">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Cargo</th>
+            <th>Vistas</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (usuario of models; track $index) {
+        <tr>
+            <td>{{ usuario.email }}</td>
+            <td>
+                <select (change)="changeCargo($event, $index)" class="form-select form-select-sm"
+                    aria-label=".form-select-sm example">
+                    <option selected>Seleccionar Rol</option>
+                    @for (cargo of cargos; track $index) {
+                    <option [selected]="cargo.id == usuario.idCargo" value="{{ cargo.id }}">
+                        {{ cargo.descripcion }}
+                    </option>
+
+                    }
+                </select>
+            </td>
+
+            <td>
+                <button class="btn btn-sm btn-info"
+                    (click)="cargarVistas(usuario)" data-bs-toggle="modal" data-bs-target="#modalVista">
+                    <i class="bi bi-eye"></i> Vistas
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-success" (click)="actualizar($index)">
+                    <i class="bi bi-box-arrow-down"></i> Guardar
+                </button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+    <div class="model modal fade" id="modalVista" tabindex="-1" aria-labelledby="modalVistaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalVistaLabel">Vistas del Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <h5>Vistas</h5>
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Vista</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (vista of vistas; track $index) {
+                                    <tr>
+                                        <td>{{ vista.descripcion }}</td>
+                                        <td><input type="checkbox" (click)="toggleVista(vista.id)" [checked]="modelVistas.includes(vista.id.toString())" /></td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br>
+                            <button class="btn btn-sm btn-success" (click)="guardarVistas()" data-bs-dismiss="modal">
+                                <i class="bi bi-box-arrow-down"></i> Guardar
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
+                                <i class="bi bi-x"></i> Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

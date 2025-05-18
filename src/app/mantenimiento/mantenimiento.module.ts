@@ -15,6 +15,7 @@ import { AgrupacionCanalsDetalleComponent } from './components/agrupacion-canals
 import { MuestraIdealComponent } from './components/muestra-ideal/muestra-ideal.component';
 import { UniversoNegociosComponent } from './components/universo-negocios/universo-negocios.component';
 import { FactorPenetracionComponent } from './components/factor-penetracion/factor-penetracion.component';
+import { UsuarioComponent } from './components/usuario/usuario.component';
 
 
 
@@ -25,7 +26,7 @@ import { FactorPenetracionComponent } from './components/factor-penetracion/fact
     MantenimientoLayoutFooterComponent,
     MuestraIdealComponent,
     UniversoNegociosComponent,
-    FactorPenetracionComponent,
+    FactorPenetracionComponent
   ],
   imports: [
     CommonModule,
