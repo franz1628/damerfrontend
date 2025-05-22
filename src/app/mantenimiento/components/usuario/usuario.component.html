@@ -1,7 +1,22 @@
+<button class="btn btn-sm btn-primary" (click)="abrirModalAgregar()"  data-bs-toggle="modal" data-bs-target="#modalAgregar">
+    <i class="bi bi-plus"></i> Agregar Usuario
+</button>
+<br><br>
+<div class="row">
+    <div class="col-12">
+        <h5>Lista de Usuarios</h5>
+    </div>
+</div>
+<br>
+
+
+
 <table class="table table-bordered table-sm">
     <thead>
         <tr>
             <th>Usuario</th>
+            <th>Nombres</th>
+            <th>Estado</th>
             <th>Cargo</th>
             <th>Vistas</th>
             <th>Acción</th>
@@ -12,17 +27,16 @@
         @for (usuario of models; track $index) {
         <tr>
             <td>{{ usuario.email }}</td>
+            <td>{{ usuario.nombres  }} {{ usuario.apellidoPaterno }} {{ usuario.apellidoMaterno }}</td>
             <td>
-                <select (change)="changeCargo($event, $index)" class="form-select form-select-sm"
-                    aria-label=".form-select-sm example">
-                    <option selected>Seleccionar Rol</option>
-                    @for (cargo of cargos; track $index) {
-                    <option [selected]="cargo.id == usuario.idCargo" value="{{ cargo.id }}">
-                        {{ cargo.descripcion }}
-                    </option>
-
-                    }
-                </select>
+                @if(usuario.estado == 1) {
+                <span class="badge bg-success">Activo</span>
+                } @else {
+                <span class="badge bg-danger">Inactivo</span>
+                }
+            </td>
+            <td>
+                {{ usuario.Cargo.descripcion }}
             </td>
 
             <td>
@@ -32,9 +46,15 @@
                 </button>
             </td>
             <td>
-                <button class="btn btn-sm btn-success" (click)="actualizar($index)">
-                    <i class="bi bi-box-arrow-down"></i> Guardar
+              
+                <button class="btn btn-sm btn-warning" (click)="abrirModalEditar(usuario)" data-bs-toggle="modal"
+                    data-bs-target="#modalAgregar">
+                    <i class="bi bi-pencil"></i> Editar
                 </button>
+                <!-- <button class="btn btn-sm btn-success" (click)="actualizar($index)">
+                    <i class="bi bi-box-arrow-down"></i> wrhwh
+                </button> -->
+                
             </td>
         </tr>
         }
@@ -42,35 +62,122 @@
 </table>
 
 
-    <div class="model modal fade" id="modalVista" tabindex="-1" aria-labelledby="modalVistaLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" >
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalVistaLabel">Vistas del Usuario</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="model modal fade" id="modalVista" tabindex="-1" aria-labelledby="modalVistaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalVistaLabel">Vistas del Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Vistas</h5>
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Vista</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (vista of vistas; track $index) {
+                                <tr>
+                                    <td>{{ vista.descripcion }}</td>
+                                    <td><input type="checkbox" (click)="toggleVista(vista.id)" [checked]="modelVistas.includes(vista.id.toString())" /></td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <br>
+                        <button class="btn btn-sm btn-success" (click)="guardarVistas()" data-bs-dismiss="modal">
+                            <i class="bi bi-box-arrow-down"></i> Guardar
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
+                            <i class="bi bi-x"></i> Cerrar
+                        </button>
+                    </div>
                 </div>
-                <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+                  
+<div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAgregarLabel">
+                    @if (getCurrent.id == 0) {
+                        Agregar Usuario
+                    } @else {
+                        Editar Usuario
+                    }
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="usuario" (ngSubmit)="guardarUsuario()">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Email</label>
+                            <input type="text" formControlName="email" class="form-control form-control-sm"
+                                placeholder="Email" required />
+                        </div>
+                        <div class="col-6">
+                            <label for="">Contraseña</label>
+                            <input type="password" formControlName="password" class="form-control form-control-sm"
+                                placeholder="Contraseña" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Nombres</label>
+                            <input type="text" formControlName="nombres" class="form-control form-control-sm"
+                                placeholder="Nombres" />
+                        </div>
+                        <div class="col-6">
+                            <label for="">Apellido Paterno</label>
+                            <input type="text" formControlName="apellidoPaterno"
+                                class="form-control form-control-sm" placeholder="Apellido Paterno" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Apellido Materno</label>
+                            <input type="text" formControlName="apellidoMaterno"
+                                class="form-control form-control-sm" placeholder="Apellido Materno" />
+                        </div>
+                        <div class="col-6">
+                            <label for="">Cargo</label>
+                            <select formControlName="idCargo" class="form-select form-select-sm">
+                             
+                                @for (cargo of cargos; track $index) {
+                                    <option [value]="cargo.id">{{ cargo.descripcion }}</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Estado</label>
+                            <select formControlName="estado" class="form-select form-select-sm">
+                                <option value="1">ACTIVO</option>
+                                <option value="0">INACTIVO</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <br>
+              
+                    <br>
                     <div class="row">
                         <div class="col-12">
-                            <h5>Vistas</h5>
-                            <table class="table table-bordered table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Vista</th>
-                                        <th>Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (vista of vistas; track $index) {
-                                    <tr>
-                                        <td>{{ vista.descripcion }}</td>
-                                        <td><input type="checkbox" (click)="toggleVista(vista.id)" [checked]="modelVistas.includes(vista.id.toString())" /></td>
-                                    </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <br>
-                            <button class="btn btn-sm btn-success" (click)="guardarVistas()" data-bs-dismiss="modal">
+                            <button type="submit" class="btn btn-sm btn-success" data-bs-dismiss="modal">
                                 <i class="bi bi-box-arrow-down"></i> Guardar
                             </button>
                             <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
@@ -78,7 +185,8 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+</div>

@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Usuario } from '../login/interfaces/usuario';
 import { environments } from '../../environments/environments';
+import { CargoService } from '../mantenimiento/service/cargo';
 
 export interface ResponseUsuario {
   data: Usuario;
@@ -73,6 +74,12 @@ export class AuthService {
 
   getRol(): string {
     const usuario = this.getUsuario();
+    const cargoService = inject(CargoService);
+
+    cargoService.get().subscribe((response) => {
+
+    });
+
     if (!usuario) return 'Guest';
 
     switch (usuario.idCargo) {
@@ -83,6 +90,8 @@ export class AuthService {
       default:
         return 'Guest';
     }
+
+    
   }
 
   isAdmin(): boolean {

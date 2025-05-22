@@ -1,3 +1,5 @@
+import { Cargo, CargoInit } from "../../mantenimiento/interface/cargo";
+
 export interface Usuario {
     id: number ,
     email:string,
@@ -9,7 +11,8 @@ export interface Usuario {
     fechaModificacion:string,
     estado:number,
     idCargo:number,
-    vistas: string
+    vistas: string,
+    Cargo:Cargo
 }
 
 export const UsuarioInit: Usuario = {
@@ -22,6 +25,7 @@ export const UsuarioInit: Usuario = {
     fechaRegistro:'',
     fechaModificacion:'',
     estado:1,
-    idCargo:0,
-    vistas: ''
+    idCargo:1,
+    vistas: '',
+    Cargo : CargoInit
   };

@@ -40,8 +40,8 @@ export class UsuarioService {
     return this.http.get<Response>(`${this.apiUrl}/codigo/${codigo}`);
   }
 
-  add(model: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(this.apiUrl, model);
+  add(model: Usuario): Observable<ResponseUsuarioOne> {
+    return this.http.post<ResponseUsuarioOne>(this.apiUrl, model);
   }
 
   update(id: number, model: Usuario): Observable<Response> {
