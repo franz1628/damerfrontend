@@ -1,4 +1,5 @@
 import { Cargo, CargoInit } from "../../mantenimiento/interface/cargo";
+import { UsuarioVista } from "../../mantenimiento/interface/usuarioVista";
 
 export interface Usuario {
     id: number ,
@@ -12,7 +13,8 @@ export interface Usuario {
     estado:number,
     idCargo:number,
     vistas: string,
-    Cargo:Cargo
+    Cargo:Cargo,
+    UsuarioVista: UsuarioVista[]
 }
 
 export const UsuarioInit: Usuario = {
@@ -27,5 +29,6 @@ export const UsuarioInit: Usuario = {
     estado:1,
     idCargo:1,
     vistas: '',
-    Cargo : CargoInit
+    Cargo : CargoInit,
+    UsuarioVista: []
   };

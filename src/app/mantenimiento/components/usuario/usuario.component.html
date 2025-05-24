@@ -76,15 +76,24 @@
                         <table class="table table-bordered table-sm">
                             <thead>
                                 <tr>
+                                    <th>Modulo</th>
                                     <th>Vista</th>
-                                    <th>Acción</th>
+                                    <th>Permiso</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @for (vista of vistas; track $index) {
                                 <tr>
                                     <td>{{ vista.descripcion }}</td>
-                                    <td><input type="checkbox" (click)="toggleVista(vista.id)" [checked]="modelVistas.includes(vista.id.toString())" /></td>
+                                    <td><input type="checkbox" (click)="toggleVista(vista.id)" [checked]="isVistaSeleccionada(vista.id)" /></td>
+                                    <td>
+                                        <select id="permiso" class="form-select form-select-sm" (change)="togglePermiso(vista.id, $event)">
+                                         
+                                            @for (permiso of permisos; track $index) {
+                                                <option [selected]="isPermisoSeleccionado(vista.id,permiso.id)" [value]="permiso.id">{{ permiso.descripcion }}</option>
+                                            }
+                                        </select>
+                                    </td>
                                 </tr>
                                 }
                             </tbody>
