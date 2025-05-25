@@ -139,11 +139,8 @@ export class UsuarioComponent implements OnInit {
 
   guardarVistas() {
     console.log(this.selectedVista);
-    console.log(this.selectedPermiso);
-    return
-    
-    const vistasString = this.selectedVista.join(',');
-    this.service.updateVistas(this.model.id, vistasString).subscribe((x) => {
+
+    this.service.updateVistas(this.model.id, this.selectedVista).subscribe((x) => {
       if (x.state == 1) {
         this.alert.showAlert('Mensaje', x.message, 'success');
         this.loadInit();

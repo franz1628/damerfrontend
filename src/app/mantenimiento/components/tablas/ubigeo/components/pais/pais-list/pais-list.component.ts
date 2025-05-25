@@ -3,6 +3,7 @@ import { Observable,catchError,of,throwError  } from 'rxjs';
 import { AlertService } from '../../../../../../../shared/services/alert.service';
 import { Pais } from '../../../interface/pais.interface';
 import { PaisService } from '../../../service/pais.service';
+import { AuthService } from '../../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-pais-list',
@@ -10,7 +11,11 @@ import { PaisService } from '../../../service/pais.service';
 })
 export class PaisListComponent {
   public showLoading: boolean = false;
-  constructor(public alert: AlertService, public service: PaisService) { }
+  constructor(
+    private alert: AlertService, 
+    private service: PaisService,
+    public authService: AuthService,
+  ) { }
 
   @Input()
   public models: Pais[] = []

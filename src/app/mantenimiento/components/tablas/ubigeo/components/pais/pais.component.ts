@@ -4,6 +4,7 @@ import { Pais, PaisInit } from '../../interface/pais.interface';
 import { PaisService } from '../../service/pais.service';
 import { AlertService } from '../../../../../../shared/services/alert.service';
 import { PaisFormComponent } from './pais-form/pais-form.component';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-pais',
@@ -20,7 +21,11 @@ export class PaisComponent {
   @ViewChild('paisForm')
   paisForm!: PaisFormComponent;
 
-  constructor(public service: PaisService, public alert: AlertService) {
+  constructor(
+    private service: PaisService, 
+    private alert: AlertService,
+    public authService: AuthService,
+  ) {
   }
 
   ngOnInit(): void {

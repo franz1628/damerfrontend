@@ -15,12 +15,17 @@
                         Mantenimiento
                     </a>
                     <ul class="dropdown-menu">
-                        <!-- <li><a class="dropdown-item" aria-current="page" routerLinkActive="parametro" routerLink="/mantenimiento/parametro">Parámetro</a></li> -->
+                        @for (vista of vistas; track $index) {
+                            <li *ngIf="canView(vista.id)"><a class="dropdown-item" routerLinkActive="{{vista.descripcion}}" routerLink="/mantenimiento/{{vista.codigo}}">{{vista.descripcion}}</a></li>
+                        }
+                        
+                  
+                         <!-- <li><a class="dropdown-item" aria-current="page" routerLinkActive="parametro" routerLink="/mantenimiento/parametro">Parámetro</a></li> 
                         <li><a class="dropdown-item" routerLinkActive="pais" routerLink="/mantenimiento/tablas/pais">Tablas Varias</a></li>
                         <li><a class="dropdown-item" aria-current="negocio" routerLinkActive="negocio" routerLink="/mantenimiento/negocio">Negocio</a></li>
                         <li><a class="dropdown-item" aria-current="atributoTecnicoVariedad" routerLinkActive="/mantenimiento/atributoTecnicoVariedad" routerLink="/mantenimiento/atributoTecnicoVariedad">Atributo Variedad</a></li>
-                        <!-- <li><a class="dropdown-item" aria-current="atributoTecnicoNegocio" routerLinkActive="/mantenimiento/atributoTecnicoNegocio" routerLink="/mantenimiento/atributoTecnicoNegocio">Atributo Negocio</a></li> -->
-                        <!-- <li><a class="dropdown-item" aria-current="variable" routerLinkActive="/mantenimiento/variable" routerLink="/mantenimiento/variable">Variable</a></li> -->
+                       <li><a class="dropdown-item" aria-current="atributoTecnicoNegocio" routerLinkActive="/mantenimiento/atributoTecnicoNegocio" routerLink="/mantenimiento/atributoTecnicoNegocio">Atributo Negocio</a></li> 
+                        <li><a class="dropdown-item" aria-current="variable" routerLinkActive="/mantenimiento/variable" routerLink="/mantenimiento/variable">Variable</a></li> 
                         <li><a class="dropdown-item" aria-current="cliente" routerLinkActive="/mantenimiento/cliente" routerLink="/mantenimiento/cliente">Cliente</a></li>
                         <li><a class="dropdown-item" aria-current="zona" routerLinkActive="zona" routerLink="/mantenimiento/zona">Ciudades</a></li>
                         <li><a class="dropdown-item" aria-current="agrupacionZonas" routerLinkActive="agrupacionZonas" routerLink="/mantenimiento/agrupacionZonas">Agrupación Zonas</a></li>
@@ -32,7 +37,8 @@
                         <li><a class="dropdown-item" aria-current="medicion" routerLinkActive="medicion" routerLink="/mantenimiento/medicion">Medición</a></li>
                         <li><a class="dropdown-item" aria-current="variedades" routerLinkActive="variedades" routerLink="/mantenimiento/variedades">Variedades</a></li>
                         <li><a class="dropdown-item" aria-current="tipoCambio" routerLinkActive="tipoCambio" routerLink="/mantenimiento/tipoCambio">Tipo de Cambio</a></li>
-                        <li><a class="dropdown-item" aria-current="usuario" routerLinkActive="usuario" routerLink="/mantenimiento/usuario">Usuario</a></li>
+                        <li *ngIf="canView(16)"><a class="dropdown-item" aria-current="usuario" routerLinkActive="usuario" routerLink="/mantenimiento/usuario">Usuario</a></li>   
+                        -->
 
                     </ul>
                 </li>

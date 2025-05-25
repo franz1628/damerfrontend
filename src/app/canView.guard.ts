@@ -4,10 +4,7 @@ import { CanActivateFn } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
 
-export const roleGuard = (idVista: number): CanActivateFn => {
-
-  //poner la funcion de canEdit y canView en el servicio de auth
-
+export const canViewGuard = (idVista: number): CanActivateFn => {
 
   return () => {
 
@@ -15,7 +12,7 @@ export const roleGuard = (idVista: number): CanActivateFn => {
     const router = inject(Router);
     const userRole = authService.getRol();
 
-    if(authService.canView(idVista) || authService.canEdit(idVista)) {
+    if(authService.canView(idVista)) {
       return true;
     }
     

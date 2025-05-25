@@ -4,6 +4,7 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { Error404PageComponent } from '../shared/pages/error404-page/error404-page.component';
 import { ZonaComponent } from './components/zona/zona.component';
 import { roleGuard } from '../role.guard';
+import { canViewGuard } from '../canView.guard';
 
 const routes: Routes = [
   {
@@ -45,7 +46,7 @@ const routes: Routes = [
       {
         path: 'tablas',
         loadChildren: () => import('./components/tablas/tablas.module').then(m => m.TablasModule),
-        canActivate: [roleGuard('Admin')]
+        canActivate: [canViewGuard(1)]
       },
       {
         path: 'variable',
@@ -76,7 +77,8 @@ const routes: Routes = [
         loadChildren: () => import('./components/factor-penetracion/factor-penetracion.module').then(m => m.FactorPenetracionModule)
       },{
         path: 'usuario',
-        loadChildren: () => import('./components/usuario/usuario.module').then(m => m.UsuarioModule)
+        loadChildren: () => import('./components/usuario/usuario.module').then(m => m.UsuarioModule),
+        canActivate: [canViewGuard(16)]
       },
       {
         path: '404',

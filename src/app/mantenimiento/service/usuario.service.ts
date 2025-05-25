@@ -56,7 +56,7 @@ export class UsuarioService {
     return this.http.delete<Usuario>(`${this.apiUrl}/${model.id}`);
   }
 
-  updateVistas(id: number, vistas: string): Observable<Response> {
+  updateVistas(id: number, vistas: number[][]): Observable<Response> {
     return this.http.post<Response>(`${this.apiUrl}/updateVistas/${id}`, { vistas });
   }
 }

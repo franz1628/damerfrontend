@@ -97,4 +97,17 @@ export class AuthService {
   isAdmin(): boolean {
     return this.getRol() === 'Admin';
   }
+
+  canEdit(idVista:number): boolean {
+    const usuario:Usuario = this.getUsuario();
+    if (!usuario || !usuario.UsuarioVista) return false;
+    return usuario.UsuarioVista.some(vista => vista.idVista === idVista && vista.idPermiso === 2);
+  }
+
+  canView(idVista:number): boolean {
+    const usuario:Usuario = this.getUsuario().usuario;
+    if (!usuario || !usuario.UsuarioVista) return false;
+
+    return usuario.UsuarioVista.some(vista => vista.idVista === idVista && usuario.id == vista.idUsuario);
+  }
 }

@@ -1,7 +1,7 @@
 <h5 class="text-center">{{title}}</h5>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4"  *ngIf="authService.canEdit(1)">
     <h6 class="mb-3 text-center">INFORMACION DEL PAÍS</h6>
     <hr>
     <app-pais-form #paisForm (updateModelsEmit)="get()" [model]="modelEdit"></app-pais-form>
