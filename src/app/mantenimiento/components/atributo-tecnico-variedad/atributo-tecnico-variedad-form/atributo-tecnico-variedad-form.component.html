@@ -28,12 +28,19 @@
                                     </td>
         
                                     <td>
-                                        <select class="form-select form-select-sm" formControlName="solicitarUnidad">
-                                            <option value="0">NO</option>
-                                            <option value="1">SI</option>
+
+                                         @if(authService.canEdit(3)){
+                                            <select class="form-select form-select-sm" formControlName="solicitarUnidad">
+                                                <option value="0">NO</option>
+                                                <option value="1">SI</option>
         
         
-                                        </select>
+                                            </select>
+                                        }@else{
+                                            {{model.solicitarUnidad==1 ? 'SI' : 'NO'}}
+                                        }
+
+                                        
                                     </td>
                                     <td>
                                         {{model.fechaRegistro}}
@@ -42,7 +49,7 @@
                                         {{model.fechaModificacion}}
                                     </td>
                                     <td>
-                                        <div class="btn-group">
+                                        <div class="btn-group" *ngIf="authService.canEdit(3)">
         
                                             @if(model.id!=0){
                                                 <img class="iconEdit" src="assets/editar.png"  (click)="editModel($index)">

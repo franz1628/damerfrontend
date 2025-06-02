@@ -6,6 +6,7 @@ import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
 import { Canasta } from '../../../interfaces/canasta.interface';
 import { CategoriaService } from '../../../services/categoria.service';
 import * as XLSX from 'xlsx';
+import { AuthService } from '../../../../../../auth/auth.service';
 @Component({
   selector: 'app-sku-list',
   templateUrl: './sku-list.component.html'
@@ -23,7 +24,8 @@ export class SkuListComponent implements OnChanges{
   constructor(
     private alert: AlertService, 
     private service: SkuService,
-    private serviceCategoria : CategoriaService
+    private serviceCategoria : CategoriaService,
+    public authService: AuthService
     ) {
     
   }

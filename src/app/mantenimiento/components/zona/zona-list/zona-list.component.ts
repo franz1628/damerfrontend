@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { ZonaService } from '../../tablas/service/zona.service';
 import { Zona } from '../../tablas/interfaces/zona.interface';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-zona-list',
@@ -11,7 +12,11 @@ export class ZonaListComponent {
   showLoading: boolean = false;
   selectIndex:number=-1
 
-  constructor(public alert: AlertService, public service: ZonaService) { }
+  constructor(
+    public alert: AlertService, 
+    public service: ZonaService,
+    public authService: AuthService
+  ) { }
 
   @Input()
   models: Zona[] = []

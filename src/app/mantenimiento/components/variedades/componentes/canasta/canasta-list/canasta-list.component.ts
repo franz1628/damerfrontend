@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertService } from '../../../../../../shared/services/alert.service';
 import { CanastaService } from '../../../services/canasta.service';
 import { Canasta } from '../../../interfaces/canasta.interface';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-canasta-list',
@@ -11,7 +12,11 @@ export class CanastaListComponent {
 
   public showLoading: boolean = false;
   selectIndex: number=-1;
-  constructor(public alert: AlertService, public service: CanastaService) { }
+  constructor(
+    public alert: AlertService, 
+    public service: CanastaService,
+    public authService: AuthService
+  ) { }
 
   @Input()
   public models: Canasta[] = []

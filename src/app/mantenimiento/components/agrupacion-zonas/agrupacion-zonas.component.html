@@ -29,19 +29,28 @@
                       <td> <label class="mt-2">{{model.get('id')?.value}}</label>  </td>
 
                       <td>
-                        <select class="form-select form-select-sm" formControlName="idTipoAgrupacion1">
+                        @if(authService.canEdit(6)){
+                          <select class="form-select form-select-sm" formControlName="idTipoAgrupacion1">
                             <option value="0">SELECCIONAR</option>
                             <option value="1">SIMPLE</option>
                             <option value="2">COMPUESTA</option>
-                        </select>
+                          </select>
+                        }@else{
+                          {{model.get('idTipoAgrupacion1')?.value==1 ? 'SIMPLE' : 'COMPUESTA'}}
+                        }
+                      
                       </td>
 
                       <td>
-                        <select class="form-select form-select-sm" formControlName="idTipoAgrupacion2">
-                            <option value="0">SELECCIONAR</option>
-                            <option value="1">CORPORATIVA</option>
-                            <option value="2">EXCLUSIVA</option>
-                        </select>
+                        @if(authService.canEdit(6)){
+                          <select class="form-select form-select-sm" formControlName="idTipoAgrupacion2">
+                              <option value="0">SELECCIONAR</option>
+                              <option value="1">CORPORATIVA</option>
+                              <option value="2">EXCLUSIVA</option>
+                          </select>
+                        }@else {
+                          {{model.get('idTipoAgrupacion2')?.value==1 ? 'CORPORATIVA' : 'EXCLUSIVA'}}    
+                        }
                       </td>
 
                       <td> <input class="form-control form-control-sm" formControlName="descripcion"> </td>
@@ -66,7 +75,7 @@
                       
                       
                       <td class="text-start">
-                          <div class="btn-group ">
+                          <div class="btn-group " *ngIf="authService.canEdit(6)">
   
                               @if(model.get('id')?.value!=0){
                                 <img class="iconEdit" src="assets/editar.png"  (click)="editModel($index)">

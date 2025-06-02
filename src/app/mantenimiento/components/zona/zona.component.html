@@ -1,7 +1,7 @@
 <h5 class="text-center">MANTENIMIENTO CIUDADES</h5>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4" *ngIf="authService.canEdit(5)">
     <app-zona-form #zonaForm (updateModelsEmit)="get()" [model]="modelEdit"></app-zona-form>
   </div>
   <div class="col-md-8">
@@ -16,7 +16,7 @@
     <div class="col-md-12">
       <h6>Distritos</h6>
   
-      <div class="row">
+      <div class="row" *ngIf="authService.canEdit(5)">
         <div class="col-md-2">
           <div class="mb-3">
             <label for="idDepartamento" class="form-label">Departamento</label>
@@ -85,7 +85,7 @@
                   <td>{{distrito.Provincia.descripcion}}</td>
                   <td>{{distrito.descripcion}}</td>
                   <td>
-                    <button type="button" class="btn btn-sm btn-danger" (click)="eliminarDistritoZona(distrito,model)"><i class="bi bi-trash"></i></button>
+                    <button *ngIf="authService.canEdit(5)" type="button" class="btn btn-sm btn-danger" (click)="eliminarDistritoZona(distrito,model)"><i class="bi bi-trash"></i></button>
                   </td>
                 </tr>
               }@empty {

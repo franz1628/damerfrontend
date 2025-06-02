@@ -13,7 +13,11 @@
                             <th>Tipo Medida </th>
                             <th>Unidad Medida </th>
                             <th>Modificación</th>
-                            <th><button class="btn btn-sm btn-primary" (click)="guardarTodo()"><i class="bi bi-box-arrow-down"></i> Guardar Atributos</button> </th>
+                            <th>
+                                @if(authService.canEdit(13)){
+                                    <button class="btn btn-sm btn-primary" (click)="guardarTodo()"><i class="bi bi-box-arrow-down"></i> Guardar Atributos</button>
+                                }
+                             </th>
                         </tr>
 
                     </thead>
@@ -84,24 +88,28 @@
                             <td> <input readonly class="form-control form-control-sm" formControlName="fechaModificacion"> </td>
 
                             <td>
-                                <div class="btn-group">
+                                @if(authService.canEdit(13)){
+                                    <div class="btn-group">
+    
+                                        @if(model.get('id')?.value!=0){
+                                   
+                                            <img class="iconEdit" src="assets/editar.png" (click)="editModel($index)">
+    
+                                            <img class="iconEliminar" src="assets/eliminar.png" (click)="delete($index)">
+    
+    
+                                        @if(modelosArray.controls.length==$index+1){
+                                        
+                                        }
+                                        }@else{
+                                            <img class="iconGuardar" src="assets/guardar.png" (click)="save($index)">
+    
+                                        
+                                        }
+                                    </div>
+                                }
 
-                                    @if(model.get('id')?.value!=0){
-                               
-                                        <img class="iconEdit" src="assets/editar.png" (click)="editModel($index)">
-
-                                        <img class="iconEliminar" src="assets/eliminar.png" (click)="delete($index)">
-
-
-                                    @if(modelosArray.controls.length==$index+1){
-                                    
-                                    }
-                                    }@else{
-                                        <img class="iconGuardar" src="assets/guardar.png" (click)="save($index)">
-
-                                    
-                                    }
-                                </div>
+                                   
 
 
 

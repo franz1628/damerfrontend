@@ -20,6 +20,7 @@ import { Zona, ZonaInit } from '../../tablas/interfaces/zona.interface';
 import { Via } from '../../../interface/via';
 import { ViaService } from '../../../service/via';
 import * as XLSX from 'xlsx';
+import { AuthService } from '../../../../auth/auth.service';
 
 
 @Component({
@@ -97,7 +98,8 @@ export class NegocioFormComponent {
     private urbanizacionService: UrbanizacionService,
     private regexService:RegexService,
     private zonaService:ZonaService,
-    private viaService:ViaService
+    private viaService:ViaService,
+    public authService: AuthService
   ) {
   }
 

@@ -23,15 +23,18 @@
                          
                                
                                 <td>
-                                    <select class="form-select form-select-sm" formControlName="idConvenio">
-                                        <option value="">SELECCIONAR</option>
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
-                                
+                                    @if(authService.canEdit(3)){
+                                        <select class="form-select form-select-sm" formControlName="idConvenio">
+                                            <option value="">SELECCIONAR</option>
+                                            <option value="1">SI</option>
+                                            <option value="0">NO</option>
+                                        </select>
+                                    }@else{
+                                         {{model.idConvenio==1 ? 'SI' : 'NO'}}
+                                    }
                                 </td>
                                 <td>
-                                    <div class="btn-group">
+                                    <div class="btn-group" *ngIf="authService.canEdit(3)">
             
                                         @if(model.id!=0){
                                             <img class="iconEdit" src="assets/editar.png"  (click)="editModel($index)">

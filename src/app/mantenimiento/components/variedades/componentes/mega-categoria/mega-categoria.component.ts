@@ -7,6 +7,7 @@ import { MegaCategoriaFormComponent } from './mega-categoria-form/mega-categoria
 import { MegaCategoriaService } from '../../services/megaCategoria.service';
 import { Canasta, CanastaInit } from '../../interfaces/canasta.interface';
 import { MegaCategoriaListComponent } from './mega-categoria-list/mega-categoria-list.component';
+import { AuthService } from '../../../../../auth/auth.service';
 
 
 @Component({
@@ -33,7 +34,11 @@ export class MegaCategoriaComponent {
   @Output() emitCanastaMegaCategoria:EventEmitter<number[]> = new EventEmitter();
   @Output() changeCanastaEmit:EventEmitter<number> = new EventEmitter();
 
-  constructor(public service: MegaCategoriaService, public alert: AlertService) {
+  constructor(
+    public service: MegaCategoriaService, 
+    public alert: AlertService,
+    public authService: AuthService
+  ) {
   }
 
   ngOnInit(): void {

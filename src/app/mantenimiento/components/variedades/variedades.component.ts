@@ -10,6 +10,7 @@ import { Categoria } from './interfaces/categoria.interface';
 import { CanastaService } from './services/canasta.service';
 import { MegaCategoriaService } from './services/megaCategoria.service';
 import { Sku } from './interfaces/sku.interface';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-variedades',
@@ -31,7 +32,8 @@ export class VariedadesComponent{
 
   constructor(
     private canastaService: CanastaService,
-    private megaCategoriaService : MegaCategoriaService
+    private megaCategoriaService : MegaCategoriaService,
+    public authService: AuthService
   ){
 
   }
@@ -40,7 +42,7 @@ export class VariedadesComponent{
 
   setIdCanasta(canasta:Canasta){
     this.idCanasta=canasta.id;
-    this.megaCategoriaComp.megaCategoriaForm.setIdCanasta(canasta);
+    this.authService.canEdit(13) && this.megaCategoriaComp.megaCategoriaForm.setIdCanasta(canasta);
     this.megaCategoriaComp.megaCategoriaList.changeList(canasta);
   }
 
@@ -56,7 +58,7 @@ export class VariedadesComponent{
     this.idCanasta=$event[0];
     this.idMegaCategoria=$event[1];
     this.categoriaComp.get($event[1]);
-    this.categoriaComp.categoriaForm.setIdCanastaIdMegaCategoria($event[0],$event[1]);
+    this.authService.canEdit(13) && this.categoriaComp.categoriaForm.setIdCanastaIdMegaCategoria($event[0],$event[1]);
   }
 
   setByCategoria($event:number[]){
@@ -64,7 +66,7 @@ export class VariedadesComponent{
     this.idMegaCategoria=$event[1];
     this.idCategoria=$event[2];
     this.skuComp.get($event[2]); 
-    this.skuComp.skuForm.setByCategoria($event[0],$event[1],$event[2]);
+    this.authService.canEdit(13) && this.skuComp.skuForm.setByCategoria($event[0],$event[1],$event[2]);
   }
 
   selectCategoria(categoria : Categoria){

@@ -11,6 +11,7 @@ import { EstadoContrato } from '../../../interface/estadoContrato';
 import { ContratoHistorial } from '../../../interface/contratoHistorial';
 import { ContratoHistorialService } from '../../../service/contratoHistorial';
 import { ContratoEdicionComponent } from '../contrato-edicion/contrato-edicion.component';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-contrato-list',
@@ -50,7 +51,8 @@ export class ContratoListComponent implements OnInit{
     private serviceContrato: ContratoService,
     private serviceEstadoContrato:EstadoContratoService,
     private serviceContratoHistorial:ContratoHistorialService,
-    private alert : AlertService
+    private alert : AlertService,
+    public authService: AuthService
     ){  
  
   }

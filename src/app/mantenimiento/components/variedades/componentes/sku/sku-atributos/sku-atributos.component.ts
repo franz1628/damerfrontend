@@ -15,6 +15,7 @@ import { CategoriaAtributoTecnicoService } from '../../../services/categoriaAtri
 import { CategoriaAtributoTecnico } from '../../../interfaces/categoriaAtributoTecnico';
 import { CategoriaAtributoTecnicoValor } from '../../../interfaces/categoriaAtributoTecnicoValor';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-sku-atributos', 
@@ -40,8 +41,9 @@ export class SkuAtributosComponent {
     private serviceTipoUnidadMedida : TipoUnidadMedidaService,
     private serviceUnidadMedida:UnidadMedidaService,
     private fb: FormBuilder,
-    private alert: AlertService
-    
+    private alert: AlertService,
+    public authService: AuthService
+
   ) {
 
   }

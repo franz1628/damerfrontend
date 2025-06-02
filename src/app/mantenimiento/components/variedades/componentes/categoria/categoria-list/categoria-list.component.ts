@@ -4,6 +4,7 @@ import { CategoriaService } from '../../../services/categoria.service';
 import { Categoria } from '../../../interfaces/categoria.interface';
 import { Canasta } from '../../../interfaces/canasta.interface';
 import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-categoria-list',
@@ -17,7 +18,11 @@ export class CategoriaListComponent {
   searchText = '';
   listCategorias: Categoria[] = [];
 
-  constructor(public alert: AlertService, public service: CategoriaService) {
+  constructor(
+    public alert: AlertService, 
+    public service: CategoriaService,
+    public authService: AuthService
+  ) {
    
   }
 

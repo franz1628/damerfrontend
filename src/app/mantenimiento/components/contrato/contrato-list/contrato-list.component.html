@@ -61,19 +61,20 @@
                                     <td>{{contrato.shot?'SI':'NO'}}</td> 
                                     <td>{{contrato.EstadoContrato.descripcion}}</td>
                                     <td>
-                                 
+                                        <div *ngIf="authService.canEdit(11)" >
+                                            <img class="iconEdit" src="assets/editar.png"  (click)="asignaFormContrato(contrato)">
+    
+                                            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#modalEstadoContrato"
+                                                (click)="modalEstadoContrato(contrato)">
+                                                <i class="bi bi-device-ssd"></i>
+                                            </button>
+    
+                                            <button class="btn btn-sm btn-primary" (click)="handleEditarContrato(contrato)">
+                                                <i class="bi bi-list-ul"></i>
+                                            </button>
+                                        </div>
 
-                                        <img class="iconEdit" src="assets/editar.png"  (click)="asignaFormContrato(contrato)">
-
-                                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#modalEstadoContrato"
-                                            (click)="modalEstadoContrato(contrato)">
-                                            <i class="bi bi-device-ssd"></i>
-                                        </button>
-
-                                        <button class="btn btn-sm btn-primary" (click)="handleEditarContrato(contrato)">
-                                            <i class="bi bi-list-ul"></i>
-                                        </button>
                                     </td>
                                 </tr>
                                 }

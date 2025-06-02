@@ -99,15 +99,16 @@ export class AuthService {
   }
 
   canEdit(idVista:number): boolean {
-    const usuario:Usuario = this.getUsuario();
+    const usuario:Usuario = this.getUsuario().usuario;
     if (!usuario || !usuario.UsuarioVista) return false;
-    return usuario.UsuarioVista.some(vista => vista.idVista === idVista && vista.idPermiso === 2);
+    return usuario.UsuarioVista.some(vista => vista.idVista === idVista && usuario.id == vista.idUsuario && vista.idPermiso === 2);
   }
 
   canView(idVista:number): boolean {
     const usuario:Usuario = this.getUsuario().usuario;
     if (!usuario || !usuario.UsuarioVista) return false;
-
+  
+    
     return usuario.UsuarioVista.some(vista => vista.idVista === idVista && usuario.id == vista.idUsuario);
   }
 }

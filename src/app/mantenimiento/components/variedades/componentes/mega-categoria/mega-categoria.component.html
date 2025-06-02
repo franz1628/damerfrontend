@@ -1,10 +1,10 @@
 <h4 class="text-center">{{title}}</h4>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6" *ngIf="authService.canEdit(13)">
     <h6 class="mb-3 text-center">INFORMACION DE LA MEGACATEGORIA</h6>
     <hr>
-    <app-mega-categoria-form #megaCategoriaForm (updateModelsEmit)="get($event)" (changeCodigoEmit)="get($event)" (changeCanastaEmit)="changeCanasta($event)"
+    <app-mega-categoria-form  #megaCategoriaForm (updateModelsEmit)="get($event)" (changeCodigoEmit)="get($event)" (changeCanastaEmit)="changeCanasta($event)"
       [model]="modelEdit"></app-mega-categoria-form>
   </div>
   <div class="col-md-6">

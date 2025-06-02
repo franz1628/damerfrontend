@@ -10,6 +10,7 @@ import { Zona } from '../tablas/interfaces/zona.interface';
 import { forkJoin, lastValueFrom } from 'rxjs';
 import { Distrito } from '../tablas/ubigeo/interface/distrito.interface';
 import { DistritoService } from '../tablas/ubigeo/service/distrito.service';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-universo-negocios',
@@ -43,7 +44,8 @@ export class UniversoNegociosComponent {
     private serviceZona: ZonaService,
     private serviceDistrito: DistritoService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) {
 
   }

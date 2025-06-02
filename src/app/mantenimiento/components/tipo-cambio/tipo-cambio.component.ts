@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { TipoCambioListComponent } from './tipo-cambio-list/tipo-cambio-list.component';
 import { TipoCambioFormComponent } from './tipo-cambio-form/tipo-cambio-form.component';
 import { TipoCambio } from '../../interface/tipoCambio.interface';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-tipo-cambio',
@@ -14,6 +15,8 @@ export class TipoCambioComponent {
   @ViewChild('tipoCambioFormComp')
   tipoCambioFormComp!: TipoCambioFormComponent;
 
+  constructor(public authService: AuthService) { }
+  
   actualizarList(){
     this.tipoCambioListComp.actualizarList();
   }

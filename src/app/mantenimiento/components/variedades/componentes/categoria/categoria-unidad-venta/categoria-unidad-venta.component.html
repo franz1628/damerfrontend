@@ -71,13 +71,15 @@
                               </td>
 
                               <td class="">
+
+                                @if(authService.canEdit(13)){
                                   <div class="btn-group " style="float:left">
           
                                       @if(model.get('id')?.value!=0){
                                         <img class="iconEdit" src="assets/editar.png"  (click)="editModel($index)">
                                         <!-- <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete($index)"> -->
-
-
+  
+  
                                         @if(model.get('estado')?.value){
                                         
                                           <span class="badge text-bg-danger" (click)="suspender(model.value)">Desactivar</span>
@@ -85,8 +87,8 @@
                                          
                                             <span class="badge text-bg-success" (click)="suspender(model.value)">Activar</span>
                                         }
-
-
+  
+  
                                       @if(modelosArray.controls.length==$index+1){
                                         <img class="iconNuevo" src="assets/nuevo.png"  (click)="add()">
                                       }
@@ -94,6 +96,8 @@
                                         <img class="iconNuevo" src="assets/nuevo.png"  (click)="save($index)">
                                       }
                                   </div>
+                                }
+
           
           
           

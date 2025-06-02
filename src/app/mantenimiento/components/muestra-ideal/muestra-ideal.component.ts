@@ -13,6 +13,7 @@ import { Canal } from '../tablas/interfaces/canal.interface';
 import { Zona } from '../tablas/interfaces/zona.interface';
 import { Distrito } from '../tablas/ubigeo/interface/distrito.interface';
 import * as XLSX from 'xlsx';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-muestra-ideal',
@@ -52,7 +53,8 @@ export class MuestraIdealComponent {
     private serviceZona: ZonaService,
     private serviceDistrito: DistritoService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) {
 
   }

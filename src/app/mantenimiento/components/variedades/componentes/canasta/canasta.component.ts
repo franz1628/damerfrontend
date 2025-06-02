@@ -6,6 +6,7 @@ import { Canasta, CanastaInit } from '../../interfaces/canasta.interface';
 import { CanastaService } from '../../services/canasta.service';
 import { CanastaFormComponent } from './canasta-form/canasta-form.component';
 import { MegaCategoriaFormComponent } from '../mega-categoria/mega-categoria-form/mega-categoria-form.component';
+import { AuthService } from '../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-canasta',
@@ -26,7 +27,11 @@ export class CanastaComponent {
   @Output() emitIdCanasta:EventEmitter<Canasta> = new EventEmitter();
   
 
-  constructor(public service: CanastaService, public alert: AlertService) {
+  constructor(
+    public service: CanastaService, 
+    public alert: AlertService,
+    public authService : AuthService
+  ) {
   }
 
   ngOnInit(): void {

@@ -15,6 +15,7 @@ export class PaisComponent {
   public models: Pais[] = [];
   public showLoading: boolean = false;
   public title: string = 'PaÍs';
+  canEdit: boolean = false;
 
   public modelEdit: Pais = PaisInit;
 
@@ -40,4 +41,5 @@ export class PaisComponent {
   editModel(model: Pais) {
     this.paisForm.setModel(model)
   }
+
 }

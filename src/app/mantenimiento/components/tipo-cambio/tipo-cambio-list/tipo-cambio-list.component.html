@@ -24,11 +24,10 @@
                         <td>{{model.valor}}</td>
                         <td>{{ model.fecha | date:'dd/MM/yyyy' }}</td>
                         <td>
-
-                            <img class="iconEdit" src="assets/editar.png" (click)="selectEdit(model)">
-
-
-                            <img class="iconEliminar" src="assets/eliminar.png" (click)="delete(model)">
+                            <div *ngIf="authService.canEdit(13)">
+                                <img class="iconEdit" src="assets/editar.png" (click)="selectEdit(model)">
+                                <img class="iconEliminar" src="assets/eliminar.png" (click)="delete(model)">
+                            </div>
 
                         </td>
                     </tr>

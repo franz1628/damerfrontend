@@ -3,6 +3,7 @@ import { AlertService } from '../../../../../../shared/services/alert.service';
 import { MegaCategoriaService } from '../../../services/megaCategoria.service';
 import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
 import { Canasta } from '../../../interfaces/canasta.interface';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-mega-categoria-list',
@@ -11,7 +12,11 @@ import { Canasta } from '../../../interfaces/canasta.interface';
 export class MegaCategoriaListComponent {
   public showLoading: boolean = false;
   selectIndex: number=-1;
-  constructor(public alert: AlertService, public service: MegaCategoriaService) { }
+  constructor(
+    public alert: AlertService, 
+    public service: MegaCategoriaService,
+    public authService: AuthService
+  ) { }
 
   @Input()
   public models: MegaCategoria[] = []

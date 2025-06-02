@@ -12,6 +12,7 @@ import { AtributoTecnicoVariedadService } from '../../../../../service/atributoT
 import { AtributoTecnicoVariedad } from '../../../../../interface/atributoTecnicoVariedad';
 import { TipoUnidadMedidaService } from '../../../../../service/tipoUnidadMedida';
 import { TipoUnidadMedida } from '../../../../../interface/tipoUnidadMedida';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-categoria-atributos',
@@ -41,7 +42,8 @@ export class CategoriaAtributosComponent implements OnInit{
     private serviceTipoUnidadMedida:TipoUnidadMedidaService,
     private serviceCategoria: CategoriaService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) {
 
   }

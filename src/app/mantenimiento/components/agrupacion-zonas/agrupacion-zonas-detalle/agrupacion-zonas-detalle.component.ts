@@ -8,6 +8,7 @@ import { AgrupacionZonasDetalle, AgrupacionZonasDetalleInit } from '../../../int
 import { lastValueFrom } from 'rxjs';
 import { ZonaService } from '../../tablas/service/zona.service';
 import { Zona, ZonaInit } from '../../tablas/interfaces/zona.interface';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-agrupacion-zonas-detalle',
@@ -35,7 +36,8 @@ export class AgrupacionZonasDetalleComponent implements OnInit,OnChanges{
     private validForm: ValidFormService, 
     private service: AgrupacionZonasDetalleService,
     private alert: AlertService,
-    private serviceZona:ZonaService
+    private serviceZona:ZonaService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {

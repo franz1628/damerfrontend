@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidFormService } from '../../../shared/services/validForm.service';
 import { Medicion } from '../../interface/medicion';
 import { MedicionService } from '../../service/medicion.service';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-medicion',
@@ -25,7 +26,8 @@ export class MedicionComponent implements OnInit{
     public alert: AlertService,
     public fb: FormBuilder, 
     public validForm: ValidFormService,
-    private medicionService : MedicionService
+    private medicionService : MedicionService,
+    public authService : AuthService
     ){
 
   }

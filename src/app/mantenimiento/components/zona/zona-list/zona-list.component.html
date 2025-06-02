@@ -43,10 +43,9 @@
                         <td>{{model.fechaRegistro && model.fechaRegistro.substring(0,10)}}</td>
                         <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
     
-                        <td>
+                        <td *ngIf="authService.canEdit(5)">
                             <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete(model)">
-                          
-                                    <img class="iconEdit" src="assets/editar.png"  (click)="editModel(model)">
+                            <img class="iconEdit" src="assets/editar.png"  (click)="editModel(model)">
                         </td>
                     </tr>
                 }

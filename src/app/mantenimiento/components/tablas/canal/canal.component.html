@@ -1,7 +1,7 @@
 <h5 class="text-center">{{title}}</h5>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4" *ngIf="authService.canEdit(1)">
     <h6 class="mb-3 text-center">INFORMACION DEL CANAL</h6>
     <hr>
     <app-canal-form #canalForm (updateModelsEmit)="get()" [model]="modelEdit"></app-canal-form>

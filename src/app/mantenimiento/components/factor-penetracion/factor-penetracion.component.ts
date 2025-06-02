@@ -15,6 +15,7 @@ import { MedicionService } from '../../service/medicion.service';
 import { Medicion } from '../../interface/medicion';
 import { AgrupacionCanalsService } from '../../service/agrupacionCanals';
 import { AgrupacionCanals } from '../../interface/agrupacionCanals';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-factor-penetracion',
@@ -47,7 +48,8 @@ export class FactorPenetracionComponent {
     private serviceZona: ZonaService,
     private serviceMedicion:MedicionService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) {
 
   }

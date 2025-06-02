@@ -2,7 +2,7 @@
 
 <form  autocomplete="off" [formGroup]="myForm">
     <div class="mb-3 row">
-        <div class="col-sm-3">
+        <div class="col-sm-3" *ngIf="authService.canEdit(12)">
             <div class="input-group">
   
                 <button type="button" (click)="agregarMedicion()" class="btn btn-sm btn-success form-control form-control-sm"><i class="bi bi-plus-lg"></i> Agregar Medición</button>
@@ -28,7 +28,7 @@
                             <td>  <app-badge-estado [estado]="model.estado"></app-badge-estado> </td>
                             <td>{{model.fechaRegistro.substring(0,10)}}</td>
                             <td>
-                                <app-tooltip [tooltipText]="'Eliminar'" [imgSrc]="'assets/eliminar.png'" (clickEvent)="borrar(model)"></app-tooltip>
+                                <app-tooltip *ngIf="authService.canEdit(12)" [tooltipText]="'Eliminar'" [imgSrc]="'assets/eliminar.png'" (clickEvent)="borrar(model)"></app-tooltip>
                             </td>
                         </tr>
                     }

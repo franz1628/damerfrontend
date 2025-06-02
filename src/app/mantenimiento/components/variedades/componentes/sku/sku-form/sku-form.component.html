@@ -261,31 +261,34 @@
                 </div>
                 }
 
-
-                <div class="input-group mt-3">
-                    <button class="btn btn-sm btn-success btn-sm text-white " type="text" (click)="submit()"
-                        *ngIf="!currentModel.id">
-                        <i class="bi bi-box-arrow-down"></i> Guardar
-                    </button>
-                    <button class="btn btn-sm btn-warning btn-sm text-white " (click)="nuevo()" type="button"
-                        *ngIf="currentModel.id">
-                        <i class="bi bi-plus-lg"></i> Nuevo
-                    </button>
-                    <button class="btn btn-sm btn-info btn-sm text-white " type="text" (click)="submit()"
-                        *ngIf="currentModel.id">
-                        <i class="bi bi-pencil"></i> Guardar
-                    </button>
-
-                    <button class="btn btn-sm btn-primary btn-sm text-white " type="text" (click)="limpiar()">
-                        <i class="bi bi-pencil"></i> Limpiar
-                    </button>
-
-                </div>
+                @if(authService.canEdit(13)){
+                    <div class="input-group mt-3">
+                        <button class="btn btn-sm btn-success btn-sm text-white " type="text" (click)="submit()"
+                            *ngIf="!currentModel.id">
+                            <i class="bi bi-box-arrow-down"></i> Guardar
+                        </button>
+                        <button class="btn btn-sm btn-warning btn-sm text-white " (click)="nuevo()" type="button"
+                            *ngIf="currentModel.id">
+                            <i class="bi bi-plus-lg"></i> Nuevo
+                        </button>
+                        <button class="btn btn-sm btn-info btn-sm text-white " type="text" (click)="submit()"
+                            *ngIf="currentModel.id">
+                            <i class="bi bi-pencil"></i> Guardar
+                        </button>
+    
+                        <button class="btn btn-sm btn-primary btn-sm text-white " type="text" (click)="limpiar()">
+                            <i class="bi bi-pencil"></i> Limpiar
+                        </button>
+    
+                    </div>
+                }
             </div>
 
             <div class="col-3" style="position: relative;">
                 <img [src]="getSrc" class="img-fluid img-thumbnail"  alt="..."  (error)="onImageError($event)">
-                <button style="position: absolute;left: 12px;" class="btn btn-sm btn-danger" (click)="deleteImage()"><i class="bi bi-x"></i></button>
+                @if(authService.canEdit(13)){
+                    <button style="position: absolute;left: 12px;" class="btn btn-sm btn-danger" (click)="deleteImage()"><i class="bi bi-x"></i></button>
+                }
             </div>
         </div>
     </form>

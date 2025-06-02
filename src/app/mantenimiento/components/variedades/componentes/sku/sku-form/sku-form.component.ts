@@ -14,6 +14,7 @@ import { SkuHijosService } from '../../../services/skuHijos.service';
 import { FileUploadServiceService } from '../../../../../../shared/services/file-upload-service.service';
 import { HttpEventType } from '@angular/common/http';
 import { environments } from '../../../../../../../environments/environments';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-sku-form',
@@ -95,7 +96,8 @@ export class SkuFormComponent implements OnChanges {
     private categoriaService: CategoriaService,
     private skuHijosService: SkuHijosService,
     private elementRef: ElementRef,
-    private fileUploadService: FileUploadServiceService
+    private fileUploadService: FileUploadServiceService,
+    public authService: AuthService
 
   ) {
     /*this.canastaService.get().subscribe(resp => { this.listCanasta = resp.data });

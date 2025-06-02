@@ -8,6 +8,7 @@ import { AgrupacionCanalsDetalleService } from '../../../service/agrupacionCanal
 import { AlertService } from '../../../../shared/services/alert.service';
 import { CanalService } from '../../tablas/service/canal.sevice';
 import { lastValueFrom } from 'rxjs';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-agrupacion-canals-detalle',
@@ -34,7 +35,8 @@ export class AgrupacionCanalsDetalleComponent {
     private validForm: ValidFormService, 
     private service: AgrupacionCanalsDetalleService,
     private alert: AlertService,
-    private serviceCanal:CanalService
+    private serviceCanal:CanalService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {

@@ -22,10 +22,11 @@
                             <td>{{model.descripcion}}</td>
                            
                             <td>
-                        
+                                <div *ngIf="authService.canEdit(13)">
+                                    <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete(model)">
+                                    <img class="iconEdit" src="assets/editar.png"  (click)="editModel(model)">
+                                </div>
 
-                                        <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete(model)">
-                                        <img class="iconEdit" src="assets/editar.png"  (click)="editModel(model)">
                             </td>
                         </tr>
                     }@empty {

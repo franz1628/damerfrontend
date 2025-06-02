@@ -7,6 +7,7 @@ import { lastValueFrom } from 'rxjs';
 import { AtributoTecnicoVariedadValorService } from '../../../../../service/atributoTecnicoVariedadValor';
 import { CategoriaAtributoTecnicoInit } from '../../../interfaces/categoriaAtributoTecnico';
 import { AtributoTecnicoVariedadValor } from '../../../../../interface/atributoTecnicoVariedadValor';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-categoria-valor',
@@ -33,7 +34,8 @@ export class CategoriaValorComponent implements OnInit, OnChanges{
     private service : CategoriaAtributoTecnicoValorService,
     private serviceAtributoTecnicoVariedadValor:AtributoTecnicoVariedadValorService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
     ){
    
   }

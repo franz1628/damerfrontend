@@ -5,6 +5,7 @@ import { AtributoTecnicoVariedadService } from '../../../service/atributoTecnico
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { forkJoin, lastValueFrom } from 'rxjs';
 import { AtributoTecnicoVariedadValorService } from '../../../service/atributoTecnicoVariedadValor';
+import { AuthService } from '../../../../auth/auth.service';
  
 @Component({ 
   selector: 'app-atributo-tecnico-variedad-form',
@@ -32,7 +33,8 @@ export class AtributoTecnicoVariedadFormComponent {
     private service: AtributoTecnicoVariedadService,
     private serviceAtributoTecnicoVariedadValor: AtributoTecnicoVariedadValorService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) {
 
   }

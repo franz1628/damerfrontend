@@ -39,19 +39,19 @@
             
             
                                         <td>
-                                            <select class="form-select form-select-sm" formControlName="idCategoria">
-                                                <option value="0">SELECCIONAR</option>
+                                            <select class="form-select form-select-sm" formControlName="idCategoria" >
+                                                <option value="0" [disabled]="!authService.canEdit(8)">SELECCIONAR</option>
                                                 @for (categoria of categorias; track $index) {
-                                                <option value={{categoria.id}}>{{categoria.descripcion}}</option>
+                                                <option  [disabled]="!authService.canEdit(8)" value={{categoria.id}}>{{categoria.descripcion}}</option>
                                                 }
                                             </select>
                                         </td>
             
                                         <td>
                                             <select class="form-select form-select-sm" formControlName="idCanal">
-                                                <option value="0">SELECCIONAR</option>
+                                                <option value="0" [disabled]="!authService.canEdit(8)">SELECCIONAR</option>
                                                 @for (canal of canals; track $index) {
-                                                <option value={{canal.id}}>{{canal.descripcion}}</option>
+                                                <option [disabled]="!authService.canEdit(8)" value={{canal.id}}>{{canal.descripcion}}</option>
                                                 }
                                             </select>
                                         </td>
@@ -59,18 +59,18 @@
                                         <td>
                                             <select class="form-select form-select-sm" (change)="cambiaZona($event,$index)"
                                                 formControlName="idZona">
-                                                <option value="0">SELECCIONAR</option>
+                                                <option value="0" [disabled]="!authService.canEdit(8)">SELECCIONAR</option>
                                                 @for (zona of zonas; track $index) {
-                                                <option value={{zona.id}}>{{zona.descripcion}}</option>
+                                                <option [disabled]="!authService.canEdit(8)" value={{zona.id}}>{{zona.descripcion}}</option>
                                                 }
                                             </select>
                                         </td>
             
                                         <td>
                                             <select class="form-select form-select-sm" formControlName="idDistrito">
-                                                <option value="0">SELECCIONAR</option>
+                                                <option value="0" [disabled]="!authService.canEdit(8)">SELECCIONAR</option>
                                                 @for (distrito of arrDistritos[$index]; track $index) {
-                                                <option value={{distrito.id}}>{{distrito.descripcion}}</option>
+                                                <option [disabled]="!authService.canEdit(8)" value={{distrito.id}}>{{distrito.descripcion}}</option>
                                                 }
                                             </select>
                                         </td>
@@ -79,16 +79,14 @@
             
             
                                         <td>
-                                            <div class="btn-group">
+                                            <div class="btn-group" *ngIf="authService.canEdit(8)">
             
                                                 @if(model.get('id')?.value!=0){
-            
-            
+
                                                 <img class="iconEdit" src="assets/editar.png" (click)="editModel($index)">
-            
-            
+
                                                 <img class="iconEliminar" src="assets/eliminar.png" (click)="delete($index)">
-            
+
                                                 @if(modelosArray.controls.length==$index+1){
             
                                                 <img class="iconNuevo" src="assets/nuevo.png" (click)="add()">

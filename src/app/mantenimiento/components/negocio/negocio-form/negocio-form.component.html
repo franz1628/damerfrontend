@@ -386,8 +386,8 @@
                                     {{ getFieldError('estado') }}
                                 </span>
                             </div>
-        
-                            <div class="input-group mt-3">
+
+                            <div class="input-group mt-3" *ngIf="authService.canEdit(2)">
                                 <button class="btn btn-sm btn-success btn-sm text-white " (click)="submit()" type="button"
                                     *ngIf="!currentModel.id">
                                     <i class="bi bi-box-arrow-down"></i> Guardar
@@ -422,7 +422,7 @@
                                 }
                             </select>
 
-                            <button type="button" class="btn btn-success" (click)="exportExcel()"><i class="bi bi-box-arrow-down"></i> Excel</button>
+                            <button *ngIf="authService.canEdit(2)" type="button" class="btn btn-success" (click)="exportExcel()"><i class="bi bi-box-arrow-down"></i> Excel</button>
                         </div>
                     </div>
                 </div>

@@ -6,6 +6,7 @@ import { ValidFormService } from '../../../../../../shared/services/validForm.se
 import { MegaCategoriaService } from '../../../services/megaCategoria.service';
 import { CanastaService } from '../../../services/canasta.service';
 import { Canasta, CanastaInit } from '../../../interfaces/canasta.interface';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-mega-categoria-form',
@@ -41,7 +42,8 @@ export class MegaCategoriaFormComponent implements OnInit, OnChanges{
     public fb: FormBuilder,
     public validForm: ValidFormService,
     private service: MegaCategoriaService,
-    private canastaService: CanastaService
+    private canastaService: CanastaService,
+    public authService: AuthService
   ) {
     
   }

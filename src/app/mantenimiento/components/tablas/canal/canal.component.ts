@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Canal, CanalInit } from '../interfaces/canal.interface';
 import { CanalFormComponent } from './canal-form/canal-form.component';
 import { CanalService } from '../service/canal.sevice';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-canal',
@@ -18,7 +19,10 @@ export class CanalComponent {
   @ViewChild('canalForm')
   canalForm!: CanalFormComponent;
 
-  constructor(public service: CanalService) {
+  constructor(
+    public service: CanalService,
+    public authService: AuthService
+  ) {
   }
 
   ngOnInit(): void {

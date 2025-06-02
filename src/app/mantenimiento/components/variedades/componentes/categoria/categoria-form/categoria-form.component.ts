@@ -10,6 +10,7 @@ import { Canasta } from '../../../interfaces/canasta.interface';
 import { MegaCategoria } from '../../../interfaces/megaCategoria.interface';
 import { TipoCategoria } from '../../../interfaces/tipoCategoria.interface';
 import { TipoCategoriaService } from '../../../services/tipoCategoria.service';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-categoria-form',
@@ -59,7 +60,8 @@ export class CategoriaFormComponent {
     private canastaService: CanastaService,
     private megaCategoriaService: MegaCategoriaService,
     private tipoCategoriaService: TipoCategoriaService,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    public authService: AuthService
     ) {
       
   }

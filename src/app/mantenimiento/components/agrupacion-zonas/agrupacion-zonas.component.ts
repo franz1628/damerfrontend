@@ -6,6 +6,7 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ValidFormService } from '../../../shared/services/validForm.service';
 import { AlertService } from '../../../shared/services/alert.service';
 import { lastValueFrom } from 'rxjs';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-agrupacion-zonas',
@@ -28,7 +29,8 @@ export class AgrupacionZonasComponent implements OnInit {
     private validForm: ValidFormService,
     private service: AgrupacionZonasService,
     private serviceAgrupacionZonasDetalle: AgrupacionZonasDetalleService,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {

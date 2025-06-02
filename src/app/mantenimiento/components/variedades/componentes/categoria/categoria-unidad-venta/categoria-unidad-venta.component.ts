@@ -11,6 +11,7 @@ import { UnidadMedida } from '../../../../../interface/unidadMedida';
 import { UnidadVenta } from '../../../../../interface/unidadVenta';
 import { UnidadVentaService } from '../../../../../service/unidadVenta';
 import { CategoriaUnidadVenta } from '../../../../../interface/categoriaUnidadVenta';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-categoria-unidad-venta',
@@ -41,7 +42,8 @@ export class CategoriaUnidadVentaComponent {
     private serviceUnidadMedida:UnidadMedidaService,
     private serviceUnidadVenta:UnidadVentaService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) {
 
   }

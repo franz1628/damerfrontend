@@ -9,6 +9,7 @@ import { Provincia } from '../tablas/ubigeo/interface/provincia.interface';
 import { DepartamentoService } from '../tablas/ubigeo/service/departamento.service';
 import { ProvinciaService } from '../tablas/ubigeo/service/provincia.service';
 import { AlertService } from '../../../shared/services/alert.service';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-zona',
@@ -44,7 +45,8 @@ export class ZonaComponent {
     private serviceDistrito : DistritoService,
     private serviceDepartamento:DepartamentoService,
     private serviceProvincia:ProvinciaService,
-    private alert:AlertService
+    private alert:AlertService,
+    public authService: AuthService
     
     ) {
   }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { TipoCambio } from '../../../interface/tipoCambio.interface';
 import { TipoCambioService } from '../../../service/tipoCambio.service';
 import { AlertService } from '../../../../shared/services/alert.service';
+import { AuthService } from '../../../../auth/auth.service';
 
 
 
@@ -17,7 +18,8 @@ export class TipoCambioListComponent {
 
   constructor(
     private service : TipoCambioService,
-    private alert:AlertService
+    private alert:AlertService,
+    public authService: AuthService
 
   ){ }
 

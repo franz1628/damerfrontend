@@ -6,6 +6,7 @@ import { AtributoTecnicoVariedadValor, AtributoTecnicoVariedadValorInit } from '
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { lastValueFrom } from 'rxjs';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-atributo-tecnico-variedad-valores',
@@ -23,10 +24,11 @@ export class AtributoTecnicoVariedadValoresComponent implements OnInit, OnChange
 
   idAtributoTecnicoVariedad: number = 0;
 
-  constructor(
+  constructor( 
     private service: AtributoTecnicoVariedadValorService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) {
 
   }

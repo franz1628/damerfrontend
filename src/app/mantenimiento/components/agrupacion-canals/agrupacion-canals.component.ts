@@ -6,6 +6,7 @@ import { AgrupacionCanalsService } from '../../service/agrupacionCanals';
 import { AgrupacionCanalsDetalleService } from '../../service/agrupacionCanalsDetalle';
 import { AlertService } from '../../../shared/services/alert.service';
 import { lastValueFrom } from 'rxjs';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-agrupacion-canals',
@@ -28,7 +29,8 @@ export class AgrupacionCanalsComponent {
     private validForm: ValidFormService,
     private service: AgrupacionCanalsService,
     private serviceAgrupacionCanalsDetalle: AgrupacionCanalsDetalleService,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {

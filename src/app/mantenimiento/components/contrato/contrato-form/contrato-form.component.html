@@ -5,7 +5,7 @@
         <button class="nav-link active " id="listado-tab" data-bs-toggle="tab" data-bs-target="#listado" type="button"
             role="tab" aria-controls="listado" aria-selected="true">Listado</button>
     </li>
-    <li class="nav-item" role="presentation">
+    <li class="nav-item" role="presentation" *ngIf="authService.canEdit(11)">
         <button class="nav-link " id="cliente-tab" data-bs-toggle="tab" data-bs-target="#cliente" type="button"
             role="tab" aria-controls="cliente" aria-selected="true">Nuevo</button>
     </li>
