@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Cliente } from '../../../interface/cliente';
 import { ClienteService } from '../../../service/cliente';
 import { AlertService } from '../../../../shared/services/alert.service';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-cliente-list',
@@ -14,8 +15,8 @@ export class ClienteListComponent {
 
   selectIndex:number=-1
 
- 
-  constructor(public service : ClienteService, private alert:AlertService){ }
+
+  constructor(public service : ClienteService, private alert:AlertService, public authService: AuthService){ }
 
   ngOnInit(): void {
     this.actualizarList();

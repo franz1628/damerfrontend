@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { UnidadMedida, UnidadMedidaInit } from '../../../interface/unidadMedida';
 import { UnidadMedidaFormComponent } from './unidad-medida-form/unidad-medida-form.component';
 import { UnidadMedidaService } from '../../../service/unidadMedida';
+import { AuthService } from '../../../../auth/auth.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class UnidadMedidaComponent {
   @ViewChild('unidadMedidaForm')
   unidadMedidaForm!: UnidadMedidaFormComponent;
 
-  constructor(public service: UnidadMedidaService) {
+  constructor(public service: UnidadMedidaService,public authService: AuthService) {
+    //
   }
 
   ngOnInit(): void {

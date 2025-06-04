@@ -3,6 +3,7 @@ import { Urbanizacion, UrbanizacionInit } from '../../../interfaces/urbanizacion
 import { UrbanizacionFormComponent } from './urbanizacion-form/urbanizacion-form.component';
 import { UrbanizacionService } from '../../../service/urbanizacion.service';
 import { AlertService } from '../../../../../../shared/services/alert.service';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-urbanizacion',
@@ -19,7 +20,7 @@ export class UrbanizacionComponent {
   @ViewChild('urbanizacionForm')
   urbanizacionForm!: UrbanizacionFormComponent;
 
-  constructor(public service: UrbanizacionService, public alert: AlertService) {
+  constructor(public service: UrbanizacionService, public alert: AlertService,public authService: AuthService) {
   }
 
   ngOnInit(): void { 

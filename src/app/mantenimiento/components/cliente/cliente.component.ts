@@ -22,6 +22,7 @@ import { AlertService } from '../../../shared/services/alert.service';
 import { ClienteAgrupacionCategoria, ClienteAgrupacionCategoriaInit } from '../../interface/clienteAgrupacionCategoria';
 import { ClienteAgrupacionZona, ClienteAgrupacionZonaInit } from '../../interface/clienteAgrupacionZona';
 import { ClienteAgrupacionCanal, ClienteAgrupacionCanalInit } from '../../interface/clienteAgrupacionCanal';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-cliente',
@@ -38,7 +39,8 @@ export class ClienteComponent {
   clienteAgrupacionCanal = ClienteAgrupacionCanalInit
 
   constructor(
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ){
 
   }

@@ -3,6 +3,7 @@ import { Provincia, ProvinciaInit } from '../../interface/provincia.interface';
 import { ProvinciaFormComponent } from './provincia-form/provincia-form.component';
 import { ProvinciaService } from '../../service/provincia.service';
 import { AlertService } from '../../../../../../shared/services/alert.service';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-provincia',
@@ -19,7 +20,8 @@ export class ProvinciaComponent {
   @ViewChild('provinciaForm')
   provinciaForm!: ProvinciaFormComponent;
 
-  constructor(public service: ProvinciaService, public alert: AlertService) {
+  constructor(public service: ProvinciaService, public alert: AlertService, public authService: AuthService) {
+    
   }
 
   ngOnInit(): void {

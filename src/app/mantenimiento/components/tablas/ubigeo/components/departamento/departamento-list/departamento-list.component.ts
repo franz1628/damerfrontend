@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertService } from '../../../../../../../shared/services/alert.service';
 import { Departamento } from '../../../interface/departamento.interface';
 import { DepartamentoService } from '../../../service/departamento.service';
+import { AuthService } from '../../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-departamento-list',
@@ -9,7 +10,7 @@ import { DepartamentoService } from '../../../service/departamento.service';
 })
 export class DepartamentoListComponent {
   public showLoading: boolean = false;
-  constructor(public alert: AlertService, public service: DepartamentoService) { }
+  constructor(public alert: AlertService, public service: DepartamentoService, public authService: AuthService) { }
 
   @Input()
   public models: Departamento[] = []

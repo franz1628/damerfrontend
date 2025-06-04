@@ -56,6 +56,7 @@
                     
                               
                               <td>
+                                @if(authService.canEdit(1)){
                                   <div class="btn-group">
           
                                       @if(model.get('id')?.value!=0){
@@ -68,6 +69,7 @@
                                         <img class="iconNuevo" src="assets/nuevo.png"  (click)="save($index)">
                                       }
                                   </div>
+                                }
           
           
           

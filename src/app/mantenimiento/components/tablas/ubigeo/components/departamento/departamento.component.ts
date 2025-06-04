@@ -3,6 +3,7 @@ import { Departamento, DepartamentoInit } from '../../interface/departamento.int
 import { AlertService } from '../../../../../../shared/services/alert.service';
 import { DepartamentoService } from '../../service/departamento.service';
 import { DepartamentoFormComponent } from './departamento-form/departamento-form.component';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-departamento',
@@ -19,7 +20,7 @@ export class DepartamentoComponent implements OnInit{
   @ViewChild('departamentoForm')
   departamentoForm!: DepartamentoFormComponent;
 
-  constructor(public service: DepartamentoService, public alert: AlertService) {
+  constructor(public service: DepartamentoService, public alert: AlertService,public authService: AuthService) {
   }
 
   ngOnInit(): void { 

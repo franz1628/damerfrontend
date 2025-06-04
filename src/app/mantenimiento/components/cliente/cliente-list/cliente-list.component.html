@@ -30,8 +30,11 @@
                         <td>{{model.fechaRegistro.toString().slice(0,10)}}</td>
                         <td>{{model.fechaModificacion && model.fechaModificacion.substring(0,10)}}</td>
                         <td>
-                            <app-tooltip [tooltipText]="'Editar'" [imgSrc]="'assets/editar.png'" (clickEvent)="selectEdit(model)"></app-tooltip>
-                            <app-tooltip [tooltipText]="'Eliminar'" [imgSrc]="'assets/eliminar.png'" (clickEvent)="borrar(model)"></app-tooltip>
+                            @if (authService.canEdit(4)) {
+
+                                <app-tooltip [tooltipText]="'Editar'" [imgSrc]="'assets/editar.png'" (clickEvent)="selectEdit(model)"></app-tooltip>
+                                <app-tooltip [tooltipText]="'Eliminar'" [imgSrc]="'assets/eliminar.png'" (clickEvent)="borrar(model)"></app-tooltip>
+                            }
                             
                        
                         </td>

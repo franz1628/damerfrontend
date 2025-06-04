@@ -3,6 +3,7 @@ import { Distrito, DistritoInit } from '../../interface/distrito.interface';
 import { AlertService } from '../../../../../../shared/services/alert.service';
 import { DistritoFormComponent } from './distrito-form/distrito-form.component';
 import { DistritoService } from '../../service/distrito.service';
+import { AuthService } from '../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-distrito',
@@ -19,7 +20,8 @@ export class DistritoComponent {
   @ViewChild('distritoForm')
   distritoForm!: DistritoFormComponent;
 
-  constructor(public service: DistritoService, public alert: AlertService) {
+  constructor(public service: DistritoService, public alert: AlertService, public authService: AuthService) {
+    // 
   }
 
   ngOnInit(): void {

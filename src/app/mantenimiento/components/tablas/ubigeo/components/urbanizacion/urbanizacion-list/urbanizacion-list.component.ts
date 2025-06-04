@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertService } from '../../../../../../../shared/services/alert.service';
 import { UrbanizacionService } from '../../../../service/urbanizacion.service';
 import { Urbanizacion } from '../../../../interfaces/urbanizacion.interface';
+import { AuthService } from '../../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-urbanizacion-list',
@@ -9,7 +10,7 @@ import { Urbanizacion } from '../../../../interfaces/urbanizacion.interface';
 })
 export class UrbanizacionListComponent {
   public showLoading: boolean = false;
-  constructor(public alert: AlertService, public service: UrbanizacionService) { }
+  constructor(public alert: AlertService, public service: UrbanizacionService, public authService: AuthService) { }
 
   @Input()
   public models: Urbanizacion[] = []

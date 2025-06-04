@@ -17,9 +17,10 @@
                         <td>{{model.id}}</td>
                         <td>{{model.descripcion}}</td>
                         <td>
-                           
-                            <img class="iconEdit" src="assets/editar.png"  (click)="editModel(model)">
-                            <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete(model)">
+                           @if(authService.canEdit(1)){
+                               <img class="iconEdit" src="assets/editar.png"  (click)="editModel(model)">
+                               <img class="iconEliminar" src="assets/eliminar.png"  (click)="delete(model)">
+                           }
                         </td>
                     </tr>
                 </tbody>

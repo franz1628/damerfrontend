@@ -8,6 +8,7 @@ import { TipoUnidadMedidaService } from '../../../service/tipoUnidadMedida';
 import { UnidadMedidaService } from '../../../service/unidadMedida';
 import { TipoUnidadMedida } from '../../../interface/tipoUnidadMedida';
 import { UnidadMedida } from '../../../interface/unidadMedida';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-unidad-venta',
@@ -34,7 +35,8 @@ export class UnidadVentaComponent {
     private serviceTipoUnidadMedida:TipoUnidadMedidaService,
     private serviceUnidadMedida:UnidadMedidaService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) {
 
   }

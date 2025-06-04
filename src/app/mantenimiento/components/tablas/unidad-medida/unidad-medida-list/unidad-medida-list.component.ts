@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertService } from '../../../../../shared/services/alert.service';
 import { UnidadMedidaService } from '../../../../service/unidadMedida';
 import { UnidadMedida } from '../../../../interface/unidadMedida';
+import { AuthService } from '../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-unidad-medida-list',
@@ -9,7 +10,7 @@ import { UnidadMedida } from '../../../../interface/unidadMedida';
 })
 export class UnidadMedidaListComponent {
   public showLoading: boolean = false;
-  constructor(public alert: AlertService, public service: UnidadMedidaService) { }
+  constructor(public alert: AlertService, public service: UnidadMedidaService,public authService: AuthService) { }
 
   @Input()
   public models: UnidadMedida[] = []

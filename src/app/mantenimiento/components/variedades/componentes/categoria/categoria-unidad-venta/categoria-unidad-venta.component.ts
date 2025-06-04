@@ -43,7 +43,7 @@ export class CategoriaUnidadVentaComponent {
     private serviceUnidadVenta:UnidadVentaService,
     private fb: FormBuilder,
     private alert: AlertService,
-    public authService: AuthService
+    public authService: AuthService,
   ) {
 
   }

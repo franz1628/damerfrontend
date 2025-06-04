@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertService } from '../../../../../../../shared/services/alert.service';
 import { DistritoService } from '../../../service/distrito.service';
 import { Distrito } from '../../../interface/distrito.interface';
+import { AuthService } from '../../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-distrito-list',
@@ -9,7 +10,7 @@ import { Distrito } from '../../../interface/distrito.interface';
 })
 export class DistritoListComponent {
   public showLoading: boolean = false;
-  constructor(public alert: AlertService, public service: DistritoService) { }
+  constructor(public alert: AlertService, public service: DistritoService, public authService: AuthService) { }
 
   @Input()
   public models: Distrito[] = []

@@ -1,7 +1,7 @@
 <h3 class="mt-3">{{title}}</h3>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4" *ngIf="authService.canEdit(1)">
     <app-distrito-form #distritoForm (updateModelsEmit)="get()" [model]="modelEdit"></app-distrito-form>
   </div>
   <div class="col-md-8">

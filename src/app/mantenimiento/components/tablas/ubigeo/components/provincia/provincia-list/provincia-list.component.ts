@@ -3,6 +3,7 @@ import { AlertService } from '../../../../../../../shared/services/alert.service
 import { DepartamentoService } from '../../../service/departamento.service';
 import { ProvinciaService } from '../../../service/provincia.service';
 import { Provincia } from '../../../interface/provincia.interface';
+import { AuthService } from '../../../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-provincia-list',
@@ -10,7 +11,7 @@ import { Provincia } from '../../../interface/provincia.interface';
 })
 export class ProvinciaListComponent {
   public showLoading: boolean = false;
-  constructor(public alert: AlertService, public service: ProvinciaService) { }
+  constructor(public alert: AlertService, public service: ProvinciaService, public authService: AuthService) { }
 
   @Input()
   public models: Provincia[] = []
