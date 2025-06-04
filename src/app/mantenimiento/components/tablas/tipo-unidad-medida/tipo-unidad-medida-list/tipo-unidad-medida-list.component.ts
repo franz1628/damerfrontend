@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertService } from '../../../../../shared/services/alert.service';
 import { TipoUnidadMedidaService } from '../../../../service/tipoUnidadMedida';
 import { TipoUnidadMedida } from '../../../../interface/tipoUnidadMedida';
+import { AuthService } from '../../../../../auth/auth.service';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { TipoUnidadMedida } from '../../../../interface/tipoUnidadMedida';
 })
 export class TipoUnidadMedidaListComponent {
   public showLoading: boolean = false;
-  constructor(public alert: AlertService, public service: TipoUnidadMedidaService) { }
+  constructor(public alert: AlertService, public service: TipoUnidadMedidaService, public authService:AuthService) { }
 
   @Input()
   public models: TipoUnidadMedida[] = []

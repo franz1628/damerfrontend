@@ -3,6 +3,7 @@ import { TipoUrbanizacion, TipoUrbanizacionInit } from '../ubigeo/interface/tipo
 import { TipoUrbanizacionService } from '../ubigeo/service/tipoUrbanizacion.service';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { TipoUrbanizacionFormComponent } from './tipo-urbanizacion-form/tipo-urbanizacion-form.component';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-tipo-urbanizacion',
@@ -19,7 +20,11 @@ export class TipoUrbanizacionComponent {
   @ViewChild('tipoUrbanizacionForm')
   tipoUrbanizacionForm!: TipoUrbanizacionFormComponent;
 
-  constructor(public service: TipoUrbanizacionService, public alert: AlertService) {
+  constructor(
+      public service: TipoUrbanizacionService,
+      public alert: AlertService,
+      public authService: AuthService
+    ) {
   }
 
   ngOnInit(): void {

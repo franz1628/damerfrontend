@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { TipoUnidadMedida, TipoUnidadMedidaInit } from '../../../interface/tipoUnidadMedida';
 import { TipoUnidadMedidaFormComponent } from './tipo-unidad-medida-form/tipo-unidad-medida-form.component';
 import { TipoUnidadMedidaService } from '../../../service/tipoUnidadMedida';
+import { AuthService } from '../../../../auth/auth.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class TipoUnidadMedidaComponent {
   @ViewChild('tipoUnidadMedidaForm')
   tipoUnidadMedidaForm!: TipoUnidadMedidaFormComponent;
 
-  constructor(public service: TipoUnidadMedidaService) {
+  constructor(public service: TipoUnidadMedidaService, public authService: AuthService) {
+
   }
 
   ngOnInit(): void {

@@ -9,6 +9,7 @@ import { UnidadMedidaService } from '../../../service/unidadMedida';
 import { TipoUnidadMedida } from '../../../interface/tipoUnidadMedida';
 import { UnidadMedida } from '../../../interface/unidadMedida';
 import { TipoEstudioService } from '../../../service/tipoEstudio';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-tipo-estudio',
@@ -26,7 +27,8 @@ export class TipoEstudioComponent {
   constructor(
     private service: TipoEstudioService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) {
 
   }

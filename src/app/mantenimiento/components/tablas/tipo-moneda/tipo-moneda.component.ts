@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TipoMonedaService } from '../../../service/tipoMoneda';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { forkJoin, lastValueFrom } from 'rxjs';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-tipo-moneda',
@@ -19,7 +20,8 @@ export class TipoMonedaComponent {
   constructor(
     private service: TipoMonedaService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    public authService: AuthService
   ) {
 
   }

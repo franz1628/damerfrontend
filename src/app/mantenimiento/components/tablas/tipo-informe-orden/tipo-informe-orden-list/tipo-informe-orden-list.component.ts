@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { AlertService } from "../../../../../shared/services/alert.service";
 import { TipoInformeOrden } from "../../../../interface/tipoInformeOrden";
 import { TipoInformeOrdenService } from "../../../../service/tipoInformeOrden";
+import { AuthService } from "../../../../../auth/auth.service";
 
 
 @Component({
@@ -10,7 +11,7 @@ import { TipoInformeOrdenService } from "../../../../service/tipoInformeOrden";
 })
 export class TipoInformeOrdenListComponent {
   public showLoading: boolean = false;
-  constructor(public alert: AlertService, public service: TipoInformeOrdenService) { }
+  constructor(public alert: AlertService, public service: TipoInformeOrdenService, public authService: AuthService) { }
 
   @Input()
   public models: TipoInformeOrden[] = []

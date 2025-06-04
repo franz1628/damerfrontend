@@ -25,6 +25,7 @@
                               <td> <input class="form-control form-control-sm" formControlName="alias"> </td>
                               
                               <td>
+                                @if(authService.canEdit(1)){
                                   <div class="btn-group">
                                       @if(model.get('id')?.value!=0){
                                         <img class="iconEdit" src="assets/editar.png"  (click)="editModel($index)">
@@ -36,6 +37,7 @@
                                         <img class="iconNuevo" src="assets/nuevo.png"  (click)="save($index)">
                                       }
                                   </div>
+                                }
                               </td>
                           </tr>
                           }

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { TipoInformeOrden, TipoInformeOrdenInit } from '../../../interface/tipoInformeOrden';
 import { TipoInformeOrdenFormComponent } from './tipo-informe-orden-form/tipo-informe-orden-form.component';
 import { TipoInformeOrdenService } from '../../../service/tipoInformeOrden';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-tipo-informe-orden',
@@ -18,7 +19,7 @@ export class TipoInformeOrdenComponent {
   @ViewChild('tipoInformeOrdenForm')
   tipoInformeOrdenForm!: TipoInformeOrdenFormComponent;
 
-  constructor(public service: TipoInformeOrdenService) {
+  constructor(public service: TipoInformeOrdenService, public authService: AuthService) {
   }
 
   ngOnInit(): void {

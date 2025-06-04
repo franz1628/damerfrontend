@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertService } from '../../../../../shared/services/alert.service';
 import { CanalService } from '../../service/canal.sevice';
 import { Canal } from '../../interfaces/canal.interface';
+import { AuthService } from '../../../../../auth/auth.service';
 
 @Component({
   selector: 'app-canal-list',
@@ -9,7 +10,11 @@ import { Canal } from '../../interfaces/canal.interface';
 })
 export class CanalListComponent {
   public showLoading: boolean = false;
-  constructor(public alert: AlertService, public service: CanalService) { }
+  constructor(
+    public alert: AlertService, 
+    public service: CanalService,
+    public authService: AuthService
+  ) { }
 
   @Input()
   public models: Canal[] = []
